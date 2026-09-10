@@ -19,6 +19,30 @@ Seuls `SUPPLIER_DOCUMENTED` et `INTERNAL_RECIPE_DOCUMENTED` valident une alléga
 à l'énumération est refusée par défaut plutôt qu'acceptée par oubli. C'est le seul contrôle
 du système dont l'erreur quitte l'écran pour aller en vitrine.
 
+#### Équivalence avec les preuves fournisseur
+
+Les leads fournisseurs (`supplier_product.schema.json`) parlent un autre vocabulaire. La
+traduction :
+
+| Preuve fournisseur | Vaut, côté fiche | Allégation vegan |
+|---|---|---|
+| `OFFICIAL_TECHNICAL_SHEET` | `SUPPLIER_DOCUMENTED` | **acceptée** |
+| `OFFICIAL_PRODUCT_PAGE` | `PARTIAL` | refusée |
+| `LABEL` | `PARTIAL` | refusée |
+| `NONE`, `UNKNOWN`, toute valeur inconnue | `NONE` | refusée |
+
+Le critère n'est pas le sérieux apparent de la source, c'est ce que la doctrine nomme en
+premier dans `traceability_requirements.vegan_products` : la capacité à documenter les
+**changements de recette**. Une fiche technique porte une version, une date et une
+procédure d'alerte. Une page produit et une mention d'emballage disent l'état du jour et
+rien de l'après — un fournisseur qui reformule en silence rend l'allégation fausse sans
+que personne ne l'apprenne, et c'est ce risque-là qui sort de l'écran.
+
+Conséquence pratique : le croissant végétal Vandemoortele 55973 et le cookie vegan Coup de
+Pâtes 71376 sont tous deux en `OFFICIAL_PRODUCT_PAGE`. Ils ne peuvent pas porter
+l'allégation tant que la fiche technique n'est pas au dossier. Ce n'est pas un blocage,
+c'est un e-mail au fournisseur.
+
 ### `signature`
 Classe doctrinale et opérations qui créent la différence client.
 Pour un produit hybride, on décrit explicitement la marinade, le calibrage, l'assemblage ou la finition qui porte la signature.

@@ -14,6 +14,24 @@ MODES={"MAKE","BUY","HYBRID","UNDECIDED"}
 # source capable de documenter composition, changements de recette et allergenes:
 # une preuve partielle ne repond pas a ca.
 PREUVES_VEGAN_SUFFISANTES={"SUPPLIER_DOCUMENTED","INTERNAL_RECIPE_DOCUMENTED"}
+
+# Traduction du vocabulaire de preuve des leads fournisseurs (supplier_product.schema.json)
+# vers celui de la fiche. Le critere qui tranche est celui que la doctrine nomme en premier
+# dans traceability_requirements.vegan_products: la source doit pouvoir documenter les
+# CHANGEMENTS DE RECETTE. Une fiche technique porte une version et une procedure d'alerte;
+# une page produit et une mention d'emballage disent l'etat du jour et rien de l'apres.
+EQUIVALENCE_PREUVES={
+    "OFFICIAL_TECHNICAL_SHEET":"SUPPLIER_DOCUMENTED",
+    "OFFICIAL_PRODUCT_PAGE":"PARTIAL",
+    "LABEL":"PARTIAL",
+    "NONE":"NONE",
+    "UNKNOWN":"NONE",
+}
+
+def preuve_fiche(preuve_lead):
+    """Preuve fournisseur traduite dans le vocabulaire de la fiche produit.
+    Une valeur inconnue vaut NONE: une preuve non reconnue n'en est pas une."""
+    return EQUIVALENCE_PREUVES.get(preuve_lead,"NONE")
 SCHEMA_VERSION="2.0.0"
 ROOT=Path(__file__).resolve().parent
 DEFAULT_PARAMS=ROOT/"params"/"establishment.json"

@@ -178,6 +178,22 @@ def test_status_distingue_pret_et_incomplet():
     assert any("sale_price_eur" in d for d in details), details
 
 
+def test_seule_la_fiche_technique_porte_une_allegation_vegan():
+    """Traduction des preuves fournisseur vers le vocabulaire de la fiche.
+
+    Le critère est celui que la doctrine nomme en premier pour les produits vegan : la
+    source doit pouvoir documenter les *changements de recette*. Une fiche technique porte
+    une version et une procédure d'alerte ; une page produit et une mention d'emballage
+    disent l'état du jour et rien de l'après — un fournisseur qui reformule en silence
+    rend l'allégation fausse sans que personne ne l'apprenne.
+
+    Casse si une page produit redevient une preuve suffisante.
+    """
+    assert pt.preuve_fiche("OFFICIAL_TECHNICAL_SHEET") in pt.PREUVES_VEGAN_SUFFISANTES
+    for insuffisante in ["OFFICIAL_PRODUCT_PAGE", "LABEL", "NONE", "UNKNOWN", "INVENTE"]:
+        assert pt.preuve_fiche(insuffisante) not in pt.PREUVES_VEGAN_SUFFISANTES, insuffisante
+
+
 def test_prix_inconnu_nest_pas_compile_en_zero():
     """Un prix inconnu vaut « inconnu », jamais 0 €.
 
