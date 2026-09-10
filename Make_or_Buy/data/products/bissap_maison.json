@@ -12,12 +12,12 @@
     "serving_size_ml": 250
   },
   "commercial": {
-    "sale_price_eur": null,
-    "price_status": "UNKNOWN",
+    "sale_price_eur": 2.0,
+    "price_status": "ESTIMATED",
     "reference_value_eur": null,
     "bundle_eligible": true,
     "price_tiers_eligible_eur": [],
-    "customer_value_notes": "Produit différenciant par la recette maison."
+    "customer_value_notes": "Positionné 0,40 € sous le Coca 33 cl pris comme référence de rayon (2,40 €)."
   },
   "dietary": {
     "vegan": true,
@@ -107,7 +107,6 @@
     "confidence": "MEDIUM",
     "missing_critical_fields": [
       "internal_production.avoidable_cost_total_eur",
-      "commercial.sale_price_eur",
       "stock_and_conservation.internal_shelf_life_hours"
     ],
     "sources": [

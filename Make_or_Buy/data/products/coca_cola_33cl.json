@@ -12,12 +12,12 @@
     "serving_size_ml": 330
   },
   "commercial": {
-    "sale_price_eur": null,
-    "price_status": "UNKNOWN",
-    "reference_value_eur": null,
+    "sale_price_eur": 2.4,
+    "price_status": "ESTIMATED",
+    "reference_value_eur": 1.65,
     "bundle_eligible": true,
     "price_tiers_eligible_eur": [],
-    "customer_value_notes": null
+    "customer_value_notes": "Canette 33 cl. Fourchette observée 2,00-2,80 €, moyenne constatée 2,40-2,50 €. En formule déjeuner, la boisson est valorisée 1,50-1,80 € dans le calcul du menu — ce n'est pas le même prix que la vente à l'unité."
   },
   "dietary": {
     "vegan": null,
@@ -78,7 +78,6 @@
   "data_quality": {
     "confidence": "LOW",
     "missing_critical_fields": [
-      "commercial.sale_price_eur",
       "dietary.vegan",
       "dietary.claim_evidence",
       "external_sourcing.sources",

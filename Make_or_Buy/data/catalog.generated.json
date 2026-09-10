@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": "bissap_maison",
+    "name": "Bissap maison",
+    "family": "COLD_DRINK",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": []
+    },
+    "sale_price_eur": 2.0,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": null,
+      "labor_minutes": 0.35,
+      "shelf_life_hours": null,
+      "traceability_score": null
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": null,
+      "shelf_life_hours": null,
+      "traceability_score": null,
+      "supplier_quality_score": null
+    },
+    "signature": {
+      "class": "INHOUSE_SIGNATURE_ADVANTAGE",
+      "customer_value_score": 4.5,
+      "notes": "Candidat MAKE stratégique."
+    }
+  }
+]
