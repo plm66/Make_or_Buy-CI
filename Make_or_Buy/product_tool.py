@@ -35,6 +35,7 @@ def preuve_fiche(preuve_lead):
 SCHEMA_VERSION="2.0.0"
 ROOT=Path(__file__).resolve().parent
 DEFAULT_PARAMS=ROOT/"params"/"establishment.json"
+DEFAULT_TEMPLATES=ROOT/"params"/"operation_templates.json"
 
 # Postes de cout saisis a la main, par unite vendue. Le travail n'y figure pas: il se mesure
 # par lot dans operations[], au niveau de qualification de chaque geste, et se ramene a
@@ -48,6 +49,19 @@ def load(p):
 def load_params(path=None):
     p=Path(path or DEFAULT_PARAMS)
     return load(p) if p.exists() else {}
+
+def load_templates(path=None):
+    p=Path(path or DEFAULT_TEMPLATES)
+    return (load(p).get("templates") or {}) if p.exists() else {}
+
+def operations_pour(technologie, path=None):
+    """Gestes qui restent en interne pour une technologie fournisseur, minutes a null.
+
+    La technologie dit QUELS gestes restent, jamais combien de temps: on chronometre une
+    fois par technologie et pas une fois par produit. Des minutes pre-remplies ici
+    seraient un cout invente, ce que la doctrine interdit."""
+    t=load_templates(path).get(technologie)
+    return None if t is None else t["operations"]
 
 def labor_tiers(params):
     return ((params.get("labor") or {}).get("tiers")) or {}
@@ -325,11 +339,28 @@ def cmd_status(args):
             print(f"  coût du travail: {cout} €/unité (lot de {batch})" if cout is not None
                   else "  coût du travail: incalculable (lot non mesuré ou taux manquant)")
 
+def cmd_operations(args):
+    ops=operations_pour(args.technologie)
+    if ops is None:
+        connues=", ".join(sorted(load_templates())) or "aucune"
+        print(f"technologie {args.technologie!r} sans gabarit; connues: {connues}", file=sys.stderr)
+        sys.exit(1)
+    print(json.dumps({"operations":ops}, ensure_ascii=False, indent=2))
+    if ops:
+        print(f"\n{len(ops)} gestes, minutes à chronométrer une fois pour toute la technologie "
+              f"{args.technologie}.", file=sys.stderr)
+    else:
+        print(f"\nAucun geste interne: {args.technologie} est un BUY sans travail résiduel.",
+              file=sys.stderr)
+
 def main():
     ap=argparse.ArgumentParser(prog="product_tool")
     sp=ap.add_subparsers(required=True)
     v=sp.add_parser("validate"); v.add_argument("path"); v.set_defaults(func=cmd_validate)
     c=sp.add_parser("compile"); c.add_argument("directory"); c.add_argument("--output",default="data/catalog.generated.json"); c.set_defaults(func=cmd_compile)
+    o=sp.add_parser("operations",help="Gabarit d'opérations internes pour une technologie fournisseur.")
+    o.add_argument("technologie")
+    o.set_defaults(func=cmd_operations)
     st=sp.add_parser("status",help="Avancement du remplissage, par famille et par fiche.")
     st.add_argument("path",nargs="?",default="data/products"); st.set_defaults(func=cmd_status)
     a=ap.parse_args(); a.func(a)

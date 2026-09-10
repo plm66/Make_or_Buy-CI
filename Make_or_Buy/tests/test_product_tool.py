@@ -194,6 +194,43 @@ def test_seule_la_fiche_technique_porte_une_allegation_vegan():
         assert pt.preuve_fiche(insuffisante) not in pt.PREUVES_VEGAN_SUFFISANTES, insuffisante
 
 
+def test_les_gabarits_ne_portent_aucune_minute():
+    """Un gabarit donne les gestes, jamais leur durée.
+
+    C'est la garde qui empêche la technologie de fabriquer un coût : elle dit quels gestes
+    restent en interne, et rien sur le temps qu'ils prennent. Une minute pré-remplie ici
+    se propagerait dans avoidable_cost_total_eur sans que personne ne l'ait mesurée —
+    exactement ce que la doctrine interdit.
+    """
+    for techno in pt.load_templates():
+        for op in pt.operations_pour(techno):
+            assert op["active_labor_minutes_per_batch"] is None, (techno, op["task"])
+            assert op["elapsed_minutes_per_batch"] is None, (techno, op["task"])
+
+
+def test_chaque_technologie_du_catalogue_a_son_gabarit():
+    """Une technologie vue dans un catalogue mais sans gabarit laisse un produit sans
+    moyen de décrire son travail résiduel. NON_RENSEIGNE fait exception : par définition
+    on ne sait pas quels gestes restent."""
+    import csv
+    vues = set()
+    for f in sorted((ROOT / "data" / "generics").glob("*_detail.csv")):
+        with f.open(encoding="utf-8") as fh:
+            vues |= {r["technologie"] for r in csv.DictReader(fh, delimiter=";")}
+    manquantes = vues - set(pt.load_templates()) - {"NON_RENSEIGNE"}
+    assert manquantes == set(), manquantes
+
+
+def test_les_niveaux_des_gabarits_existent():
+    """Un labor_tier de gabarit absent de params rendrait incalculable toute fiche
+    construite dessus — et le refus n'apparaîtrait qu'au moment du calcul du coût."""
+    connus = set(pt.labor_tiers(pt.load_params()))
+    assert connus, "params/establishment.json ne porte aucun niveau"
+    for techno in pt.load_templates():
+        for op in pt.operations_pour(techno):
+            assert op["labor_tier"] in connus, (techno, op["task"], op["labor_tier"])
+
+
 def test_prix_inconnu_nest_pas_compile_en_zero():
     """Un prix inconnu vaut « inconnu », jamais 0 €.
 

@@ -125,6 +125,32 @@ jamais traité comme zéro.
 
 Coût du travail par unité = Σ (minutes immobilisées × taux du niveau) ÷ `batch_size_units`.
 
+### Gabarits par technologie
+
+`params/operation_templates.json` donne, pour chaque technologie fournisseur, **quels
+gestes restent en interne** :
+
+```bash
+python3 product_tool.py operations CRU
+```
+
+| Technologie | Gestes internes |
+|---|---|
+| `CRU` | mise en plaque, pousse, cuisson, défournement |
+| `PAC` | mise en plaque, cuisson, défournement |
+| `PRECUIT` | mise en plaque, finition de cuisson, défournement |
+| `CUIT` | décongélation, dressage |
+| `PRET_A_SERVIR` | aucun |
+
+Les minutes sont à `null` et le restent : le gabarit dit quels gestes, jamais combien de
+temps. On chronomètre **une fois par technologie**, pas une fois par produit — cinq mesures
+couvrent les 130 SKU du référentiel. Une minute pré-remplie serait un coût inventé, et un
+test le refuse.
+
+La pousse et la décongélation portent le même motif que l'infusion du bissap : temps écoulé
+long, temps immobilisé réduit à la surveillance. Un modèle qui les compterait comme du
+travail externaliserait tout ce qui lève, repose ou fermente.
+
 Un lot pas encore mesuré (`batch_size_units: null`) reste une fiche valide : le coût devient
 simplement incalculable, et un `cost_status` annoncé `VERIFIED` ou `ESTIMATED` est alors refusé.
 

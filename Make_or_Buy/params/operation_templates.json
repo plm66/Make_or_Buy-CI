@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "note": "Gabarits d'opérations internes par technologie fournisseur. Ils donnent QUELS gestes restent en interne, jamais combien de minutes : les minutes se chronomètrent une fois par technologie et pas une fois par produit. Toute minute pré-remplie ici serait un coût inventé.",
+  "niveaux_a_valider": "Les labor_tier sont des valeurs par défaut raisonnables, à ajuster selon qui exécute réellement le geste dans l'établissement.",
+  "templates": {
+    "CRU": {
+      "label": "Pâte crue, pousse à réaliser",
+      "operations": [
+        {"task": "mise_en_plaque", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "apprentice", "notes": null},
+        {"task": "pousse", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "apprentice", "notes": "Temps écoulé long, temps immobilisé réduit à la surveillance. L'écart est de la capacité libérée (P004)."},
+        {"task": "cuisson", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "qualified_baker_pastry", "notes": "Cuisson sensible sur pâte crue."},
+        {"task": "defournement_refroidissement", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "apprentice", "notes": null}
+      ]
+    },
+    "PAC": {
+      "label": "Prêt à cuire, pré-poussé",
+      "operations": [
+        {"task": "mise_en_plaque", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "apprentice", "notes": null},
+        {"task": "cuisson", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "qualified_baker_pastry", "notes": null},
+        {"task": "defournement_refroidissement", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "apprentice", "notes": null}
+      ]
+    },
+    "PRECUIT": {
+      "label": "Précuit, finition de cuisson",
+      "operations": [
+        {"task": "mise_en_plaque", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "apprentice", "notes": null},
+        {"task": "finition_cuisson", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "production_assistant", "notes": "Remise en température, pas une cuisson de pâte crue."},
+        {"task": "defournement_refroidissement", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "apprentice", "notes": null}
+      ]
+    },
+    "CUIT": {
+      "label": "Cuit, décongélation et dressage",
+      "operations": [
+        {"task": "decongelation", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "apprentice", "notes": "Temps écoulé long, temps immobilisé quasi nul."},
+        {"task": "dressage", "active_labor_minutes_per_batch": null, "elapsed_minutes_per_batch": null, "labor_tier": "apprentice", "notes": null}
+      ]
+    },
+    "PRET_A_SERVIR": {
+      "label": "Prêt à servir, aucune transformation interne",
+      "operations": []
+    }
+  }
+}
