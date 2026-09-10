@@ -35,7 +35,7 @@ SNAC-TOUT-90;SNAC;toutes;croissant fourré fromage 90g;90g;1
 SNAC-TOUT-95;SNAC;toutes;croissant fourré fromage 95g;95g;1
 VIEN-AUTR-105;VIEN;autres-viennoiseries;chausson aux morceaux de pommes 105g;105g;1
 VIEN-AUTR-295;VIEN;autres-viennoiseries;brioche feuilletée spirale 295g;295g;1
-VIEN-AUTR-60;VIEN;autres-viennoiseries;briochette 60g;60g;1
+VIEN-AUTR-60;VIEN;autres-viennoiseries;briochette 60g;60g;2
 VIEN-AUTR-85;VIEN;autres-viennoiseries;breizh'n'roll 85g;85g;1
 VIEN-CROI-40;VIEN;croissants;croissant 40g;40g;1
 VIEN-CROI-50;VIEN;croissants;croissant 50g;50g;3
@@ -43,6 +43,6 @@ VIEN-CROI-90;VIEN;croissants-fourres;croissant fourré abricot 90g;90g;2
 VIEN-CROI-90b;VIEN;croissants-fourres;croissant fourré amande 90g;90g;1
 VIEN-CROI-95;VIEN;croissants-fourres;croissant fourré amandes 95g;95g;1
 VIEN-PAIN-150;VIEN;pains-au-chocolat;maxi pain au chocolat 150g;150g;1
-VIEN-PAIN-25;VIEN;pains-au-chocolat;mini pain au chocolat 25g;25g;2
+VIEN-PAIN-25;VIEN;pains-au-chocolat;mini pain au chocolat 25g;25g;5
 VIEN-PAIN-28;VIEN;pains-au-chocolat;mini pain au chocolat 28g;28g;1
-VIEN-PAIN-30;VIEN;pains-aux-raisins;mini pain aux raisins 30g;30g;4
+VIEN-PAIN-30;VIEN;pains-aux-raisins;mini pain aux raisins 30g;30g;6

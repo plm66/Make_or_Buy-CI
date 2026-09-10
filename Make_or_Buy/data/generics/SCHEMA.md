@@ -1,9 +1,40 @@
 # Référentiel produits — Boulangerie / Pâtisserie / Snacking
 
-Source : collecte Perplexity sur le catalogue public Bridor, 2026-09-10, normalisée
-avant intégration. Fichiers : `bridor_index.csv` (396 références), `bridor_detail.csv`
-(59 fiches), `produits_generiques.csv` (47 entrées). Invariants protégés par
-`tests/test_generics.py`.
+Collectes Perplexity sur catalogues publics, normalisées avant intégration.
+Invariants protégés par `tests/test_generics.py`, qui découvre les catalogues par
+convention `<fournisseur>_index.csv` / `<fournisseur>_detail.csv`.
+
+| Fichier | Contenu |
+|---|---|
+| `bridor_index.csv` | 396 références, 2026-09-10 |
+| `bridor_detail.csv` | 59 fiches |
+| `coup_de_pates_index.csv` | 605 références, 2026-09-11 |
+| `coup_de_pates_detail.csv` | 71 fiches |
+| `produits_generiques.csv` | 47 génériques |
+| `RATTACHEMENT_coup_de_pates.md` | rapport de rattachement du second catalogue |
+
+## Rattachement en attente
+
+Un `id_generique` **vide** signifie que le SKU n'a trouvé aucun générique existant et
+attend un arbitrage. `motif_nouveau` porte alors la proposition. Un identifiant inventé
+serait pire qu'un vide : il ferait passer la ligne pour rattachée.
+
+65 des 71 SKU Coup de Pâtes sont dans cet état.
+
+## Ce que le second catalogue a mesuré
+
+6 rattachements sur 71, soit 8,5 %. La cause est structurelle et visible sur la plus
+grosse catégorie :
+
+```
+croissants    Bridor [40, 50] g
+              Coup de Pâtes [25, 30, 60, 70, 80, 85, 120, 125] g
+```
+
+Aucun recouvrement. Le grammage étant dans la clé, deux catalogues qui vendent le même
+produit à des formats différents ne se rejoignent jamais. Une tolérance en pourcentage
+ne répare pas ça — elle rattrape les quasi-ratés (28↔30 g, 295↔300 g) et laisse les
+croissants disjoints.
 
 ## Objet
 
