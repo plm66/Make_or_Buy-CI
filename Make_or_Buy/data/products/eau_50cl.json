@@ -12,12 +12,12 @@
     "serving_size_ml": 500
   },
   "commercial": {
-    "sale_price_eur": null,
-    "price_status": "UNKNOWN",
+    "sale_price_eur": 1.5,
+    "price_status": "ESTIMATED",
     "reference_value_eur": null,
     "bundle_eligible": true,
     "price_tiers_eligible_eur": [],
-    "customer_value_notes": null
+    "customer_value_notes": "Voltaire / Philippe Auguste : 1,30-1,50 € constatés en 50 cl, contre ~2,00 € vers Bastille-Roquette-Charonne. Haut de la bande locale retenu. Le prix suppose une eau de source type Cristaline (1,20-1,50 €) et non une minérale Evian ou Vittel (1,80-2,20 €) — la marque n'est pas encore arrêtée. Quasi systématiquement incluse sans surcoût dans les formules sandwich-boisson-dessert."
   },
   "dietary": {
     "vegan": null,
@@ -78,10 +78,9 @@
   "data_quality": {
     "confidence": "LOW",
     "missing_critical_fields": [
-      "commercial.sale_price_eur",
       "dietary.vegan",
       "dietary.claim_evidence",
-      "external_sourcing.sources",
+      "external_sourcing.sources (marque à arrêter : source vs minérale)",
       "stock_and_conservation.external_shelf_life_hours (par source)"
     ],
     "sources": [
