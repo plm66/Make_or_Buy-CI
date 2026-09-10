@@ -1,0 +1,106 @@
+{
+  "supplier_id": "vandemoortele",
+  "name": "Vandemoortele Professional France",
+  "entity_type": "MANUFACTURER",
+  "market": [
+    "artisan_bakery",
+    "foodservice",
+    "wholesale"
+  ],
+  "coverage": {
+    "country": "France",
+    "regions": [],
+    "paris_ile_de_france_status": "LIKELY",
+    "notes": "Manufacturer; distribution channel and local wholesaler must be resolved per product."
+  },
+  "capabilities": {
+    "bakery": true,
+    "pastry": true,
+    "snacking": true,
+    "prepared_meals": false,
+    "ingredients": true,
+    "plant_based": true,
+    "frozen": true,
+    "ready_to_serve": true,
+    "ready_to_bake": true,
+    "semi_finished": true
+  },
+  "product_families": [
+    "bread",
+    "viennoiserie",
+    "snacks",
+    "desserts",
+    "donuts",
+    "muffins",
+    "brownies",
+    "cakes",
+    "focaccia",
+    "pizza",
+    "plant-based bakery",
+    "sauces",
+    "plant-based preparations"
+  ],
+  "doctrine_relevance": {
+    "primary_use_cases": [
+      "supplier-superior bakery benchmark",
+      "vegan bakery sourcing",
+      "standardizable dessert sourcing",
+      "hybrid-signature bases such as focaccia/buns",
+      "labor-saving ready-to-bake products"
+    ],
+    "expected_strengths": [
+      "public article IDs and logistics on many product pages",
+      "ready-to-bake and frozen technology",
+      "plant-based product documentation",
+      "broad bakery/pastry range"
+    ],
+    "watchouts": [
+      "manufacturer may not sell directly",
+      "landed cost requires distributor mapping"
+    ]
+  },
+  "official_sources": [
+    {
+      "url": "https://www.vandemoortele.com/fr-fr/products",
+      "source_type": "CATEGORY",
+      "verified_at": "2026-09-10",
+      "notes": "Official France product index."
+    },
+    {
+      "url": "https://www.vandemoortele.com/fr-fr/products/snacks",
+      "source_type": "CATEGORY",
+      "verified_at": "2026-09-10",
+      "notes": "Focaccia/pizza/snack range."
+    },
+    {
+      "url": "https://www.vandemoortele.com/fr-fr/products/donuts-muffins-brownies-et-cakes",
+      "source_type": "CATEGORY",
+      "verified_at": "2026-09-10",
+      "notes": "American pastry range."
+    },
+    {
+      "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/viennoiserie/croissant/croissant-12",
+      "source_type": "PRODUCT",
+      "verified_at": "2026-09-10",
+      "notes": "Plant-based croissant 70 g; article 55973; vegan/vegetarian/clean-label; 48 units/case."
+    }
+  ],
+  "research_policy": {
+    "preferred_domains": [
+      "vandemoortele.com",
+      "smart.vandemoortele.com"
+    ],
+    "pricing_policy": "Manufacturer pages are specification sources, not price sources. Resolve distributor and landed cost separately.",
+    "claims_policy": "Use official dietary/certification fields where exposed.",
+    "refresh_days": 45
+  },
+  "data_quality": {
+    "confidence": "HIGH",
+    "verified_at": "2026-09-10",
+    "missing": [
+      "local distributor mapping",
+      "landed prices",
+      "delivery terms"
+    ]
+  }
+}

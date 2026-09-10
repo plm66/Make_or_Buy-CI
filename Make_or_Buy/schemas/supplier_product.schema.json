@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.make-or-buy/schemas/supplier_product.schema.json",
+  "title": "Make_or_Buy Supplier Product Relation",
+  "type": "object",
+  "required": [
+    "record_id",
+    "supplier_id",
+    "supplier_product",
+    "classification",
+    "commercial_terms",
+    "logistics",
+    "dietary",
+    "traceability",
+    "source_evidence",
+    "data_quality"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string"
+    },
+    "supplier_id": {
+      "type": "string"
+    },
+    "canonical_product_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "supplier_product": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ean": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brand": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "weight_g": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "volume_ml": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "units_per_case": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "state": {
+          "enum": [
+            "FRESH",
+            "FROZEN",
+            "CHILLED",
+            "AMBIENT",
+            "READY_TO_SERVE",
+            "READY_TO_BAKE",
+            "PRECOOKED",
+            "SEMI_FINISHED",
+            "UNKNOWN"
+          ]
+        }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "required": [
+        "domain",
+        "candidate_doctrine_class"
+      ],
+      "properties": {
+        "domain": {
+          "enum": [
+            "BAKERY",
+            "PASTRY",
+            "SNACKING",
+            "PREPARED_MEAL",
+            "INGREDIENT",
+            "BEVERAGE",
+            "COMPLEMENT"
+          ]
+        },
+        "candidate_doctrine_class": {
+          "enum": [
+            "STANDARDIZABLE",
+            "SUPPLIER_SUPERIOR",
+            "INHOUSE_SIGNATURE_ADVANTAGE",
+            "HYBRID_SIGNATURE",
+            "UNASSESSED"
+          ]
+        },
+        "candidate_use": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "commercial_terms": {
+      "type": "object",
+      "properties": {
+        "unit_price_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "landed_cost_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "vat_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "price_verified_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "price_access": {
+          "enum": [
+            "PUBLIC",
+            "ACCOUNT_REQUIRED",
+            "QUOTE",
+            "UNKNOWN"
+          ]
+        }
+      }
+    },
+    "logistics": {
+      "type": "object",
+      "properties": {
+        "minimum_order_units": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "lead_time_days": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "delivery_frequency_per_week": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "shelf_life_total_hours": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "minimum_residual_shelf_life_hours": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "after_opening_hours": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "storage_temperature_c": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "preparation_instructions": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "dietary": {
+      "type": "object",
+      "properties": {
+        "vegan": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "vegetarian": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "allergens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "claim_evidence": {
+          "enum": [
+            "OFFICIAL_PRODUCT_PAGE",
+            "OFFICIAL_TECHNICAL_SHEET",
+            "LABEL",
+            "NONE",
+            "UNKNOWN"
+          ]
+        }
+      }
+    },
+    "traceability": {
+      "type": "object",
+      "properties": {
+        "technical_sheet_available": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "ingredient_list_available": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "allergen_documentation_available": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "lot_identification_documented": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "recall_process_documented": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "quality_certifications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "source_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "url",
+          "verified_at"
+        ],
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "verified_at": {
+            "type": "string"
+          },
+          "supports": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "data_quality": {
+      "type": "object",
+      "required": [
+        "confidence",
+        "missing_fields"
+      ],
+      "properties": {
+        "confidence": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        },
+        "missing_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stale_after": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,100 @@
+{
+  "supplier_id": "tipiak_restauration",
+  "name": "Tipiak Restauration",
+  "entity_type": "MANUFACTURER",
+  "market": [
+    "commercial_foodservice",
+    "collective_foodservice",
+    "catering"
+  ],
+  "coverage": {
+    "country": "France",
+    "regions": [
+      "France"
+    ],
+    "paris_ile_de_france_status": "LIKELY",
+    "notes": "Commercial teams stated as available throughout France; distributor mapping required."
+  },
+  "capabilities": {
+    "bakery": false,
+    "pastry": true,
+    "snacking": true,
+    "prepared_meals": true,
+    "ingredients": true,
+    "plant_based": true,
+    "frozen": true,
+    "ready_to_serve": false,
+    "ready_to_bake": false,
+    "semi_finished": true
+  },
+  "product_families": [
+    "cereal sides",
+    "cooking aids",
+    "breadcrumbs",
+    "croutons",
+    "savory and sweet cocktail bites",
+    "frozen prepared meals",
+    "seafood starters",
+    "risotto",
+    "grain dishes",
+    "crepes",
+    "galettes",
+    "vegetarian and vegan meal components"
+  ],
+  "doctrine_relevance": {
+    "primary_use_cases": [
+      "hybrid-signature components",
+      "prepared meal base sourcing",
+      "vegan/vegetarian menu components",
+      "labor-saving cereal accompaniments",
+      "documented ingredient sourcing"
+    ],
+    "expected_strengths": [
+      "professional formats",
+      "ready-to-use culinary components",
+      "product pages can expose ingredient/allergen information",
+      "frozen prepared meal lines"
+    ],
+    "watchouts": [
+      "not primarily a bakery supplier",
+      "many products are ingredients/components rather than finished retail items"
+    ]
+  },
+  "official_sources": [
+    {
+      "url": "https://restauration.tipiak.fr/",
+      "source_type": "HOME",
+      "verified_at": "2026-09-10",
+      "notes": "Official professional portal."
+    },
+    {
+      "url": "https://restauration.tipiak.fr/nos-produits/",
+      "source_type": "CATEGORY",
+      "verified_at": "2026-09-10",
+      "notes": "Cereal accompaniments, cooking aids and panification."
+    },
+    {
+      "url": "https://restauration.tipiak.fr/plats-cuisines-surgeles/",
+      "source_type": "CATEGORY",
+      "verified_at": "2026-09-10",
+      "notes": "Frozen prepared meals, grain dishes, crepes and galettes."
+    }
+  ],
+  "research_policy": {
+    "preferred_domains": [
+      "restauration.tipiak.fr"
+    ],
+    "pricing_policy": "Manufacturer source is specification-first. Resolve distributor price separately.",
+    "claims_policy": "Ingredient/allergen and dietary claims require current product page/technical sheet.",
+    "refresh_days": 60
+  },
+  "data_quality": {
+    "confidence": "HIGH",
+    "verified_at": "2026-09-10",
+    "missing": [
+      "Paris distributor",
+      "landed prices",
+      "minimum orders"
+    ]
+  }
+}

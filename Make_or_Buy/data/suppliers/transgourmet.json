@@ -1,0 +1,96 @@
+{
+  "supplier_id": "transgourmet",
+  "name": "Transgourmet France",
+  "entity_type": "WHOLESALER",
+  "market": [
+    "artisan_bakery",
+    "pastry",
+    "snacking",
+    "restaurant",
+    "foodservice"
+  ],
+  "coverage": {
+    "country": "France",
+    "regions": [],
+    "paris_ile_de_france_status": "CONFIRMED",
+    "notes": "National professional foodservice wholesaler; exact delivery schedule is account/location dependent."
+  },
+  "capabilities": {
+    "bakery": true,
+    "pastry": true,
+    "snacking": true,
+    "prepared_meals": true,
+    "ingredients": true,
+    "plant_based": true,
+    "frozen": true,
+    "ready_to_serve": true,
+    "ready_to_bake": true,
+    "semi_finished": true
+  },
+  "product_families": [
+    "bakery ingredients",
+    "pastry ingredients",
+    "bread",
+    "cakes",
+    "viennoiserie",
+    "snacking",
+    "sandwich ingredients",
+    "salads",
+    "beverages",
+    "confectionery",
+    "prepared foods",
+    "frozen products",
+    "plant_based"
+  ],
+  "doctrine_relevance": {
+    "primary_use_cases": [
+      "multi-brand comparison",
+      "one-stop procurement consolidation",
+      "ingredient-line reduction",
+      "ready-to-sell snacking",
+      "plant-based sourcing"
+    ],
+    "expected_strengths": [
+      "broad multi-brand assortment",
+      "single-order consolidation",
+      "fresh/frozen/ambient distribution",
+      "bakery-specific professional offering"
+    ],
+    "watchouts": [
+      "many prices require professional account",
+      "manufacturer-level technical documentation may need secondary source lookup"
+    ]
+  },
+  "official_sources": [
+    {
+      "url": "https://www.transgourmet.fr/boulangerie-patisserie",
+      "source_type": "PROFESSIONAL_PAGE",
+      "verified_at": "2026-09-10",
+      "notes": "Official bakery/pastry page; bakery, snacking, beverages, prepared foods and plant-based positioning."
+    },
+    {
+      "url": "https://www.transgourmet.fr/restauration-commerciale/rayon/charcuterie-traiteur/snacking--FPR_0011.0017.html",
+      "source_type": "CATEGORY",
+      "verified_at": "2026-09-10",
+      "notes": "Official snacking category."
+    }
+  ],
+  "research_policy": {
+    "preferred_domains": [
+      "transgourmet.fr",
+      "webshop.transgourmet.fr"
+    ],
+    "pricing_policy": "Treat promotional PDFs as dated price observations only; never as current price unless verification date matches.",
+    "claims_policy": "For vegan/allergen claims, prefer product-level page/technical sheet over category marketing.",
+    "refresh_days": 21
+  },
+  "data_quality": {
+    "confidence": "HIGH",
+    "verified_at": "2026-09-10",
+    "missing": [
+      "account-specific prices",
+      "exact delivery frequency",
+      "minimum order by account"
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-09-10",
+  "suppliers": [
+    {
+      "supplier_id": "coup_de_pates",
+      "priority": 1,
+      "role": [
+        "manufacturer_distributor",
+        "frozen_bakery_pastry",
+        "snacking",
+        "prepared_meals"
+      ]
+    },
+    {
+      "supplier_id": "transgourmet",
+      "priority": 1,
+      "role": [
+        "wholesaler",
+        "multi_brand",
+        "procurement_consolidation",
+        "snacking"
+      ]
+    },
+    {
+      "supplier_id": "vandemoortele",
+      "priority": 1,
+      "role": [
+        "manufacturer",
+        "bakery",
+        "pastry",
+        "plant_based",
+        "hybrid_bases"
+      ]
+    },
+    {
+      "supplier_id": "traiteur_de_paris",
+      "priority": 1,
+      "role": [
+        "manufacturer",
+        "premium_frozen_pastry",
+        "snacking",
+        "prepared_components"
+      ]
+    },
+    {
+      "supplier_id": "tipiak_restauration",
+      "priority": 1,
+      "role": [
+        "manufacturer",
+        "prepared_meals",
+        "cereal_components",
+        "hybrid_signature_components"
+      ]
+    }
+  ]
+}

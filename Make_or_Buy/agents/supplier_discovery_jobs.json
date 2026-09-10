@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-09-10",
+  "global_rules": [
+    "Use official supplier/manufacturer sources as primary evidence.",
+    "Never infer a current price from a historical promotion or stale PDF.",
+    "Never infer vegan status from absence of obvious animal ingredients.",
+    "For vegan claims, require official product-level evidence or technical sheet.",
+    "For allergens and shelf life, prefer technical sheet over marketing page.",
+    "Separate manufacturer from distributor; landed cost belongs to supplier-product-distributor path.",
+    "Store every observed value with verified_at and source_url.",
+    "Unknown is a valid value; do not fabricate."
+  ],
+  "jobs": [
+    {
+      "job_id": "discover_coup_de_pates_candidates",
+      "supplier_id": "coup_de_pates",
+      "priority": 1,
+      "entrypoints": [
+        "https://www.coupdepates.fr/liste-produits",
+        "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/SNACKING/c/019"
+      ],
+      "targets": [
+        "cookies",
+        "brownies",
+        "cakes",
+        "madeleines",
+        "meringues",
+        "flan",
+        "quiches",
+        "croque_monsieur",
+        "pizza",
+        "sandwiches",
+        "prepared_meals",
+        "vegan"
+      ],
+      "extract": [
+        "reference",
+        "name",
+        "weight_g",
+        "units_per_case",
+        "preparation_state",
+        "dietary_claims",
+        "allergens",
+        "shelf_life",
+        "storage",
+        "technical_sheet_url"
+      ]
+    },
+    {
+      "job_id": "discover_transgourmet_distribution_paths",
+      "supplier_id": "transgourmet",
+      "priority": 1,
+      "entrypoints": [
+        "https://www.transgourmet.fr/boulangerie-patisserie",
+        "https://www.transgourmet.fr/restauration-commerciale/rayon/charcuterie-traiteur/snacking--FPR_0011.0017.html"
+      ],
+      "targets": [
+        "vegan",
+        "ready_to_sell",
+        "frozen_pastry",
+        "snacking",
+        "beverages",
+        "prepared_meals",
+        "manufacturer_brands"
+      ],
+      "extract": [
+        "product_code",
+        "brand",
+        "manufacturer",
+        "name",
+        "pack",
+        "public_price_if_current",
+        "account_required",
+        "dietary_claims",
+        "allergens",
+        "delivery_terms_if_exposed"
+      ]
+    },
+    {
+      "job_id": "discover_vandemoortele_candidates",
+      "supplier_id": "vandemoortele",
+      "priority": 1,
+      "entrypoints": [
+        "https://www.vandemoortele.com/fr-fr/products",
+        "https://www.vandemoortele.com/fr-fr/products/snacks",
+        "https://www.vandemoortele.com/fr-fr/products/donuts-muffins-brownies-et-cakes"
+      ],
+      "targets": [
+        "vegan_croissant",
+        "vegan_pain_au_chocolat",
+        "focaccia",
+        "pizza",
+        "brownie",
+        "cake",
+        "muffin",
+        "donut",
+        "bread_bases"
+      ],
+      "extract": [
+        "article_id",
+        "ean",
+        "name",
+        "weight_g",
+        "units_per_case",
+        "convenience_level",
+        "dietary_certification",
+        "instructions",
+        "shelf_life",
+        "download_urls"
+      ]
+    },
+    {
+      "job_id": "discover_traiteur_de_paris_candidates",
+      "supplier_id": "traiteur_de_paris",
+      "priority": 1,
+      "entrypoints": [
+        "https://traiteurdeparis.fr/food-service/bvp/",
+        "https://traiteurdeparis.fr/food-service/snacking/"
+      ],
+      "targets": [
+        "vegan",
+        "individual_desserts",
+        "portionable_pastry",
+        "pancakes",
+        "blinis",
+        "gratins",
+        "vegetable_products",
+        "snacking"
+      ],
+      "extract": [
+        "name",
+        "weight_g",
+        "units_per_case",
+        "IQF",
+        "vegan",
+        "ingredients",
+        "allergens",
+        "preparation",
+        "shelf_life",
+        "certifications",
+        "distributor_path"
+      ]
+    },
+    {
+      "job_id": "discover_tipiak_candidates",
+      "supplier_id": "tipiak_restauration",
+      "priority": 1,
+      "entrypoints": [
+        "https://restauration.tipiak.fr/nos-produits/",
+        "https://restauration.tipiak.fr/plats-cuisines-surgeles/"
+      ],
+      "targets": [
+        "vegan",
+        "vegetarian",
+        "grain_sides",
+        "galettes",
+        "crepes",
+        "risotto",
+        "prepared_meals",
+        "cooking_aids",
+        "hybrid_signature_components"
+      ],
+      "extract": [
+        "name",
+        "pack_size",
+        "ingredients",
+        "allergens",
+        "dietary_claims",
+        "DDM_or_DLC",
+        "technical_sheet_url",
+        "preparation",
+        "distributor_path"
+      ]
+    }
+  ]
+}

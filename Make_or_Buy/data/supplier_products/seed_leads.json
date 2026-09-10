@@ -1,0 +1,407 @@
+[
+  {
+    "record_id": "cdp_71376_cookie_vegan",
+    "supplier_id": "coup_de_pates",
+    "canonical_product_id": null,
+    "supplier_product": {
+      "name": "Cookie vegan aux pépites de chocolat noir cuit ø 95",
+      "reference": "71376",
+      "ean": null,
+      "brand": "Coup de Pates",
+      "url": "https://www.coupdepates.fr/liste-produits?families%5B%5D=02a9f&new=1",
+      "weight_g": null,
+      "volume_ml": null,
+      "units_per_case": null,
+      "state": "READY_TO_SERVE"
+    },
+    "classification": {
+      "domain": "PASTRY",
+      "candidate_doctrine_class": "STANDARDIZABLE",
+      "candidate_use": [
+        "DESSERT",
+        "VEGAN_MENU"
+      ]
+    },
+    "commercial_terms": {
+      "unit_price_eur": null,
+      "landed_cost_eur": null,
+      "vat_rate": null,
+      "price_verified_at": null,
+      "price_access": "ACCOUNT_REQUIRED"
+    },
+    "logistics": {
+      "minimum_order_units": null,
+      "lead_time_days": null,
+      "delivery_frequency_per_week": null,
+      "shelf_life_total_hours": null,
+      "minimum_residual_shelf_life_hours": null,
+      "after_opening_hours": null,
+      "storage_temperature_c": null,
+      "preparation_instructions": "Thawing indicated by official catalog index; exact technical sheet required."
+    },
+    "dietary": {
+      "vegan": true,
+      "vegetarian": null,
+      "allergens": [],
+      "claim_evidence": "OFFICIAL_PRODUCT_PAGE"
+    },
+    "traceability": {
+      "technical_sheet_available": null,
+      "ingredient_list_available": null,
+      "allergen_documentation_available": null,
+      "lot_identification_documented": null,
+      "recall_process_documented": null,
+      "quality_certifications": []
+    },
+    "source_evidence": [
+      {
+        "url": "https://www.coupdepates.fr/liste-produits?families%5B%5D=02a9f&new=1",
+        "verified_at": "2026-09-10",
+        "supports": [
+          "name",
+          "reference",
+          "vegan naming",
+          "thawing workflow"
+        ]
+      }
+    ],
+    "data_quality": {
+      "confidence": "MEDIUM",
+      "missing_fields": [
+        "weight_g",
+        "units_per_case",
+        "landed_cost_eur",
+        "shelf_life",
+        "allergens",
+        "technical_sheet"
+      ],
+      "stale_after": "2026-10-10"
+    }
+  },
+  {
+    "record_id": "cdp_71375_brownie_choc_raspberry",
+    "supplier_id": "coup_de_pates",
+    "canonical_product_id": null,
+    "supplier_product": {
+      "name": "Brownie fondant chocolat framboise plaque prédécoupée",
+      "reference": "71375",
+      "ean": null,
+      "brand": "Coup de Pates",
+      "url": "https://www.coupdepates.fr/liste-produits?families%5B%5D=02a9f&new=1",
+      "weight_g": null,
+      "volume_ml": null,
+      "units_per_case": null,
+      "state": "READY_TO_SERVE"
+    },
+    "classification": {
+      "domain": "PASTRY",
+      "candidate_doctrine_class": "STANDARDIZABLE",
+      "candidate_use": [
+        "DESSERT",
+        "PORTIONABLE_DESSERT"
+      ]
+    },
+    "commercial_terms": {
+      "unit_price_eur": null,
+      "landed_cost_eur": null,
+      "vat_rate": null,
+      "price_verified_at": null,
+      "price_access": "ACCOUNT_REQUIRED"
+    },
+    "logistics": {
+      "minimum_order_units": null,
+      "lead_time_days": null,
+      "delivery_frequency_per_week": null,
+      "shelf_life_total_hours": null,
+      "minimum_residual_shelf_life_hours": null,
+      "after_opening_hours": null,
+      "storage_temperature_c": null,
+      "preparation_instructions": "Thawing indicated by official catalog index; obtain exact sheet."
+    },
+    "dietary": {
+      "vegan": null,
+      "vegetarian": null,
+      "allergens": [],
+      "claim_evidence": "UNKNOWN"
+    },
+    "traceability": {
+      "technical_sheet_available": null,
+      "ingredient_list_available": null,
+      "allergen_documentation_available": null,
+      "lot_identification_documented": null,
+      "recall_process_documented": null,
+      "quality_certifications": []
+    },
+    "source_evidence": [
+      {
+        "url": "https://www.coupdepates.fr/liste-produits?families%5B%5D=02a9f&new=1",
+        "verified_at": "2026-09-10",
+        "supports": [
+          "name",
+          "reference",
+          "precut slab format",
+          "thawing workflow"
+        ]
+      }
+    ],
+    "data_quality": {
+      "confidence": "MEDIUM",
+      "missing_fields": [
+        "weight_g",
+        "portion_count",
+        "landed_cost_eur",
+        "shelf_life",
+        "dietary",
+        "allergens"
+      ],
+      "stale_after": "2026-10-10"
+    }
+  },
+  {
+    "record_id": "vdm_55973_plant_based_croissant_70g",
+    "supplier_id": "vandemoortele",
+    "canonical_product_id": null,
+    "supplier_product": {
+      "name": "Croissant végétal - 70g",
+      "reference": "55973",
+      "ean": "5413476318404",
+      "brand": null,
+      "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/viennoiserie/croissant/croissant-12",
+      "weight_g": 70,
+      "volume_ml": null,
+      "units_per_case": 48,
+      "state": "READY_TO_BAKE"
+    },
+    "classification": {
+      "domain": "BAKERY",
+      "candidate_doctrine_class": "SUPPLIER_SUPERIOR",
+      "candidate_use": [
+        "VEGAN_BREAKFAST",
+        "VEGAN_MENU",
+        "LABOR_SAVING"
+      ]
+    },
+    "commercial_terms": {
+      "unit_price_eur": null,
+      "landed_cost_eur": null,
+      "vat_rate": null,
+      "price_verified_at": null,
+      "price_access": "QUOTE"
+    },
+    "logistics": {
+      "minimum_order_units": null,
+      "lead_time_days": null,
+      "delivery_frequency_per_week": null,
+      "shelf_life_total_hours": null,
+      "minimum_residual_shelf_life_hours": null,
+      "after_opening_hours": null,
+      "storage_temperature_c": "frozen",
+      "preparation_instructions": "Thaw 20 min ambient; bake 18 +/-2 min at 170 +/-10 C; verify current official instructions before operational use."
+    },
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": [],
+      "claim_evidence": "OFFICIAL_PRODUCT_PAGE"
+    },
+    "traceability": {
+      "technical_sheet_available": null,
+      "ingredient_list_available": null,
+      "allergen_documentation_available": null,
+      "lot_identification_documented": null,
+      "recall_process_documented": null,
+      "quality_certifications": [
+        "Clean label"
+      ]
+    },
+    "source_evidence": [
+      {
+        "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/viennoiserie/croissant/croissant-12",
+        "verified_at": "2026-09-10",
+        "supports": [
+          "article_id",
+          "EAN",
+          "weight",
+          "case_pack",
+          "vegan",
+          "vegetarian",
+          "ready_to_bake",
+          "instructions"
+        ]
+      }
+    ],
+    "data_quality": {
+      "confidence": "HIGH",
+      "missing_fields": [
+        "landed_cost_eur",
+        "local_distributor",
+        "shelf_life_total_hours",
+        "allergens"
+      ],
+      "stale_after": "2026-10-25"
+    }
+  },
+  {
+    "record_id": "tdp_pancakes_iqf_80",
+    "supplier_id": "traiteur_de_paris",
+    "canonical_product_id": null,
+    "supplier_product": {
+      "name": "Pancakes",
+      "reference": null,
+      "ean": null,
+      "brand": "Traiteur de Paris",
+      "url": "https://traiteurdeparis.fr/produits-surgeles/pancakes/",
+      "weight_g": null,
+      "volume_ml": null,
+      "units_per_case": 80,
+      "state": "FROZEN"
+    },
+    "classification": {
+      "domain": "PASTRY",
+      "candidate_doctrine_class": "SUPPLIER_SUPERIOR",
+      "candidate_use": [
+        "BREAKFAST",
+        "DESSERT",
+        "PORTION_CONTROL",
+        "WASTE_REDUCTION"
+      ]
+    },
+    "commercial_terms": {
+      "unit_price_eur": null,
+      "landed_cost_eur": null,
+      "vat_rate": null,
+      "price_verified_at": null,
+      "price_access": "QUOTE"
+    },
+    "logistics": {
+      "minimum_order_units": null,
+      "lead_time_days": null,
+      "delivery_frequency_per_week": null,
+      "shelf_life_total_hours": null,
+      "minimum_residual_shelf_life_hours": null,
+      "after_opening_hours": null,
+      "storage_temperature_c": "frozen",
+      "preparation_instructions": "IQF individual thawing; exact technical sheet required."
+    },
+    "dietary": {
+      "vegan": false,
+      "vegetarian": null,
+      "allergens": [
+        "eggs",
+        "milk",
+        "gluten"
+      ],
+      "claim_evidence": "OFFICIAL_PRODUCT_PAGE"
+    },
+    "traceability": {
+      "technical_sheet_available": null,
+      "ingredient_list_available": true,
+      "allergen_documentation_available": null,
+      "lot_identification_documented": null,
+      "recall_process_documented": null,
+      "quality_certifications": [
+        "FSSC 22000 - supplier production sites"
+      ]
+    },
+    "source_evidence": [
+      {
+        "url": "https://traiteurdeparis.fr/produits-surgeles/pancakes/",
+        "verified_at": "2026-09-10",
+        "supports": [
+          "80_piece_IQF_pack",
+          "ingredients_summary",
+          "individual_thawing",
+          "waste_reduction_use_case"
+        ]
+      }
+    ],
+    "data_quality": {
+      "confidence": "HIGH",
+      "missing_fields": [
+        "weight_g",
+        "landed_cost_eur",
+        "shelf_life_total_hours",
+        "local_distributor"
+      ],
+      "stale_after": "2026-10-25"
+    }
+  },
+  {
+    "record_id": "tipiak_prepared_meals_family_seed",
+    "supplier_id": "tipiak_restauration",
+    "canonical_product_id": null,
+    "supplier_product": {
+      "name": "Frozen prepared meals family seed",
+      "reference": null,
+      "ean": null,
+      "brand": "Tipiak",
+      "url": "https://restauration.tipiak.fr/plats-cuisines-surgeles/",
+      "weight_g": null,
+      "volume_ml": null,
+      "units_per_case": null,
+      "state": "FROZEN"
+    },
+    "classification": {
+      "domain": "PREPARED_MEAL",
+      "candidate_doctrine_class": "UNASSESSED",
+      "candidate_use": [
+        "PREPARED_MEAL_DISCOVERY",
+        "VEGETARIAN_DISCOVERY",
+        "HYBRID_SIGNATURE_COMPONENT"
+      ]
+    },
+    "commercial_terms": {
+      "unit_price_eur": null,
+      "landed_cost_eur": null,
+      "vat_rate": null,
+      "price_verified_at": null,
+      "price_access": "QUOTE"
+    },
+    "logistics": {
+      "minimum_order_units": null,
+      "lead_time_days": null,
+      "delivery_frequency_per_week": null,
+      "shelf_life_total_hours": null,
+      "minimum_residual_shelf_life_hours": null,
+      "after_opening_hours": null,
+      "storage_temperature_c": "frozen",
+      "preparation_instructions": null
+    },
+    "dietary": {
+      "vegan": null,
+      "vegetarian": null,
+      "allergens": [],
+      "claim_evidence": "UNKNOWN"
+    },
+    "traceability": {
+      "technical_sheet_available": null,
+      "ingredient_list_available": null,
+      "allergen_documentation_available": null,
+      "lot_identification_documented": null,
+      "recall_process_documented": null,
+      "quality_certifications": []
+    },
+    "source_evidence": [
+      {
+        "url": "https://restauration.tipiak.fr/plats-cuisines-surgeles/",
+        "verified_at": "2026-09-10",
+        "supports": [
+          "family: seafood starters",
+          "family: prepared meals",
+          "family: grain dishes",
+          "family: crepes_galettes"
+        ]
+      }
+    ],
+    "data_quality": {
+      "confidence": "MEDIUM",
+      "missing_fields": [
+        "specific_product_reference",
+        "landed_cost_eur",
+        "dietary",
+        "logistics"
+      ],
+      "stale_after": "2026-11-09"
+    }
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "agent_contract_version": "1.0.0",
+  "task": "supplier_product_research",
+  "input": {
+    "supplier_registry": "data/suppliers/",
+    "seed_leads": "data/supplier_products/seed_leads.json",
+    "doctrine_reference": "existing project doctrine/doctrine.json"
+  },
+  "output": {
+    "format": "supplier_product.schema.json",
+    "write_path": "data/supplier_products/discovered/",
+    "dedupe_key_priority": [
+      "supplier_id+supplier_product.reference",
+      "supplier_id+supplier_product.ean",
+      "supplier_id+normalized_name+weight_g"
+    ]
+  },
+  "decision_boundary": {
+    "research_agent": "collect and normalize evidence",
+    "doctrine_engine": "assign final MAKE/BUY/HYBRID after cost and signature analysis",
+    "prohibited_agent_behavior": [
+      "inventing missing prices",
+      "promoting a candidate doctrine class to final decision without required evidence",
+      "treating category-level vegan marketing as product-level vegan proof",
+      "treating manufacturer catalog availability as confirmed Paris delivery"
+    ]
+  }
+}

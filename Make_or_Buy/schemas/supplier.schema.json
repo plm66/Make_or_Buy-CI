@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.make-or-buy/schemas/supplier.schema.json",
+  "title": "Make_or_Buy Supplier",
+  "type": "object",
+  "required": [
+    "supplier_id",
+    "name",
+    "entity_type",
+    "market",
+    "coverage",
+    "capabilities",
+    "official_sources",
+    "research_policy",
+    "data_quality"
+  ],
+  "properties": {
+    "supplier_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_\\-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "entity_type": {
+      "enum": [
+        "MANUFACTURER",
+        "WHOLESALER",
+        "MANUFACTURER_DISTRIBUTOR",
+        "DISTRIBUTOR"
+      ]
+    },
+    "market": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "regions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "paris_ile_de_france_status": {
+          "enum": [
+            "CONFIRMED",
+            "LIKELY",
+            "UNKNOWN"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "properties": {
+        "bakery": {
+          "type": "boolean"
+        },
+        "pastry": {
+          "type": "boolean"
+        },
+        "snacking": {
+          "type": "boolean"
+        },
+        "prepared_meals": {
+          "type": "boolean"
+        },
+        "ingredients": {
+          "type": "boolean"
+        },
+        "plant_based": {
+          "type": "boolean"
+        },
+        "frozen": {
+          "type": "boolean"
+        },
+        "ready_to_serve": {
+          "type": "boolean"
+        },
+        "ready_to_bake": {
+          "type": "boolean"
+        },
+        "semi_finished": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "product_families": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "doctrine_relevance": {
+      "type": "object",
+      "properties": {
+        "primary_use_cases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "expected_strengths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "watchouts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "official_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "url",
+          "source_type",
+          "verified_at"
+        ],
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "source_type": {
+            "enum": [
+              "HOME",
+              "CATEGORY",
+              "PRODUCT",
+              "CATALOG",
+              "PROFESSIONAL_PAGE"
+            ]
+          },
+          "verified_at": {
+            "type": "string"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "research_policy": {
+      "type": "object",
+      "required": [
+        "preferred_domains",
+        "pricing_policy",
+        "claims_policy"
+      ],
+      "properties": {
+        "preferred_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pricing_policy": {
+          "type": "string"
+        },
+        "claims_policy": {
+          "type": "string"
+        },
+        "refresh_days": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "data_quality": {
+      "type": "object",
+      "required": [
+        "confidence",
+        "verified_at"
+      ],
+      "properties": {
+        "confidence": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        },
+        "verified_at": {
+          "type": "string"
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

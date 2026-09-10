@@ -1,0 +1,101 @@
+{
+  "supplier_id": "coup_de_pates",
+  "name": "Coup de Pates",
+  "entity_type": "MANUFACTURER_DISTRIBUTOR",
+  "market": [
+    "artisan_bakery",
+    "pastry",
+    "snacking",
+    "foodservice"
+  ],
+  "coverage": {
+    "country": "France",
+    "regions": [],
+    "paris_ile_de_france_status": "LIKELY",
+    "notes": "Delivery availability must be verified against the bakery postal code/account."
+  },
+  "capabilities": {
+    "bakery": true,
+    "pastry": true,
+    "snacking": true,
+    "prepared_meals": true,
+    "ingredients": true,
+    "plant_based": true,
+    "frozen": true,
+    "ready_to_serve": true,
+    "ready_to_bake": true,
+    "semi_finished": true
+  },
+  "product_families": [
+    "bread",
+    "viennoiserie",
+    "pastry",
+    "american_pastry",
+    "snacking",
+    "prepared_meals",
+    "filled_baguettes",
+    "sandwiches",
+    "croque_monsieur",
+    "savory_pastry",
+    "pizza",
+    "quiche",
+    "tartlets"
+  ],
+  "doctrine_relevance": {
+    "primary_use_cases": [
+      "BUY candidate discovery",
+      "supplier-superior frozen pastry",
+      "standardizable dessert sourcing",
+      "snacking capacity substitution",
+      "vegan product sourcing"
+    ],
+    "expected_strengths": [
+      "large professional assortment",
+      "product references exposed publicly",
+      "frozen/reheat/ready-to-serve options",
+      "allergen filters on product catalog"
+    ],
+    "watchouts": [
+      "account-specific prices may not be public",
+      "delivery conditions and residual shelf life require account verification"
+    ]
+  },
+  "official_sources": [
+    {
+      "url": "https://www.coupdepates.fr/liste-produits",
+      "source_type": "CATEGORY",
+      "verified_at": "2026-09-10",
+      "notes": "Official product index; 1,379 products observed on verification date."
+    },
+    {
+      "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/SNACKING/c/019",
+      "source_type": "CATEGORY",
+      "verified_at": "2026-09-10",
+      "notes": "Official snacking index; prepared meals, pizzas, sandwiches, quiches and related families."
+    },
+    {
+      "url": "https://www.coupdepates.fr/boulanger-patissier",
+      "source_type": "PROFESSIONAL_PAGE",
+      "verified_at": "2026-09-10",
+      "notes": "Professional bakery/pastry positioning."
+    }
+  ],
+  "research_policy": {
+    "preferred_domains": [
+      "coupdepates.fr",
+      "shop.coupdepates.fr"
+    ],
+    "pricing_policy": "Do not infer prices. Record only public/account/quote data with timestamp.",
+    "claims_policy": "Dietary/allergen claims require official product page or official technical documentation.",
+    "refresh_days": 30
+  },
+  "data_quality": {
+    "confidence": "HIGH",
+    "verified_at": "2026-09-10",
+    "missing": [
+      "Paris delivery terms",
+      "account pricing",
+      "minimum order conditions"
+    ]
+  }
+}

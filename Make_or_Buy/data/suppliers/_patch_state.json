@@ -1,0 +1,50 @@
+{
+  "patch_id": "supplier-layer-0.2.1",
+  "status": "applied",
+  "files": [
+    {
+      "path": "agents/supplier_discovery_jobs.json",
+      "sha256": "21c1054198ee9841f988e07b6506d329b02f411f40b9230db92cffd750fef06b"
+    },
+    {
+      "path": "agents/supplier_research_contract.json",
+      "sha256": "ac42377d67c7051b0f1f4f2bca3141bc74ba62f0ad5a6a8c7e6f7c506badeac1"
+    },
+    {
+      "path": "data/supplier_products/seed_leads.json",
+      "sha256": "41763283f4a007843c1ed95b9daad0ac43b91f4e6562b41a41d51e566bc080f2"
+    },
+    {
+      "path": "data/suppliers/coup_de_pates.json",
+      "sha256": "4c7fdbd9db1386b42ad9958ec4638e8e79f6ed9bf6245d95d86fa2fbc1be552c"
+    },
+    {
+      "path": "data/suppliers/index.json",
+      "sha256": "9116100e095d83c19c3648ea98405cc68bd165795842d8e93cfb4342df589aee"
+    },
+    {
+      "path": "data/suppliers/tipiak_restauration.json",
+      "sha256": "3a1cf9ef8b3aab08f853da44ec7b1b436b8dc218ff362141fa0e894e397bee17"
+    },
+    {
+      "path": "data/suppliers/traiteur_de_paris.json",
+      "sha256": "fe80f3a49e01ed38286f119b0772598fd014a86d4693d373e4d6d68363e65c51"
+    },
+    {
+      "path": "data/suppliers/transgourmet.json",
+      "sha256": "c08135f3a0e84f3b902fe685f08a55e8c5f5196001a8e5c495388e431108150d"
+    },
+    {
+      "path": "data/suppliers/vandemoortele.json",
+      "sha256": "832b2fb1e3255c21b759f6248afbbf8bb874f6090c554bb1d62581666ed7384a"
+    },
+    {
+      "path": "schemas/supplier.schema.json",
+      "sha256": "35044b2f10c168637b0a2c82dddcc6b3ab897da6eaf7227ebbda32db582f7946"
+    },
+    {
+      "path": "schemas/supplier_product.schema.json",
+      "sha256": "45e5d667e6f94468f9827cf418f0a64053131314aad0ffa9cbd3d151f727a9d6"
+    }
+  ]
+}

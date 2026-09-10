@@ -1,0 +1,98 @@
+{
+  "supplier_id": "traiteur_de_paris",
+  "name": "Traiteur de Paris",
+  "entity_type": "MANUFACTURER",
+  "market": [
+    "bakery_pastry",
+    "snacking",
+    "foodservice",
+    "restaurant",
+    "coffee_shop"
+  ],
+  "coverage": {
+    "country": "France",
+    "regions": [],
+    "paris_ile_de_france_status": "LIKELY",
+    "notes": "Manufacturer indicates distribution through wholesalers; local reseller must be resolved."
+  },
+  "capabilities": {
+    "bakery": false,
+    "pastry": true,
+    "snacking": true,
+    "prepared_meals": true,
+    "ingredients": false,
+    "plant_based": true,
+    "frozen": true,
+    "ready_to_serve": true,
+    "ready_to_bake": false,
+    "semi_finished": true
+  },
+  "product_families": [
+    "individual desserts",
+    "pastries",
+    "sweet cocktail pieces",
+    "savory canapes",
+    "gratins",
+    "cooked vegetables",
+    "blinis",
+    "pancakes",
+    "snacking desserts"
+  ],
+  "doctrine_relevance": {
+    "primary_use_cases": [
+      "supplier-superior premium pastry",
+      "frozen waste reduction",
+      "individual portion standardization",
+      "vegan premium dessert sourcing",
+      "traceability/conservation benchmark"
+    ],
+    "expected_strengths": [
+      "frozen premium products",
+      "easy rethermalization/serving",
+      "portion control",
+      "FSSC 22000 certified production sites",
+      "manufacturer states strong stock availability"
+    ],
+    "watchouts": [
+      "local wholesaler and landed cost must be resolved",
+      "premium positioning may exceed low-price bundle economics"
+    ]
+  },
+  "official_sources": [
+    {
+      "url": "https://traiteurdeparis.fr/food-service/bvp/",
+      "source_type": "PROFESSIONAL_PAGE",
+      "verified_at": "2026-09-10",
+      "notes": "Bakery/pastry professional range; frozen premium products."
+    },
+    {
+      "url": "https://traiteurdeparis.fr/food-service/snacking/",
+      "source_type": "CATEGORY",
+      "verified_at": "2026-09-10",
+      "notes": "Snacking range; includes vegan chocolate-hazelnut moelleux example."
+    },
+    {
+      "url": "https://traiteurdeparis.fr/produits-surgeles/pancakes/",
+      "source_type": "PRODUCT",
+      "verified_at": "2026-09-10",
+      "notes": "Pancakes; 80-piece IQF bag; individual thawing positioned as waste-reduction benefit."
+    }
+  ],
+  "research_policy": {
+    "preferred_domains": [
+      "traiteurdeparis.fr"
+    ],
+    "pricing_policy": "Resolve price through authorized wholesaler/distributor; do not estimate manufacturer price.",
+    "claims_policy": "Record certifications and dietary claims only from official product/professional pages or technical sheets.",
+    "refresh_days": 45
+  },
+  "data_quality": {
+    "confidence": "HIGH",
+    "verified_at": "2026-09-10",
+    "missing": [
+      "Paris wholesaler",
+      "landed prices",
+      "minimum orders"
+    ]
+  }
+}
