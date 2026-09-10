@@ -1,5 +1,5 @@
 {
-  "manita_config_version": "1.3.0",
+  "manita_config_version": "1.4.0",
   "concept_id": "la_manita",
   "price_eur": 5.0,
   "cost_model": {
@@ -9,8 +9,8 @@
     "target_bundle_cost_ratio": 0.3,
     "hard_max_bundle_cost_eur": 1.75,
     "hard_max_bundle_cost_ratio": 0.35,
-    "validation_rule": "FULL_MATRIX is valid only if worst_case_bundle_cost_eur <= hard_max_bundle_cost_eur.",
-    "optimization_rule": "Prefer catalogs where typical/reference bundles remain <= target_bundle_cost_eur."
+    "validation_rule": "FULL_MATRIX est valide si worst_case_bundle_cost_eur <= hard_max_bundle_cost_eur. Les enveloppes familiales le garantissent par construction, leur somme ne dépassant jamais le plafond dur.",
+    "optimization_rule": "expected_bundle_cost_eur mesure la performance probable et ne décide d'aucune admission. On préfère un catalogue dont l'espérance reste sous target_bundle_cost_eur. Elle n'est exploitable qu'au-dessus de min_daily_bundles_for_averaging."
   },
   "family_cost_envelopes": {
     "SNACK": {
@@ -49,7 +49,7 @@
     "density_rule": "10 references per family is an assortment target, not a validity requirement."
   },
   "expected_value_model": {
-    "admission_metric": "EXPECTED_BUNDLE_COST",
+    "admission_metric": "NONE_STEERING_ONLY",
     "description": "Le pire cas somme les maxima des cinq familles : il décrit un client qui choisirait le produit le plus cher dans chacune, simultanément. À la densité cible de 10 références par famille, ce tirage vaut 1 sur 100 000. L'admission se juge donc sur l'espérance, le pire cas restant calculé comme mesure d'exposition.",
     "expected_bundle_cost_rule": "Somme, sur les familles, de la moyenne des coûts pondérée par la distribution de choix observée.",
     "choice_distribution": {
@@ -61,7 +61,8 @@
     "min_daily_bundles_rationale": "L'écart-type d'un panier vaut environ 0,10 €. À 30 paniers par jour l'erreur-type de la moyenne journalière tombe sous 0,02 €, soit une bande de 7 centimes à deux sigmas. En dessous de ce volume, raisonner en moyenne n'est pas fondé.",
     "per_item_absolute_cap_rationale": "Garde contre l'usage détourné de P013 : sans plafond par article, une référence hors budget serait admise en la noyant dans une moyenne, ce que P011 interdit. Changer la métrique de maximum à espérance est légitime ; relever un plafond pour sauver un produit ne l'est pas.",
     "per_item_absolute_cap_removed_in": "1.3.0",
-    "per_item_rule": "FULL_MATRIX : product_cost <= family_cost_envelopes[family].hard_max_eur. Rien d'autre. Un plafond absolu séparé ferait double emploi, et un multiple de l'enveloppe autoriserait précisément ce que l'enveloppe interdit."
+    "per_item_rule": "FULL_MATRIX : product_cost <= family_cost_envelopes[family].hard_max_eur. Rien d'autre. Un plafond absolu séparé ferait double emploi, et un multiple de l'enveloppe autoriserait précisément ce que l'enveloppe interdit.",
+    "role": "PILOTAGE. Révisé en 1.4.0 : tant que les enveloppes familiales somment au plafond dur, elles garantissent seules le pire cas et une porte d'admission par espérance n'ajoute rien. Faire de l'espérance une porte suppose une autre doctrine — enveloppes ne sommant plus mécaniquement au plafond, cap individuel de sécurité, distribution de choix observée et alertes d'exposition. Reporté à une v2."
   },
   "serving_unit_model": {
     "rule": "Une référence Manita est une unité de service, pas nécessairement la référence de boutique.",

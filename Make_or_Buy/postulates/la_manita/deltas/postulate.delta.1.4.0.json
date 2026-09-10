@@ -1,0 +1,29 @@
+{
+  "from_version": "1.3.0",
+  "to_version": "1.4.0",
+  "change_type": "NORMATIVE_CORRECTION",
+  "reason": "Seconde revue Alex. Le postulat affirmait une règle que le validateur n'appliquait pas, et l'espérance ne pouvait rien décider tant que les enveloppes familiales somment au plafond dur. Architecture retenue pour La Manita 5 € : les enveloppes garantissent FULL_MATRIX, l'espérance pilote.",
+  "changes": [
+    {
+      "op": "REPLACE",
+      "path": "economic_postulates.P013_EXPECTED_VALUE_ADMISSION",
+      "new_id": "P013_EXPECTED_VALUE_STEERING",
+      "value": "Expected bundle cost measures probable performance and governs no admission. Family hard caps summing within hard_max_bundle_cost already guarantee the worst case, so an expectation gate would add nothing. Expectation is usable only above the configured minimum daily bundle count. Making expectation an admission gate requires a different doctrine — caps no longer summing mechanically to the ceiling, an individual safety cap, an observed choice distribution and exposure alerts — and is deferred to v2."
+    },
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P019_SINGLE_NORMATIVE_RULE",
+      "value": "One admission rule at a time. Where postulate, configuration and validator disagree, the catalog verdict is undefined and the package is not executable regardless of how sound each part reads."
+    },
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P020_DECLARED_CHECKS_ARE_IMPLEMENTED_OR_DECLARED_ABSENT",
+      "value": "A required_check without implementation must be reported as not implemented in every validator output. A declared but silent check reads as a passed check."
+    },
+    {
+      "op": "ADD",
+      "path": "validation.required_checks_added",
+      "value": ["serving_unit_derivation_computed", "expected_cost_usability_reported"]
+    }
+  ]
+}

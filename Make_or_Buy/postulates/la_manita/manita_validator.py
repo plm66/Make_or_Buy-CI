@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse, json, sys
 from pathlib import Path
 
-VALIDATOR_VERSION="1.3.0"
+VALIDATOR_VERSION="1.4.0"
 
 # Les familles sont declarees par le postulat. Les recopier ici en dur les dupliquerait
 # hors de leur source, ce que P006 refuse pour la donnee produit et qui vaut autant pour
@@ -21,11 +21,70 @@ FAMILIES=families()
 def load(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
+def _operations_cost(ops, tiers, batch):
+    """Cout des gestes d'un lot ramene a l'unite, ou None si une donnee manque."""
+    if not ops:
+        return 0.0
+    if not isinstance(batch,(int,float)) or batch<=0:
+        return None
+    total=0.0
+    for op in ops:
+        rate=((tiers or {}).get(op.get("labor_tier")) or {}).get("cost_per_minute_eur")
+        minutes=op.get("active_labor_minutes_per_batch")
+        if not isinstance(rate,(int,float)) or not isinstance(minutes,(int,float)):
+            return None
+        total+=minutes*rate
+    return total/batch
+
+def serving_unit_cost(p, base_cost, tiers=None):
+    """(cout de l'unite Manita, motif d'echec) selon P014.
+
+    AS_IS               le produit canonique tel quel
+    PORTION             base x portion_ratio, plus les gestes de portionnage
+    TRANSFORMED_SURPLUS le cout du produit source n'entre PAS: il n'est pas evitable en
+                        renoncant a la transformation. Seuls les couts propres a la fiche
+                        — matieres ajoutees et gestes — sont comptes, et ils sont deja
+                        dans base_cost puisque la fiche EST le produit transforme.
+    """
+    su=(p.get("manita") or {}).get("serving_unit")
+    if not su:
+        return base_cost, None
+    fige=su.get("effective_cost_eur")
+    if isinstance(fige,(int,float)):
+        return float(fige), None
+
+    derivation=su.get("derivation")
+    batch=(p.get("internal_production") or {}).get("batch_size_units")
+    extra=_operations_cost(su.get("additional_operations"), tiers, batch)
+
+    if derivation in (None,"AS_IS"):
+        return base_cost, None
+    if derivation=="PORTION":
+        ratio=su.get("portion_ratio")
+        if not isinstance(ratio,(int,float)) or not 0<ratio<=1:
+            return None, "portion_ratio manquant ou hors ]0,1]"
+        if base_cost is None:
+            return None, "cout canonique inconnu, portion incalculable"
+        if extra is None:
+            return None, "gestes de portionnage non chiffrables (taux ou taille de lot)"
+        return base_cost*ratio+extra, None
+    if derivation=="TRANSFORMED_SURPLUS":
+        if not su.get("source_product_id"):
+            return None, "source_product_id obligatoire pour une transformation d'invendu"
+        if su.get("source_state") not in ("DAY_OLD","SURPLUS"):
+            return None, "source_state doit valoir DAY_OLD ou SURPLUS"
+        if base_cost is None:
+            return None, "couts propres a la transformation inconnus"
+        if extra is None:
+            return None, "gestes de transformation non chiffrables"
+        return base_cost+extra, None
+    return None, f"derivation inconnue: {derivation!r}"
+
 def product_cost(p):
     # Canonical preference order. Adjust adapter if Make_or_Buy exposes a stronger field.
     for path in [
         ("decision","selected_effective_cost_eur"),
-        ("manita","effective_cost_eur"),
+        ("manita","serving_unit","effective_cost_eur"),
         ("internal_production","avoidable_cost_total_eur"),
         ("internal_production","material_cost_eur"),
     ]:
@@ -69,7 +128,7 @@ def manita_eligible(p):
 def roles(p):
     return p.get("manita",{}).get("economic_roles",[])
 
-def validate(catalog, config, dietary=None):
+def validate(catalog, config, dietary=None, labor_tiers=None, daily_bundles=None):
     hard=config["cost_model"]["hard_max_bundle_cost_eur"]
     envelopes=config["family_cost_envelopes"]
     # 1.3.0: le plafond absolu par article est retire, redondant avec les enveloppes.
@@ -78,6 +137,7 @@ def validate(catalog, config, dietary=None):
     pools={f:[] for f in FAMILIES}
     missing_cost=[]
     over_family=[]
+    unresolved=[]
     role_counts={f:{} for f in FAMILIES}
 
     for p in catalog:
@@ -99,7 +159,11 @@ def validate(catalog, config, dietary=None):
             if veg is not True:
                 continue
 
-        c=product_cost(p)
+        c, motif = serving_unit_cost(p, product_cost(p), labor_tiers)
+        if motif:
+            unresolved.append({"product_id":p.get("product",{}).get("id") or p.get("id"),
+                               "family":f, "reason":motif})
+            continue
         if c is None:
             missing_cost.append(p.get("product",{}).get("id") or p.get("id"))
             continue
@@ -136,7 +200,16 @@ def validate(catalog, config, dietary=None):
         "over_family_cap_products":over_family,
         "admission_budget_eur":None,
         "free_budget_eur":None,
-        "overrun_attributable_to":[]
+        "overrun_attributable_to":[],
+        "serving_unit_unresolved":unresolved,
+        "daily_bundles":daily_bundles,
+        "expected_cost_usable":None,
+        "checks_not_implemented":[
+            "all_exposed_products_active_or_substitutable",
+            "dynamic_slots_resolvable",
+            "attachment_offset_measured_or_absent",
+            "economic_role_portfolio_sufficient"
+        ]
     }
     if blocking:
         result["status"]="DATA_INCOMPLETE" if missing_cost else "NO_VALID_BUNDLE"
@@ -146,8 +219,14 @@ def validate(catalog, config, dietary=None):
     minima={f:min(c for _,c in pools[f]) for f in FAMILIES}
     worst=sum(maxima.values())
     best=sum(minima.values())
-    # P013: l'admission se juge sur l'esperance, le pire cas reste rendu comme exposition.
+    # P013 revise en 1.4.0: les enveloppes familiales garantissent elles-memes le pire cas,
+    # puisque leur somme ne depasse pas le plafond. L'admission reste donc adossee au pire
+    # cas; l'esperance mesure la performance probable et ne decide de rien. Elle n'est
+    # exploitable qu'au-dessus du volume journalier minimal — en dessous, la moyenne d'une
+    # journee n'est pas une mesure.
     expected=sum(sum(c for _,c in pools[f])/len(pools[f]) for f in FAMILIES)
+    volume_min=(config.get("expected_value_model") or {}).get("min_daily_bundles_for_averaging")
+    usable=None if daily_bundles is None or volume_min is None else daily_bundles>=volume_min
 
     # P016: M_f est le max des references ADMISES; le budget d'admission est leur somme,
     # recalculee a chaque modification du catalogue. Un depassement doit nommer les
@@ -168,7 +247,9 @@ def validate(catalog, config, dietary=None):
             })
 
     result.update({
-        "status":"VALID_BUNDLE" if expected <= hard + 1e-9 else "CATALOG_INVALID",
+        "status":"VALID_BUNDLE" if worst <= hard + 1e-9 else "CATALOG_INVALID",
+        "expected_cost_usable":usable,
+        "expected_vs_target_eur":round(expected-(config["cost_model"]["target_bundle_cost_eur"]),4),
         "admission_budget_eur":round(budget,4),
         "free_budget_eur":libre,
         "overrun_attributable_to":attribue,

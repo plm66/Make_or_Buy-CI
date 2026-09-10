@@ -102,12 +102,12 @@ def test_le_validateur_livre_refuse_plutot_que_de_fabriquer():
     assert "s" in r["missing_cost_products"]
 
 
-def test_lesperance_admet_ce_que_le_pire_cas_refuse():
-    """P013 : le pire cas somme les maxima des cinq familles à la fois — un adversaire,
-    pas un client. L'admission se juge sur l'espérance, le pire cas restant rendu.
+def test_lesperance_ne_decide_daucune_admission():
+    """P013 révisé en 1.4.0 : les enveloppes familiales somment au plafond dur, donc elles
+    garantissent seules le pire cas. Une porte d'admission par espérance n'ajouterait rien.
 
-    Le verdict est celui du validateur du postulat : une seconde implémentation ici
-    pourrait diverger de la normative.
+    Casse si le statut se remet à dépendre de l'espérance — c'est l'arbitrage d'Alex, et
+    l'inverse rendrait le verdict indéfini entre postulat, config et validateur (P019).
     """
     import sys as _sys, json as _json
     _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
@@ -115,13 +115,39 @@ def test_lesperance_admet_ce_que_le_pire_cas_refuse():
     config = _json.loads((ROOT / "postulates" / "la_manita" / "manita.config.json").read_text(encoding="utf-8"))
     config = _json.loads(_json.dumps(config))
     for f in config["family_cost_envelopes"]:
-        config["family_cost_envelopes"][f]["hard_max_eur"] = 1.0
+        config["family_cost_envelopes"][f]["hard_max_eur"] = 5.0
     cat = [{"id": f"{fam}{i}", "family": fam, "cost_eur": c}
            for fam in config["family_cost_envelopes"] for i, c in ((0, 0.10), (1, 0.60))]
     r = validate(cat, config)
-    assert r["worst_case_bundle_cost_eur"] == 3.0 and r["worst_case_bundle_cost_eur"] > 1.75
-    assert r["expected_bundle_cost_eur"] == 1.75
-    assert r["status"] == "VALID_BUNDLE", r
+    assert r["expected_bundle_cost_eur"] == 1.75 <= 1.75      # espérance saine
+    assert r["worst_case_bundle_cost_eur"] == 3.0             # pire cas hors plafond
+    assert r["status"] == "CATALOG_INVALID", r["status"]      # c'est le pire cas qui tranche
+
+
+def test_lesperance_nest_exploitable_quau_dessus_du_volume():
+    """Les directives interdisent de raisonner en moyenne sous le volume minimal. Le
+    validateur ne pouvait pas l'appliquer, faute d'entrée de volume. Il le rend désormais."""
+    import sys as _sys, json as _json
+    _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import validate
+    config = _json.loads((ROOT / "postulates" / "la_manita" / "manita.config.json").read_text(encoding="utf-8"))
+    seuil = config["expected_value_model"]["min_daily_bundles_for_averaging"]
+    cat = [{"id": f, "family": f, "cost_eur": 0.10} for f in config["family_cost_envelopes"]]
+    assert validate(cat, config)["expected_cost_usable"] is None
+    assert validate(cat, config, daily_bundles=seuil - 1)["expected_cost_usable"] is False
+    assert validate(cat, config, daily_bundles=seuil)["expected_cost_usable"] is True
+
+
+def test_les_controles_non_implementes_sont_annonces():
+    """P020 : un contrôle déclaré sans implémentation se lit comme un contrôle passé.
+    Le validateur doit les nommer dans chaque sortie."""
+    import sys as _sys, json as _json
+    _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import validate
+    config = _json.loads((ROOT / "postulates" / "la_manita" / "manita.config.json").read_text(encoding="utf-8"))
+    r = validate([], config)
+    assert "dynamic_slots_resolvable" in r["checks_not_implemented"]
+    assert "attachment_offset_measured_or_absent" in r["checks_not_implemented"]
 
 
 def test_lenveloppe_familiale_est_la_seule_regle_par_article():
@@ -211,6 +237,55 @@ def test_un_depassement_nomme_les_references_responsables():
     premier = r["overrun_attributable_to"][0]
     assert premier["cost_eur"] == 0.9
     assert premier["budget_freed_if_removed_eur"] == 0.8   # retomberait sur la 0,10
+
+
+def test_une_portion_coute_sa_fraction_plus_le_portionnage():
+    """P014 : une tranche de cake n'est pas un cake. Le coût se dérive du produit
+    canonique par la règle de sa dérivation, jamais re-saisi.
+
+    Bug corrigé en 1.4.0 : product_cost cherchait manita.effective_cost_eur alors que le
+    schéma pose manita.serving_unit.effective_cost_eur — tous les coûts de portions
+    étaient donc faux ou absents.
+    """
+    import sys as _sys
+    _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import serving_unit_cost
+    taux = {"apprentice": {"cost_per_minute_eur": 0.16}}
+    cake = {"internal_production": {"batch_size_units": 12},
+            "manita": {"serving_unit": {
+                "derivation": "PORTION", "portion_ratio": 1/12,
+                "additional_operations": [{"task": "trancher",
+                                           "active_labor_minutes_per_batch": 6,
+                                           "labor_tier": "apprentice"}]}}}
+    cout, motif = serving_unit_cost(cake, base_cost=6.00, tiers=taux)
+    assert motif is None
+    assert round(cout, 4) == round(6.00/12 + 6*0.16/12, 4) == 0.58
+
+
+def test_une_transformation_dinvendu_ne_reimpute_pas_le_source():
+    """Le croissant aux amandes est fait sur le croissant de la veille. Le coût du
+    croissant n'entre pas : il n'est pas évitable en renonçant à la transformation, il a
+    déjà été fabriqué et payé. C'est P003 et G003 de la doctrine.
+
+    La règle est protégée par l'exigence de source_product_id et source_state : sans eux
+    on ne peut pas distinguer une transformation d'invendu d'une fabrication normale.
+    """
+    import sys as _sys
+    _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import serving_unit_cost
+    taux = {"production_assistant": {"cost_per_minute_eur": 0.25}}
+    fiche = {"internal_production": {"batch_size_units": 20},
+             "manita": {"serving_unit": {
+                 "derivation": "TRANSFORMED_SURPLUS",
+                 "source_product_id": "croissant_nature", "source_state": "DAY_OLD",
+                 "additional_operations": [{"task": "garnir_repasser",
+                                            "active_labor_minutes_per_batch": 20,
+                                            "labor_tier": "production_assistant"}]}}}
+    cout, motif = serving_unit_cost(fiche, base_cost=0.18, tiers=taux)   # 0,18 = crème d'amande
+    assert motif is None and round(cout, 4) == round(0.18 + 20*0.25/20, 4) == 0.43
+
+    sans_source = {"manita": {"serving_unit": {"derivation": "TRANSFORMED_SURPLUS"}}}
+    assert serving_unit_cost(sans_source, 0.18, taux)[0] is None
 
 
 if __name__ == "__main__":

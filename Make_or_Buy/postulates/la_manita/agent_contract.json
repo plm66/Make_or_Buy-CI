@@ -1,6 +1,6 @@
 {
   "contract_id": "la_manita_agent_contract",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "normative_reference": "la_manita.postulate.json",
   "agent_rules": [
     "Treat the postulate as normative unless a newer version is explicitly supplied.",
@@ -9,6 +9,9 @@
     "Prefer FULL_MATRIX. Use CONSTRAINED_MATRIX only when economic validation fails.",
     "Always compute or request worst_case_bundle_cost before declaring a catalog valid.",
     "For dietary requests, require one valid item in every family.",
-    "Return DATA_INCOMPLETE when critical fields are missing rather than fabricating a decision."
-  ]
+    "Return DATA_INCOMPLETE when critical fields are missing rather than fabricating a decision.",
+    "Une seule règle d'admission à la fois : si postulat, config et validateur divergent, le verdict est indéfini.",
+    "Un contrôle déclaré sans implémentation doit être annoncé comme non implémenté dans chaque sortie."
+  ],
+  "superseded_directives": "agent_directives.v1.2.0.json"
 }
