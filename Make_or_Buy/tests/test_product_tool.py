@@ -130,6 +130,54 @@ def test_lot_non_mesure_reste_une_ignorance_legitime():
     assert pt.labor_cost(doc["internal_production"], TAUX) is None
 
 
+def test_preuve_vegan_doit_etre_documentee():
+    """Une allégation vegan est le seul contrôle dont l'erreur sort de l'écran.
+
+    Le filtre est une liste blanche, pas une liste noire : la version précédente
+    rejetait NONE et NOT_APPLICABLE, donc PARTIAL passait — et n'importe quelle valeur
+    ajoutée plus tard à l'enum serait passée aussi. Casse si quelqu'un ré-énumère les
+    valeurs interdites au lieu des valeurs suffisantes.
+    """
+    for insuffisante in ["PARTIAL", "NONE", "NOT_APPLICABLE", "VALEUR_AJOUTEE_PLUS_TARD"]:
+        doc = fiche_complete()
+        doc["dietary"]["claim_evidence"] = insuffisante
+        errs = pt.validate_product(doc, TAUX)
+        assert any("vegan" in e for e in errs), (insuffisante, errs)
+
+    for suffisante in ["SUPPLIER_DOCUMENTED", "INTERNAL_RECIPE_DOCUMENTED"]:
+        doc = fiche_complete()
+        doc["dietary"]["claim_evidence"] = suffisante
+        assert pt.validate_product(doc, TAUX) == []
+
+
+def test_capacite_liberee_est_restituee():
+    """L'écart entre temps écoulé et temps immobilisé est une valeur, pas un résidu.
+
+    P004 demande de compter le temps qualifié libéré. Il est calculé depuis toujours
+    et n'apparaissait nulle part. Casse si operations_summary cesse de rendre les deux
+    totaux séparément.
+    """
+    i = fiche_complete()["internal_production"]
+    actif, ecoule = pt.operations_summary(i)
+    assert (actif, ecoule) == (50, 65)          # 20+30 immobilisées, 20+45 écoulées
+    assert ecoule - actif == 15                 # capacité libérée par lot
+
+
+def test_status_distingue_pret_et_incomplet():
+    """`status` sert à savoir s'il reste quelque chose à faire sur une fiche.
+
+    PRÊT signifie exactement « compile l'accepterait ». Casse si les deux critères
+    divergent — l'utilisateur verrait PRÊT sur une fiche que compile ignore.
+    """
+    assert pt.fiche_status(fiche_complete(), TAUX)[0] == "PRET"
+
+    sans_prix = fiche_complete()
+    sans_prix["commercial"]["sale_price_eur"] = None
+    etat, details = pt.fiche_status(sans_prix, TAUX)
+    assert etat == "INCOMPLET"
+    assert any("sale_price_eur" in d for d in details), details
+
+
 def test_prix_inconnu_nest_pas_compile_en_zero():
     """Un prix inconnu vaut « inconnu », jamais 0 €.
 

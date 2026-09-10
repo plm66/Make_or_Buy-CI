@@ -97,6 +97,12 @@ cp data/product.template.json data/products/mon_produit.json
 python3 product_tool.py validate data/products/mon_produit.json
 ```
 
+Suivre l'avancement :
+
+```bash
+python3 product_tool.py status data/products
+```
+
 Puis compiler les produits actifs :
 
 ```bash

@@ -14,6 +14,11 @@ Prix de vente, valeur de référence, éligibilité bundle et paliers de prix.
 Régimes alimentaires, allergènes et niveau de preuve de l'allégation.
 Une propriété `vegan=true` n'est pas suffisante : `claim_evidence` doit indiquer d'où vient la preuve.
 
+Seuls `SUPPLIER_DOCUMENTED` et `INTERNAL_RECIPE_DOCUMENTED` valident une allégation vegan.
+`PARTIAL` est refusé — le filtre est une liste blanche, donc toute valeur ajoutée plus tard
+à l'énumération est refusée par défaut plutôt qu'acceptée par oubli. C'est le seul contrôle
+du système dont l'erreur quitte l'écran pour aller en vitrine.
+
 ### `signature`
 Classe doctrinale et opérations qui créent la différence client.
 Pour un produit hybride, on décrit explicitement la marinade, le calibrage, l'assemblage ou la finition qui porte la signature.
@@ -118,6 +123,16 @@ Trois niveaux plutôt que deux : la hiérarchie économique du travail est assez
 déplacer réellement un arbitrage Make-or-Buy.
 
 ## Commandes
+
+Voir ce qu'il reste à remplir, par famille et par fiche :
+
+```bash
+python3 product_tool.py status data/products
+```
+
+`PRÊT` signifie exactement « `compile` l'accepterait ». La commande affiche aussi, pour chaque
+fiche chronométrée, le temps immobilisé, le temps écoulé et l'écart des deux — la capacité
+libérée au sens de P004.
 
 Valider un produit :
 

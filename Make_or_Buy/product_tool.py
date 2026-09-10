@@ -6,6 +6,14 @@ from pathlib import Path
 FAMILIES={"SNACK","COLD_DRINK","COMPLEMENT","DESSERT","HOT_DRINK"}
 CLASSES={"STANDARDIZABLE","SUPPLIER_SUPERIOR","INHOUSE_SIGNATURE_ADVANTAGE","HYBRID_SIGNATURE"}
 MODES={"MAKE","BUY","HYBRID","UNDECIDED"}
+
+# Liste blanche, pas liste noire: la version precedente rejetait NONE et NOT_APPLICABLE,
+# donc PARTIAL passait — et toute valeur future non prevue serait passee aussi. Une
+# allegation vegan part en vitrine; c'est le seul controle du systeme dont l'erreur
+# sort de l'ecran. La doctrine (traceability_requirements.vegan_products) demande une
+# source capable de documenter composition, changements de recette et allergenes:
+# une preuve partielle ne repond pas a ca.
+PREUVES_VEGAN_SUFFISANTES={"SUPPLIER_DOCUMENTED","INTERNAL_RECIPE_DOCUMENTED"}
 SCHEMA_VERSION="2.0.0"
 ROOT=Path(__file__).resolve().parent
 DEFAULT_PARAMS=ROOT/"params"/"establishment.json"
@@ -80,6 +88,18 @@ def active_minutes_per_unit(internal):
     if not all(isinstance(m,(int,float)) for m in mins): return None
     return round(sum(mins)/batch,4)
 
+def operations_summary(internal):
+    """(minutes immobilisees, minutes ecoulees) du lot, ou None si non renseigne.
+    L'ecart des deux est la capacite liberee au sens de P004: du temps qualifie
+    disponible pendant qu'une pate leve ou qu'une infusion repose."""
+    ops=internal.get("operations")
+    if not ops: return None
+    act=[op.get("active_labor_minutes_per_batch") for op in ops]
+    if not all(isinstance(m,(int,float)) for m in act): return None
+    ela=[op.get("elapsed_minutes_per_batch") if isinstance(op.get("elapsed_minutes_per_batch"),(int,float))
+         else op.get("active_labor_minutes_per_batch") for op in ops]
+    return round(sum(act),4), round(sum(ela),4)
+
 def engine_blockers(doc):
     """Champs sans lesquels la compilation inventerait un chiffre au lieu de constater une absence.
     Le cout n'y figure pas: il echoue deja ferme (selected_cost rend None, le menu est ecarte)."""
@@ -140,8 +160,9 @@ def validate_product(doc, params=None):
 
     # Vegan claim evidence
     diet=doc["dietary"]
-    if diet.get("vegan") is True and diet.get("claim_evidence") in {"NONE","NOT_APPLICABLE"}:
-        e.append("produit vegan: claim_evidence insuffisant")
+    if diet.get("vegan") is True and diet.get("claim_evidence") not in PREUVES_VEGAN_SUFFISANTES:
+        e.append(f"allégation vegan avec claim_evidence={diet.get('claim_evidence')!r}: "
+                 f"preuve insuffisante, attendu {' ou '.join(sorted(PREUVES_VEGAN_SUFFISANTES))}")
 
     # Missing fields must be explicit when confidence is not HIGH
     dq=doc["data_quality"]
@@ -226,10 +247,72 @@ def cmd_compile(args):
     Path(args.output).write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"{len(out)} produits compilés, {len(skipped)} ignorés -> {args.output}")
 
+FAMILLES_MOTEUR=["SNACK","COLD_DRINK","COMPLEMENT","DESSERT","HOT_DRINK"]
+
+def fiche_status(doc, params):
+    """(etat, details) d'une fiche: INVALIDE, INCOMPLET ou PRET pour le moteur."""
+    errors=validate_product(doc,params)
+    if errors: return "INVALIDE", errors
+    blockers=engine_blockers(doc)
+    if doc["product"].get("status")!="ACTIVE":
+        return "INCOMPLET", [f"status={doc['product'].get('status')}"]
+    if blockers: return "INCOMPLET", [f"{b} inconnu" for b in blockers]
+    return "PRET", []
+
+def cmd_status(args):
+    p=Path(args.path)
+    params=load_params()
+    files=sorted(p.glob("*.json")) if p.is_dir() else [p]
+    if not files:
+        print(f"aucune fiche dans {p}"); return
+
+    lignes=[]
+    for f in files:
+        doc=load(f)
+        etat,details=fiche_status(doc,params)
+        lignes.append((doc,etat,details,f))
+
+    print(f"{'FAMILLE':14} {'PRÊTES':>7}  FICHES")
+    par_famille={}
+    for doc,etat,_,_ in lignes:
+        par_famille.setdefault(doc["product"].get("family"),[]).append((doc,etat))
+    for fam in FAMILLES_MOTEUR:
+        fiches=par_famille.get(fam,[])
+        prets=sum(1 for _,e in fiches if e=="PRET")
+        noms=", ".join(d["product"]["id"] for d,_ in fiches) or "—"
+        print(f"{fam:14} {prets:>3}/{len(fiches):<3}  {noms}")
+    inconnues=set(par_famille)-set(FAMILLES_MOTEUR)
+    for fam in sorted(inconnues):
+        print(f"{str(fam):14} {'?':>7}  famille hors moteur")
+
+    manquantes=[f for f in FAMILLES_MOTEUR if not par_famille.get(f)]
+    if manquantes:
+        print(f"\nLe moteur compose un menu par famille: {len(manquantes)} sans aucune fiche "
+              f"({', '.join(manquantes)}). Aucun menu possible tant qu'il en manque une.")
+
+    for doc,etat,details,f in lignes:
+        pr=doc["product"]
+        print(f"\n{pr['id']:28} {pr.get('family',''):12} {etat}")
+        for d in details: print(f"  - {d}")
+        for champ in doc["data_quality"].get("missing_critical_fields") or []:
+            print(f"  · à mesurer: {champ}")
+        i=doc["internal_production"]
+        somme=operations_summary(i)
+        if somme:
+            act,ela=somme
+            print(f"  travail: {act} min immobilisées / {ela} min écoulées "
+                  f"-> {round(ela-act,4)} min de capacité libérée par lot")
+            cout=labor_cost(i,params)
+            batch=i.get("batch_size_units")
+            print(f"  coût du travail: {cout} €/unité (lot de {batch})" if cout is not None
+                  else "  coût du travail: incalculable (lot non mesuré ou taux manquant)")
+
 def main():
     ap=argparse.ArgumentParser(prog="product_tool")
     sp=ap.add_subparsers(required=True)
     v=sp.add_parser("validate"); v.add_argument("path"); v.set_defaults(func=cmd_validate)
     c=sp.add_parser("compile"); c.add_argument("directory"); c.add_argument("--output",default="data/catalog.generated.json"); c.set_defaults(func=cmd_compile)
+    st=sp.add_parser("status",help="Avancement du remplissage, par famille et par fiche.")
+    st.add_argument("path",nargs="?",default="data/products"); st.set_defaults(func=cmd_status)
     a=ap.parse_args(); a.func(a)
 if __name__=="__main__": main()
