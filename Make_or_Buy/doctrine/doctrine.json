@@ -1,0 +1,400 @@
+{
+  "metadata": {
+    "doctrine_id": "bakery_make_buy_doctrine",
+    "title": "Doctrine d’arbitrage fabrication interne / sourcing externe",
+    "machine_version": "1.0.0",
+    "human_source_version": "1.3",
+    "language": "fr",
+    "status": "active",
+    "source_document": "Doctrine_arbitrage_fabrication_sourcing_externe_v1.3.docx",
+    "last_updated": "2026-09-10",
+    "revision_history": [
+      {
+        "version": "1.0.0",
+        "date": "2026-09-10",
+        "reason": "Première formalisation machine de la doctrine humaine v1.3."
+      }
+    ]
+  },
+  "purpose": {
+    "objective": "Décider, produit par produit, s’il faut fabriquer en interne, acheter à l’extérieur ou retenir un modèle hybride.",
+    "primary_rule": "Ne jamais comparer le seul prix fournisseur au seul coût matière interne. Comparer la valeur client, le coût complet évitable, la capacité libérée, la qualité, le stock, la conservation, la traçabilité et le risque fournisseur.",
+    "scope": [
+      "boulangerie",
+      "pâtisserie",
+      "snacking",
+      "boissons",
+      "produits finis ou semi-finis",
+      "composants destinés à une finition maison"
+    ]
+  },
+  "principles": {
+    "P001_CUSTOMER_PERCEPTION_FIRST": {
+      "label": "Indifférence ou préférence perçue",
+      "priority": 1,
+      "rule": "Avant l’analyse économique, déterminer si le client attribue une valeur significative à l’origine interne du produit.",
+      "outcomes": {
+        "house_clearly_superior": "Favoriser MAKE si l’avantage client est réel et soutenable.",
+        "customer_indifferent": "Autoriser l’arbitrage MAKE_OR_BUY.",
+        "supplier_superior": "Favoriser BUY sous réserve du coût complet et du risque fournisseur."
+      }
+    },
+    "P002_EXTERNAL_QUALITY_CAN_WIN": {
+      "label": "Qualité fournisseur potentiellement supérieure",
+      "priority": 2,
+      "rule": "Le fait maison n’est pas présumé supérieur. Un fournisseur peut apporter une meilleure régularité, présentation, conservation, standardisation ou documentation."
+    },
+    "P003_TOTAL_AVOIDABLE_COST": {
+      "label": "Coût complet évitable",
+      "priority": 3,
+      "rule": "Le prix fournisseur doit être comparé au coût réellement évitable de la fabrication interne, pas au coût matière seul."
+    },
+    "P004_CAPACITY_HAS_VALUE": {
+      "label": "Valeur de la capacité libérée",
+      "priority": 4,
+      "rule": "Le temps qualifié libéré doit être considéré comme une valeur économique lorsqu’il peut être réaffecté à des produits différenciants ou à des tâches critiques."
+    },
+    "P005_CONSERVATION_IS_ECONOMIC": {
+      "label": "Conservation comme avantage économique",
+      "priority": 5,
+      "rule": "Une durée de vie utile plus longue ou plus prévisible, un conditionnement protecteur et des règles documentées peuvent justifier un produit externe plus cher à l’unité."
+    },
+    "P006_TRACEABILITY_IS_OPERATIONAL_VALUE": {
+      "label": "Traçabilité et circonscription des incidents",
+      "priority": 6,
+      "rule": "La capacité à identifier rapidement ingrédients, allergènes, lots, dates, origine et maillon responsable constitue un avantage opérationnel autonome."
+    },
+    "P007_SIGNATURE_VALUE_MUST_STAY_IN_HOUSE": {
+      "label": "Préserver la valeur signature",
+      "priority": 7,
+      "rule": "Conserver en interne les opérations auxquelles le client attribue réellement le goût, la recette, la fraîcheur, la personnalisation ou l’identité de l’établissement."
+    },
+    "P008_HYBRIDIZE_WHERE_VALUE_IS_CREATED": {
+      "label": "Externaliser le standard, garder la signature",
+      "priority": 8,
+      "rule": "Pour un produit signature hybride, acheter les composants standardisables et réserver le travail interne aux opérations qui créent la différenciation."
+    }
+  },
+  "product_classes": {
+    "STANDARDIZABLE": {
+      "label": "Produit standardisable",
+      "definition": "Le client est indifférent à l’origine interne ou externe dès lors que qualité, aspect et usage sont équivalents.",
+      "default_orientation": "MAKE_OR_BUY"
+    },
+    "SUPPLIER_SUPERIOR": {
+      "label": "Produit fournisseur supérieur",
+      "definition": "Le fournisseur apporte une qualité, régularité, conservation, documentation ou procédé difficile à reproduire économiquement en interne.",
+      "default_orientation": "BUY"
+    },
+    "INHOUSE_SIGNATURE_ADVANTAGE": {
+      "label": "Produit signature à avantage de fabrication interne",
+      "definition": "La fabrication maison crée une valeur identifiable par le client ou un avantage économique propre à l’établissement.",
+      "default_orientation": "MAKE"
+    },
+    "HYBRID_SIGNATURE": {
+      "label": "Produit signature hybride",
+      "definition": "Une base ou matière est sourcée à l’extérieur, tandis que la sélection, le calibrage, la recette, la marinade, l’assemblage, la cuisson ou la finition interne crée la signature.",
+      "default_orientation": "HYBRID",
+      "subtypes": {
+        "PROPRIETARY_ASSEMBLY_SPEC": "Spécification propriétaire d’assemblage : coupe, grammage, assortiment, ordre d’assemblage ou présentation.",
+        "PROPRIETARY_TRANSFORMATION_RECIPE": "Recette propriétaire de transformation : marinade, assaisonnement, maturation, cuisson ou finition."
+      }
+    }
+  },
+  "decision_modes": {
+    "MAKE": {
+      "label": "Fabriquer",
+      "use_when": "Le savoir-faire interne est visible et valorisé ou l’avantage économique interne est démontré."
+    },
+    "BUY": {
+      "label": "Acheter",
+      "use_when": "L’origine est indifférente ou le fournisseur est supérieur, et l’économie opérationnelle globale est favorable."
+    },
+    "HYBRID": {
+      "label": "Hybride",
+      "use_when": "Le composant standardisable peut être acheté tandis que la valeur signature est créée en interne, ou lorsqu’une double source protège la continuité."
+    }
+  },
+  "criteria": {
+    "CUSTOMER_INDIFFERENCE": {
+      "label": "Indifférence client",
+      "weight": 0.2,
+      "question": "Le client accepterait-il le produit externe au même prix et avec la même satisfaction ?",
+      "buy_signal": "yes"
+    },
+    "SUPPLIER_QUALITY": {
+      "label": "Qualité fournisseur",
+      "weight": 0.15,
+      "question": "Le produit externe est-il au moins aussi bon et aussi régulier ?",
+      "buy_signal": "yes"
+    },
+    "LABOR_SAVING": {
+      "label": "Gain de main-d’œuvre",
+      "weight": 0.2,
+      "question": "Combien de temps qualifié est réellement supprimé ou réaffectable ?",
+      "buy_signal": "high"
+    },
+    "AVOIDABLE_COST": {
+      "label": "Coût complet évitable",
+      "weight": 0.15,
+      "question": "Quel coût disparaît réellement avec l’externalisation ?",
+      "buy_signal": "high"
+    },
+    "PURCHASING_STOCK_SIMPLIFICATION": {
+      "label": "Simplification achats / stock",
+      "weight": 0.1,
+      "question": "Combien d’ingrédients, références, manipulations et aléas disparaissent ?",
+      "buy_signal": "high"
+    },
+    "CONSERVATION_LOSS": {
+      "label": "Conservation / pertes",
+      "weight": 0.1,
+      "question": "Le fournisseur apporte-t-il une durée de vie utile plus longue ou plus prévisible, un meilleur conditionnement et moins de pertes ?",
+      "buy_signal": "yes"
+    },
+    "TRACEABILITY_INCIDENT": {
+      "label": "Traçabilité / incident",
+      "weight": 0.05,
+      "question": "Le fournisseur permet-il d’identifier rapidement ingrédients, allergènes, lot, dates, source et périmètre d’un incident ?",
+      "buy_signal": "yes"
+    },
+    "SUPPLIER_RISK": {
+      "label": "Risque fournisseur",
+      "weight": 0.05,
+      "question": "Le service est-il suffisamment fiable ou doublable ?",
+      "buy_signal": "low_risk"
+    }
+  },
+  "cost_model": {
+    "internal_avoidable_components": [
+      "matières",
+      "temps de travail direct évitable",
+      "préparation",
+      "portionnage",
+      "cuisson",
+      "finition",
+      "nettoyage",
+      "énergie",
+      "consommables",
+      "pertes",
+      "rebuts",
+      "surproduction",
+      "stockage d’ingrédients",
+      "gestion d’ingrédients spécifiques",
+      "immobilisation d’équipements réellement évitable"
+    ],
+    "external_landed_components": [
+      "prix fournisseur rendu",
+      "transport spécifique",
+      "stockage",
+      "pertes",
+      "minimums de commande",
+      "coût de rupture attendu",
+      "coût de remise en œuvre"
+    ],
+    "rule": "Ne compter comme économie que les coûts réellement évitables. Un salaire fixe non supprimé à court terme relève d’abord de la capacité libérée."
+  },
+  "conservation_requirements": {
+    "evaluate": [
+      "durée de vie utile totale",
+      "durée résiduelle minimale à réception",
+      "température de stockage",
+      "conditionnement protecteur",
+      "stabilité après ouverture",
+      "stabilité après décongélation ou remise en œuvre",
+      "sensibilité aux variations de température",
+      "identification des lots",
+      "taux d’invendus et de casse"
+    ],
+    "rule": "L’avantage externe doit être documenté et vérifié, jamais présumé."
+  },
+  "traceability_requirements": {
+    "supplier_documents": [
+      "fiche technique",
+      "liste d’ingrédients",
+      "allergènes",
+      "identification de lot",
+      "dates",
+      "conditions de conservation",
+      "procédure d’alerte ou de rappel",
+      "certificats ou résultats de contrôle lorsque pertinents"
+    ],
+    "vegan_products": {
+      "rule": "Pour une revendication vegan ou végétalienne, privilégier une source capable de documenter composition, changements de recette, allergènes et risques de contamination croisée."
+    },
+    "egg_and_sensitive_products": {
+      "rule": "Pour les produits à base d’œufs ou autres matières sensibles, la traçabilité doit permettre d’identifier l’origine, le lot et le maillon responsable afin de circonscrire les mesures correctives au périmètre réellement affecté."
+    }
+  },
+  "supplier_specification": {
+    "minimum_fields": [
+      "poids",
+      "dimensions",
+      "recette ou spécification",
+      "ingrédients",
+      "allergènes",
+      "conditionnement",
+      "durée de vie totale",
+      "durée résiduelle minimale à la livraison",
+      "température de conservation",
+      "règles après ouverture ou décongélation",
+      "méthode de remise en œuvre",
+      "identification des lots",
+      "documents de traçabilité",
+      "tolérance de qualité"
+    ]
+  },
+  "guardrails": {
+    "G001": "Ne pas externaliser uniquement parce que le prix fournisseur est plus bas.",
+    "G002": "Ne pas comparer le prix fournisseur au seul coût matière interne.",
+    "G003": "Ne pas compter comme économie un coût qui restera dans l’entreprise.",
+    "G004": "Ne pas externaliser une opération qui porte une valeur signature significative sans alternative de préservation de cette valeur.",
+    "G005": "Prévoir une solution de secours pour les références critiques : second fournisseur, stock de sécurité ou capacité interne minimale.",
+    "G006": "Réévaluer périodiquement les décisions lorsque prix, salaires, volumes, qualité, conservation ou capacité changent."
+  },
+  "decision_workflow": [
+    {
+      "step": 1,
+      "action": "Définir le produit et le standard client attendu."
+    },
+    {
+      "step": 2,
+      "action": "Tester l’indifférence ou la préférence client entre interne et externe."
+    },
+    {
+      "step": 3,
+      "action": "Classer le produit dans la typologie doctrinale."
+    },
+    {
+      "step": 4,
+      "action": "Comparer objectivement qualité et régularité."
+    },
+    {
+      "step": 5,
+      "action": "Calculer le coût complet évitable de la fabrication interne."
+    },
+    {
+      "step": 6,
+      "action": "Calculer le coût fournisseur rendu, stockage et pertes inclus."
+    },
+    {
+      "step": 7,
+      "action": "Quantifier les minutes de main-d’œuvre et la capacité libérées."
+    },
+    {
+      "step": 8,
+      "action": "Mesurer achats, stock, conservation, pertes, ruptures et traçabilité."
+    },
+    {
+      "step": 9,
+      "action": "Vérifier les documents fournisseur et la capacité à circonscrire un incident."
+    },
+    {
+      "step": 10,
+      "action": "Évaluer la dépendance fournisseur et le plan de secours."
+    },
+    {
+      "step": 11,
+      "action": "Choisir MAKE, BUY ou HYBRID et mesurer le résultat réel pendant une période test."
+    },
+    {
+      "step": 12,
+      "action": "Réévaluer périodiquement la décision."
+    }
+  ],
+  "illustrative_examples": {
+    "COOKIE": {
+      "status": "pedagogical",
+      "classification": "STANDARDIZABLE",
+      "internal_material_cost_eur": 0.22,
+      "supplier_delivered_price_eur": 0.35,
+      "illustrative_internal_operational_cost_eur": 0.41,
+      "illustrative_external_operational_cost_eur": 0.36,
+      "lesson": "Un prix fournisseur supérieur au coût matière interne peut malgré tout produire un coût total inférieur.",
+      "confidence": "illustrative_only"
+    },
+    "BISSAP_HOUSE": {
+      "status": "hypothesis_to_measure",
+      "classification": "INHOUSE_SIGNATURE_ADVANTAGE",
+      "orientation": "MAKE",
+      "value_drivers": [
+        "coût matière potentiellement bas",
+        "recette maison",
+        "valeur perçue",
+        "identité établissement"
+      ],
+      "confidence": "medium"
+    },
+    "GINGER_JUICE_HOUSE": {
+      "status": "hypothesis_to_measure",
+      "classification": "INHOUSE_SIGNATURE_ADVANTAGE",
+      "orientation": "MAKE",
+      "value_drivers": [
+        "coût matière potentiellement bas",
+        "recette maison",
+        "goût distinctif",
+        "valeur perçue"
+      ],
+      "confidence": "medium"
+    },
+    "HANGER_STEAK_SKEWER": {
+      "status": "conceptual_example",
+      "classification": "HYBRID_SIGNATURE",
+      "hybrid_subtype": "PROPRIETARY_ASSEMBLY_SPEC",
+      "signature_operations": [
+        "choix de la hampe",
+        "calibrage",
+        "composition",
+        "assortiment",
+        "assemblage"
+      ],
+      "orientation": "HYBRID"
+    },
+    "BRAISED_CHICKEN_BACK": {
+      "status": "conceptual_example",
+      "classification": "HYBRID_SIGNATURE",
+      "hybrid_subtype": "PROPRIETARY_TRANSFORMATION_RECIPE",
+      "signature_operations": [
+        "choix de la partie de dos",
+        "calibrage",
+        "marinade propriétaire",
+        "temps de repos",
+        "cuisson braisée"
+      ],
+      "orientation": "HYBRID"
+    }
+  },
+  "llm_research_protocol": {
+    "role": "Utiliser cette doctrine comme référentiel de décision, pas comme résultat préétabli.",
+    "mandatory_behavior": [
+      "Identifier d’abord les contraintes dominantes : coût, disponibilité, main-d’œuvre, capacité, conservation, traçabilité, qualité et valeur signature.",
+      "Distinguer données vérifiées, estimations et hypothèses.",
+      "Ne jamais conclure BUY à partir du seul prix unitaire.",
+      "Ne jamais conclure MAKE à partir du seul coût matière.",
+      "Tester l’existence d’une valeur signature avant d’externaliser.",
+      "Rechercher les données de conservation et de traçabilité fournisseur lorsqu’elles sont pertinentes.",
+      "Signaler explicitement les informations manquantes qui peuvent inverser la décision."
+    ],
+    "required_output": {
+      "product": "string",
+      "product_class": "STANDARDIZABLE | SUPPLIER_SUPERIOR | INHOUSE_SIGNATURE_ADVANTAGE | HYBRID_SIGNATURE",
+      "recommended_mode": "MAKE | BUY | HYBRID | UNDECIDED",
+      "dominant_constraints": "array",
+      "customer_perception": "assessment",
+      "quality_comparison": "assessment",
+      "internal_avoidable_cost": "value_or_unknown",
+      "external_landed_cost": "value_or_unknown",
+      "labor_minutes_saved": "value_or_unknown",
+      "conservation_assessment": "assessment",
+      "traceability_assessment": "assessment",
+      "supplier_risk": "assessment",
+      "signature_value": "assessment",
+      "evidence": "array of sources or observations",
+      "uncertainties": "array",
+      "confidence": "low | medium | high",
+      "decision_rationale": "concise explanation"
+    },
+    "automatic_decision": false,
+    "note": "Les poids servent à structurer l’analyse. Ils ne remplacent pas un jugement lorsque la valeur signature ou un risque critique domine."
+  }
+}

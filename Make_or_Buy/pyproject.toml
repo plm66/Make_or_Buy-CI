@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "make-or-buy-bakery"
+version = "0.3.0"
+description = "Doctrine Make or Buy et composition de menus pour boulangerie"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+make-or-buy = "make_or_buy.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

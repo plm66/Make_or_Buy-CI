@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Make or Buy Product",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "family",
+    "diet",
+    "sale_price_eur",
+    "internal",
+    "external",
+    "signature"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "family": {
+      "enum": [
+        "SNACK",
+        "COLD_DRINK",
+        "COMPLEMENT",
+        "DESSERT",
+        "HOT_DRINK"
+      ]
+    },
+    "diet": {
+      "type": "object",
+      "properties": {
+        "vegan": {
+          "type": "boolean"
+        },
+        "vegetarian": {
+          "type": "boolean"
+        },
+        "allergens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "vegan",
+        "vegetarian"
+      ]
+    },
+    "sale_price_eur": {
+      "type": "number",
+      "minimum": 0
+    },
+    "internal": {
+      "type": "object",
+      "properties": {
+        "possible": {
+          "type": "boolean"
+        },
+        "material_cost_eur": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "labor_minutes": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "shelf_life_hours": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "traceability_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        }
+      },
+      "required": [
+        "possible"
+      ]
+    },
+    "external": {
+      "type": "object",
+      "properties": {
+        "possible": {
+          "type": "boolean"
+        },
+        "landed_cost_eur": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "shelf_life_hours": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "traceability_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "supplier_quality_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        }
+      },
+      "required": [
+        "possible"
+      ]
+    },
+    "signature": {
+      "type": "object",
+      "properties": {
+        "class": {
+          "enum": [
+            "STANDARDIZABLE",
+            "SUPPLIER_SUPERIOR",
+            "INHOUSE_SIGNATURE_ADVANTAGE",
+            "HYBRID_SIGNATURE"
+          ]
+        },
+        "customer_value_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "class",
+        "customer_value_score"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

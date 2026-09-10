@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/bakery-make-buy-doctrine.schema.json",
+  "title": "Bakery Make/Buy Doctrine",
+  "type": "object",
+  "required": [
+    "metadata",
+    "purpose",
+    "principles",
+    "product_classes",
+    "decision_modes",
+    "criteria",
+    "guardrails",
+    "decision_workflow",
+    "llm_research_protocol"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "doctrine_id",
+        "machine_version",
+        "human_source_version",
+        "status"
+      ],
+      "properties": {
+        "doctrine_id": {
+          "type": "string"
+        },
+        "machine_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "human_source_version": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "active",
+            "deprecated"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "criteria": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "label",
+          "weight",
+          "question"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "question": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "decision_workflow": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "step",
+          "action"
+        ],
+        "properties": {
+          "step": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "action": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "llm_research_protocol": {
+      "type": "object",
+      "required": [
+        "mandatory_behavior",
+        "required_output",
+        "automatic_decision"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

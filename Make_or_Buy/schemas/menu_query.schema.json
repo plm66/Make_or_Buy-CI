@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Menu Query",
+  "type": "object",
+  "required": [
+    "diet",
+    "price_tiers_eur",
+    "families"
+  ],
+  "properties": {
+    "diet": {
+      "enum": [
+        "ANY",
+        "VEGETARIAN",
+        "VEGAN"
+      ]
+    },
+    "price_tiers_eur": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "number",
+        "minimum": 0
+      }
+    },
+    "families": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "SNACK",
+          "COLD_DRINK",
+          "COMPLEMENT",
+          "DESSERT",
+          "HOT_DRINK"
+        ]
+      }
+    },
+    "max_food_cost_ratio": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "default": 0.3
+    },
+    "prefer_signature": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

@@ -1,0 +1,373 @@
+[
+  {
+    "id": "snack_focaccia_vegan",
+    "name": "Focaccia légumes grillés",
+    "family": "SNACK",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": [
+        "gluten"
+      ]
+    },
+    "sale_price_eur": 4.2,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": 0.72,
+      "labor_minutes": 4.0,
+      "shelf_life_hours": 12,
+      "traceability_score": 3
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": 1.15,
+      "shelf_life_hours": 48,
+      "traceability_score": 5,
+      "supplier_quality_score": 4
+    },
+    "signature": {
+      "class": "HYBRID_SIGNATURE",
+      "customer_value_score": 4.2,
+      "notes": "Base sourcée possible, assemblage et assaisonnement maison."
+    }
+  },
+  {
+    "id": "snack_houmous_crudites",
+    "name": "Mini sandwich houmous-crudités",
+    "family": "SNACK",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": [
+        "gluten",
+        "sésame"
+      ]
+    },
+    "sale_price_eur": 3.8,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": 0.62,
+      "labor_minutes": 3.5,
+      "shelf_life_hours": 10,
+      "traceability_score": 3
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": 1.05,
+      "shelf_life_hours": 36,
+      "traceability_score": 5,
+      "supplier_quality_score": 4
+    },
+    "signature": {
+      "class": "HYBRID_SIGNATURE",
+      "customer_value_score": 4.0,
+      "notes": "Recette et montage maison."
+    }
+  },
+  {
+    "id": "drink_bissap",
+    "name": "Bissap maison",
+    "family": "COLD_DRINK",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": []
+    },
+    "sale_price_eur": 2.8,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": 0.24,
+      "labor_minutes": 1.2,
+      "shelf_life_hours": 48,
+      "traceability_score": 3
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": 0.95,
+      "shelf_life_hours": 240,
+      "traceability_score": 5,
+      "supplier_quality_score": 4
+    },
+    "signature": {
+      "class": "INHOUSE_SIGNATURE_ADVANTAGE",
+      "customer_value_score": 4.7,
+      "notes": "Recette maison fortement différenciante."
+    }
+  },
+  {
+    "id": "drink_ginger",
+    "name": "Jus de gingembre maison",
+    "family": "COLD_DRINK",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": []
+    },
+    "sale_price_eur": 3.0,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": 0.3,
+      "labor_minutes": 1.4,
+      "shelf_life_hours": 48,
+      "traceability_score": 3
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": 1.1,
+      "shelf_life_hours": 240,
+      "traceability_score": 5,
+      "supplier_quality_score": 4
+    },
+    "signature": {
+      "class": "INHOUSE_SIGNATURE_ADVANTAGE",
+      "customer_value_score": 4.8,
+      "notes": "Goût propriétaire et très forte valeur perçue."
+    }
+  },
+  {
+    "id": "drink_water",
+    "name": "Eau 50 cl",
+    "family": "COLD_DRINK",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": []
+    },
+    "sale_price_eur": 1.5,
+    "internal": {
+      "possible": false,
+      "material_cost_eur": null,
+      "labor_minutes": null,
+      "shelf_life_hours": null,
+      "traceability_score": null
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": 0.28,
+      "shelf_life_hours": 8760,
+      "traceability_score": 5,
+      "supplier_quality_score": 5
+    },
+    "signature": {
+      "class": "STANDARDIZABLE",
+      "customer_value_score": 1.0,
+      "notes": "Achat externe évident."
+    }
+  },
+  {
+    "id": "complement_chips",
+    "name": "Chips",
+    "family": "COMPLEMENT",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": []
+    },
+    "sale_price_eur": 1.5,
+    "internal": {
+      "possible": false,
+      "material_cost_eur": null,
+      "labor_minutes": null,
+      "shelf_life_hours": null,
+      "traceability_score": null
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": 0.29,
+      "shelf_life_hours": 1440,
+      "traceability_score": 5,
+      "supplier_quality_score": 5
+    },
+    "signature": {
+      "class": "STANDARDIZABLE",
+      "customer_value_score": 1.5,
+      "notes": "Produit standardisable."
+    }
+  },
+  {
+    "id": "complement_compote",
+    "name": "Compote pomme",
+    "family": "COMPLEMENT",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": []
+    },
+    "sale_price_eur": 1.6,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": 0.22,
+      "labor_minutes": 2.0,
+      "shelf_life_hours": 48,
+      "traceability_score": 3
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": 0.32,
+      "shelf_life_hours": 2880,
+      "traceability_score": 5,
+      "supplier_quality_score": 5
+    },
+    "signature": {
+      "class": "SUPPLIER_SUPERIOR",
+      "customer_value_score": 1.8,
+      "notes": "Conservation et traçabilité favorisent l’externe."
+    }
+  },
+  {
+    "id": "dessert_cookie_vegan",
+    "name": "Cookie vegan",
+    "family": "DESSERT",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": [
+        "gluten",
+        "soja"
+      ]
+    },
+    "sale_price_eur": 2.0,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": 0.25,
+      "labor_minutes": 1.8,
+      "shelf_life_hours": 72,
+      "traceability_score": 3
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": 0.38,
+      "shelf_life_hours": 480,
+      "traceability_score": 5,
+      "supplier_quality_score": 5
+    },
+    "signature": {
+      "class": "STANDARDIZABLE",
+      "customer_value_score": 2.5,
+      "notes": "Cas typique d’arbitrage coût complet."
+    }
+  },
+  {
+    "id": "dessert_meringue_vegan",
+    "name": "Meringue vegan aquafaba",
+    "family": "DESSERT",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": []
+    },
+    "sale_price_eur": 1.8,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": 0.12,
+      "labor_minutes": 2.5,
+      "shelf_life_hours": 120,
+      "traceability_score": 3
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": 0.34,
+      "shelf_life_hours": 720,
+      "traceability_score": 5,
+      "supplier_quality_score": 4
+    },
+    "signature": {
+      "class": "HYBRID_SIGNATURE",
+      "customer_value_score": 3.0,
+      "notes": "Peut devenir signature selon parfum et finition."
+    }
+  },
+  {
+    "id": "dessert_brownie_vegan",
+    "name": "Brownie vegan",
+    "family": "DESSERT",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": [
+        "gluten",
+        "soja"
+      ]
+    },
+    "sale_price_eur": 2.2,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": 0.31,
+      "labor_minutes": 2.1,
+      "shelf_life_hours": 96,
+      "traceability_score": 3
+    },
+    "external": {
+      "possible": true,
+      "landed_cost_eur": 0.46,
+      "shelf_life_hours": 480,
+      "traceability_score": 5,
+      "supplier_quality_score": 5
+    },
+    "signature": {
+      "class": "STANDARDIZABLE",
+      "customer_value_score": 2.8,
+      "notes": "Externe souvent intéressant pour régularité et durée de vie."
+    }
+  },
+  {
+    "id": "hot_espresso",
+    "name": "Espresso",
+    "family": "HOT_DRINK",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": []
+    },
+    "sale_price_eur": 1.5,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": 0.14,
+      "labor_minutes": 0.7,
+      "shelf_life_hours": 0,
+      "traceability_score": 4
+    },
+    "external": {
+      "possible": false,
+      "landed_cost_eur": null,
+      "shelf_life_hours": null,
+      "traceability_score": null,
+      "supplier_quality_score": null
+    },
+    "signature": {
+      "class": "INHOUSE_SIGNATURE_ADVANTAGE",
+      "customer_value_score": 2.0,
+      "notes": "Préparé à la demande."
+    }
+  },
+  {
+    "id": "hot_tea",
+    "name": "Thé",
+    "family": "HOT_DRINK",
+    "diet": {
+      "vegan": true,
+      "vegetarian": true,
+      "allergens": []
+    },
+    "sale_price_eur": 1.8,
+    "internal": {
+      "possible": true,
+      "material_cost_eur": 0.16,
+      "labor_minutes": 0.6,
+      "shelf_life_hours": 0,
+      "traceability_score": 4
+    },
+    "external": {
+      "possible": false,
+      "landed_cost_eur": null,
+      "shelf_life_hours": null,
+      "traceability_score": null,
+      "supplier_quality_score": null
+    },
+    "signature": {
+      "class": "STANDARDIZABLE",
+      "customer_value_score": 1.8,
+      "notes": "Service interne à partir de sachet sourcé."
+    }
+  }
+]

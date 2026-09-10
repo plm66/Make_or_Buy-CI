@@ -1,0 +1,724 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.make-or-buy/schemas/product-canonical.schema.json",
+  "title": "Fiche produit canonique Make_or_Buy",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "product",
+    "commercial",
+    "dietary",
+    "signature",
+    "internal_production",
+    "external_sourcing",
+    "stock_and_conservation",
+    "decision_inputs",
+    "data_quality"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "product": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "family",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "enum": [
+            "SNACK",
+            "COLD_DRINK",
+            "COMPLEMENT",
+            "DESSERT",
+            "HOT_DRINK"
+          ]
+        },
+        "subcategory": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "DRAFT",
+            "ACTIVE",
+            "DISCONTINUED"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unit": {
+          "enum": [
+            "piece",
+            "portion",
+            "bottle",
+            "can",
+            "cup",
+            "slice",
+            "other"
+          ]
+        },
+        "serving_size_g": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "serving_size_ml": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "commercial": {
+      "type": "object",
+      "required": [
+        "sale_price_eur",
+        "price_status"
+      ],
+      "properties": {
+        "sale_price_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "price_status": {
+          "enum": [
+            "VERIFIED",
+            "ESTIMATED",
+            "UNKNOWN"
+          ]
+        },
+        "reference_value_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "bundle_eligible": {
+          "type": "boolean"
+        },
+        "price_tiers_eligible_eur": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "customer_value_notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "dietary": {
+      "type": "object",
+      "required": [
+        "vegan",
+        "vegetarian",
+        "allergens",
+        "claim_evidence"
+      ],
+      "properties": {
+        "vegan": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "vegetarian": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "allergens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "claim_evidence": {
+          "enum": [
+            "SUPPLIER_DOCUMENTED",
+            "INTERNAL_RECIPE_DOCUMENTED",
+            "PARTIAL",
+            "NONE",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "cross_contamination_notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "required": [
+        "class",
+        "customer_value_score",
+        "signature_operations"
+      ],
+      "properties": {
+        "class": {
+          "enum": [
+            "STANDARDIZABLE",
+            "SUPPLIER_SUPERIOR",
+            "INHOUSE_SIGNATURE_ADVANTAGE",
+            "HYBRID_SIGNATURE"
+          ]
+        },
+        "customer_value_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "signature_operations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "proprietary_specification": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "internal_production": {
+      "type": "object",
+      "required": [
+        "possible",
+        "cost_status"
+      ],
+      "properties": {
+        "possible": {
+          "type": "boolean"
+        },
+        "cost_status": {
+          "enum": [
+            "VERIFIED",
+            "ESTIMATED",
+            "UNKNOWN",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "material_cost_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "task",
+              "active_labor_minutes_per_batch",
+              "labor_tier"
+            ],
+            "properties": {
+              "task": {
+                "type": "string",
+                "minLength": 1
+              },
+              "active_labor_minutes_per_batch": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Temps humain RÉELLEMENT IMMOBILISÉ sur le lot. Une infusion de 30 min surveillée en 1 min vaut 1, pas 30 : le reste est du temps disponible."
+              },
+              "elapsed_minutes_per_batch": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "description": "Temps écoulé sur le lot, informatif. Toujours ≥ au temps immobilisé. L'écart est la capacité libérée au sens de P004."
+              },
+              "labor_tier": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Clé de params.labor.tiers. Niveau de qualification MINIMAL raisonnablement nécessaire pour exécuter la tâche correctement."
+              },
+              "notes": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "description": "Décomposition du travail du lot, une entrée par geste."
+        },
+        "energy_cost_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "packaging_cost_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "cleaning_handling_cost_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "expected_loss_cost_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "other_avoidable_cost_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "avoidable_cost_total_eur": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "batch_size_units": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Nombre d'unités vendables produites par le lot que operations[] décrit. Obligatoire dès qu'il y a des opérations : c'est le diviseur qui ramène le travail à l'unité."
+        },
+        "production_notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "description": "Coûts matière et postes annexes EXPRIMÉS PAR UNITÉ VENDUE. Le travail fait exception : il se mesure par lot dans operations[] et se ramène à l'unité par batch_size_units, parce que c'est au lot qu'on chronomètre une production."
+    },
+    "external_sourcing": {
+      "type": "object",
+      "required": [
+        "possible",
+        "sources"
+      ],
+      "properties": {
+        "possible": {
+          "type": "boolean"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "source_id",
+              "supplier_name",
+              "data_status"
+            ],
+            "properties": {
+              "source_id": {
+                "type": "string"
+              },
+              "supplier_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "supplier_product_ref": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "data_status": {
+                "enum": [
+                  "VERIFIED",
+                  "ESTIMATED",
+                  "UNKNOWN"
+                ]
+              },
+              "unit_price_eur": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "landed_cost_eur": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "minimum_order_units": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "case_pack_units": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "lead_time_days": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "delivery_frequency_per_week": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "shelf_life_hours": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "minimum_residual_shelf_life_hours_at_delivery": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "quality_score": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 5
+              },
+              "traceability_score": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 5
+              },
+              "reliability_score": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 5
+              },
+              "documents": {
+                "type": "object",
+                "properties": {
+                  "technical_sheet": {
+                    "type": "boolean"
+                  },
+                  "ingredients": {
+                    "type": "boolean"
+                  },
+                  "allergens": {
+                    "type": "boolean"
+                  },
+                  "lot_identification": {
+                    "type": "boolean"
+                  },
+                  "recall_procedure": {
+                    "type": "boolean"
+                  },
+                  "vegan_evidence": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": true
+              },
+              "notes": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "description": "Prix EXPRIMÉS PAR UNITÉ VENDUE, jamais par colis ni par commande. case_pack_units et minimum_order_units décrivent le conditionnement et la contrainte d'achat, ils ne changent pas l'unité des prix."
+          }
+        }
+      }
+    },
+    "stock_and_conservation": {
+      "type": "object",
+      "required": [
+        "storage_mode"
+      ],
+      "properties": {
+        "storage_mode": {
+          "enum": [
+            "AMBIENT",
+            "CHILLED",
+            "FROZEN",
+            "HOT_HOLD",
+            "MIXED",
+            "UNKNOWN"
+          ]
+        },
+        "internal_shelf_life_hours": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "after_opening_shelf_life_hours": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "freezable": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "thawing_rules_documented": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "current_stock_units": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "minimum_stock_units": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "target_stock_units": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "expected_waste_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "conservation_notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "decision_inputs": {
+      "type": "object",
+      "required": [
+        "customer_indifference_score",
+        "supplier_quality_advantage_score",
+        "labor_saving_score",
+        "purchasing_stock_simplification_score",
+        "conservation_advantage_score",
+        "traceability_advantage_score",
+        "supplier_risk_score"
+      ],
+      "properties": {
+        "customer_indifference_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "supplier_quality_advantage_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "labor_saving_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "purchasing_stock_simplification_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "conservation_advantage_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "traceability_advantage_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "supplier_risk_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "recommended_mode": {
+          "enum": [
+            "MAKE",
+            "BUY",
+            "HYBRID",
+            "UNDECIDED"
+          ]
+        },
+        "decision_status": {
+          "enum": [
+            "PROVISIONAL",
+            "VALIDATED",
+            "TO_REVIEW"
+          ]
+        },
+        "decision_notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "data_quality": {
+      "type": "object",
+      "required": [
+        "confidence",
+        "missing_critical_fields",
+        "last_reviewed"
+      ],
+      "properties": {
+        "confidence": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        },
+        "missing_critical_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "last_reviewed": {
+          "type": "string"
+        },
+        "review_notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

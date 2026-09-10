@@ -1,0 +1,32 @@
+{
+  "schema_version": "2.0.0",
+  "establishment_id": "default",
+  "labor": {
+    "tiers": {
+      "apprentice": {
+        "cost_per_minute_eur": 0.16,
+        "label": "Apprenti / aide de production",
+        "scope": "Tâches simples, répétitives, surveillables, faible technicité : pesées simples, lavage, assemblage, mise en pot, portionnage, surveillance d'infusion."
+      },
+      "production_assistant": {
+        "cost_per_minute_eur": 0.25,
+        "label": "Employé polyvalent / commis qualifié",
+        "scope": "Préparations demandant méthode et cadence, autonomie limitée : sandwichs, salades, garnitures, cuisson simple, préparations intermédiaires."
+      },
+      "qualified_baker_pastry": {
+        "cost_per_minute_eur": 0.36,
+        "label": "Boulanger / pâtissier qualifié",
+        "scope": "Gestes techniques : fermentation, façonnage, tourage, cuisson sensible, pâtisserie élaborée."
+      }
+    },
+    "status": "ESTIMATED",
+    "basis_notes": "Valeurs de modélisation. Référence Paris / Île-de-France, boulangerie-pâtisserie artisanale : minima de fabrication 12,57 à 17,42 €/h brut depuis février 2026 (coef. 185 = 14,28 €/h, coef. 195 = 14,85 €/h), allègements patronaux 2026. À affiner avec les salaires réels et les aides à l'apprentissage.",
+    "effective_date": "2026-09-10",
+    "sources": [
+      "Convention collective nationale de la boulangerie-pâtisserie du 19 mars 1976 — Légifrance KALITEXT000054091886",
+      "Réduction générale dégressive unique — Urssaf"
+    ]
+  },
+  "last_reviewed": "2026-09-10",
+  "review_notes": "Une révision d'un taux périme avoidable_cost_total_eur de toutes les fiches qui emploient ce niveau. Le validateur les fait alors ressortir : G006 rendu mécanique."
+}

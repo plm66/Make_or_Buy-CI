@@ -1,0 +1,12 @@
+{
+  "base_version": "1.0.0",
+  "reason": "Exemple de mise à jour doctrinale.",
+  "changes": [
+    {
+      "op": "set",
+      "path": "guardrails.G007",
+      "value": "Toute revendication de régime alimentaire doit être appuyée par des données produit suffisamment documentées.",
+      "reason": "Renforcer la fiabilité des recherches vegan et végétariennes."
+    }
+  ]
+}
