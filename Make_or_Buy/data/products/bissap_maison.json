@@ -72,8 +72,8 @@
     "expected_loss_cost_eur": null,
     "other_avoidable_cost_eur": null,
     "avoidable_cost_total_eur": null,
-    "batch_size_units": null,
-    "production_notes": "Mesurer coût matière par batch, temps réel par batch, emballage et pertes."
+    "batch_size_units": 20,
+    "production_notes": "Hypothèse de base : un seau de 5 L pour une dose de vente de 25 cl, soit 20 doses par lot. À confirmer par un comptage réel. Coût matière par batch et durée de conservation interne restent à mesurer."
   },
   "external_sourcing": {
     "possible": true,
@@ -108,8 +108,7 @@
     "missing_critical_fields": [
       "internal_production.avoidable_cost_total_eur",
       "commercial.sale_price_eur",
-      "stock_and_conservation.internal_shelf_life_hours",
-      "internal_production.batch_size_units"
+      "stock_and_conservation.internal_shelf_life_hours"
     ],
     "sources": [
       "Doctrine interne Make_or_Buy"
