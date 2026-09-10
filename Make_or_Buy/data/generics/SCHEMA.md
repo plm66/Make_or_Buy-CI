@@ -90,6 +90,7 @@ les clés déjà transmises au collecteur du second fournisseur.
 | VIEN | Viennoiseries |
 | PATI | Pâtisseries |
 | SNAC | Snacking salé |
+| BOIS | Boissons (fraîches, chaudes, jus, eaux) |
 | MATP | Matières premières (farines, levures, sucres, sels...) — phase 2 |
 | EPIC | Épicerie / boutique — phase 2 |
 
@@ -99,6 +100,12 @@ les clés déjà transmises au collecteur du second fournisseur.
 - VIEN : croissants, pains au chocolat, pains aux raisins, croissants fourrés, autres viennoiseries
 - PATI : macarons, pastéis de nata, pâtes feuilletées, autres pâtisseries
 - SNAC : snacks salés, pains à burger, wraps, pièces apéritives...
+- BOIS : eaux, sodas, jus, infusions, cafés, thés
+
+`BOIS` est une catégorie commerciale, pas un état physique. Une crème liquide, une huile,
+un sirop à diluer ou un coulis sont des `MATP` : on ne les vend pas à boire. Le test qui
+tranche est le sirop concentré — sous `BOIS` la réponse est immédiate. L'état physique,
+lui, est déjà porté par `storage_mode`.
 
 ### Niveau 3 — Type produit (clé générique)
 

@@ -98,7 +98,7 @@ def test_familles_normalisees():
 
     La livraison Bridor portait « Viennoiseries » en colonne et « VIEN- » dans la clé.
     """
-    codes = {"PAIN", "VIEN", "PATI", "SNAC", "MATP", "EPIC"}
+    codes = {"PAIN", "VIEN", "PATI", "SNAC", "BOIS", "MATP", "EPIC"}
     for nom, r in toutes_les_lignes():
         assert r["famille"] in codes, (nom, r["famille"])
 
