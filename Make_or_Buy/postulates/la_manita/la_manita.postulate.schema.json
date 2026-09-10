@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.make-or-buy/schemas/la-manita-postulate.schema.json",
+  "title": "La Manita Postulate",
+  "type": "object",
+  "required": [
+    "postulate_id",
+    "version",
+    "status",
+    "core",
+    "families",
+    "economic_postulates",
+    "validation",
+    "ux_contract",
+    "machine_contract"
+  ],
+  "properties": {
+    "postulate_id": {
+      "const": "la_manita"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "normative",
+        "deprecated"
+      ]
+    },
+    "core": {
+      "type": "object",
+      "required": [
+        "price_eur",
+        "family_count",
+        "items_per_family",
+        "total_items",
+        "preferred_matrix_mode"
+      ],
+      "properties": {
+        "price_eur": {
+          "const": 5.0
+        },
+        "family_count": {
+          "const": 5
+        },
+        "items_per_family": {
+          "const": 1
+        },
+        "total_items": {
+          "const": 5
+        },
+        "preferred_matrix_mode": {
+          "enum": [
+            "FULL_MATRIX",
+            "CONSTRAINED_MATRIX"
+          ]
+        }
+      }
+    },
+    "families": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "customer_label",
+          "required"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "SNACK",
+              "COLD_DRINK",
+              "COMPLEMENT",
+              "DESSERT",
+              "HOT_DRINK"
+            ]
+          },
+          "customer_label": {
+            "type": "string"
+          },
+          "required": {
+            "const": true
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

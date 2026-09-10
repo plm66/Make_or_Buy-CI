@@ -1,0 +1,14 @@
+{
+  "contract_id": "la_manita_agent_contract",
+  "version": "1.0.0",
+  "normative_reference": "la_manita.postulate.json",
+  "agent_rules": [
+    "Treat the postulate as normative unless a newer version is explicitly supplied.",
+    "Never duplicate canonical product attributes inside the Manita configuration.",
+    "Never invent eligibility, dietary status, cost, stock, shelf life or supplier data.",
+    "Prefer FULL_MATRIX. Use CONSTRAINED_MATRIX only when economic validation fails.",
+    "Always compute or request worst_case_bundle_cost before declaring a catalog valid.",
+    "For dietary requests, require one valid item in every family.",
+    "Return DATA_INCOMPLETE when critical fields are missing rather than fabricating a decision."
+  ]
+}

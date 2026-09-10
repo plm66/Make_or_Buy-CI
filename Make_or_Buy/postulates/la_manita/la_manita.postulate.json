@@ -1,0 +1,168 @@
+{
+  "postulate_id": "la_manita",
+  "version": "1.0.0",
+  "status": "normative",
+  "title": "La Manita — Fixed Price Mix-and-Match Postulate",
+  "core": {
+    "statement": "La Manita is a fixed-price bundle system in which the customer selects exactly one product from each of five product families, receiving five items for a fixed total price of EUR 5.00.",
+    "customer_promise": "5 choices, 5 items, EUR 5.00",
+    "price_eur": 5.0,
+    "family_count": 5,
+    "items_per_family": 1,
+    "total_items": 5,
+    "catalog_target_per_family": 10,
+    "preferred_matrix_mode": "FULL_MATRIX"
+  },
+  "families": [
+    {
+      "id": "SNACK",
+      "customer_label": "Snack",
+      "required": true
+    },
+    {
+      "id": "COLD_DRINK",
+      "customer_label": "Boisson fraîche",
+      "required": true
+    },
+    {
+      "id": "COMPLEMENT",
+      "customer_label": "Complément",
+      "required": true
+    },
+    {
+      "id": "DESSERT",
+      "customer_label": "Dessert",
+      "required": true
+    },
+    {
+      "id": "HOT_DRINK",
+      "customer_label": "Boisson chaude",
+      "required": true
+    }
+  ],
+  "combinatorics": {
+    "formula": "n1*n2*n3*n4*n5",
+    "target_references_per_family": 10,
+    "theoretical_combinations_at_target": 100000
+  },
+  "economic_postulates": [
+    {
+      "id": "P001_FIXED_PRICE",
+      "rule": "Customer-facing total remains fixed at EUR 5.00 for every valid combination."
+    },
+    {
+      "id": "P002_FULL_MATRIX_FIRST",
+      "rule": "All listed references should remain freely combinable across families whenever economically possible."
+    },
+    {
+      "id": "P003_BUNDLE_LEVEL_VALIDATION",
+      "rule": "Economic validity is evaluated at bundle level, not product level only."
+    },
+    {
+      "id": "P004_WORST_CASE_VALIDATION",
+      "rule": "The most expensive valid combination must remain within the configured maximum bundle cost."
+    },
+    {
+      "id": "P005_HIDDEN_COMPLEXITY",
+      "rule": "Cost, sourcing, dietary, stock, conservation, traceability and supplier complexity remain invisible to the customer."
+    },
+    {
+      "id": "P006_CANONICAL_PRODUCT_SOURCE",
+      "rule": "La Manita never duplicates product master data; it references canonical product records."
+    },
+    {
+      "id": "P007_MAKE_OR_BUY_INTEGRATION",
+      "rule": "Each product inherits MAKE, BUY, HYBRID or UNDECIDED sourcing logic from the Make_or_Buy doctrine."
+    },
+    {
+      "id": "P008_ROLE_DIVERSITY",
+      "rule": "A family should contain a portfolio of economic roles, not only the cheapest products."
+    },
+    {
+      "id": "P009_SIGNATURE_PRESERVATION",
+      "rule": "The engine may favor at least one signature product per bundle when compatible with price and availability."
+    },
+    {
+      "id": "P010_DYNAMIC_SLOTS",
+      "rule": "Dynamic references such as Dessert du jour may resolve to eligible canonical products without altering family structure."
+    }
+  ],
+  "economic_roles": [
+    "MARGIN_PROTECTOR",
+    "PERCEIVED_VALUE_DRIVER",
+    "SIGNATURE_PRODUCT",
+    "STOCK_ABSORBER",
+    "WASTE_RECOVERY",
+    "SUPPLIER_EFFICIENCY"
+  ],
+  "product_classes": [
+    "STANDARDIZABLE",
+    "SUPPLIER_SUPERIOR",
+    "INHOUSE_SIGNATURE_ADVANTAGE",
+    "HYBRID_SIGNATURE"
+  ],
+  "sourcing_modes": [
+    "MAKE",
+    "BUY",
+    "HYBRID",
+    "UNDECIDED"
+  ],
+  "dietary_logic": {
+    "supported_filters": [
+      "VEGAN",
+      "VEGETARIAN",
+      "ALLERGEN_EXCLUSION",
+      "NO_PORK",
+      "CUSTOM"
+    ],
+    "completion_rule": "A dietary bundle is valid only if one eligible product exists in every required family.",
+    "failure_rule": "If a complete bundle cannot be formed, return NO_VALID_BUNDLE and identify the blocking family."
+  },
+  "validation": {
+    "required_checks": [
+      "all_required_families_present",
+      "at_least_one_active_product_per_family",
+      "all_product_references_exist",
+      "all_exposed_products_active_or_substitutable",
+      "bundle_cost_constraint_satisfied",
+      "worst_case_bundle_cost_computed",
+      "dietary_bundle_completeness",
+      "dynamic_slots_resolvable"
+    ]
+  },
+  "optimization_targets": [
+    "customer_value",
+    "cost_control",
+    "signature_presence",
+    "stock_rotation",
+    "waste_reduction",
+    "labor_efficiency",
+    "supplier_reliability",
+    "traceability"
+  ],
+  "ux_contract": {
+    "customer_flow": [
+      "choose_1_snack",
+      "choose_1_cold_drink",
+      "choose_1_complement",
+      "choose_1_dessert",
+      "choose_1_hot_drink",
+      "pay_fixed_price"
+    ],
+    "forbidden_customer_complexity": [
+      "hidden_surcharges",
+      "unexplained_pairing_constraints",
+      "cost_based_customer_decisions"
+    ]
+  },
+  "machine_contract": {
+    "canonical_product_catalog": "external_reference",
+    "make_or_buy_doctrine": "external_reference",
+    "decision_engine_output": [
+      "VALID_BUNDLE",
+      "NO_VALID_BUNDLE",
+      "CATALOG_INVALID",
+      "DATA_INCOMPLETE"
+    ]
+  }
+}

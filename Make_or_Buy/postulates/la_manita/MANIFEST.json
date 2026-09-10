@@ -1,0 +1,15 @@
+{
+  "package": "La_Manita_Postulate",
+  "version": "1.0.0",
+  "type": "standalone_normative_package",
+  "contains_project_code": false,
+  "contains_make_or_buy_project": false,
+  "contains_duplicate_catalog": false,
+  "files": [
+    "POSTULATE.md",
+    "la_manita.postulate.json",
+    "la_manita.postulate.schema.json",
+    "agent_contract.json",
+    "MANIFEST.json"
+  ]
+}
