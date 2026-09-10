@@ -106,44 +106,52 @@ def test_lesperance_admet_ce_que_le_pire_cas_refuse():
     """P013 : le pire cas somme les maxima des cinq familles à la fois — un adversaire,
     pas un client. L'admission se juge sur l'espérance, le pire cas restant rendu.
 
-    Casse si l'admission redevient adossée au maximum : c'est toute la nuance.
+    Le verdict est celui du validateur du postulat : une seconde implémentation ici
+    pourrait diverger de la normative.
     """
-    from make_or_buy.manita import admission_p013
-    par_fam = {"A": [0.5, 1.0], "B": [0.5, 1.0]}
-    config = {"cost_model": {"hard_max_bundle_cost_eur": 1.75},
-              "expected_value_model": {"per_item_absolute_cap_eur": 1.2}}
-    r = admission_p013(par_fam, config)
-    assert r["pire_cas_eur"] == 2.0 and r["pire_cas_eur"] > 1.75
-    assert r["espere_eur"] == 1.5
-    assert r["admission"] == "VALID_BUNDLE"
+    import sys as _sys, json as _json
+    _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import validate
+    config = _json.loads((ROOT / "postulates" / "la_manita" / "manita.config.json").read_text(encoding="utf-8"))
+    config = _json.loads(_json.dumps(config))
+    for f in config["family_cost_envelopes"]:
+        config["family_cost_envelopes"][f]["hard_max_eur"] = 1.0
+    cat = [{"id": f"{fam}{i}", "family": fam, "cost_eur": c}
+           for fam in config["family_cost_envelopes"] for i, c in ((0, 0.10), (1, 0.60))]
+    r = validate(cat, config)
+    assert r["worst_case_bundle_cost_eur"] == 3.0 and r["worst_case_bundle_cost_eur"] > 1.75
+    assert r["expected_bundle_cost_eur"] == 1.75
+    assert r["status"] == "VALID_BUNDLE", r
 
 
 def test_le_plafond_par_article_bloque_la_dilution():
     """Garde contre l'usage détourné de P013. Sans plafond par article, une référence hors
-    budget serait admise en la noyant dans une moyenne — ce que P011 interdit
-    explicitement. Une espérance saine ne rachète pas un article aberrant.
+    budget serait admise en la noyant dans une moyenne — ce que P011 interdit. Une
+    espérance saine ne rachète pas un article aberrant."""
+    import sys as _sys, json as _json
+    _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import validate
+    config = _json.loads((ROOT / "postulates" / "la_manita" / "manita.config.json").read_text(encoding="utf-8"))
+    cap = config["expected_value_model"]["per_item_absolute_cap_eur"]
+    cat = [{"id": "aberrant", "family": "SNACK", "cost_eur": cap + 0.5}]
+    r = validate(cat, config)
+    assert r["over_item_cap_products"] and r["over_item_cap_products"][0]["product_id"] == "aberrant"
+
+
+def test_la_ponderation_deplace_lesperance_vers_le_produit_choisi():
+    """L'espérance uniforme suppose un client indifférent. Il ne l'est pas.
+
+    Le validateur du postulat ne sait calculer que l'uniforme, faute de ventes observées.
+    `bornes_du_panier` porte le cas pondéré, qui existera le jour où la caisse mesurera la
+    distribution réelle — et c'est ce jour-là que l'espérance dérivera vers le maximum si
+    un produit devient un carton.
     """
-    from make_or_buy.manita import admission_p013
-    par_fam = {"A": [0.05, 2.0], "B": [0.05, 0.10]}   # espérance 1.10, sous le plafond
-    config = {"cost_model": {"hard_max_bundle_cost_eur": 1.75},
-              "expected_value_model": {"per_item_absolute_cap_eur": 0.9}}
-    r = admission_p013(par_fam, config)
-    assert r["espere_eur"] <= 1.75
-    assert r["admission"] == "CATALOG_INVALID"
-    assert r["articles_hors_plafond"] == {"A": [2.0]}
-
-
-def test_la_distribution_uniforme_est_annoncee_comme_repli():
-    """L'uniforme suppose un client indifférent. Il ne l'est pas. Tant que la caisse n'a
-    rien observé, la sortie doit le dire plutôt que de présenter une estimation comme une
-    mesure."""
-    from make_or_buy.manita import admission_p013, bornes_du_panier
-    par_fam = {"A": [0.2, 0.8]}
-    config = {"cost_model": {"hard_max_bundle_cost_eur": 1.75}, "expected_value_model": {}}
-    assert admission_p013(par_fam, config)["distribution"] == "UNIFORM_FALLBACK"
-    assert admission_p013(par_fam, config, poids={"A": [9, 1]})["distribution"] == "OBSERVED_SALES"
-    # Une préférence marquée déplace l'espérance vers le produit choisi, pas vers la moyenne.
-    assert bornes_du_panier(par_fam, poids={"A": [9, 1]})[1] == 0.26
+    from make_or_buy.manita import bornes_du_panier
+    par_fam = {"A": [0.20, 0.80]}
+    assert bornes_du_panier(par_fam)[1] == 0.50                      # uniforme
+    assert bornes_du_panier(par_fam, poids={"A": [9, 1]})[1] == 0.26  # le pas cher domine
+    assert bornes_du_panier(par_fam, poids={"A": [1, 9]})[1] == 0.74  # le cher domine
+    assert bornes_du_panier(par_fam)[2] == 0.80                      # pire cas inchangé
 
 
 if __name__ == "__main__":

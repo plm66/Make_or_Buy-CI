@@ -2,7 +2,7 @@ from __future__ import annotations
 import argparse, json, sys
 from pathlib import Path
 from .engine import load_json, compose_menus, is_eligible, selected_cost
-from .manita import compose_grille, adapte_pour_validateur, couts_par_famille, admission_p013
+from .manita import compose_grille, adapte_pour_validateur
 from .llm import build_context, ask_openai_compatible
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,15 +24,9 @@ def cmd_manita_check(args):
     sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
     from manita_validator import validate
     catalog = adapte_pour_validateur(load_json(args.catalog), selected_cost)
-    config = load_json(args.config)
-    familles = [f["id"] for f in load_json(
-        ROOT / "postulates" / "la_manita" / "la_manita.postulate.json")["families"] if f["required"]]
-    result = validate(catalog, config, args.dietary)
-    # P013 : l'espérance décide de l'admission, le pire cas reste rendu comme exposition.
-    result["admission_p013"] = admission_p013(
-        couts_par_famille(catalog, selected_cost, familles), config)
+    result = validate(catalog, load_json(args.config), args.dietary)
     print(json.dumps(result, ensure_ascii=False, indent=2))
-    if result["admission_p013"]["admission"] != "VALID_BUNDLE":
+    if result["status"] != "VALID_BUNDLE":
         raise SystemExit(2)
 
 def cmd_manita(args):

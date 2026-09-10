@@ -143,44 +143,7 @@ def bornes_du_panier(par_famille, poids=None):
     return round(meilleur, 4), round(espere, 4), round(pire, 4)
 
 
-def admission_p013(par_famille, config, poids=None):
-    """Verdict d'admission FULL_MATRIX au sens de P013.
-
-    L'espérance décide, le pire cas reste rendu comme exposition, et un plafond absolu par
-    article garde la porte : sans lui, une référence hors budget passerait en la diluant
-    dans une moyenne — exactement ce que P011 interdit.
-    """
-    modele = config.get("expected_value_model") or {}
-    plafond = config["cost_model"]["hard_max_bundle_cost_eur"]
-    cap = modele.get("per_item_absolute_cap_eur")
-
-    bornes = bornes_du_panier(par_famille, poids)
-    if bornes is None:
-        return {"admission": "DATA_INCOMPLETE",
-                "familles_sans_cout": [f for f, c in par_famille.items() if not c]}
-
-    meilleur, espere, pire = bornes
-    hors_cap = ({f: [c for c in couts if c > cap] for f, couts in par_famille.items()}
-                if isinstance(cap, (int, float)) else {})
-    hors_cap = {f: v for f, v in hors_cap.items() if v}
-
-    if hors_cap:
-        admission = "CATALOG_INVALID"
-    elif espere <= plafond:
-        admission = "VALID_BUNDLE"
-    else:
-        admission = "CATALOG_INVALID"
-
-    return {
-        "admission": admission,
-        "metrique": "EXPECTED_BUNDLE_COST",
-        "distribution": "OBSERVED_SALES" if poids else "UNIFORM_FALLBACK",
-        "meilleur_cas_eur": meilleur,
-        "espere_eur": espere,
-        "pire_cas_eur": pire,
-        "plafond_dur_eur": plafond,
-        "marge_sur_esperance_eur": round(plafond - espere, 4),
-        "plafond_par_article_eur": cap,
-        "articles_hors_plafond": hors_cap,
-        "volume_journalier_minimal": modele.get("min_daily_bundles_for_averaging"),
-    }
+# L'admission P013 elle-meme vit dans postulates/la_manita/manita_validator.py: c'est
+# l'implementation normative, elle porte le plafond par article et le verdict. Ce qui
+# reste ici est ce qu'elle ne sait pas faire — ponderer par une distribution de choix
+# observee, qui n'existera qu'avec les ventes.

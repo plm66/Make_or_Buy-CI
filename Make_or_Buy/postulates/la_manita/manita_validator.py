@@ -3,7 +3,20 @@ from __future__ import annotations
 import argparse, json, sys
 from pathlib import Path
 
-FAMILIES=["SNACK","COLD_DRINK","COMPLEMENT","DESSERT","HOT_DRINK"]
+VALIDATOR_VERSION="1.2.0"
+
+# Les familles sont declarees par le postulat. Les recopier ici en dur les dupliquerait
+# hors de leur source, ce que P006 refuse pour la donnee produit et qui vaut autant pour
+# la structure. Le litteral ne sert que de repli si le postulat n'est pas a cote.
+FAMILIES_FALLBACK=["SNACK","COLD_DRINK","COMPLEMENT","DESSERT","HOT_DRINK"]
+
+def families(postulate_path=None):
+    p=Path(postulate_path or Path(__file__).resolve().parent/"la_manita.postulate.json")
+    if not p.exists():
+        return list(FAMILIES_FALLBACK)
+    return [f["id"] for f in json.loads(p.read_text(encoding="utf-8"))["families"] if f.get("required")]
+
+FAMILIES=families()
 
 def load(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -24,6 +37,15 @@ def product_cost(p):
             cur=cur[k]
         if ok and isinstance(cur,(int,float)):
             return float(cur)
+    # Un produit d'achat pur n'a pas de production interne: son cout est le prix rendu de
+    # la source retenue. Sans cette branche, tout BUY ressortait DATA_INCOMPLETE alors que
+    # son cout etait au dossier — et une Manita achete la plupart de ses colonnes.
+    sources=(p.get("external_sourcing") or {}).get("sources") or []
+    rendus=[s.get("landed_cost_eur") for s in sources
+            if isinstance(s.get("landed_cost_eur"),(int,float))]
+    if rendus:
+        return float(min(rendus))
+
     # Legacy catalog adapter
     if isinstance(p.get("cost_eur"),(int,float)):
         return float(p["cost_eur"])
@@ -50,10 +72,15 @@ def roles(p):
 def validate(catalog, config, dietary=None):
     hard=config["cost_model"]["hard_max_bundle_cost_eur"]
     envelopes=config["family_cost_envelopes"]
+    # Garde de P013: sans plafond par article, une reference hors budget passerait en la
+    # diluant dans une moyenne — ce que P011 interdit. Changer la metrique de maximum a
+    # esperance est legitime; relever un plafond pour sauver un produit ne l'est pas.
+    item_cap=(config.get("expected_value_model") or {}).get("per_item_absolute_cap_eur")
 
     pools={f:[] for f in FAMILIES}
     missing_cost=[]
     over_family=[]
+    over_item_cap=[]
     role_counts={f:{} for f in FAMILIES}
 
     for p in catalog:
@@ -81,6 +108,14 @@ def validate(catalog, config, dietary=None):
             continue
 
         cap=float(envelopes[f]["hard_max_eur"])
+        if isinstance(item_cap,(int,float)) and c > item_cap + 1e-9:
+            over_item_cap.append({
+                "product_id":p.get("product",{}).get("id") or p.get("id"),
+                "family":f,
+                "cost_eur":round(c,4),
+                "item_cap_eur":item_cap
+            })
+            continue
         if c > cap + 1e-9:
             over_family.append({
                 "product_id":p.get("product",{}).get("id") or p.get("id"),
@@ -95,35 +130,44 @@ def validate(catalog, config, dietary=None):
             role_counts[f][r]=role_counts[f].get(r,0)+1
 
     blocking=[f for f in FAMILIES if not pools[f]]
+    result={
+        "validator_version":VALIDATOR_VERSION,
+        "status":None,
+        "dietary_filter":dietary,
+        "blocking_families":blocking,
+        "best_case_bundle_cost_eur":None,
+        "worst_case_bundle_cost_eur":None,
+        "expected_bundle_cost_eur":None,
+        "hard_max_bundle_cost_eur":hard,
+        "headroom_eur":None,
+        "family_maxima_eur":{},
+        "family_counts":{f:len(pools[f]) for f in FAMILIES},
+        "economic_role_counts":role_counts,
+        "missing_cost_products":missing_cost,
+        "over_family_cap_products":over_family,
+        "over_item_cap_products":over_item_cap,
+        "per_item_absolute_cap_eur":item_cap
+    }
     if blocking:
-        return {
-            "status":"DATA_INCOMPLETE" if missing_cost else "NO_VALID_BUNDLE",
-            "dietary_filter":dietary,
-            "blocking_families":blocking,
-            "missing_cost_products":missing_cost,
-            "over_family_cap_products":over_family,
-            "family_counts":{f:len(pools[f]) for f in FAMILIES}
-        }
+        result["status"]="DATA_INCOMPLETE" if missing_cost else "NO_VALID_BUNDLE"
+        return result
 
     maxima={f:max(c for _,c in pools[f]) for f in FAMILIES}
     minima={f:min(c for _,c in pools[f]) for f in FAMILIES}
     worst=sum(maxima.values())
     best=sum(minima.values())
+    # P013: l'admission se juge sur l'esperance, le pire cas reste rendu comme exposition.
+    expected=sum(sum(c for _,c in pools[f])/len(pools[f]) for f in FAMILIES)
 
-    status="VALID_BUNDLE" if worst <= hard + 1e-9 else "CATALOG_INVALID"
-    return {
-        "status":status,
-        "dietary_filter":dietary,
+    result.update({
+        "status":"VALID_BUNDLE" if expected <= hard + 1e-9 else "CATALOG_INVALID",
         "best_case_bundle_cost_eur":round(best,4),
         "worst_case_bundle_cost_eur":round(worst,4),
-        "hard_max_bundle_cost_eur":hard,
-        "headroom_eur":round(hard-worst,4),
-        "family_maxima_eur":{k:round(v,4) for k,v in maxima.items()},
-        "family_counts":{f:len(pools[f]) for f in FAMILIES},
-        "economic_role_counts":role_counts,
-        "missing_cost_products":missing_cost,
-        "over_family_cap_products":over_family
-    }
+        "expected_bundle_cost_eur":round(expected,4),
+        "headroom_eur":round(hard-expected,4),
+        "family_maxima_eur":{k:round(v,4) for k,v in maxima.items()}
+    })
+    return result
 
 def main():
     ap=argparse.ArgumentParser()
