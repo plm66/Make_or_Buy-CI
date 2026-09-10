@@ -1,0 +1,93 @@
+{
+  "schema_version": "2.0.0",
+  "product": {
+    "id": "eau_50cl",
+    "name": "Eau 50 cl",
+    "family": "COLD_DRINK",
+    "subcategory": null,
+    "status": "DRAFT",
+    "description": null,
+    "unit": "bottle",
+    "serving_size_g": null,
+    "serving_size_ml": 500
+  },
+  "commercial": {
+    "sale_price_eur": null,
+    "price_status": "UNKNOWN",
+    "reference_value_eur": null,
+    "bundle_eligible": true,
+    "price_tiers_eligible_eur": [],
+    "customer_value_notes": null
+  },
+  "dietary": {
+    "vegan": null,
+    "vegetarian": null,
+    "allergens": [],
+    "claim_evidence": "NONE",
+    "cross_contamination_notes": null
+  },
+  "signature": {
+    "class": "STANDARDIZABLE",
+    "customer_value_score": null,
+    "signature_operations": [],
+    "proprietary_specification": null,
+    "notes": "Produit de marque, aucune valeur signature possible en interne."
+  },
+  "internal_production": {
+    "possible": false,
+    "cost_status": "NOT_APPLICABLE",
+    "material_cost_eur": null,
+    "operations": [],
+    "energy_cost_eur": null,
+    "packaging_cost_eur": null,
+    "cleaning_handling_cost_eur": null,
+    "expected_loss_cost_eur": null,
+    "other_avoidable_cost_eur": null,
+    "avoidable_cost_total_eur": null,
+    "batch_size_units": null,
+    "production_notes": null
+  },
+  "external_sourcing": {
+    "possible": true,
+    "sources": []
+  },
+  "stock_and_conservation": {
+    "storage_mode": "AMBIENT",
+    "internal_shelf_life_hours": null,
+    "after_opening_shelf_life_hours": null,
+    "freezable": null,
+    "thawing_rules_documented": null,
+    "current_stock_units": null,
+    "minimum_stock_units": null,
+    "target_stock_units": null,
+    "expected_waste_rate": null,
+    "conservation_notes": null
+  },
+  "decision_inputs": {
+    "customer_indifference_score": null,
+    "supplier_quality_advantage_score": null,
+    "labor_saving_score": null,
+    "purchasing_stock_simplification_score": null,
+    "conservation_advantage_score": null,
+    "traceability_advantage_score": null,
+    "supplier_risk_score": null,
+    "recommended_mode": "UNDECIDED",
+    "decision_status": "PROVISIONAL",
+    "decision_notes": null
+  },
+  "data_quality": {
+    "confidence": "LOW",
+    "missing_critical_fields": [
+      "commercial.sale_price_eur",
+      "dietary.vegan",
+      "dietary.claim_evidence",
+      "external_sourcing.sources",
+      "stock_and_conservation.external_shelf_life_hours (par source)"
+    ],
+    "sources": [
+      "Doctrine interne Make_or_Buy"
+    ],
+    "last_reviewed": "2026-09-10",
+    "review_notes": null
+  }
+}
