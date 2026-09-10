@@ -1,0 +1,48 @@
+id_generique;famille;categorie;nom_normalise;poids_unitaire_nominal;nb_refs_associees
+PAIN-AUTR-33;PAIN;autres-pains;mini pain céréales et graines 33g;33g;1
+PAIN-AUTR-33a;PAIN;autres-pains;mini pain rustique 33g;33g;1
+PAIN-AUTR-450;PAIN;autres-pains;focaccia cinquanta nature 450g;450g;1
+PAIN-AUTR-55;PAIN;autres-pains;mix losanges 55g;55g;1
+PAIN-BAGU-280;PAIN;baguettes;baguette 280g;280g;1
+PAIN-BAGU-280a;PAIN;baguettes;baguette bio 280g;280g;1
+PAIN-BAGU-280b;PAIN;baguettes;baguette caractère 280g;280g;1
+PAIN-BAGU-280c;PAIN;baguettes;baguette de campagne 280g;280g;1
+PAIN-PAIN-140;PAIN;pains-sandwich;baguettine bleu blanc cœur 140g;140g;1
+PAIN-PAIN-140a;PAIN;pains-sandwich;baguettine caractère 140g;140g;1
+PAIN-PAIN-140b;PAIN;pains-sandwich;baguettine gourmet aux graines 140g;140g;1
+PAIN-PAIN-140c;PAIN;pains-sandwich;baguettine graines et céréales 140g;140g;1
+PAIN-PAIN-280;PAIN;pains-a-partager;le céréalier 280g;280g;1
+PAIN-PAIN-330;PAIN;pains-a-partager;le bâtard 330g;330g;1
+PAIN-PAIN-330a;PAIN;pains-a-partager;le complet 330g;330g;1
+PAIN-PAIN-540;PAIN;pains-a-partager;le bâtard 540g;540g;1
+PAIN-PETI-55;PAIN;petits-pains;boule rustique 55g;55g;1
+PAIN-PETI-60;PAIN;petits-pains;boule chocolat 60g;60g;1
+PAIN-PETI-70;PAIN;petits-pains;b'break 2 olives et romarin 70g;70g;1
+PAIN-PETI-70a;PAIN;petits-pains;b'break chorizo 70g;70g;1
+PATI-AUTR-120;PATI;autres-patisseries;bola de berlim creamy 120g;120g;1
+PATI-AUTR-30;PATI;autres-patisseries;madeleine sans gluten 30g;30g;1
+PATI-AUTR-50;PATI;autres-patisseries;briochette sans gluten 50g;50g;1
+PATI-AUTR-80;PATI;autres-patisseries;bola de berlim nature 80g;80g;1
+PATI-MACA-12;PATI;macarons;macaron 12g;12g;4
+PATI-PAST-35;PATI;pastel-de-nata;mini pastel de nata 35g;35g;1
+PATI-PAST-50;PATI;pastel-de-nata;pastel de nata 50g;50g;1
+PATI-PAST-60;PATI;pastel-de-nata;pastel de nata 60g;60g;2
+PATI-PATE-2000;PATI;pates-feuilletees;plaque de pâte feuilletée 2000g;2000g;1
+PATI-PATE-300;PATI;pates-feuilletees;plaque de pâte feuilletée 300g;300g;1
+PATI-PATE-500;PATI;pates-feuilletees;plaque de pâte levée feuilletée 500g;500g;1
+SNAC-TOUT-85;SNAC;toutes;bun'n'roll 85g;85g;2
+SNAC-TOUT-90;SNAC;toutes;croissant fourré fromage 90g;90g;1
+SNAC-TOUT-95;SNAC;toutes;croissant fourré fromage 95g;95g;1
+VIEN-AUTR-105;VIEN;autres-viennoiseries;chausson aux morceaux de pommes 105g;105g;1
+VIEN-AUTR-295;VIEN;autres-viennoiseries;brioche feuilletée spirale 295g;295g;1
+VIEN-AUTR-60;VIEN;autres-viennoiseries;briochette 60g;60g;1
+VIEN-AUTR-85;VIEN;autres-viennoiseries;breizh'n'roll 85g;85g;1
+VIEN-CROI-40;VIEN;croissants;croissant 40g;40g;1
+VIEN-CROI-50;VIEN;croissants;croissant 50g;50g;3
+VIEN-CROI-90;VIEN;croissants-fourres;croissant fourré abricot 90g;90g;2
+VIEN-CROI-90b;VIEN;croissants-fourres;croissant fourré amande 90g;90g;1
+VIEN-CROI-95;VIEN;croissants-fourres;croissant fourré amandes 95g;95g;1
+VIEN-PAIN-150;VIEN;pains-au-chocolat;maxi pain au chocolat 150g;150g;1
+VIEN-PAIN-25;VIEN;pains-au-chocolat;mini pain au chocolat 25g;25g;2
+VIEN-PAIN-28;VIEN;pains-au-chocolat;mini pain au chocolat 28g;28g;1
+VIEN-PAIN-30;VIEN;pains-aux-raisins;mini pain aux raisins 30g;30g;4
