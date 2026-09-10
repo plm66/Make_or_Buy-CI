@@ -67,18 +67,49 @@ regroupement passé de 12 % à 20 %.
 Une garniture, une recette ou un grammage différents sont en revanche de vrais génériques
 distincts — croissant fourré abricot et croissant fourré amande restent deux entrées.
 
-### Limite connue de la clé
+### La clé : nature × classe de format
 
-Le niveau 3 décrit plus bas — la caractéristique distinctive, `PB` dans `VIEN-CRO-PB-040` —
-**n'est pas implémenté**. Quand deux génériques partagent catégorie et grammage, la clé
-livrée les distingue par une lettre : `PAIN-BAGU-280`, `280a`, `280b`, `280c` pour la
-baguette nature, bio, Caractère et de campagne.
+`FAMILLE-CATEGORIE[-FORMAT]`, et **aucun grammage**. Un croissant reste un croissant :
+Bridor le fait en 40 et 50 g, Coup de Pâtes de 25 à 125 g. Un gramme dans la clé rendait
+les deux catalogues disjoints — 5 % de rattachement. Sans lui, 66 %.
 
-Conséquence directe sur le rattachement croisé : `VIEN-CROI-50` se rapprochera seul du
-croissant 50 g d'un autre fournisseur, `PAIN-BAGU-280a` ne se rapprochera de rien — la
-lettre ne porte aucun sens qu'un catalogue tiers puisse retrouver. À corriger avant que le
-corpus ne dépasse un catalogue ; le format n'a pas été touché ici pour rester aligné sur
-les clés déjà transmises au collecteur du second fournisseur.
+Une seule classe de format, `MINI`, détectée par le mot dans l'intitulé et non par un
+seuil : les bandes se recouvrent (les MINI vont de 18 à 40 g, les non-MINI commencent à
+12 g). `MAXI` n'est pas une classe — un maxi pain au chocolat reste un pain au chocolat.
+
+Exception, le macaron : 12 g en petit four et 55 à 100 g en dessert sont deux natures et
+non deux formats, d'où `PATI-MACA-PETITFOUR` et `PATI-MACA-DESSERT`.
+
+Le grammage vit sur le SKU, exact, et sert au coût. Le générique porte `poids_min_g` et
+`poids_max_g`, calculés.
+
+## La catégorie se dérive de l'intitulé, jamais du fournisseur
+
+`generics_tool.py rebuild` reclasse famille et catégorie depuis le nom du produit, puis
+reconstruit `produits_generiques.csv`. À rejouer après chaque import.
+
+C'est une leçon payée : le premier test de rattachement croisé a rendu 8,5 %, attribués au
+grammage. La vraie cause était que les 39 viennoiseries Coup de Pâtes portaient toutes
+`categorie: viennoiserie` — un seul seau — quand Bridor en avait livré cinq. Même à
+grammage identique, aucun croissant n'aurait pu se rejoindre.
+
+**Une colonne dont les valeurs viennent du vocabulaire du fournisseur ne peut pas servir
+de clé de rapprochement.** `famille`, `technologie` et `statut` ont tenu parce qu'ils
+étaient imposés au collecteur. `categorie` a dérivé parce qu'il ne l'était pas. Ne plus la
+demander : l'intitulé la donne, chez les deux fournisseurs.
+
+`tests/test_generics.py` recalcule chaque clé depuis l'intitulé et compare — le CSV ne peut
+pas diverger de la règle qui l'a produit.
+
+## Limite précédente, corrigée
+
+La première livraison distinguait par une lettre les génériques partageant catégorie et
+grammage — `PAIN-BAGU-280`, `280a`, `280b`, `280c`. La lettre ne portait aucun sens qu'un
+catalogue tiers puisse retrouver. Supprimé avec le grammage.
+
+Trois préfixes se recouvraient également : `VIEN-CROI` couvrait croissants et croissants
+fourrés, `VIEN-PAIN` les pains au chocolat et aux raisins, `PAIN-PAIN` les pains à partager
+et sandwich. Les codes de catégorie sont désormais distincts — CROI, CROF, PCHO, PRAI.
 
 ## Taxonomie (3 niveaux + attributs)
 

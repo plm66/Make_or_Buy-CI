@@ -134,6 +134,46 @@ def test_detail_est_un_sous_ensemble_de_lindex():
         assert refs_detail <= refs_index, (f.name, sorted(refs_detail - refs_index))
 
 
+def test_la_cle_est_reproductible_depuis_lintitule():
+    """Le CSV ne peut pas dériver de la règle qui l'a produit.
+
+    `id_generique` est dérivable de l'intitulé seul. Ce test le recalcule et compare :
+    une clé éditée à la main, ou un import qui n'a pas rejoué `generics_tool rebuild`,
+    casse ici. C'est ce qui empêche le référentiel de redevenir une saisie manuelle.
+    """
+    sys.path.insert(0, str(ROOT))
+    from generics_tool import classe, cle, poids
+    for f in catalogues():
+        for r in load(f):
+            fam, cat = classe(r["nom_commercial"])
+            assert fam is not None, (f.name, r["nom_commercial"])
+            attendu = cle(fam, cat, r["nom_commercial"], poids(r["poids_unitaire"]))
+            assert r["id_generique"] == attendu, (f.name, r["ref_sku"], r["id_generique"], attendu)
+            assert (r["famille"], r["categorie"]) == (fam, cat), (f.name, r["ref_sku"])
+
+
+def test_nb_fournisseurs_dit_la_verite():
+    """Le compteur de fournisseurs mesure le rattachement croisé — la seule chose que
+    l'axe générique apporte. Comme nb_refs_associees, il est recalculable."""
+    reel = {}
+    for f in catalogues():
+        src = f.name.split("_detail")[0]
+        for r in load(f):
+            reel.setdefault(r["id_generique"], set()).add(src)
+    for r in load(GEN / "produits_generiques.csv"):
+        assert int(r["nb_fournisseurs"]) == len(reel.get(r["id_generique"], ())), r["id_generique"]
+
+
+def test_le_grammage_nest_pas_dans_la_cle():
+    """Deux catalogues vendent le même produit à des formats différents : Bridor fait le
+    croissant en 40 et 50 g, Coup de Pâtes de 25 à 125 g. Un grammage dans la clé les
+    rendait disjoints — 5 % de rattachement. Casse si un chiffre y revient, sauf le
+    macaron dont le petit-four et le dessert sont deux natures."""
+    for r in load(GEN / "produits_generiques.csv"):
+        suffixe = r["id_generique"].split("-")[2:]
+        assert not any(s.isdigit() for s in suffixe), r["id_generique"]
+
+
 if __name__ == "__main__":
     for nom, fn in sorted(globals().items()):
         if nom.startswith("test_"):
