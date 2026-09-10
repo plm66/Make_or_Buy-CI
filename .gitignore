@@ -1,1 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Outils
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Secrets — llm.py lit LLM_API_KEY depuis l'environnement
+.env
+.env.*
+!.env.example
+
+# Éditeurs
+.vscode/
+.idea/
+.zed/
+*.swp
+
+# macOS
 .DS_Store
+._*
+
+# Archives de livraison déposées dans l'arbre (cf. Make_or_Buy_v0.2.0.zip)
+*.zip
+
+# Sorties de session
+history/
