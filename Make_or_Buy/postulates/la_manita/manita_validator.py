@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse, json, sys
 from pathlib import Path
 
-VALIDATOR_VERSION="1.2.0"
+VALIDATOR_VERSION="1.3.0"
 
 # Les familles sont declarees par le postulat. Les recopier ici en dur les dupliquerait
 # hors de leur source, ce que P006 refuse pour la donnee produit et qui vaut autant pour
@@ -72,15 +72,12 @@ def roles(p):
 def validate(catalog, config, dietary=None):
     hard=config["cost_model"]["hard_max_bundle_cost_eur"]
     envelopes=config["family_cost_envelopes"]
-    # Garde de P013: sans plafond par article, une reference hors budget passerait en la
-    # diluant dans une moyenne — ce que P011 interdit. Changer la metrique de maximum a
-    # esperance est legitime; relever un plafond pour sauver un produit ne l'est pas.
-    item_cap=(config.get("expected_value_model") or {}).get("per_item_absolute_cap_eur")
+    # 1.3.0: le plafond absolu par article est retire, redondant avec les enveloppes.
+    # Pour FULL_MATRIX la regle est simplement product_cost <= hard_cap[family].
 
     pools={f:[] for f in FAMILIES}
     missing_cost=[]
     over_family=[]
-    over_item_cap=[]
     role_counts={f:{} for f in FAMILIES}
 
     for p in catalog:
@@ -108,14 +105,6 @@ def validate(catalog, config, dietary=None):
             continue
 
         cap=float(envelopes[f]["hard_max_eur"])
-        if isinstance(item_cap,(int,float)) and c > item_cap + 1e-9:
-            over_item_cap.append({
-                "product_id":p.get("product",{}).get("id") or p.get("id"),
-                "family":f,
-                "cost_eur":round(c,4),
-                "item_cap_eur":item_cap
-            })
-            continue
         if c > cap + 1e-9:
             over_family.append({
                 "product_id":p.get("product",{}).get("id") or p.get("id"),
@@ -145,8 +134,9 @@ def validate(catalog, config, dietary=None):
         "economic_role_counts":role_counts,
         "missing_cost_products":missing_cost,
         "over_family_cap_products":over_family,
-        "over_item_cap_products":over_item_cap,
-        "per_item_absolute_cap_eur":item_cap
+        "admission_budget_eur":None,
+        "free_budget_eur":None,
+        "overrun_attributable_to":[]
     }
     if blocking:
         result["status"]="DATA_INCOMPLETE" if missing_cost else "NO_VALID_BUNDLE"
@@ -159,8 +149,29 @@ def validate(catalog, config, dietary=None):
     # P013: l'admission se juge sur l'esperance, le pire cas reste rendu comme exposition.
     expected=sum(sum(c for _,c in pools[f])/len(pools[f]) for f in FAMILIES)
 
+    # P016: M_f est le max des references ADMISES; le budget d'admission est leur somme,
+    # recalculee a chaque modification du catalogue. Un depassement doit nommer les
+    # references responsables, pas renvoyer a une enveloppe theorique.
+    budget=worst
+    libre=round(hard-budget,4)
+    attribue=[]
+    if budget > hard + 1e-9:
+        for f in sorted(FAMILIES, key=lambda x: maxima[x], reverse=True):
+            porteur=max(pools[f], key=lambda t: t[1])[0]
+            attribue.append({
+                "family":f,
+                "product_id":porteur.get("product",{}).get("id") or porteur.get("id"),
+                "cost_eur":round(maxima[f],4),
+                "family_cap_eur":float(envelopes[f]["hard_max_eur"]),
+                "budget_freed_if_removed_eur":round(
+                    maxima[f]-max([c for _,c in pools[f] if c < maxima[f]] or [0.0]),4)
+            })
+
     result.update({
         "status":"VALID_BUNDLE" if expected <= hard + 1e-9 else "CATALOG_INVALID",
+        "admission_budget_eur":round(budget,4),
+        "free_budget_eur":libre,
+        "overrun_attributable_to":attribue,
         "best_case_bundle_cost_eur":round(best,4),
         "worst_case_bundle_cost_eur":round(worst,4),
         "expected_bundle_cost_eur":round(expected,4),

@@ -147,3 +147,40 @@ def bornes_du_panier(par_famille, poids=None):
 # l'implementation normative, elle porte le plafond par article et le verdict. Ce qui
 # reste ici est ce qu'elle ne sait pas faire — ponderer par une distribution de choix
 # observee, qui n'existera qu'avec les ventes.
+
+
+def budget_incremental(cout_candidat, maximum_actuel_famille):
+    """Budget de pire cas consommé par l'admission d'une référence (P017).
+
+    Une référence au niveau ou en dessous du maximum déjà atteint dans sa famille n'en
+    consomme aucun : elle est gratuite pour FULL_MATRIX. C'est ce qui réhabilite la cible
+    de dix références sans contredire P012 — une famille peut passer de 3 à 10 sans coût,
+    tant que les nouvelles restent sous son maximum.
+    """
+    return round(max(0.0, cout_candidat - maximum_actuel_famille), 4)
+
+
+def valeur_admission(valeur_client_incrementale, cout_candidat, maximum_actuel_famille):
+    """Valeur client marginale par euro de budget marginal consommé (P017).
+
+    None quand le budget incrémental est nul : la référence est gratuite, aucun ratio n'a
+    de sens et elle s'admet sur sa seule valeur. Renvoyer l'infini serait pire — ça la
+    ferait gagner tous les classements sans rien dire de son intérêt.
+    """
+    budget = budget_incremental(cout_candidat, maximum_actuel_famille)
+    return None if budget == 0 else round(valeur_client_incrementale / budget, 4)
+
+
+def plafond_article_matrice_contrainte(par_famille, plafond_panier):
+    """{famille: coût maximal admissible} en CONSTRAINED_MATRIX.
+
+    Le plafond d'un article s'y calcule au lieu d'être fixé : c'est ce qui reste du budget
+    du panier une fois les autres familles servies au moins cher. Un produit cher devient
+    alors admissible avec certaines combinaisons seulement — définition même d'une matrice
+    contrainte, et raison pour laquelle elle augmente la complexité client.
+    """
+    minima = {f: min(c) for f, c in par_famille.items() if c}
+    if len(minima) != len(par_famille):
+        return None
+    return {f: round(plafond_panier - sum(v for g, v in minima.items() if g != f), 4)
+            for f in par_famille}

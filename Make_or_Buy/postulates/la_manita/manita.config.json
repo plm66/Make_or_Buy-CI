@@ -1,5 +1,5 @@
 {
-  "manita_config_version": "1.2.0",
+  "manita_config_version": "1.3.0",
   "concept_id": "la_manita",
   "price_eur": 5.0,
   "cost_model": {
@@ -14,24 +14,24 @@
   },
   "family_cost_envelopes": {
     "SNACK": {
-      "hard_max_eur": 0.5,
-      "status": "PROVISIONAL"
+      "hard_max_eur": 0.75,
+      "status": "DERIVED_FROM_CATALOG"
     },
     "COLD_DRINK": {
-      "hard_max_eur": 0.55,
-      "status": "PROVISIONAL"
+      "hard_max_eur": 0.3,
+      "status": "DERIVED_FROM_CATALOG"
     },
     "COMPLEMENT": {
-      "hard_max_eur": 0.25,
-      "status": "PROVISIONAL"
+      "hard_max_eur": 0.34,
+      "status": "DERIVED_FROM_CATALOG"
     },
     "DESSERT": {
-      "hard_max_eur": 0.25,
-      "status": "PROVISIONAL"
+      "hard_max_eur": 0.2,
+      "status": "DERIVED_FROM_CATALOG"
     },
     "HOT_DRINK": {
-      "hard_max_eur": 0.2,
-      "status": "PROVISIONAL"
+      "hard_max_eur": 0.16,
+      "status": "DERIVED_FROM_CATALOG"
     }
   },
   "family_envelope_sum_eur": 1.75,
@@ -59,9 +59,9 @@
     },
     "min_daily_bundles_for_averaging": 30,
     "min_daily_bundles_rationale": "L'écart-type d'un panier vaut environ 0,10 €. À 30 paniers par jour l'erreur-type de la moyenne journalière tombe sous 0,02 €, soit une bande de 7 centimes à deux sigmas. En dessous de ce volume, raisonner en moyenne n'est pas fondé.",
-    "per_item_absolute_cap_eur": 0.9,
-    "per_item_absolute_cap_status": "PROVISIONAL",
-    "per_item_absolute_cap_rationale": "Garde contre l'usage détourné de P013 : sans plafond par article, une référence hors budget serait admise en la noyant dans une moyenne, ce que P011 interdit. Changer la métrique de maximum à espérance est légitime ; relever un plafond pour sauver un produit ne l'est pas."
+    "per_item_absolute_cap_rationale": "Garde contre l'usage détourné de P013 : sans plafond par article, une référence hors budget serait admise en la noyant dans une moyenne, ce que P011 interdit. Changer la métrique de maximum à espérance est légitime ; relever un plafond pour sauver un produit ne l'est pas.",
+    "per_item_absolute_cap_removed_in": "1.3.0",
+    "per_item_rule": "FULL_MATRIX : product_cost <= family_cost_envelopes[family].hard_max_eur. Rien d'autre. Un plafond absolu séparé ferait double emploi, et un multiple de l'enveloppe autoriserait précisément ce que l'enveloppe interdit."
   },
   "serving_unit_model": {
     "rule": "Une référence Manita est une unité de service, pas nécessairement la référence de boutique.",
@@ -98,6 +98,34 @@
     "attach_rate": null,
     "attach_margin_eur": null,
     "measurement_source": "OBSERVED_SALES",
-    "rationale": "Un prix d'appel non mesuré est une perte que l'on se raconte. La règle interdit l'argument tant que le chiffre n'existe pas, et l'autorise dès qu'il existe."
+    "rationale": "Même une fois les données de caisse disponibles, l'attachement ne transforme pas un panier invalide en panier valide. Il permet de décider consciemment d'en faire un produit d'appel — décision commerciale, pas règle d'admission.",
+    "economic_levels": {
+      "MANITA_UNIT_ECONOMICS": "Doit tenir sans aucun achat additionnel. C'est le niveau qui décide de la validité.",
+      "STORE_PORTFOLIO_ECONOMICS": "Peut intégrer la contribution des achats additionnels générés par La Manita. Informe une décision, ne change aucune validité."
+    },
+    "expected_attachment_contribution": "Σ (probability_of_attachment_i × contribution_margin_i)",
+    "offset_allowed_permanently_false": true
+  },
+  "family_cost_envelopes_rule": "M_f = max du coût effectif des références ADMISES dans la famille f. FULL_MATRIX est valide si Σ M_f <= hard_max_bundle_cost_eur. Le vecteur se recalcule à chaque modification du catalogue ; le reliquat est du budget libre à réallouer, pas une marge acquise. Leur somme ne doit jamais dépasser le plafond dur.",
+  "admission_model": {
+    "incremental_budget": "max(0, candidate_cost - current_family_max)",
+    "admission_value": "incremental_customer_value / incremental_budget",
+    "free_under_max": "Une référence dont le coût est inférieur ou égal au maximum déjà atteint dans sa famille ne consomme AUCUN budget de pire cas. La densité d'assortiment peut donc croître librement sous ce maximum — c'est ce qui réhabilite la cible de dix références sans contredire P012.",
+    "adjustments": [
+      "SIGNATURE_PRODUCT",
+      "DIETARY_COVERAGE",
+      "ECONOMIC_ROLE",
+      "STOCK_ROTATION"
+    ],
+    "separation_of_concerns": {
+      "hard_cap": "fonction du coût effectif seul",
+      "product_admission": "coût, valeur perçue et fonction économique",
+      "free_budget_allocation": "valeur marginale obtenue / budget marginal consommé"
+    }
+  },
+  "constrained_matrix_model": {
+    "max_item_cost_formula": "hard_max_bundle_cost_eur - Σ (coût MINIMUM des autres familles requises)",
+    "description": "En matrice contrainte, le plafond d'un article se calcule au lieu d'être fixé. Un produit cher n'est admissible qu'avec certaines combinaisons, ce qui est la définition même d'une matrice contrainte.",
+    "activation": "Décision commerciale explicite, jamais un rattrapage automatique d'une référence hors budget."
   }
 }

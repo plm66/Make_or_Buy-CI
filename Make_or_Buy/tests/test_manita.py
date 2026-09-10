@@ -124,18 +124,23 @@ def test_lesperance_admet_ce_que_le_pire_cas_refuse():
     assert r["status"] == "VALID_BUNDLE", r
 
 
-def test_le_plafond_par_article_bloque_la_dilution():
-    """Garde contre l'usage détourné de P013. Sans plafond par article, une référence hors
-    budget serait admise en la noyant dans une moyenne — ce que P011 interdit. Une
-    espérance saine ne rachète pas un article aberrant."""
+def test_lenveloppe_familiale_est_la_seule_regle_par_article():
+    """Revue Alex 1.3.0 : le plafond absolu par article est retiré, redondant.
+
+    Pour FULL_MATRIX la règle est `product_cost <= hard_cap[family]`, rien d'autre. Un
+    multiplicateur du type 1,5 × enveloppe autoriserait précisément le produit que
+    l'enveloppe existe pour interdire. Casse si un second plafond réapparaît.
+    """
     import sys as _sys, json as _json
     _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
     from manita_validator import validate
     config = _json.loads((ROOT / "postulates" / "la_manita" / "manita.config.json").read_text(encoding="utf-8"))
-    cap = config["expected_value_model"]["per_item_absolute_cap_eur"]
-    cat = [{"id": "aberrant", "family": "SNACK", "cost_eur": cap + 0.5}]
-    r = validate(cat, config)
-    assert r["over_item_cap_products"] and r["over_item_cap_products"][0]["product_id"] == "aberrant"
+    assert "per_item_absolute_cap_eur" not in config["expected_value_model"]
+
+    cap = config["family_cost_envelopes"]["SNACK"]["hard_max_eur"]
+    r = validate([{"id": "juste_dessus", "family": "SNACK", "cost_eur": cap + 0.01}], config)
+    assert r["over_family_cap_products"][0]["product_id"] == "juste_dessus"
+    assert "SNACK" in r["blocking_families"]
 
 
 def test_la_ponderation_deplace_lesperance_vers_le_produit_choisi():
@@ -152,6 +157,60 @@ def test_la_ponderation_deplace_lesperance_vers_le_produit_choisi():
     assert bornes_du_panier(par_fam, poids={"A": [9, 1]})[1] == 0.26  # le pas cher domine
     assert bornes_du_panier(par_fam, poids={"A": [1, 9]})[1] == 0.74  # le cher domine
     assert bornes_du_panier(par_fam)[2] == 0.80                      # pire cas inchangé
+
+
+def test_une_reference_sous_le_maximum_est_gratuite():
+    """P017 : le budget de pire cas consommé vaut max(0, coût − maximum de la famille).
+
+    C'est ce qui réconcilie la cible de dix références avec P012 : une famille peut passer
+    de 3 à 10 sans dégrader le worst case, tant que les nouvelles restent sous son maximum.
+    Casse si l'admission redevient facturée au coût absolu du candidat.
+    """
+    from make_or_buy.manita import budget_incremental
+    assert budget_incremental(0.60, 0.72) == 0.0      # sous le max : gratuit
+    assert budget_incremental(0.72, 0.72) == 0.0      # au max : gratuit
+    assert budget_incremental(0.73, 0.72) == 0.01     # un centime au-dessus : un centime
+    assert budget_incremental(0.45, 0.30) == 0.15     # attractif mais cher en budget
+
+
+def test_la_valeur_dadmission_ne_renvoie_pas_linfini():
+    """Une référence gratuite n'a pas de ratio valeur/budget : elle s'admet sur sa seule
+    valeur. Renvoyer l'infini la ferait gagner tous les classements sans rien dire de son
+    intérêt réel."""
+    from make_or_buy.manita import valeur_admission
+    assert valeur_admission(10.0, 0.60, 0.72) is None
+    assert valeur_admission(3.0, 0.75, 0.72) == 100.0   # 3 de valeur pour 0,03 de budget
+
+
+def test_le_plafond_article_de_la_matrice_contrainte_se_calcule():
+    """En CONSTRAINED_MATRIX le plafond d'un article n'est pas fixé : c'est ce qui reste du
+    budget une fois les autres familles servies au moins cher. Un produit cher devient
+    admissible avec certaines combinaisons seulement."""
+    from make_or_buy.manita import plafond_article_matrice_contrainte
+    r = plafond_article_matrice_contrainte({"A": [0.20, 0.60], "B": [0.10], "C": [0.05]}, 1.75)
+    assert r["A"] == 1.60   # 1,75 − (0,10 + 0,05)
+    assert r["B"] == 1.50   # 1,75 − (0,20 + 0,05)
+    assert plafond_article_matrice_contrainte({"A": [0.2], "B": []}, 1.75) is None
+
+
+def test_un_depassement_nomme_les_references_responsables():
+    """Alex : le validateur doit rendre les références responsables, pas renvoyer à des
+    enveloppes théoriques. Sans ça on raisonne sur un vecteur et pas sur un catalogue."""
+    import sys as _sys, json as _json
+    _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import validate
+    config = _json.loads((ROOT / "postulates" / "la_manita" / "manita.config.json").read_text(encoding="utf-8"))
+    config = _json.loads(_json.dumps(config))
+    for f in config["family_cost_envelopes"]:
+        config["family_cost_envelopes"][f]["hard_max_eur"] = 5.0   # rien n'est exclu
+    cat = [{"id": f"{fam}{i}", "family": fam, "cost_eur": c}
+           for fam in config["family_cost_envelopes"] for i, c in ((0, 0.10), (1, 0.90))]
+    r = validate(cat, config)
+    assert r["admission_budget_eur"] == 4.5 and r["admission_budget_eur"] > 1.75
+    assert len(r["overrun_attributable_to"]) == 5
+    premier = r["overrun_attributable_to"][0]
+    assert premier["cost_eur"] == 0.9
+    assert premier["budget_freed_if_removed_eur"] == 0.8   # retomberait sur la 0,10
 
 
 if __name__ == "__main__":

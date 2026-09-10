@@ -1,0 +1,48 @@
+{
+  "from_version": "1.2.0",
+  "to_version": "1.3.0",
+  "change_type": "NORMATIVE_CORRECTION",
+  "reason": "Revue Alex. L'enveloppe familiale est un plafond d'admission économique, pas une représentation de la valeur perçue. Le vecteur d'enveloppes se dérive du catalogue retenu au lieu d'être choisi une fois pour toutes, et le plafond absolu par article est redondant avec lui.",
+  "changes": [
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P016_ADMISSION_BUDGET_IS_DERIVED",
+      "value": "M_f is the maximum effective cost among references admitted in family f. FULL_MATRIX is valid when the sum of M_f over required families remains within hard_max_bundle_cost. The envelope vector is recomputed on every catalog change, never fixed once and for all; any remainder is free budget to reallocate."
+    },
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P017_INCREMENTAL_ADMISSION_VALUE",
+      "value": "The budget cost of admitting a reference is max(0, candidate_cost - current_family_max). A reference priced at or below the family maximum consumes no worst-case budget: assortment density may therefore grow freely under the existing maximum. Admission ranks candidates by incremental customer value per unit of incremental budget, adjusted for signature value, dietary coverage, economic role and stock rotation."
+    },
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P018_TWO_ECONOMIC_LEVELS",
+      "value": "MANITA_UNIT_ECONOMICS must hold without any attached purchase. STORE_PORTFOLIO_ECONOMICS may include attachment contribution. Attachment never converts an invalid bundle into a valid one; it only informs a deliberate loss-leader decision, which is a commercial choice and not an admission rule."
+    },
+    {
+      "op": "REMOVE",
+      "path": "configuration.expected_value_model.per_item_absolute_cap_eur",
+      "reason": "Redundant with family hard caps. For FULL_MATRIX the rule is simply product_cost <= hard_cap[family]. A multiple of the envelope would authorise exactly what the envelope exists to forbid."
+    },
+    {
+      "op": "ADD",
+      "path": "configuration.constrained_matrix_model",
+      "value_ref": "manita.config.json#constrained_matrix_model"
+    },
+    {
+      "op": "REPLACE",
+      "path": "configuration.family_cost_envelopes",
+      "old_semantics": "provisional fixed allocation",
+      "new_semantics": "admission caps recomputed from the retained catalog; their sum must never exceed hard_max_bundle_cost"
+    },
+    {
+      "op": "ADD",
+      "path": "validation.required_checks_added",
+      "value": [
+        "admission_budget_recomputed",
+        "overrun_attributed_to_references",
+        "free_budget_reported"
+      ]
+    }
+  ]
+}
