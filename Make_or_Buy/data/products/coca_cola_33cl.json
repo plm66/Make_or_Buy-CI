@@ -14,7 +14,7 @@
   "commercial": {
     "sale_price_eur": 2.4,
     "price_status": "ESTIMATED",
-    "reference_value_eur": 1.65,
+    "reference_value_eur": null,
     "bundle_eligible": true,
     "price_tiers_eligible_eur": [],
     "customer_value_notes": "Canette 33 cl. Fourchette observée 2,00-2,80 €, moyenne constatée 2,40-2,50 €. En formule déjeuner, la boisson est valorisée 1,50-1,80 € dans le calcul du menu — ce n'est pas le même prix que la vente à l'unité."
