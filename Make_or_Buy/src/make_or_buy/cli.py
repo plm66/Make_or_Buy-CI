@@ -1,8 +1,8 @@
 from __future__ import annotations
-import argparse, json
+import argparse, json, sys
 from pathlib import Path
-from .engine import load_json, compose_menus, is_eligible
-from .manita import compose_grille
+from .engine import load_json, compose_menus, is_eligible, selected_cost
+from .manita import compose_grille, adapte_pour_validateur
 from .llm import build_context, ask_openai_compatible
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -19,6 +19,15 @@ def cmd_menu(args):
         top_n=args.top
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
+
+def cmd_manita_check(args):
+    sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import validate
+    catalog = adapte_pour_validateur(load_json(args.catalog), selected_cost)
+    result = validate(catalog, load_json(args.config), args.dietary)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    if result["status"] != "VALID_BUNDLE":
+        raise SystemExit(2)
 
 def cmd_manita(args):
     catalog = load_json(args.catalog)
@@ -50,6 +59,13 @@ def main():
     m.add_argument("--top", type=int, default=1)
     m.add_argument("--catalog", default=str(DEFAULT_CATALOG))
     m.set_defaults(func=cmd_menu)
+
+    v = sub.add_parser("manita-check",
+                       help="Valider un catalogue contre le postulat La Manita (pire cas, enveloppes).")
+    v.add_argument("--catalog", default=str(DEFAULT_CATALOG))
+    v.add_argument("--config", default=str(ROOT / "postulates" / "la_manita" / "manita.config.json"))
+    v.add_argument("--dietary", choices=["VEGAN", "VEGETARIAN"])
+    v.set_defaults(func=cmd_manita_check)
 
     g = sub.add_parser("manita", help="Composer une grille colonnes × lignes à prix cible.")
     g.add_argument("--colonnes", nargs="+",

@@ -1,0 +1,51 @@
+{
+  "manita_config_version": "1.1.0",
+  "concept_id": "la_manita",
+  "price_eur": 5.0,
+  "cost_model": {
+    "cost_metric": "SELECTED_EFFECTIVE_PRODUCT_COST",
+    "description": "Use the sourcing-adjusted product cost exposed by Make_or_Buy. Do not use raw ingredient cost when a more complete effective cost is available.",
+    "target_bundle_cost_eur": 1.5,
+    "target_bundle_cost_ratio": 0.3,
+    "hard_max_bundle_cost_eur": 1.75,
+    "hard_max_bundle_cost_ratio": 0.35,
+    "validation_rule": "FULL_MATRIX is valid only if worst_case_bundle_cost_eur <= hard_max_bundle_cost_eur.",
+    "optimization_rule": "Prefer catalogs where typical/reference bundles remain <= target_bundle_cost_eur."
+  },
+  "family_cost_envelopes": {
+    "SNACK": {
+      "hard_max_eur": 0.5,
+      "status": "PROVISIONAL"
+    },
+    "COLD_DRINK": {
+      "hard_max_eur": 0.55,
+      "status": "PROVISIONAL"
+    },
+    "COMPLEMENT": {
+      "hard_max_eur": 0.25,
+      "status": "PROVISIONAL"
+    },
+    "DESSERT": {
+      "hard_max_eur": 0.25,
+      "status": "PROVISIONAL"
+    },
+    "HOT_DRINK": {
+      "hard_max_eur": 0.2,
+      "status": "PROVISIONAL"
+    }
+  },
+  "family_envelope_sum_eur": 1.75,
+  "catalog_admission": {
+    "rule": "A product may be active in the canonical catalog while being ineligible for La Manita.",
+    "full_matrix_eligibility": "product_effective_cost_eur <= family_cost_envelopes[family].hard_max_eur",
+    "over_budget_action": "EXCLUDE_FROM_MANITA_5",
+    "do_not_do": "Do not increase hard_max_bundle_cost merely to preserve an expensive reference."
+  },
+  "matrix_policy": {
+    "preferred": "FULL_MATRIX",
+    "fallback": "CONSTRAINED_MATRIX",
+    "fallback_trigger": "Only after explicit business decision; never automatically as a way to retain over-budget references.",
+    "density_target_is_non_normative": true,
+    "density_rule": "10 references per family is an assortment target, not a validity requirement."
+  }
+}

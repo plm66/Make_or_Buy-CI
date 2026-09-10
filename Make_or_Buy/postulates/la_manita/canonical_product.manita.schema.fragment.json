@@ -1,0 +1,50 @@
+{
+  "$comment": "Merge into canonical product schema under product/commercial or a dedicated manita block.",
+  "manita": {
+    "type": "object",
+    "properties": {
+      "eligible": {
+        "type": "boolean"
+      },
+      "families": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "SNACK",
+            "COLD_DRINK",
+            "COMPLEMENT",
+            "DESSERT",
+            "HOT_DRINK"
+          ]
+        }
+      },
+      "economic_roles": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "enum": [
+            "MARGIN_PROTECTOR",
+            "PERCEIVED_VALUE_DRIVER",
+            "SIGNATURE_PRODUCT",
+            "STOCK_ABSORBER",
+            "WASTE_RECOVERY",
+            "SUPPLIER_EFFICIENCY"
+          ]
+        }
+      },
+      "dynamic_slot_candidate": {
+        "type": "boolean"
+      },
+      "exclusion_reason": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "eligible",
+      "economic_roles"
+    ]
+  }
+}

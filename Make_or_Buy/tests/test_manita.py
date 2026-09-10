@@ -72,6 +72,36 @@ def test_le_champ_de_prix_est_choisi():
     assert grille and grille[0]["total_eur"] == 5.0
 
 
+def test_adaptateur_pose_le_cout_ajuste_par_le_sourcing():
+    """Le postulat veut le SELECTED_EFFECTIVE_PRODUCT_COST, pas le coût matière brut.
+
+    Le format legacy expose les deux moitiés — coût interne et prix rendu — sans jamais
+    le choix. L'adaptateur y dépose le coût effectivement retenu, sous le `cost_eur` que
+    le validateur livré documente comme son point d'extension.
+    """
+    from make_or_buy.manita import adapte_pour_validateur
+    catalogue = [{"id": "x"}, {"id": "y"}]
+    adapte = adapte_pour_validateur(catalogue, lambda p: (0.42, "BUY") if p["id"] == "x" else (None, "UNDECIDED"))
+    assert adapte[0]["cost_eur"] == 0.42
+    assert "cost_eur" not in adapte[1], "un coût inconnu doit rester absent, jamais valoir zéro"
+    assert catalogue == [{"id": "x"}, {"id": "y"}], "l'adaptateur ne mute pas son entrée"
+
+
+def test_le_validateur_livre_refuse_plutot_que_de_fabriquer():
+    """Contrat d'agent : DATA_INCOMPLETE quand un champ critique manque, jamais une
+    décision inventée. Casse si l'adaptateur se met à combler les coûts absents."""
+    import sys as _sys
+    _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import validate
+    from make_or_buy.manita import adapte_pour_validateur
+    import json
+    config = json.loads((ROOT / "postulates" / "la_manita" / "manita.config.json").read_text(encoding="utf-8"))
+    cat = [{"id": "s", "family": "SNACK"}]
+    r = validate(adapte_pour_validateur(cat, lambda p: (None, "UNDECIDED")), config)
+    assert r["status"] == "DATA_INCOMPLETE", r["status"]
+    assert "s" in r["missing_cost_products"]
+
+
 if __name__ == "__main__":
     for nom, fn in sorted(globals().items()):
         if nom.startswith("test_"):

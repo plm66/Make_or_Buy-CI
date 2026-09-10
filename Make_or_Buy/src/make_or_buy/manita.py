@@ -78,3 +78,27 @@ def compose_grille(catalogue, colonnes, lignes=10, cible=5.0, tolerance=0.5, eli
         for c, item in zip(colonnes, ligne):
             dispo[c].remove(item)
     return grille, manques
+
+
+# --------------------------------------------------- pont vers le validateur du postulat
+
+def adapte_pour_validateur(catalogue, cout_effectif):
+    """Catalogue legacy augmenté du coût que le postulat veut voir.
+
+    `manita.config.json` demande le SELECTED_EFFECTIVE_PRODUCT_COST — le coût ajusté par
+    le sourcing, pas le coût matière brut. Le format legacy expose les deux moitiés
+    (`internal.material_cost_eur`, `external.landed_cost_eur`) sans jamais le choix ; c'est
+    `engine.selected_cost` qui tranche. Le validateur livré lit un `cost_eur` de haut
+    niveau, documenté comme son point d'extension : on l'y dépose sans le modifier.
+
+    Un coût inconnu reste absent plutôt que nul — le validateur rend alors
+    DATA_INCOMPLETE, ce que le contrat d'agent exige au lieu d'une décision fabriquée.
+    """
+    adapte = []
+    for produit in catalogue:
+        cout, _ = cout_effectif(produit)
+        copie = dict(produit)
+        if isinstance(cout, (int, float)):
+            copie["cost_eur"] = cout
+        adapte.append(copie)
+    return adapte

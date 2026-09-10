@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "La Manita Dynamic Slot",
+  "type": "object",
+  "required": [
+    "slot_id",
+    "family",
+    "selection_policy",
+    "eligible_product_query"
+  ],
+  "properties": {
+    "slot_id": {
+      "type": "string"
+    },
+    "family": {
+      "enum": [
+        "SNACK",
+        "COLD_DRINK",
+        "COMPLEMENT",
+        "DESSERT",
+        "HOT_DRINK"
+      ]
+    },
+    "selection_policy": {
+      "enum": [
+        "BEST_AVAILABLE",
+        "LOWEST_EFFECTIVE_COST",
+        "WASTE_RECOVERY_FIRST",
+        "HIGHEST_STOCK_RISK"
+      ]
+    },
+    "eligible_product_query": {
+      "type": "object"
+    },
+    "must_resolve": {
+      "const": true
+    },
+    "fallback_product_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

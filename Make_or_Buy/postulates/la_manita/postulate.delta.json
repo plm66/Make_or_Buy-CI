@@ -1,0 +1,44 @@
+{
+  "from_version": "1.0.0",
+  "to_version": "1.1.0",
+  "change_type": "NORMATIVE_CORRECTION",
+  "reason": "Resolve arithmetic tension between FULL_MATRIX, catalog density and missing bundle cost ceiling.",
+  "changes": [
+    {
+      "op": "ADD",
+      "path": "configuration.cost_model",
+      "value_ref": "manita.config.json#cost_model"
+    },
+    {
+      "op": "ADD",
+      "path": "configuration.family_cost_envelopes",
+      "value_ref": "manita.config.json#family_cost_envelopes"
+    },
+    {
+      "op": "REPLACE",
+      "path": "core.catalog_target_per_family",
+      "old_semantics": "implicit structural target",
+      "new_semantics": "non-normative assortment target"
+    },
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P011_CATALOG_ADMISSION",
+      "value": "FULL_MATRIX eligibility is controlled by family cost envelopes. Over-budget references remain in the canonical catalog but are excluded from La Manita 5."
+    },
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P012_DENSITY_NON_MONOTONICITY_ACKNOWLEDGEMENT",
+      "value": "Adding a reference cannot reduce the family maximum; therefore assortment density is subordinate to FULL_MATRIX economic validity."
+    },
+    {
+      "op": "ADD",
+      "path": "validation.outputs",
+      "value": [
+        "VALID_BUNDLE",
+        "NO_VALID_BUNDLE",
+        "CATALOG_INVALID",
+        "DATA_INCOMPLETE"
+      ]
+    }
+  ]
+}

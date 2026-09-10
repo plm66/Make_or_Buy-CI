@@ -1,0 +1,15 @@
+{
+  "agent_directives_version": "1.1.0",
+  "critical_correction": [
+    "Do not treat 10 references/family as a requirement.",
+    "Do not solve FULL_MATRIX failure by raising the cost ceiling.",
+    "Reject/exclude over-budget references from Manita 5 eligibility.",
+    "Compute worst_case_bundle_cost as the sum of eligible family maxima.",
+    "A canonical product can remain active globally while being Manita-ineligible."
+  ],
+  "budget_interpretation": {
+    "target_1_50": "optimization target",
+    "hard_1_75": "FULL_MATRIX admission ceiling",
+    "family_caps": "provisional control allocation; recalibrate using real effective costs, but their sum must never exceed hard ceiling."
+  }
+}

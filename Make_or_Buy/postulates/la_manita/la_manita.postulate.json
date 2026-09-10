@@ -1,6 +1,6 @@
 {
   "postulate_id": "la_manita",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "status": "normative",
   "title": "La Manita — Fixed Price Mix-and-Match Postulate",
   "core": {
@@ -11,7 +11,8 @@
     "items_per_family": 1,
     "total_items": 5,
     "catalog_target_per_family": 10,
-    "preferred_matrix_mode": "FULL_MATRIX"
+    "preferred_matrix_mode": "FULL_MATRIX",
+    "catalog_target_per_family_semantics": "non-normative assortment target"
   },
   "families": [
     {
@@ -85,6 +86,14 @@
     {
       "id": "P010_DYNAMIC_SLOTS",
       "rule": "Dynamic references such as Dessert du jour may resolve to eligible canonical products without altering family structure."
+    },
+    {
+      "id": "P011_CATALOG_ADMISSION",
+      "rule": "FULL_MATRIX eligibility is controlled by family cost envelopes. Over-budget references remain in the canonical catalog but are excluded from La Manita 5."
+    },
+    {
+      "id": "P012_DENSITY_NON_MONOTONICITY_ACKNOWLEDGEMENT",
+      "rule": "Adding a reference cannot reduce the family maximum; therefore assortment density is subordinate to FULL_MATRIX economic validity."
     }
   ],
   "economic_roles": [
@@ -128,6 +137,12 @@
       "worst_case_bundle_cost_computed",
       "dietary_bundle_completeness",
       "dynamic_slots_resolvable"
+    ],
+    "outputs": [
+      "VALID_BUNDLE",
+      "NO_VALID_BUNDLE",
+      "CATALOG_INVALID",
+      "DATA_INCOMPLETE"
     ]
   },
   "optimization_targets": [
@@ -164,5 +179,9 @@
       "CATALOG_INVALID",
       "DATA_INCOMPLETE"
     ]
+  },
+  "configuration": {
+    "cost_model": "manita.config.json#cost_model",
+    "family_cost_envelopes": "manita.config.json#family_cost_envelopes"
   }
 }
