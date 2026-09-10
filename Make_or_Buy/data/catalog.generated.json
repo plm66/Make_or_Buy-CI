@@ -11,7 +11,7 @@
     "sale_price_eur": 2.0,
     "internal": {
       "possible": true,
-      "material_cost_eur": null,
+      "avoidable_cost_eur": null,
       "labor_minutes": 0.35,
       "shelf_life_hours": null,
       "traceability_score": null

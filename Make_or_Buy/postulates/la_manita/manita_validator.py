@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse, json, sys
 from pathlib import Path
 
-VALIDATOR_VERSION="1.4.0"
+VALIDATOR_VERSION="1.5.0"
 
 # Les familles sont declarees par le postulat. Les recopier ici en dur les dupliquerait
 # hors de leur source, ce que P006 refuse pour la donnee produit et qui vaut autant pour
@@ -86,7 +86,6 @@ def product_cost(p):
         ("decision","selected_effective_cost_eur"),
         ("manita","serving_unit","effective_cost_eur"),
         ("internal_production","avoidable_cost_total_eur"),
-        ("internal_production","material_cost_eur"),
     ]:
         cur=p
         ok=True
@@ -104,6 +103,12 @@ def product_cost(p):
             if isinstance(s.get("landed_cost_eur"),(int,float))]
     if rendus:
         return float(min(rendus))
+
+    # Plus de repli sur internal_production.material_cost_eur. La config exige le
+    # SELECTED_EFFECTIVE_PRODUCT_COST et interdit le coût matière quand un coût plus
+    # complet existe; retomber dessus quand il manque revenait a fabriquer une decision
+    # economique a partir d'un chiffre que la doctrine refuse (G002). L'absence rend None,
+    # donc DATA_INCOMPLETE.
 
     # Legacy catalog adapter
     if isinstance(p.get("cost_eur"),(int,float)):

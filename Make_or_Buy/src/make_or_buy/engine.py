@@ -19,30 +19,42 @@ def is_eligible(item, diet):
     return False
 
 def selected_cost(item):
-    """
-    Estimation simple de coût opérationnel retenu.
-    Ce moteur est volontairement conservateur: il compare d'abord coûts connus.
-    La doctrine reste prioritaire sur une décision automatique.
+    """(coût complet évitable, mode) du produit, ou (None, mode) si la donnée manque.
+
+    Logique normative — La Manita config, cost_metric SELECTED_EFFECTIVE_PRODUCT_COST :
+
+        MAKE    avoidable_cost_eur                    coût complet évitable interne
+        BUY     external.landed_cost_eur              prix rendu de la source retenue
+        HYBRID  composants achetés + opérations internes évitables
+
+    Aucun repli sur le coût matière. Il a longtemps servi de valeur par défaut et c'était
+    la dette G002 : comparer un prix fournisseur au seul coût matière interne est
+    exactement ce que la doctrine interdit en G002, et ça sous-estimait le coût interne
+    d'un facteur 2 à 7. Une donnée absente rend None, ce qui remonte en DATA_INCOMPLETE
+    plutôt qu'en décision fabriquée.
     """
     cls = item["signature"]["class"]
-    i = item.get("internal",{})
-    e = item.get("external",{})
+    i = item.get("internal", {})
+    e = item.get("external", {})
+    interne = i.get("avoidable_cost_eur") if i.get("possible") else None
+    externe = e.get("landed_cost_eur") if e.get("possible") else None
+    interne = interne if isinstance(interne, (int, float)) else None
+    externe = externe if isinstance(externe, (int, float)) else None
 
-    if cls == "INHOUSE_SIGNATURE_ADVANTAGE" and i.get("possible"):
-        return i.get("material_cost_eur"), "MAKE"
-    if cls == "SUPPLIER_SUPERIOR" and e.get("possible"):
-        return e.get("landed_cost_eur"), "BUY"
+    if cls == "INHOUSE_SIGNATURE_ADVANTAGE":
+        return interne, "MAKE"
+    if cls == "SUPPLIER_SUPERIOR":
+        return externe, "BUY"
     if cls == "HYBRID_SIGNATURE":
-        # Faute d'un coût hybride détaillé, prendre le meilleur coût disponible et signaler HYBRID.
-        vals = [v for v in [i.get("material_cost_eur"), e.get("landed_cost_eur")] if isinstance(v,(int,float))]
-        return (min(vals) if vals else None), "HYBRID"
+        # Un hybride achète une base ET y ajoute du travail interne: son coût est la somme,
+        # jamais le minimum. Prendre min() faisait de l'hybride le poste le moins cher du
+        # catalogue et biaisait tout le classement vers lui.
+        hybride = item.get("hybrid", {}).get("avoidable_cost_eur")
+        return (hybride if isinstance(hybride, (int, float)) else None), "HYBRID"
 
-    vals = []
-    if i.get("possible") and isinstance(i.get("material_cost_eur"),(int,float)):
-        vals.append((i["material_cost_eur"],"MAKE"))
-    if e.get("possible") and isinstance(e.get("landed_cost_eur"),(int,float)):
-        vals.append((e["landed_cost_eur"],"BUY"))
-    return min(vals, default=(None,"UNDECIDED"), key=lambda x:x[0])
+    candidats = [(c, m) for c, m in ((interne, "MAKE"), (externe, "BUY")) if c is not None]
+    return min(candidats, default=(None, "UNDECIDED"), key=lambda x: x[0])
+
 
 def menu_score(items, target_price, max_food_cost_ratio=0.30, prefer_signature=True):
     rows = []

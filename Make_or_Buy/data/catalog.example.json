@@ -16,7 +16,9 @@
       "material_cost_eur": 0.72,
       "labor_minutes": 4.0,
       "shelf_life_hours": 12,
-      "traceability_score": 3
+      "traceability_score": 3,
+      "avoidable_cost_eur": 1.72,
+      "avoidable_cost_basis": "ILLUSTRATIF: matière + 4.0 min x 0.25 €/min (production_assistant)"
     },
     "external": {
       "possible": true,
@@ -29,6 +31,10 @@
       "class": "HYBRID_SIGNATURE",
       "customer_value_score": 4.2,
       "notes": "Base sourcée possible, assemblage et assaisonnement maison."
+    },
+    "hybrid": {
+      "avoidable_cost_eur": 1.65,
+      "basis": "ILLUSTRATIF: base achetée au prix rendu + finition interne estimée à la moitié du temps"
     }
   },
   {
@@ -49,7 +55,9 @@
       "material_cost_eur": 0.62,
       "labor_minutes": 3.5,
       "shelf_life_hours": 10,
-      "traceability_score": 3
+      "traceability_score": 3,
+      "avoidable_cost_eur": 1.495,
+      "avoidable_cost_basis": "ILLUSTRATIF: matière + 3.5 min x 0.25 €/min (production_assistant)"
     },
     "external": {
       "possible": true,
@@ -62,6 +70,10 @@
       "class": "HYBRID_SIGNATURE",
       "customer_value_score": 4.0,
       "notes": "Recette et montage maison."
+    },
+    "hybrid": {
+      "avoidable_cost_eur": 1.4875,
+      "basis": "ILLUSTRATIF: base achetée au prix rendu + finition interne estimée à la moitié du temps"
     }
   },
   {
@@ -79,7 +91,9 @@
       "material_cost_eur": 0.24,
       "labor_minutes": 1.2,
       "shelf_life_hours": 48,
-      "traceability_score": 3
+      "traceability_score": 3,
+      "avoidable_cost_eur": 0.54,
+      "avoidable_cost_basis": "ILLUSTRATIF: matière + 1.2 min x 0.25 €/min (production_assistant)"
     },
     "external": {
       "possible": true,
@@ -109,7 +123,9 @@
       "material_cost_eur": 0.3,
       "labor_minutes": 1.4,
       "shelf_life_hours": 48,
-      "traceability_score": 3
+      "traceability_score": 3,
+      "avoidable_cost_eur": 0.65,
+      "avoidable_cost_basis": "ILLUSTRATIF: matière + 1.4 min x 0.25 €/min (production_assistant)"
     },
     "external": {
       "possible": true,
@@ -139,7 +155,9 @@
       "material_cost_eur": null,
       "labor_minutes": null,
       "shelf_life_hours": null,
-      "traceability_score": null
+      "traceability_score": null,
+      "avoidable_cost_eur": null,
+      "avoidable_cost_basis": null
     },
     "external": {
       "possible": true,
@@ -169,7 +187,9 @@
       "material_cost_eur": null,
       "labor_minutes": null,
       "shelf_life_hours": null,
-      "traceability_score": null
+      "traceability_score": null,
+      "avoidable_cost_eur": null,
+      "avoidable_cost_basis": null
     },
     "external": {
       "possible": true,
@@ -199,7 +219,9 @@
       "material_cost_eur": 0.22,
       "labor_minutes": 2.0,
       "shelf_life_hours": 48,
-      "traceability_score": 3
+      "traceability_score": 3,
+      "avoidable_cost_eur": 0.72,
+      "avoidable_cost_basis": "ILLUSTRATIF: matière + 2.0 min x 0.25 €/min (production_assistant)"
     },
     "external": {
       "possible": true,
@@ -232,7 +254,9 @@
       "material_cost_eur": 0.25,
       "labor_minutes": 1.8,
       "shelf_life_hours": 72,
-      "traceability_score": 3
+      "traceability_score": 3,
+      "avoidable_cost_eur": 0.7,
+      "avoidable_cost_basis": "ILLUSTRATIF: matière + 1.8 min x 0.25 €/min (production_assistant)"
     },
     "external": {
       "possible": true,
@@ -262,7 +286,9 @@
       "material_cost_eur": 0.12,
       "labor_minutes": 2.5,
       "shelf_life_hours": 120,
-      "traceability_score": 3
+      "traceability_score": 3,
+      "avoidable_cost_eur": 0.745,
+      "avoidable_cost_basis": "ILLUSTRATIF: matière + 2.5 min x 0.25 €/min (production_assistant)"
     },
     "external": {
       "possible": true,
@@ -275,6 +301,10 @@
       "class": "HYBRID_SIGNATURE",
       "customer_value_score": 3.0,
       "notes": "Peut devenir signature selon parfum et finition."
+    },
+    "hybrid": {
+      "avoidable_cost_eur": 0.6525,
+      "basis": "ILLUSTRATIF: base achetée au prix rendu + finition interne estimée à la moitié du temps"
     }
   },
   {
@@ -295,7 +325,9 @@
       "material_cost_eur": 0.31,
       "labor_minutes": 2.1,
       "shelf_life_hours": 96,
-      "traceability_score": 3
+      "traceability_score": 3,
+      "avoidable_cost_eur": 0.835,
+      "avoidable_cost_basis": "ILLUSTRATIF: matière + 2.1 min x 0.25 €/min (production_assistant)"
     },
     "external": {
       "possible": true,
@@ -325,7 +357,9 @@
       "material_cost_eur": 0.14,
       "labor_minutes": 0.7,
       "shelf_life_hours": 0,
-      "traceability_score": 4
+      "traceability_score": 4,
+      "avoidable_cost_eur": 0.315,
+      "avoidable_cost_basis": "ILLUSTRATIF: matière + 0.7 min x 0.25 €/min (production_assistant)"
     },
     "external": {
       "possible": false,
@@ -355,7 +389,9 @@
       "material_cost_eur": 0.16,
       "labor_minutes": 0.6,
       "shelf_life_hours": 0,
-      "traceability_score": 4
+      "traceability_score": 4,
+      "avoidable_cost_eur": 0.31,
+      "avoidable_cost_basis": "ILLUSTRATIF: matière + 0.6 min x 0.25 €/min (production_assistant)"
     },
     "external": {
       "possible": false,

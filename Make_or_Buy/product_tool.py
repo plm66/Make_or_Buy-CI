@@ -221,7 +221,10 @@ def canonical_to_legacy(doc):
       "sale_price_eur":doc["commercial"]["sale_price_eur"],
       "internal":{
         "possible":i.get("possible",False),
-        "material_cost_eur":i.get("avoidable_cost_total_eur") if i.get("avoidable_cost_total_eur") is not None else i.get("material_cost_eur"),
+        # Le champ porte le cout complet evitable et rien d'autre. Il s'appelait
+        # material_cost_eur et contenait deja ce total: un nom qui ment sur son contenu
+        # fait qu'un lecteur du moteur reintroduit G002 de bonne foi.
+        "avoidable_cost_eur":i.get("avoidable_cost_total_eur"),
         "labor_minutes":active_minutes_per_unit(i),
         "shelf_life_hours":cons.get("internal_shelf_life_hours"),
         "traceability_score":None
