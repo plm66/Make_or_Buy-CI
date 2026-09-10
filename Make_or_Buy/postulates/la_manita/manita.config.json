@@ -1,5 +1,5 @@
 {
-  "manita_config_version": "1.1.0",
+  "manita_config_version": "1.2.0",
   "concept_id": "la_manita",
   "price_eur": 5.0,
   "cost_model": {
@@ -47,5 +47,57 @@
     "fallback_trigger": "Only after explicit business decision; never automatically as a way to retain over-budget references.",
     "density_target_is_non_normative": true,
     "density_rule": "10 references per family is an assortment target, not a validity requirement."
+  },
+  "expected_value_model": {
+    "admission_metric": "EXPECTED_BUNDLE_COST",
+    "description": "Le pire cas somme les maxima des cinq familles : il décrit un client qui choisirait le produit le plus cher dans chacune, simultanément. À la densité cible de 10 références par famille, ce tirage vaut 1 sur 100 000. L'admission se juge donc sur l'espérance, le pire cas restant calculé comme mesure d'exposition.",
+    "expected_bundle_cost_rule": "Somme, sur les familles, de la moyenne des coûts pondérée par la distribution de choix observée.",
+    "choice_distribution": {
+      "source": "OBSERVED_SALES",
+      "fallback": "UNIFORM",
+      "fallback_caveat": "L'uniforme suppose un client indifférent. Il ne l'est pas. Tant que les ventes ne sont pas mesurées, l'espérance est une estimation et le pire cas reste la seule borne certaine."
+    },
+    "min_daily_bundles_for_averaging": 30,
+    "min_daily_bundles_rationale": "L'écart-type d'un panier vaut environ 0,10 €. À 30 paniers par jour l'erreur-type de la moyenne journalière tombe sous 0,02 €, soit une bande de 7 centimes à deux sigmas. En dessous de ce volume, raisonner en moyenne n'est pas fondé.",
+    "per_item_absolute_cap_eur": 0.9,
+    "per_item_absolute_cap_status": "PROVISIONAL",
+    "per_item_absolute_cap_rationale": "Garde contre l'usage détourné de P013 : sans plafond par article, une référence hors budget serait admise en la noyant dans une moyenne, ce que P011 interdit. Changer la métrique de maximum à espérance est légitime ; relever un plafond pour sauver un produit ne l'est pas."
+  },
+  "serving_unit_model": {
+    "rule": "Une référence Manita est une unité de service, pas nécessairement la référence de boutique.",
+    "derivations": {
+      "AS_IS": {
+        "description": "L'unité Manita est le produit canonique tel quel.",
+        "effective_cost": "coût effectif du produit canonique"
+      },
+      "PORTION": {
+        "description": "Une fraction du produit de boutique : une tranche de cake contre le cake entier, un format 25 cl contre le 50 cl.",
+        "effective_cost": "coût effectif du produit canonique × portion_ratio, plus les opérations de portionnage",
+        "requires": [
+          "portion_ratio",
+          "portion_label"
+        ]
+      },
+      "TRANSFORMED_SURPLUS": {
+        "description": "Une transformation d'invendu : le croissant aux amandes est fait sur la base du croissant de la veille.",
+        "effective_cost": "coût des matières ajoutées, plus les opérations de transformation",
+        "cost_basis_rule": "Le coût du produit source n'entre PAS dans le coût de l'unité Manita. Il n'est pas évitable en renonçant à la transformation — le croissant a déjà été fabriqué et payé. La doctrine le dit en P003 et G003 : ne compter comme économie que ce qui disparaît réellement.",
+        "requires": [
+          "source_product_id",
+          "source_state"
+        ],
+        "economic_role": "WASTE_RECOVERY"
+      }
+    },
+    "forbidden": "Ne jamais re-saisir un coût d'unité Manita à la main. Il se dérive du produit canonique par la règle de sa dérivation, sinon la fiche produit cesse d'être la source unique (P006)."
+  },
+  "attachment_model": {
+    "rule": "La Manita peut fonctionner comme compartiment de prix d'appel : la visibilité pendant l'attente expose des produits à vraie marge — barre énergétique, tablette, boîte de dragées — dont l'achat complète la marge du panier.",
+    "offset_allowed": false,
+    "offset_precondition": "L'attachement ne peut compenser un coût de panier qu'une fois attach_rate et attach_margin_eur mesurés en caisse. Tant qu'ils ne le sont pas, le panier doit tenir sur sa propre économie.",
+    "attach_rate": null,
+    "attach_margin_eur": null,
+    "measurement_source": "OBSERVED_SALES",
+    "rationale": "Un prix d'appel non mesuré est une perte que l'on se raconte. La règle interdit l'argument tant que le chiffre n'existe pas, et l'autorise dès qu'il existe."
   }
 }

@@ -1,0 +1,45 @@
+{
+  "$comment": "Étend le fragment 1.1.0. Le bloc manita.serving_unit décrit comment l'unité exposée dérive du produit canonique. Aucun coût n'y est saisi : il se calcule.",
+  "manita": {
+    "type": "object",
+    "properties": {
+      "serving_unit": {
+        "type": "object",
+        "required": ["derivation"],
+        "properties": {
+          "derivation": {
+            "enum": ["AS_IS", "PORTION", "TRANSFORMED_SURPLUS"]
+          },
+          "portion_ratio": {
+            "type": ["number", "null"],
+            "exclusiveMinimum": 0,
+            "maximum": 1,
+            "description": "Fraction du produit canonique. Une tranche sur douze vaut 0.0833. Obligatoire si derivation vaut PORTION."
+          },
+          "portion_label": {
+            "type": ["string", "null"],
+            "description": "Ce que le client voit : « 1 tranche », « 25 cl »."
+          },
+          "source_product_id": {
+            "type": ["string", "null"],
+            "description": "Produit canonique dont l'unité dérive. Obligatoire si derivation vaut TRANSFORMED_SURPLUS."
+          },
+          "source_state": {
+            "enum": ["FRESH", "DAY_OLD", "SURPLUS", null],
+            "description": "État du produit source. DAY_OLD et SURPLUS activent la règle de coût WASTE_RECOVERY : le coût du source n'entre pas dans l'unité, il n'est pas évitable."
+          },
+          "additional_operations": {
+            "type": "array",
+            "description": "Gestes propres à la transformation, au format operations[] de la fiche produit. Le croissant aux amandes ajoute crème d'amande, garnissage et repasse au four.",
+            "items": {"type": "object"}
+          },
+          "effective_cost_eur": {
+            "type": ["number", "null"],
+            "readOnly": true,
+            "description": "CALCULÉ, jamais saisi. AS_IS : coût canonique. PORTION : coût canonique × portion_ratio + portionnage. TRANSFORMED_SURPLUS : matières ajoutées + transformation, sans le coût du source."
+          }
+        }
+      }
+    }
+  }
+}

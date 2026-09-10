@@ -1,6 +1,6 @@
 {
   "postulate_id": "la_manita",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "status": "normative",
   "title": "La Manita — Fixed Price Mix-and-Match Postulate",
   "core": {
@@ -94,6 +94,18 @@
     {
       "id": "P012_DENSITY_NON_MONOTONICITY_ACKNOWLEDGEMENT",
       "rule": "Adding a reference cannot reduce the family maximum; therefore assortment density is subordinate to FULL_MATRIX economic validity."
+    },
+    {
+      "id": "P013_EXPECTED_VALUE_ADMISSION",
+      "rule": "FULL_MATRIX admission is evaluated on the expected bundle cost under the observed choice distribution. worst_case_bundle_cost remains computed as an exposure measure, not as the sole admission gate. An absolute per-item cap remains in force so that no over-budget reference is admitted by dilution into an average."
+    },
+    {
+      "id": "P014_MANITA_UNIT_IS_DERIVED",
+      "rule": "A Manita reference is a serving unit, not necessarily the shop SKU. It may be the canonical product as-is, a portion of it, or a transformation of surplus. Its effective cost is derived from the canonical product by an explicit rule, never re-entered by hand."
+    },
+    {
+      "id": "P015_TRAFFIC_COMPARTMENT",
+      "rule": "La Manita may operate as a traffic compartment whose margin is completed by attached full-margin purchases. Attachment may only offset bundle cost once attach rate and attach margin are measured; until then the bundle stands on its own economics."
     }
   ],
   "economic_roles": [
@@ -136,7 +148,11 @@
       "bundle_cost_constraint_satisfied",
       "worst_case_bundle_cost_computed",
       "dietary_bundle_completeness",
-      "dynamic_slots_resolvable"
+      "dynamic_slots_resolvable",
+      "expected_bundle_cost_computed",
+      "per_item_absolute_cap_satisfied",
+      "serving_unit_derivation_resolvable",
+      "attachment_offset_measured_or_absent"
     ],
     "outputs": [
       "VALID_BUNDLE",
@@ -182,6 +198,9 @@
   },
   "configuration": {
     "cost_model": "manita.config.json#cost_model",
-    "family_cost_envelopes": "manita.config.json#family_cost_envelopes"
+    "family_cost_envelopes": "manita.config.json#family_cost_envelopes",
+    "expected_value_model": "manita.config.json#expected_value_model",
+    "serving_unit_model": "manita.config.json#serving_unit_model",
+    "attachment_model": "manita.config.json#attachment_model"
   }
 }

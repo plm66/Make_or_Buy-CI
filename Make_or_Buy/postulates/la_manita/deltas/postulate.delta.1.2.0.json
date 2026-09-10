@@ -1,0 +1,48 @@
+{
+  "from_version": "1.1.0",
+  "to_version": "1.2.0",
+  "change_type": "NORMATIVE_EXTENSION",
+  "reason": "Trois angles morts de la 1.1.0 : la validation au pire cas modélise un adversaire et non un client, l'unité exposée en Manita n'est pas la référence de boutique, et la rentabilité du compartiment ne s'évalue pas au seul panier.",
+  "changes": [
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P013_EXPECTED_VALUE_ADMISSION",
+      "value": "FULL_MATRIX admission is evaluated on the expected bundle cost under the observed choice distribution. worst_case_bundle_cost remains computed as an exposure measure, not as the sole admission gate. An absolute per-item cap remains in force so that no over-budget reference is admitted by dilution into an average."
+    },
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P014_MANITA_UNIT_IS_DERIVED",
+      "value": "A Manita reference is a serving unit, not necessarily the shop SKU. It may be the canonical product as-is, a portion of it, or a transformation of surplus. Its effective cost is derived from the canonical product by an explicit rule, never re-entered by hand."
+    },
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P015_TRAFFIC_COMPARTMENT",
+      "value": "La Manita may operate as a traffic compartment whose margin is completed by attached full-margin purchases. Attachment may only offset bundle cost once attach rate and attach margin are measured; until then the bundle stands on its own economics."
+    },
+    {
+      "op": "ADD",
+      "path": "configuration.expected_value_model",
+      "value_ref": "manita.config.json#expected_value_model"
+    },
+    {
+      "op": "ADD",
+      "path": "configuration.serving_unit_model",
+      "value_ref": "manita.config.json#serving_unit_model"
+    },
+    {
+      "op": "ADD",
+      "path": "configuration.attachment_model",
+      "value_ref": "manita.config.json#attachment_model"
+    },
+    {
+      "op": "ADD",
+      "path": "validation.required_checks_added",
+      "value": [
+        "expected_bundle_cost_computed",
+        "per_item_absolute_cap_satisfied",
+        "serving_unit_derivation_resolvable",
+        "attachment_offset_measured_or_absent"
+      ]
+    }
+  ]
+}

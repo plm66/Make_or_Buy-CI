@@ -102,6 +102,50 @@ def test_le_validateur_livre_refuse_plutot_que_de_fabriquer():
     assert "s" in r["missing_cost_products"]
 
 
+def test_lesperance_admet_ce_que_le_pire_cas_refuse():
+    """P013 : le pire cas somme les maxima des cinq familles à la fois — un adversaire,
+    pas un client. L'admission se juge sur l'espérance, le pire cas restant rendu.
+
+    Casse si l'admission redevient adossée au maximum : c'est toute la nuance.
+    """
+    from make_or_buy.manita import admission_p013
+    par_fam = {"A": [0.5, 1.0], "B": [0.5, 1.0]}
+    config = {"cost_model": {"hard_max_bundle_cost_eur": 1.75},
+              "expected_value_model": {"per_item_absolute_cap_eur": 1.2}}
+    r = admission_p013(par_fam, config)
+    assert r["pire_cas_eur"] == 2.0 and r["pire_cas_eur"] > 1.75
+    assert r["espere_eur"] == 1.5
+    assert r["admission"] == "VALID_BUNDLE"
+
+
+def test_le_plafond_par_article_bloque_la_dilution():
+    """Garde contre l'usage détourné de P013. Sans plafond par article, une référence hors
+    budget serait admise en la noyant dans une moyenne — ce que P011 interdit
+    explicitement. Une espérance saine ne rachète pas un article aberrant.
+    """
+    from make_or_buy.manita import admission_p013
+    par_fam = {"A": [0.05, 2.0], "B": [0.05, 0.10]}   # espérance 1.10, sous le plafond
+    config = {"cost_model": {"hard_max_bundle_cost_eur": 1.75},
+              "expected_value_model": {"per_item_absolute_cap_eur": 0.9}}
+    r = admission_p013(par_fam, config)
+    assert r["espere_eur"] <= 1.75
+    assert r["admission"] == "CATALOG_INVALID"
+    assert r["articles_hors_plafond"] == {"A": [2.0]}
+
+
+def test_la_distribution_uniforme_est_annoncee_comme_repli():
+    """L'uniforme suppose un client indifférent. Il ne l'est pas. Tant que la caisse n'a
+    rien observé, la sortie doit le dire plutôt que de présenter une estimation comme une
+    mesure."""
+    from make_or_buy.manita import admission_p013, bornes_du_panier
+    par_fam = {"A": [0.2, 0.8]}
+    config = {"cost_model": {"hard_max_bundle_cost_eur": 1.75}, "expected_value_model": {}}
+    assert admission_p013(par_fam, config)["distribution"] == "UNIFORM_FALLBACK"
+    assert admission_p013(par_fam, config, poids={"A": [9, 1]})["distribution"] == "OBSERVED_SALES"
+    # Une préférence marquée déplace l'espérance vers le produit choisi, pas vers la moyenne.
+    assert bornes_du_panier(par_fam, poids={"A": [9, 1]})[1] == 0.26
+
+
 if __name__ == "__main__":
     for nom, fn in sorted(globals().items()):
         if nom.startswith("test_"):

@@ -102,3 +102,85 @@ def adapte_pour_validateur(catalogue, cout_effectif):
             copie["cost_eur"] = cout
         adapte.append(copie)
     return adapte
+
+
+def couts_par_famille(catalogue, cout_effectif, familles):
+    """{famille: [coûts effectifs]} — les produits sans coût connu sont écartés."""
+    par_fam = {f: [] for f in familles}
+    for produit in catalogue:
+        f = produit.get("family")
+        if f not in par_fam:
+            continue
+        cout, _ = cout_effectif(produit)
+        if isinstance(cout, (int, float)):
+            par_fam[f].append(cout)
+    return par_fam
+
+
+def bornes_du_panier(par_famille, poids=None):
+    """(meilleur, espéré, pire) coût d'un panier, une référence par famille.
+
+    Le pire cas somme les maxima : il décrit un client qui prendrait le produit le plus
+    cher dans les cinq familles à la fois. À dix références par famille, ce tirage vaut
+    1 sur 100 000 — la borne existe pour mesurer l'exposition, pas pour décrire un client.
+
+    L'espéré somme les moyennes pondérées par la distribution de choix. Sans `poids`
+    l'uniforme s'applique, ce qui suppose un client indifférent : c'est un repli, pas une
+    mesure, tant que la caisse n'a rien observé.
+    """
+    meilleur = espere = pire = 0.0
+    for famille, couts in par_famille.items():
+        if not couts:
+            return None
+        w = (poids or {}).get(famille)
+        if w and len(w) == len(couts) and sum(w) > 0:
+            total = sum(w)
+            espere += sum(c * p for c, p in zip(couts, w)) / total
+        else:
+            espere += sum(couts) / len(couts)
+        meilleur += min(couts)
+        pire += max(couts)
+    return round(meilleur, 4), round(espere, 4), round(pire, 4)
+
+
+def admission_p013(par_famille, config, poids=None):
+    """Verdict d'admission FULL_MATRIX au sens de P013.
+
+    L'espérance décide, le pire cas reste rendu comme exposition, et un plafond absolu par
+    article garde la porte : sans lui, une référence hors budget passerait en la diluant
+    dans une moyenne — exactement ce que P011 interdit.
+    """
+    modele = config.get("expected_value_model") or {}
+    plafond = config["cost_model"]["hard_max_bundle_cost_eur"]
+    cap = modele.get("per_item_absolute_cap_eur")
+
+    bornes = bornes_du_panier(par_famille, poids)
+    if bornes is None:
+        return {"admission": "DATA_INCOMPLETE",
+                "familles_sans_cout": [f for f, c in par_famille.items() if not c]}
+
+    meilleur, espere, pire = bornes
+    hors_cap = ({f: [c for c in couts if c > cap] for f, couts in par_famille.items()}
+                if isinstance(cap, (int, float)) else {})
+    hors_cap = {f: v for f, v in hors_cap.items() if v}
+
+    if hors_cap:
+        admission = "CATALOG_INVALID"
+    elif espere <= plafond:
+        admission = "VALID_BUNDLE"
+    else:
+        admission = "CATALOG_INVALID"
+
+    return {
+        "admission": admission,
+        "metrique": "EXPECTED_BUNDLE_COST",
+        "distribution": "OBSERVED_SALES" if poids else "UNIFORM_FALLBACK",
+        "meilleur_cas_eur": meilleur,
+        "espere_eur": espere,
+        "pire_cas_eur": pire,
+        "plafond_dur_eur": plafond,
+        "marge_sur_esperance_eur": round(plafond - espere, 4),
+        "plafond_par_article_eur": cap,
+        "articles_hors_plafond": hors_cap,
+        "volume_journalier_minimal": modele.get("min_daily_bundles_for_averaging"),
+    }

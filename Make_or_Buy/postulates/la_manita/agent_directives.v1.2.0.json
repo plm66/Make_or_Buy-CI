@@ -1,0 +1,22 @@
+{
+  "agent_directives_version": "1.2.0",
+  "supersedes": "1.1.0",
+  "critical_correction": [
+    "Le pire cas reste calculé, il cesse d'être la seule porte d'admission. Ne jamais le supprimer : il mesure l'exposition le jour où un produit devient un carton et où la distribution de choix dérive vers le maximum.",
+    "Ne jamais admettre une référence hors budget en la diluant dans une espérance. Le plafond absolu par article existe pour ça.",
+    "L'espérance uniforme est un repli, pas une mesure. Tant que les ventes ne sont pas observées, le dire.",
+    "Ne pas raisonner en moyenne sous le volume journalier minimal configuré.",
+    "Ne jamais saisir à la main le coût d'une unité Manita : il se dérive du produit canonique.",
+    "Pour une transformation d'invendu, ne pas compter le coût du produit source : il n'est pas évitable en renonçant à la transformation.",
+    "Ne pas invoquer le prix d'appel pour justifier un panier déficitaire tant que le taux et la marge d'attachement ne sont pas mesurés."
+  ],
+  "unit_interpretation": {
+    "AS_IS": "produit de boutique tel quel",
+    "PORTION": "fraction du produit de boutique — une tranche de cake, un format réduit",
+    "TRANSFORMED_SURPLUS": "transformation d'invendu — croissant aux amandes sur croissant de la veille"
+  },
+  "attachment_interpretation": {
+    "allowed_once_measured": "attach_rate et attach_margin_eur relevés en caisse",
+    "forbidden_before": "Un prix d'appel non mesuré est une perte que l'on se raconte."
+  }
+}
