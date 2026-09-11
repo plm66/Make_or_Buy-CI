@@ -118,6 +118,11 @@ périmètre — on travaille directement sur `main` :
 - validation du contenu et du diff ;
 - commit de chaque modification cohérente.
 
+Commandes Git interdites sans autorisation explicite :
+
+- jamais `git reset --hard`, ni aucun équivalent qui puisse écraser du travail ;
+- jamais `git checkout`, y compris pour changer de branche ou restaurer un fichier.
+
 Dès qu'une modification de code devient nécessaire, ce régime cesse de s'appliquer : il faut
 repenser l'isolation du travail (branche ou worktree), verrouiller le comportement par des
 tests, valider le changement, puis appliquer le workflow de revue avant une éventuelle PR.
