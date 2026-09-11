@@ -11,10 +11,12 @@ Ces règles complètent les instructions globales et `Make_or_Buy/CLAUDE.md` pou
 
 ## Livraison documentaire
 
-Tant que la modification reste documentaire — README, documentation, règles ou commentaires
-de périmètre — travailler directement sur `main`, valider le contenu et le diff, puis
-committer. Pas de worktree, pas de branche dédiée et pas de pull request pour cette catégorie
-de changement.
+Pour le périmètre documentaire non impactant de la session actuelle, travailler directement sur
+`main`, valider le contenu et le diff, puis committer. L'absence de worktree, de branche dédiée
+et de pull request est une décision provisoire de portée, pas une interdiction générale.
+
+Si la documentation devient substantielle ou impactante, ou si le travail devient concurrent,
+réévaluer l'isolation et le besoin d'une branche, d'un worktree ou d'une pull request.
 
 ## Livraison de code
 

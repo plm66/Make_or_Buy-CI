@@ -110,13 +110,13 @@ compteurs périmés, un statut de famille erroné.
 
 ## Workflow de livraison
 
-Tant que le travail reste documentaire — README, documentation, règles ou commentaires de
-périmètre — on travaille directement sur `main` :
+Pour le périmètre documentaire non impactant de la session actuelle, on peut travailler
+directement sur `main`, valider le contenu et le diff, puis committer. L'absence de worktree,
+de branche dédiée et de pull request est une décision provisoire de portée, pas une interdiction
+générale.
 
-- pas de worktree ni de branche dédiée ;
-- pas de pull request ;
-- validation du contenu et du diff ;
-- commit de chaque modification cohérente.
+Si la documentation devient substantielle ou impactante, ou si le travail devient concurrent,
+réévaluer l'isolation et le besoin d'une branche, d'un worktree ou d'une pull request.
 
 Commandes Git interdites sans autorisation explicite :
 
