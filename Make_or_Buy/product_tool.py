@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse, json, sys
 from pathlib import Path
 
-FAMILIES={"SNACK","COLD_DRINK","COMPLEMENT","DESSERT","HOT_DRINK"}
+FAMILIES={"SNACK","COLD_DRINK","GARNITURE","DESSERT","HOT_DRINK"}
 CLASSES={"STANDARDIZABLE","SUPPLIER_SUPERIOR","INHOUSE_SIGNATURE_ADVANTAGE","HYBRID_SIGNATURE"}
 MODES={"MAKE","BUY","HYBRID","UNDECIDED"}
 
@@ -282,7 +282,7 @@ def cmd_compile(args):
     Path(args.output).write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"{len(out)} produits compilés, {len(skipped)} ignorés -> {args.output}")
 
-FAMILLES_MOTEUR=["SNACK","COLD_DRINK","COMPLEMENT","DESSERT","HOT_DRINK"]
+FAMILLES_MOTEUR=["SNACK","COLD_DRINK","GARNITURE","DESSERT","HOT_DRINK"]
 
 def fiche_status(doc, params):
     """(etat, details) d'une fiche: INVALIDE, INCOMPLET ou PRET pour le moteur."""

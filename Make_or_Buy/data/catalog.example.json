@@ -175,7 +175,7 @@
   {
     "id": "complement_chips",
     "name": "Chips",
-    "family": "COMPLEMENT",
+    "family": "GARNITURE",
     "diet": {
       "vegan": true,
       "vegetarian": true,
@@ -207,7 +207,7 @@
   {
     "id": "complement_compote",
     "name": "Compote pomme",
-    "family": "COMPLEMENT",
+    "family": "GARNITURE",
     "diet": {
       "vegan": true,
       "vegetarian": true,

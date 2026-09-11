@@ -12,7 +12,7 @@
           "enum": [
             "SNACK",
             "COLD_DRINK",
-            "COMPLEMENT",
+            "GARNITURE",
             "DESSERT",
             "HOT_DRINK"
           ]

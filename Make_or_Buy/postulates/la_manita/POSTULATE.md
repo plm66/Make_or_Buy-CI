@@ -10,7 +10,7 @@ La Manita is a fixed-price mix-and-match system.
 The customer selects exactly:
 - 1 SNACK
 - 1 COLD_DRINK
-- 1 COMPLEMENT
+- 1 GARNITURE
 - 1 DESSERT
 - 1 HOT_DRINK
 

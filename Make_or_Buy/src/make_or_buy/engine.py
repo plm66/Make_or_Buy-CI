@@ -4,7 +4,7 @@ from itertools import product
 from pathlib import Path
 import json
 
-DEFAULT_FAMILIES = ["SNACK","COLD_DRINK","COMPLEMENT","DESSERT","HOT_DRINK"]
+DEFAULT_FAMILIES = ["SNACK","COLD_DRINK","GARNITURE","DESSERT","HOT_DRINK"]
 
 def load_json(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))

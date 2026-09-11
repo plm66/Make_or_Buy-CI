@@ -1,6 +1,6 @@
 {
   "postulate_id": "la_manita",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "status": "normative",
   "title": "La Manita — Fixed Price Mix-and-Match Postulate",
   "core": {
@@ -26,8 +26,8 @@
       "required": true
     },
     {
-      "id": "COMPLEMENT",
-      "customer_label": "Complément",
+      "id": "GARNITURE",
+      "customer_label": "Garniture",
       "required": true
     },
     {
@@ -134,6 +134,10 @@
     {
       "id": "P022_SELECTED_SUPPLIER_COST",
       "rule": "The accounting cost of a BUY reference is the landed cost of the SELECTED supplier. The minimum across all offers is an optimisation metric, never the accounting cost: the cheapest supplier may be unavailable, out of delivery zone, or carry an incompatible minimum order. Absent a selected source, the answer is DATA_INCOMPLETE."
+    },
+    {
+      "id": "P023_BUNDLE_LEVEL_PACKAGING",
+      "rule": "Packaging is a bundle design decision, not an acquired product attribute. A shared container belongs to the bundle, not to one of its items: imputing it to a family would pay twice for a container another family already carries. Assuming a sealed individual tray per item adds a cost the design can remove, of the order of a whole family envelope."
     }
   ],
   "economic_roles": [
@@ -187,7 +191,8 @@
       "serving_unit_derivation_computed",
       "expected_cost_usability_reported",
       "required_envelope_vector_reported",
-      "selected_supplier_resolved"
+      "selected_supplier_resolved",
+      "bundle_packaging_decided"
     ],
     "outputs": [
       "VALID_BUNDLE",
@@ -239,6 +244,7 @@
     "attachment_model": "manita.config.json#attachment_model",
     "constrained_matrix_model": "manita.config.json#constrained_matrix_model",
     "catalog_phases": "manita.config.json#catalog_phases",
-    "supplier_cost_policy": "manita.config.json#supplier_cost_policy"
+    "supplier_cost_policy": "manita.config.json#supplier_cost_policy",
+    "packaging_model": "manita.config.json#packaging_model"
   }
 }

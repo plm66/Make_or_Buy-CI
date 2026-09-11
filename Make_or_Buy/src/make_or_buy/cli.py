@@ -69,7 +69,7 @@ def main():
 
     g = sub.add_parser("manita", help="Composer une grille colonnes × lignes à prix cible.")
     g.add_argument("--colonnes", nargs="+",
-                   default=["SNACK","COMPLEMENT","COLD_DRINK","DESSERT","HOT_DRINK"])
+                   default=["SNACK","GARNITURE","COLD_DRINK","DESSERT","HOT_DRINK"])
     g.add_argument("--lignes", type=int, default=10)
     g.add_argument("--cible", type=float, default=5.0)
     g.add_argument("--tolerance", type=float, default=0.5)

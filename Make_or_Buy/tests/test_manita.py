@@ -330,6 +330,33 @@ def test_les_plafonds_valident_mais_ne_concoivent_pas():
     assert design["family_caps_applied"] is False
 
 
+def test_lemballage_est_une_decision_de_panier():
+    """P023 : un contenant partagé appartient au panier, pas à l'une de ses familles.
+
+    Présumer une barquette individuelle scellée par élément ajoutait un coût que le design
+    peut supprimer — de l'ordre d'une enveloppe familiale entière. Casse si le modèle
+    d'emballage redescend au niveau du produit.
+    """
+    import json as _json
+    config = _json.loads((ROOT / "postulates" / "la_manita" / "manita.config.json").read_text(encoding="utf-8"))
+    emb = config["packaging_model"]
+    assert emb["cost_level"] == "BUNDLE"
+    assert set(emb["options"]) == {"STANDALONE_CUP", "SHARED_SNACK_CONTAINER",
+                                   "PAPER_TRAY", "NO_EXTRA_PACKAGING"}
+    assert emb["selected_status"] == "UNDECIDED", "le choix n'est pas arrêté, ne pas le présumer"
+
+
+def test_la_famille_sappelle_garniture():
+    """Le vocabulaire suit le métier et les fournisseurs : Coup de Pâtes range ses produits
+    sous GARNITURES. « Complément » ne désignait rien de commercialement identifiable."""
+    import json as _json
+    post = _json.loads((ROOT / "postulates" / "la_manita" / "la_manita.postulate.json").read_text(encoding="utf-8"))
+    familles = {f["id"] for f in post["families"]}
+    assert "GARNITURE" in familles and "COMPLEMENT" not in familles
+    from make_or_buy.engine import DEFAULT_FAMILIES
+    assert "GARNITURE" in DEFAULT_FAMILIES and "COMPLEMENT" not in DEFAULT_FAMILIES
+
+
 if __name__ == "__main__":
     for nom, fn in sorted(globals().items()):
         if nom.startswith("test_"):

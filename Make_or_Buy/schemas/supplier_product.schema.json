@@ -112,7 +112,7 @@
             "PREPARED_MEAL",
             "INGREDIENT",
             "BEVERAGE",
-            "COMPLEMENT"
+            "GARNITURE"
           ]
         },
         "candidate_doctrine_class": {

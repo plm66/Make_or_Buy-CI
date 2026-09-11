@@ -1,5 +1,5 @@
 {
-  "manita_config_version": "1.6.0",
+  "manita_config_version": "1.7.0",
   "concept_id": "la_manita",
   "price_eur": 5.0,
   "cost_model": {
@@ -21,9 +21,10 @@
       "hard_max_eur": 0.3,
       "status": "STALE_PRE_G002"
     },
-    "COMPLEMENT": {
+    "GARNITURE": {
       "hard_max_eur": 0.34,
-      "status": "STALE_PRE_G002"
+      "status": "STALE_PRE_G002",
+      "note": "L'enveloppe couvre le produit rendu, pas son contenant : voir packaging_model, dont le coût est porté au niveau du panier."
     },
     "DESSERT": {
       "hard_max_eur": 0.2,
@@ -139,5 +140,19 @@
     "on_absence": "DATA_INCOMPLETE",
     "best_available_supplier_cost": "min des prix rendus — métrique d'optimisation, jamais le coût comptable",
     "rationale": "Le fournisseur le moins cher peut être indisponible, hors zone de livraison ou porter un minimum de commande incompatible. Le retenir d'office par un min() fabriquait un coût que personne n'avait décidé de payer."
+  },
+  "packaging_model": {
+    "rule": "L'emballage d'une garniture est une décision de design du panier, pas un attribut acquis du produit. Présumer une barquette individuelle scellée par élément ajoute un coût que le design peut supprimer.",
+    "options": {
+      "STANDALONE_CUP": "Contenant individuel scellé. Le plus cher, le plus transportable.",
+      "SHARED_SNACK_CONTAINER": "Servi dans le contenant du snack. Coût marginal nul pour la garniture.",
+      "PAPER_TRAY": "Barquette carton ouverte. Intermédiaire, pas de conservation après vente.",
+      "NO_EXTRA_PACKAGING": "Aucun emballage propre — portion déjà conditionnée par le fournisseur, ou consommation sur place."
+    },
+    "cost_level": "BUNDLE",
+    "cost_level_rationale": "Un contenant partagé appartient au panier et non à l'un de ses éléments. L'imputer à la garniture ferait payer deux fois un contenant que le snack porte déjà.",
+    "sensitivity": "Le choix déplace le coût du panier de 0,10 € ou davantage — l'ordre de grandeur d'une enveloppe familiale entière.",
+    "selected": null,
+    "selected_status": "UNDECIDED"
   }
 }

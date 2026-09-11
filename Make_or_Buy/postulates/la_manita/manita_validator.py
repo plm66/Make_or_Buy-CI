@@ -8,7 +8,7 @@ VALIDATOR_VERSION="1.6.0"
 # Les familles sont declarees par le postulat. Les recopier ici en dur les dupliquerait
 # hors de leur source, ce que P006 refuse pour la donnee produit et qui vaut autant pour
 # la structure. Le litteral ne sert que de repli si le postulat n'est pas a cote.
-FAMILIES_FALLBACK=["SNACK","COLD_DRINK","COMPLEMENT","DESSERT","HOT_DRINK"]
+FAMILIES_FALLBACK=["SNACK","COLD_DRINK","GARNITURE","DESSERT","HOT_DRINK"]
 
 def families(postulate_path=None):
     p=Path(postulate_path or Path(__file__).resolve().parent/"la_manita.postulate.json")
