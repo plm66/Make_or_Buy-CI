@@ -1,0 +1,34 @@
+{
+  "future_account_sources_version": "0.3.0",
+  "activation_order": [
+    {
+      "supplier_id": "transgourmet",
+      "priority": 1,
+      "reason": "Broad professional range; high value for recurring purchasing and cross-supplier price benchmarking."
+    },
+    {
+      "supplier_id": "coup_de_pates",
+      "priority": 2,
+      "reason": "High relevance to bakery/pastry/snacking and ready-to-use formats."
+    },
+    {
+      "supplier_id": "metro_france",
+      "priority": 3,
+      "reason": "Useful backup and benchmark source with strong category breadth."
+    },
+    {
+      "supplier_id": "sysco_france",
+      "priority": 4,
+      "reason": "Redundancy and foodservice assortment."
+    }
+  ],
+  "required_credentials_policy": "Credentials must never be stored in repository files. Use runtime secrets / connector authentication.",
+  "required_after_activation": [
+    "capture_current_price",
+    "capture_packaging",
+    "capture_delivery_terms",
+    "capture_minimum_order",
+    "capture_stock_status_if_exposed",
+    "preserve_observation_timestamp"
+  ]
+}

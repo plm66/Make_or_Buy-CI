@@ -1,0 +1,25 @@
+{
+  "policy_version": "0.3.0",
+  "rules": [
+    "Public price capture is preferred when supplier pages expose pack and price data without authentication.",
+    "Never trust a displayed unit-price label when case arithmetic produces a different delivered unit cost.",
+    "Always preserve raw displayed values and derived normalized values separately.",
+    "Do not infer HT/TTC status. Store UNKNOWN when the page does not make it explicit.",
+    "Do not infer delivery inclusion. Store null when unknown.",
+    "Do not compute price_per_piece without a reliable unit_count.",
+    "Do not compute price_per_kg without a reliable net pack weight.",
+    "A captured supplier price is not SELECTED_EFFECTIVE_PRODUCT_COST.",
+    "Final Make_or_Buy cost adds internal avoidable handling, reheating, labor, packaging and expected losses.",
+    "Authenticated sources may be activated later without changing the observation schema."
+  ],
+  "normalization": {
+    "price_per_piece_eur": "case_price_eur / unit_count",
+    "price_per_kg_eur": "case_price_eur / pack_weight_kg",
+    "landed_cost_eur_per_piece": "(case_price_eur + allocated_delivery_cost_eur) / unit_count"
+  },
+  "refresh_policy": {
+    "ACTIVE_PUBLIC": "WEEKLY",
+    "ACCOUNT_GATED_PENDING": "DISABLED",
+    "MANUAL_QUOTE": "ON_DEMAND"
+  }
+}

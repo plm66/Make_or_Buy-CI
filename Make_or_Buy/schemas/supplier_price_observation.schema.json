@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Supplier Price Observation",
+  "type": "object",
+  "required": [
+    "observation_id",
+    "supplier_id",
+    "product_name",
+    "capture_method",
+    "tax_basis",
+    "observed_at",
+    "source_url"
+  ],
+  "properties": {
+    "observation_id": {
+      "type": "string"
+    },
+    "supplier_id": {
+      "type": "string"
+    },
+    "supplier_product_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "product_name": {
+      "type": "string"
+    },
+    "canonical_product_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "capture_method": {
+      "enum": [
+        "PUBLIC_WEB",
+        "AUTHENTICATED_WEB",
+        "PDF_CATALOG",
+        "MANUAL_QUOTE",
+        "API"
+      ]
+    },
+    "currency": {
+      "const": "EUR"
+    },
+    "tax_basis": {
+      "enum": [
+        "HT",
+        "TTC",
+        "UNKNOWN"
+      ]
+    },
+    "displayed_price_eur": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "case_price_eur": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "pack_weight_kg": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "unit_count": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "unit_weight_g": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "price_per_kg_eur": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "price_per_piece_eur": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "delivery_included": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "minimum_order_eur": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "landed_cost_eur_per_piece": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "landed_cost_status": {
+      "enum": [
+        "CONFIRMED",
+        "DERIVED",
+        "INCOMPLETE",
+        "QUOTE_REQUIRED",
+        "ACCOUNT_REQUIRED"
+      ]
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "confidence": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW"
+      ]
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

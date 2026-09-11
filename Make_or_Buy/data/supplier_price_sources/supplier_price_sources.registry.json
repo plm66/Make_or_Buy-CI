@@ -1,0 +1,271 @@
+{
+  "registry_version": "0.3.0",
+  "purpose": "Supplier and price-source registry for Make_or_Buy / La Manita procurement intelligence.",
+  "policy": {
+    "supplier_entry_is_not_direct_order_authorization": true,
+    "public_price_sources_are_priority_for_automated_capture": true,
+    "account_gated_sources_can_be_registered_before_credentials_exist": true,
+    "final_make_or_buy_cost_must_use_selected_effective_product_cost": true
+  },
+  "sources": [
+    {
+      "supplier_id": "foodomarket",
+      "name": "Foodomarket",
+      "source_status": "ACTIVE_PUBLIC",
+      "purchase_status": "ADMITTED_CONDITIONAL",
+      "price_access": "PUBLIC_WEB",
+      "capture_priority": "P1",
+      "geography": "France / Île-de-France",
+      "delivery_status": "PUBLICLY_AVAILABLE",
+      "delivery_included_in_displayed_price": true,
+      "categories": [
+        "SNACK",
+        "GARNITURE",
+        "FROZEN",
+        "BAKERY_BASE",
+        "INGREDIENTS"
+      ],
+      "capture_fields": [
+        "product_name",
+        "pack_size",
+        "case_price_eur_ht",
+        "price_per_kg_eur",
+        "delivery_terms",
+        "observed_at",
+        "source_url"
+      ],
+      "official_url": "https://www.foodomarket.com/",
+      "notes": "High-value automated market-price source because public pricing and pack data are exposed."
+    },
+    {
+      "supplier_id": "aj_foods",
+      "name": "AJ Foods",
+      "source_status": "ACTIVE_PUBLIC",
+      "purchase_status": "ADMITTED_CONDITIONAL",
+      "price_access": "PUBLIC_WEB",
+      "capture_priority": "P1",
+      "geography": "Île-de-France",
+      "delivery_status": "PUBLICLY_AVAILABLE",
+      "minimum_order_eur": 500,
+      "categories": [
+        "SNACK",
+        "GARNITURE",
+        "FROZEN",
+        "BAKERY_BASE",
+        "SAUCES"
+      ],
+      "capture_fields": [
+        "product_name",
+        "pack_size",
+        "case_price_eur_ht",
+        "unit_count",
+        "price_per_kg_eur",
+        "minimum_order_eur",
+        "observed_at",
+        "source_url"
+      ],
+      "official_url": "https://www.ajfoods.fr/",
+      "notes": "Useful for frozen snacks, potato products, breads and low-cost bases."
+    },
+    {
+      "supplier_id": "rungis_abc",
+      "name": "Rungis à la Maison / ABC Peyraud",
+      "source_status": "ACTIVE_PUBLIC",
+      "purchase_status": "ADMITTED_CONDITIONAL",
+      "price_access": "PUBLIC_WEB",
+      "capture_priority": "P1",
+      "geography": "Paris / Île-de-France",
+      "delivery_status": "PUBLICLY_AVAILABLE",
+      "categories": [
+        "GARNITURE",
+        "INGREDIENTS",
+        "DAIRY",
+        "TRAITEUR",
+        "GROCERY"
+      ],
+      "capture_fields": [
+        "product_name",
+        "pack_size",
+        "displayed_price_eur",
+        "unit_count",
+        "price_per_kg_eur",
+        "observed_at",
+        "source_url"
+      ],
+      "official_url": "https://rungisalamaison.com/",
+      "notes": "Useful for ingredients, prepared food and garnish benchmarking."
+    },
+    {
+      "supplier_id": "omarket78",
+      "name": "O'Market 78",
+      "source_status": "ACTIVE_PUBLIC",
+      "purchase_status": "BACKUP",
+      "price_access": "PUBLIC_WEB",
+      "capture_priority": "P2",
+      "geography": "Yvelines / Île-de-France",
+      "delivery_status": "LOCAL",
+      "categories": [
+        "RICE",
+        "PASTA",
+        "GROCERY",
+        "FROZEN",
+        "INGREDIENTS"
+      ],
+      "capture_fields": [
+        "product_name",
+        "pack_size",
+        "displayed_price_eur",
+        "price_per_kg_eur",
+        "observed_at",
+        "source_url"
+      ],
+      "official_url": "https://www.grossiste-alimentaire78.fr/",
+      "notes": "Useful low-cost grocery benchmark; particularly rice, pasta and pantry items."
+    },
+    {
+      "supplier_id": "hts",
+      "name": "H.T.S.",
+      "source_status": "ACTIVE_PUBLIC",
+      "purchase_status": "ADMITTED_CONDITIONAL",
+      "price_access": "PUBLIC_WEB",
+      "capture_priority": "P2",
+      "geography": "Île-de-France",
+      "delivery_status": "CONFIRMED",
+      "minimum_order_eur": 300,
+      "categories": [
+        "SNACK",
+        "BEVERAGE",
+        "FROZEN",
+        "SAUCES",
+        "MEAT"
+      ],
+      "capture_fields": [
+        "product_name",
+        "pack_size",
+        "case_price_eur_ht",
+        "unit_count",
+        "minimum_order_eur",
+        "observed_at",
+        "source_url"
+      ],
+      "official_url": "https://htsclick.com/fr/",
+      "notes": "Public-price source; useful as a second mercurial benchmark."
+    },
+    {
+      "supplier_id": "halal_food_service",
+      "name": "Halal Food Service",
+      "source_status": "ACTIVE_PUBLIC",
+      "purchase_status": "ADMITTED_TRIAL",
+      "price_access": "PUBLIC_WEB",
+      "capture_priority": "P1",
+      "geography": "Île-de-France",
+      "delivery_status": "CONFIRMED",
+      "minimum_order_eur": 300,
+      "categories": [
+        "SNACK",
+        "FROZEN",
+        "BAKERY_BASE"
+      ],
+      "capture_fields": [
+        "product_name",
+        "supplier_ref",
+        "pack_size",
+        "delivered_pack_price_eur_ht",
+        "unit_count",
+        "observed_at",
+        "source_url"
+      ],
+      "official_url": "https://halalfs.com/",
+      "notes": "Already validated as useful for public delivered pack pricing."
+    },
+    {
+      "supplier_id": "transgourmet",
+      "name": "Transgourmet France",
+      "source_status": "ACCOUNT_GATED_PENDING",
+      "purchase_status": "ADMITTED_CONDITIONAL",
+      "price_access": "ACCOUNT_REQUIRED",
+      "capture_priority": "P1_AFTER_ACCOUNT",
+      "geography": "France / Île-de-France",
+      "categories": [
+        "BAKERY",
+        "PASTRY",
+        "SNACK",
+        "BEVERAGE",
+        "TRAITEUR",
+        "PREPARED_MEALS"
+      ],
+      "official_url": "https://www.transgourmet.fr/",
+      "activation_requirements": [
+        "professional_account",
+        "authenticated_price_access"
+      ],
+      "notes": "Activate authenticated price capture when professional account exists."
+    },
+    {
+      "supplier_id": "metro_france",
+      "name": "METRO France",
+      "source_status": "ACCOUNT_GATED_PENDING",
+      "purchase_status": "BACKUP",
+      "price_access": "ACCOUNT_REQUIRED",
+      "capture_priority": "P1_AFTER_ACCOUNT",
+      "geography": "France / Île-de-France",
+      "categories": [
+        "MULTI_CATEGORY",
+        "SNACK",
+        "BEVERAGE",
+        "GARNITURE",
+        "INGREDIENTS"
+      ],
+      "official_url": "https://www.metro.fr/",
+      "activation_requirements": [
+        "professional_account",
+        "authenticated_price_access"
+      ],
+      "notes": "Useful both as purchase backup and as market benchmark once account pricing is available."
+    },
+    {
+      "supplier_id": "coup_de_pates",
+      "name": "Coup de Pâtes",
+      "source_status": "ACCOUNT_GATED_PENDING",
+      "purchase_status": "ADMITTED_CONDITIONAL",
+      "price_access": "ACCOUNT_REQUIRED",
+      "capture_priority": "P1_AFTER_ACCOUNT",
+      "geography": "France / Île-de-France",
+      "categories": [
+        "BAKERY",
+        "PASTRY",
+        "SNACK",
+        "GARNITURE",
+        "PREPARED_MEALS"
+      ],
+      "official_url": "https://www.coupdepates.fr/",
+      "activation_requirements": [
+        "professional_account",
+        "authenticated_price_access"
+      ],
+      "notes": "High priority after account creation because of product depth and ready-to-use formats."
+    },
+    {
+      "supplier_id": "sysco_france",
+      "name": "Sysco France",
+      "source_status": "ACCOUNT_GATED_PENDING",
+      "purchase_status": "ADMITTED_CONDITIONAL",
+      "price_access": "ACCOUNT_REQUIRED",
+      "capture_priority": "P2_AFTER_ACCOUNT",
+      "geography": "France / Île-de-France",
+      "categories": [
+        "FOODSERVICE",
+        "SNACK",
+        "PREPARED_MEALS",
+        "FROZEN",
+        "GARNITURE"
+      ],
+      "official_url": "https://www.sysco.fr/",
+      "activation_requirements": [
+        "professional_account",
+        "authenticated_price_access"
+      ],
+      "notes": "Secondary authenticated benchmark and redundancy source."
+    }
+  ]
+}
