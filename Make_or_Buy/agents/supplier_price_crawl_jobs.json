@@ -3,7 +3,7 @@
   "jobs": [
     {
       "job_id": "crawl_foodomarket_public",
-      "supplier_id": "foodomarket",
+      "price_source_id": "foodomarket",
       "enabled": true,
       "mode": "PUBLIC_WEB",
       "cadence": "WEEKLY",
@@ -17,7 +17,7 @@
     },
     {
       "job_id": "crawl_ajfoods_public",
-      "supplier_id": "aj_foods",
+      "price_source_id": "aj_foods",
       "enabled": true,
       "mode": "PUBLIC_WEB",
       "cadence": "WEEKLY",
@@ -31,7 +31,7 @@
     },
     {
       "job_id": "crawl_rungis_abc_public",
-      "supplier_id": "rungis_abc",
+      "price_source_id": "rungis_abc",
       "enabled": true,
       "mode": "PUBLIC_WEB",
       "cadence": "WEEKLY",
@@ -44,7 +44,7 @@
     },
     {
       "job_id": "crawl_omarket78_public",
-      "supplier_id": "omarket78",
+      "price_source_id": "omarket78",
       "enabled": true,
       "mode": "PUBLIC_WEB",
       "cadence": "WEEKLY",
@@ -58,7 +58,7 @@
     },
     {
       "job_id": "crawl_hts_public",
-      "supplier_id": "hts",
+      "price_source_id": "hts",
       "enabled": true,
       "mode": "PUBLIC_WEB",
       "cadence": "WEEKLY",
@@ -71,7 +71,7 @@
     },
     {
       "job_id": "crawl_halal_food_service_public",
-      "supplier_id": "halal_food_service",
+      "price_source_id": "halal_food_service",
       "enabled": true,
       "mode": "PUBLIC_WEB",
       "cadence": "WEEKLY",
@@ -84,7 +84,7 @@
     },
     {
       "job_id": "crawl_transgourmet_authenticated",
-      "supplier_id": "transgourmet",
+      "price_source_id": "transgourmet",
       "enabled": false,
       "mode": "AUTHENTICATED_WEB",
       "activation_condition": "PRO_ACCOUNT_CONNECTED",
@@ -95,7 +95,7 @@
     },
     {
       "job_id": "crawl_metro_authenticated",
-      "supplier_id": "metro_france",
+      "price_source_id": "metro_france",
       "enabled": false,
       "mode": "AUTHENTICATED_WEB",
       "activation_condition": "PRO_ACCOUNT_CONNECTED",
@@ -106,7 +106,7 @@
     },
     {
       "job_id": "crawl_coup_de_pates_authenticated",
-      "supplier_id": "coup_de_pates",
+      "price_source_id": "coup_de_pates",
       "enabled": false,
       "mode": "AUTHENTICATED_WEB",
       "activation_condition": "PRO_ACCOUNT_CONNECTED",
@@ -121,7 +121,7 @@
     },
     {
       "job_id": "crawl_sysco_authenticated",
-      "supplier_id": "sysco_france",
+      "price_source_id": "sysco_france",
       "enabled": false,
       "mode": "AUTHENTICATED_WEB",
       "activation_condition": "PRO_ACCOUNT_CONNECTED",

@@ -5,11 +5,13 @@
     "supplier_entry_is_not_direct_order_authorization": true,
     "public_price_sources_are_priority_for_automated_capture": true,
     "account_gated_sources_can_be_registered_before_credentials_exist": true,
-    "final_make_or_buy_cost_must_use_selected_effective_product_cost": true
+    "final_make_or_buy_cost_must_use_selected_effective_product_cost": true,
+    "price_source_is_not_a_supplier": "Une source de prix est une entite dont on capture les prix, qu'on achete chez elle ou non. Un fournisseur est une entite avec laquelle une relation d'achat est envisagee. supplier_id ne porte une valeur que lorsque la source a ete promue au Supplier Master; il vaut null sinon."
   },
   "sources": [
     {
-      "supplier_id": "foodomarket",
+      "price_source_id": "foodomarket",
+      "supplier_id": null,
       "name": "Foodomarket",
       "source_status": "ACTIVE_PUBLIC",
       "purchase_status": "ADMITTED_CONDITIONAL",
@@ -38,7 +40,8 @@
       "notes": "High-value automated market-price source because public pricing and pack data are exposed."
     },
     {
-      "supplier_id": "aj_foods",
+      "price_source_id": "aj_foods",
+      "supplier_id": null,
       "name": "AJ Foods",
       "source_status": "ACTIVE_PUBLIC",
       "purchase_status": "ADMITTED_CONDITIONAL",
@@ -68,7 +71,8 @@
       "notes": "Useful for frozen snacks, potato products, breads and low-cost bases."
     },
     {
-      "supplier_id": "rungis_abc",
+      "price_source_id": "rungis_abc",
+      "supplier_id": null,
       "name": "Rungis à la Maison / ABC Peyraud",
       "source_status": "ACTIVE_PUBLIC",
       "purchase_status": "ADMITTED_CONDITIONAL",
@@ -96,7 +100,8 @@
       "notes": "Useful for ingredients, prepared food and garnish benchmarking."
     },
     {
-      "supplier_id": "omarket78",
+      "price_source_id": "omarket78",
+      "supplier_id": null,
       "name": "O'Market 78",
       "source_status": "ACTIVE_PUBLIC",
       "purchase_status": "BACKUP",
@@ -123,7 +128,8 @@
       "notes": "Useful low-cost grocery benchmark; particularly rice, pasta and pantry items."
     },
     {
-      "supplier_id": "hts",
+      "price_source_id": "hts",
+      "supplier_id": null,
       "name": "H.T.S.",
       "source_status": "ACTIVE_PUBLIC",
       "purchase_status": "ADMITTED_CONDITIONAL",
@@ -152,6 +158,7 @@
       "notes": "Public-price source; useful as a second mercurial benchmark."
     },
     {
+      "price_source_id": "halal_food_service",
       "supplier_id": "halal_food_service",
       "name": "Halal Food Service",
       "source_status": "ACTIVE_PUBLIC",
@@ -179,6 +186,7 @@
       "notes": "Already validated as useful for public delivered pack pricing."
     },
     {
+      "price_source_id": "transgourmet",
       "supplier_id": "transgourmet",
       "name": "Transgourmet France",
       "source_status": "ACCOUNT_GATED_PENDING",
@@ -202,6 +210,7 @@
       "notes": "Activate authenticated price capture when professional account exists."
     },
     {
+      "price_source_id": "metro_france",
       "supplier_id": "metro_france",
       "name": "METRO France",
       "source_status": "ACCOUNT_GATED_PENDING",
@@ -224,6 +233,7 @@
       "notes": "Useful both as purchase backup and as market benchmark once account pricing is available."
     },
     {
+      "price_source_id": "coup_de_pates",
       "supplier_id": "coup_de_pates",
       "name": "Coup de Pâtes",
       "source_status": "ACCOUNT_GATED_PENDING",
@@ -246,6 +256,7 @@
       "notes": "High priority after account creation because of product depth and ready-to-use formats."
     },
     {
+      "price_source_id": "sysco_france",
       "supplier_id": "sysco_france",
       "name": "Sysco France",
       "source_status": "ACCOUNT_GATED_PENDING",

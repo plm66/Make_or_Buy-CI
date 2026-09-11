@@ -4,6 +4,7 @@
   "type": "object",
   "required": [
     "observation_id",
+    "price_source_id",
     "supplier_id",
     "product_name",
     "capture_method",
@@ -15,7 +16,7 @@
     "observation_id": {
       "type": "string"
     },
-    "supplier_id": {
+    "price_source_id": {
       "type": "string"
     },
     "supplier_product_ref": {
@@ -140,6 +141,13 @@
         "string",
         "null"
       ]
+    },
+    "supplier_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Fiche Supplier Master, si la source a ete promue. null sinon."
     }
   },
   "additionalProperties": false

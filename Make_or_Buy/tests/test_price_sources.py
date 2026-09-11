@@ -30,11 +30,25 @@ def _plie(nom):
     return re.sub(r"[^a-z0-9]+", "_", sans_accent.lower()).strip("_")
 
 
-def test_un_fournisseur_ne_porte_quun_seul_identifiant():
-    """Le delta est arrivé avec son propre vocabulaire (METRO_FR) alors que les fiches
-    portaient déjà metro_france. Deux identités pour un fournisseur, et plus aucune
-    jointure ne tient entre un prix observé et le fournisseur homologué qui le pratique.
-    Les fiches font foi ; cette règle empêche la reformation du doublon.
+def test_une_source_de_prix_nest_pas_un_fournisseur():
+    """Une source de prix est une entité dont on capture les prix, qu'on achète chez elle
+    ou non. Un fournisseur est une entité avec laquelle une relation d'achat est envisagée.
+    Cinq des dix sources ne sont que des mercuriales : leur attribuer une fiche ferait
+    entrer au Supplier Master des entités qu'aucune qualification n'a examinées.
+    supplier_id ne vaut donc non-null qu'après promotion, et pointe alors une fiche réelle.
+    """
+    fiches = {s["supplier_id"] for s in FICHES["suppliers"]}
+    for s in REGISTRE["sources"]:
+        assert "supplier_id" in s, s["price_source_id"]      # porté, fût-ce à null
+        if s["supplier_id"] is not None:
+            assert s["supplier_id"] in fiches, s["price_source_id"]
+
+
+def test_une_source_promue_porte_lidentifiant_de_sa_fiche():
+    """Le delta est arrivé avec son propre vocabulaire (METRO_FR) alors qu'une fiche
+    metro_france existait. Deux identités pour une entité, et plus aucune jointure ne tient
+    entre un prix observé et le fournisseur homologué qui le pratique. Le nom fait le lien :
+    si une source porte le nom d'une fiche, elle doit en porter l'identifiant.
     """
     par_nom = {}
     for f in (ROOT / "data" / "suppliers").glob("*.json"):
@@ -45,6 +59,7 @@ def test_un_fournisseur_ne_porte_quun_seul_identifiant():
         attendu = par_nom.get(_plie(s["name"]))
         if attendu is not None:
             assert s["supplier_id"] == attendu, (s["name"], s["supplier_id"], attendu)
+            assert s["price_source_id"] == attendu, (s["name"], s["price_source_id"])
 
 
 def test_aucune_capture_authentifiee_nest_active():
@@ -97,6 +112,17 @@ def test_une_observation_ne_peut_pas_exprimer_un_cout_effectif():
         assert not re.search(r"avoidable|effective|selected", champ), champ
 
 
+def test_une_observation_distingue_la_source_du_fournisseur():
+    """Même règle au niveau de l'observation. price_source_id dit où le prix a été lu ;
+    supplier_id dit chez qui on achète, et vaut null tant que rien n'a été décidé. Les
+    confondre rendrait tout prix de mercuriale indiscernable d'un prix fournisseur retenu.
+    """
+    assert "price_source_id" in SCHEMA["required"]
+    assert "supplier_id" in SCHEMA["required"]          # porté, fût-ce à null
+    assert SCHEMA["properties"]["supplier_id"]["type"] == ["string", "null"]
+    assert SCHEMA["properties"]["price_source_id"]["type"] == "string"
+
+
 def test_la_base_de_taxe_est_toujours_portee():
     """La politique impose de stocker UNKNOWN plutôt que d'inférer HT ou TTC. Champ
     absent et champ UNKNOWN diraient alors deux choses différentes pour un même fait.
@@ -109,21 +135,21 @@ def test_tout_job_vise_une_source_enregistree():
     """Un job qui crawle un fournisseur absent du registre produirait des observations
     qu'aucune fiche ne pourrait qualifier.
     """
-    sources = {s["supplier_id"] for s in REGISTRE["sources"]}
+    sources = {s["price_source_id"] for s in REGISTRE["sources"]}
     for j in JOBS["jobs"]:
-        assert j["supplier_id"] in sources, j["job_id"]
+        assert j["price_source_id"] in sources, j["job_id"]
     for c in COMPTES["activation_order"]:
-        assert c["supplier_id"] in sources, c["supplier_id"]
+        assert c["price_source_id"] in sources, c["price_source_id"]
 
 
 def test_une_source_sous_compte_na_pas_de_job_actif():
     """Cohérence entre l'état déclaré de la source et ce que les jobs tentent
     réellement. Les deux doivent dire la même chose, sinon l'un des deux ment.
     """
-    gated = {s["supplier_id"] for s in REGISTRE["sources"]
+    gated = {s["price_source_id"] for s in REGISTRE["sources"]
              if s["source_status"] == "ACCOUNT_GATED_PENDING"}
     for j in JOBS["jobs"]:
-        if j["supplier_id"] in gated:
+        if j["price_source_id"] in gated:
             assert j["enabled"] is False, j["job_id"]
 
 
