@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse, json, sys
 from pathlib import Path
 
-VALIDATOR_VERSION="1.5.0"
+VALIDATOR_VERSION="1.6.0"
 
 # Les familles sont declarees par le postulat. Les recopier ici en dur les dupliquerait
 # hors de leur source, ce que P006 refuse pour la donnee produit et qui vaut autant pour
@@ -75,9 +75,14 @@ def serving_unit_cost(p, base_cost, tiers=None):
             return None, "source_state doit valoir DAY_OLD ou SURPLUS"
         if base_cost is None:
             return None, "couts propres a la transformation inconnus"
-        if extra is None:
-            return None, "gestes de transformation non chiffrables"
-        return base_cost+extra, None
+        # Contrat unique: la fiche EST le produit transforme, donc son avoidable_cost_total
+        # porte deja matieres ajoutees, travail, energie et emballage de la transformation.
+        # Y ajouter additional_operations comptait le travail deux fois.
+        if su.get("additional_operations"):
+            return None, ("additional_operations interdit en TRANSFORMED_SURPLUS: le coût "
+                          "évitable de la fiche porte déjà la transformation, l'ajouter "
+                          "compterait le travail deux fois")
+        return base_cost, None
     return None, f"derivation inconnue: {derivation!r}"
 
 def product_cost(p):
@@ -98,11 +103,17 @@ def product_cost(p):
     # Un produit d'achat pur n'a pas de production interne: son cout est le prix rendu de
     # la source retenue. Sans cette branche, tout BUY ressortait DATA_INCOMPLETE alors que
     # son cout etait au dossier — et une Manita achete la plupart de ses colonnes.
+    # Un BUY vaut le prix rendu de la source RETENUE. Prendre le minimum de toutes les
+    # offres etait dangereux: le moins cher peut etre indisponible, hors zone, ou porter un
+    # minimum de commande incompatible. Le minimum reste une metrique d'optimisation
+    # (best_available_supplier_cost), jamais le cout comptable de la reference.
     sources=(p.get("external_sourcing") or {}).get("sources") or []
-    rendus=[s.get("landed_cost_eur") for s in sources
-            if isinstance(s.get("landed_cost_eur"),(int,float))]
-    if rendus:
-        return float(min(rendus))
+    retenues=[s for s in sources if s.get("selected") is True
+              and isinstance(s.get("landed_cost_eur"),(int,float))]
+    if len(retenues)==1:
+        return float(retenues[0]["landed_cost_eur"])
+    if len(retenues)>1:
+        return None   # plusieurs sources retenues: ambigu, donc DATA_INCOMPLETE
 
     # Plus de repli sur internal_production.material_cost_eur. La config exige le
     # SELECTED_EFFECTIVE_PRODUCT_COST et interdit le coût matière quand un coût plus
@@ -133,7 +144,8 @@ def manita_eligible(p):
 def roles(p):
     return p.get("manita",{}).get("economic_roles",[])
 
-def validate(catalog, config, dietary=None, labor_tiers=None, daily_bundles=None):
+def validate(catalog, config, dietary=None, labor_tiers=None, daily_bundles=None,
+             apply_family_caps=True):
     hard=config["cost_model"]["hard_max_bundle_cost_eur"]
     envelopes=config["family_cost_envelopes"]
     # 1.3.0: le plafond absolu par article est retire, redondant avec les enveloppes.
@@ -174,7 +186,11 @@ def validate(catalog, config, dietary=None, labor_tiers=None, daily_bundles=None
             continue
 
         cap=float(envelopes[f]["hard_max_eur"])
-        if c > cap + 1e-9:
+        # P016: M_f se recalcule a chaque modification du catalogue. Filtrer sur d'anciens
+        # plafonds avant de recalculer les maxima empeche le budget de se recalibrer — les
+        # references qui justifieraient une autre allocation sont exclues d'avance.
+        # apply_family_caps=False est le mode CONCEPTION: il rend les maxima reels.
+        if apply_family_caps and c > cap + 1e-9:
             over_family.append({
                 "product_id":p.get("product",{}).get("id") or p.get("id"),
                 "family":f,
@@ -209,6 +225,8 @@ def validate(catalog, config, dietary=None, labor_tiers=None, daily_bundles=None
         "serving_unit_unresolved":unresolved,
         "daily_bundles":daily_bundles,
         "expected_cost_usable":None,
+        "family_caps_applied":apply_family_caps,
+        "required_envelope_vector_eur":None,
         "checks_not_implemented":[
             "all_exposed_products_active_or_substitutable",
             "dynamic_slots_resolvable",
@@ -256,6 +274,7 @@ def validate(catalog, config, dietary=None, labor_tiers=None, daily_bundles=None
         "expected_cost_usable":usable,
         "expected_vs_target_eur":round(expected-(config["cost_model"]["target_bundle_cost_eur"]),4),
         "admission_budget_eur":round(budget,4),
+        "required_envelope_vector_eur":{k:round(v,4) for k,v in maxima.items()},
         "free_budget_eur":libre,
         "overrun_attributable_to":attribue,
         "best_case_bundle_cost_eur":round(best,4),

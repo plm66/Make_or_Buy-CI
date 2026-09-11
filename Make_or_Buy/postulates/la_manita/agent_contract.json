@@ -1,6 +1,6 @@
 {
   "contract_id": "la_manita_agent_contract",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "normative_reference": "la_manita.postulate.json",
   "agent_rules": [
     "Treat the postulate as normative unless a newer version is explicitly supplied.",

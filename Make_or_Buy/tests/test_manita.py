@@ -262,30 +262,72 @@ def test_une_portion_coute_sa_fraction_plus_le_portionnage():
     assert round(cout, 4) == round(6.00/12 + 6*0.16/12, 4) == 0.58
 
 
-def test_une_transformation_dinvendu_ne_reimpute_pas_le_source():
-    """Le croissant aux amandes est fait sur le croissant de la veille. Le coût du
-    croissant n'entre pas : il n'est pas évitable en renonçant à la transformation, il a
-    déjà été fabriqué et payé. C'est P003 et G003 de la doctrine.
+def test_une_transformation_dinvendu_na_quune_source_de_verite():
+    """P014 révisé : la fiche EST le produit transformé, son coût évitable porte déjà les
+    matières ajoutées et le travail. Y ajouter additional_operations comptait le travail
+    deux fois — mon commentaire disait « déjà dans base_cost » pendant que le code faisait
+    `base_cost + extra`.
 
-    La règle est protégée par l'exigence de source_product_id et source_state : sans eux
-    on ne peut pas distinguer une transformation d'invendu d'une fabrication normale.
+    Le coût du croissant source n'est jamais réimputé : il n'est pas évitable en renonçant
+    à la transformation (P003, G003).
     """
     import sys as _sys
     _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
     from manita_validator import serving_unit_cost
-    taux = {"production_assistant": {"cost_per_minute_eur": 0.25}}
-    fiche = {"internal_production": {"batch_size_units": 20},
-             "manita": {"serving_unit": {
-                 "derivation": "TRANSFORMED_SURPLUS",
-                 "source_product_id": "croissant_nature", "source_state": "DAY_OLD",
-                 "additional_operations": [{"task": "garnir_repasser",
-                                            "active_labor_minutes_per_batch": 20,
-                                            "labor_tier": "production_assistant"}]}}}
-    cout, motif = serving_unit_cost(fiche, base_cost=0.18, tiers=taux)   # 0,18 = crème d'amande
-    assert motif is None and round(cout, 4) == round(0.18 + 20*0.25/20, 4) == 0.43
+    fiche = {"manita": {"serving_unit": {
+        "derivation": "TRANSFORMED_SURPLUS",
+        "source_product_id": "croissant_nature", "source_state": "DAY_OLD"}}}
+    assert serving_unit_cost(fiche, base_cost=0.43)[0] == 0.43
+
+    double = {"manita": {"serving_unit": dict(fiche["manita"]["serving_unit"],
+              additional_operations=[{"task": "garnir", "active_labor_minutes_per_batch": 20,
+                                      "labor_tier": "production_assistant"}])}}
+    cout, motif = serving_unit_cost(double, base_cost=0.43)
+    assert cout is None and "deux fois" in motif
 
     sans_source = {"manita": {"serving_unit": {"derivation": "TRANSFORMED_SURPLUS"}}}
-    assert serving_unit_cost(sans_source, 0.18, taux)[0] is None
+    assert serving_unit_cost(sans_source, 0.18)[0] is None
+
+
+def test_un_achat_vaut_le_fournisseur_retenu_pas_le_moins_cher():
+    """P022 : le moins cher peut être indisponible, hors zone ou porter un minimum de
+    commande incompatible. Le retenir d'office fabriquait un coût que personne n'avait
+    décidé de payer. Sans source retenue, DATA_INCOMPLETE."""
+    import sys as _sys
+    _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import product_cost
+    base = {"id": "x", "internal_production": {}, "external_sourcing": {"sources": [
+        {"source_id": "pas_cher_mais_hors_zone", "landed_cost_eur": 0.28},
+        {"source_id": "retenu", "landed_cost_eur": 0.42, "selected": True}]}}
+    assert product_cost(base) == 0.42
+
+    aucune = {"id": "y", "external_sourcing": {"sources": [
+        {"source_id": "a", "landed_cost_eur": 0.28}, {"source_id": "b", "landed_cost_eur": 0.42}]}}
+    assert product_cost(aucune) is None, "sans source retenue, le coût est inconnu"
+
+
+def test_les_plafonds_valident_mais_ne_concoivent_pas():
+    """P021 : filtrer les candidats contre des plafonds obsolètes empêche le budget de se
+    recalibrer — les références qui justifieraient une autre allocation sont exclues avant
+    d'être considérées, ce qui contredit P016.
+
+    En mode conception, le validateur rend les maxima réels : c'est ce que les enveloppes
+    devraient valoir, et non ce que les anciennes laissent passer.
+    """
+    import sys as _sys, json as _json
+    _sys.path.insert(0, str(ROOT / "postulates" / "la_manita"))
+    from manita_validator import validate
+    config = _json.loads((ROOT / "postulates" / "la_manita" / "manita.config.json").read_text(encoding="utf-8"))
+    cher = config["family_cost_envelopes"]["SNACK"]["hard_max_eur"] + 1.0
+    cat = [{"id": f, "family": f, "cost_eur": 0.05} for f in config["family_cost_envelopes"]]
+    cat.append({"id": "snack_cher", "family": "SNACK", "cost_eur": cher})
+
+    valid = validate(cat, config, apply_family_caps=True)
+    assert valid["family_maxima_eur"]["SNACK"] == 0.05, "le cher est exclu, le budget ne voit rien"
+
+    design = validate(cat, config, apply_family_caps=False)
+    assert design["required_envelope_vector_eur"]["SNACK"] == cher, "la conception doit le voir"
+    assert design["family_caps_applied"] is False
 
 
 if __name__ == "__main__":

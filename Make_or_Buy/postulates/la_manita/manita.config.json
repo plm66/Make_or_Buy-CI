@@ -1,5 +1,5 @@
 {
-  "manita_config_version": "1.4.0",
+  "manita_config_version": "1.6.0",
   "concept_id": "la_manita",
   "price_eur": 5.0,
   "cost_model": {
@@ -15,23 +15,23 @@
   "family_cost_envelopes": {
     "SNACK": {
       "hard_max_eur": 0.75,
-      "status": "DERIVED_FROM_CATALOG"
+      "status": "STALE_PRE_G002"
     },
     "COLD_DRINK": {
       "hard_max_eur": 0.3,
-      "status": "DERIVED_FROM_CATALOG"
+      "status": "STALE_PRE_G002"
     },
     "COMPLEMENT": {
       "hard_max_eur": 0.34,
-      "status": "DERIVED_FROM_CATALOG"
+      "status": "STALE_PRE_G002"
     },
     "DESSERT": {
       "hard_max_eur": 0.2,
-      "status": "DERIVED_FROM_CATALOG"
+      "status": "STALE_PRE_G002"
     },
     "HOT_DRINK": {
       "hard_max_eur": 0.16,
-      "status": "DERIVED_FROM_CATALOG"
+      "status": "STALE_PRE_G002"
     }
   },
   "family_envelope_sum_eur": 1.75,
@@ -107,7 +107,7 @@
     "expected_attachment_contribution": "Σ (probability_of_attachment_i × contribution_margin_i)",
     "offset_allowed_permanently_false": true
   },
-  "family_cost_envelopes_rule": "M_f = max du coût effectif des références ADMISES dans la famille f. FULL_MATRIX est valide si Σ M_f <= hard_max_bundle_cost_eur. Le vecteur se recalcule à chaque modification du catalogue ; le reliquat est du budget libre à réallouer, pas une marge acquise. Leur somme ne doit jamais dépasser le plafond dur.",
+  "family_cost_envelopes_rule": "M_f = max du coût effectif des références ADMISES dans la famille f. FULL_MATRIX est valide si Σ M_f <= hard_max_bundle_cost_eur. Le vecteur se recalcule à chaque modification du catalogue ; le reliquat est du budget libre à réallouer, pas une marge acquise. Leur somme ne doit jamais dépasser le plafond dur. ATTENTION : le vecteur actuel a été dérivé de coûts matière, avant la correction G002. Il est marqué STALE_PRE_G002 et ne doit servir qu'à la VALIDATION d'un catalogue déjà retenu, jamais à filtrer des candidats en phase de CONCEPTION — filtrer sur d'anciens plafonds empêche le budget de se recalibrer.",
   "admission_model": {
     "incremental_budget": "max(0, candidate_cost - current_family_max)",
     "admission_value": "incremental_customer_value / incremental_budget",
@@ -128,5 +128,16 @@
     "max_item_cost_formula": "hard_max_bundle_cost_eur - Σ (coût MINIMUM des autres familles requises)",
     "description": "En matrice contrainte, le plafond d'un article se calcule au lieu d'être fixé. Un produit cher n'est admissible qu'avec certaines combinaisons, ce qui est la définition même d'une matrice contrainte.",
     "activation": "Décision commerciale explicite, jamais un rattrapage automatique d'une référence hors budget."
+  },
+  "catalog_phases": {
+    "CATALOG_DESIGN": "Cherche quelles références permettent une Manita viable. Les plafonds familiaux ne s'y appliquent pas : seul le plafond du panier contraint. Le validateur y rend required_envelope_vector_eur, c'est-à-dire ce que les enveloppes devraient valoir.",
+    "CATALOG_VALIDATION": "Contrôle le catalogue retenu contre les plafonds arrêtés.",
+    "rule": "Un plafond familial valide, il ne conçoit pas."
+  },
+  "supplier_cost_policy": {
+    "accounting_cost": "external_sourcing.sources[selected=true].landed_cost_eur",
+    "on_absence": "DATA_INCOMPLETE",
+    "best_available_supplier_cost": "min des prix rendus — métrique d'optimisation, jamais le coût comptable",
+    "rationale": "Le fournisseur le moins cher peut être indisponible, hors zone de livraison ou porter un minimum de commande incompatible. Le retenir d'office par un min() fabriquait un coût que personne n'avait décidé de payer."
   }
 }

@@ -1,6 +1,6 @@
 {
   "postulate_id": "la_manita",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "status": "normative",
   "title": "La Manita — Fixed Price Mix-and-Match Postulate",
   "core": {
@@ -101,7 +101,7 @@
     },
     {
       "id": "P014_MANITA_UNIT_IS_DERIVED",
-      "rule": "A Manita reference is a serving unit, not necessarily the shop SKU. It may be the canonical product as-is, a portion of it, or a transformation of surplus. Its effective cost is derived from the canonical product by an explicit rule, never re-entered by hand."
+      "rule": "A Manita reference is a serving unit, not necessarily the shop SKU: AS_IS, PORTION or TRANSFORMED_SURPLUS. Its effective cost is derived by an explicit rule, never re-entered by hand. For TRANSFORMED_SURPLUS the fiche IS the transformed product: its avoidable cost already carries added materials, labour, energy and packaging, and no further operations may be added — one source of truth, or the transformation labour is counted twice. The source product cost is never re-imputed, being unavoidable by declining the transformation."
     },
     {
       "id": "P015_TRAFFIC_COMPARTMENT",
@@ -126,6 +126,14 @@
     {
       "id": "P020_DECLARED_CHECKS_ARE_IMPLEMENTED_OR_DECLARED_ABSENT",
       "rule": "A required_check without implementation must be reported as not implemented in every validator output. A declared but silent check reads as a passed check."
+    },
+    {
+      "id": "P021_DESIGN_BEFORE_VALIDATION",
+      "rule": "CATALOG_DESIGN searches which references make a viable Manita; CATALOG_VALIDATION checks the retained catalog against agreed caps. Family caps validate, they do not design. Filtering candidates against stale caps prevents the admission budget from recalibrating: the references that would justify a different allocation are excluded before they can be considered, which contradicts P016."
+    },
+    {
+      "id": "P022_SELECTED_SUPPLIER_COST",
+      "rule": "The accounting cost of a BUY reference is the landed cost of the SELECTED supplier. The minimum across all offers is an optimisation metric, never the accounting cost: the cheapest supplier may be unavailable, out of delivery zone, or carry an incompatible minimum order. Absent a selected source, the answer is DATA_INCOMPLETE."
     }
   ],
   "economic_roles": [
@@ -177,7 +185,9 @@
       "overrun_attributed_to_references",
       "free_budget_reported",
       "serving_unit_derivation_computed",
-      "expected_cost_usability_reported"
+      "expected_cost_usability_reported",
+      "required_envelope_vector_reported",
+      "selected_supplier_resolved"
     ],
     "outputs": [
       "VALID_BUNDLE",
@@ -227,6 +237,8 @@
     "expected_value_model": "manita.config.json#expected_value_model",
     "serving_unit_model": "manita.config.json#serving_unit_model",
     "attachment_model": "manita.config.json#attachment_model",
-    "constrained_matrix_model": "manita.config.json#constrained_matrix_model"
+    "constrained_matrix_model": "manita.config.json#constrained_matrix_model",
+    "catalog_phases": "manita.config.json#catalog_phases",
+    "supplier_cost_policy": "manita.config.json#supplier_cost_policy"
   }
 }

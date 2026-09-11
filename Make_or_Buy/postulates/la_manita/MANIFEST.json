@@ -1,28 +1,26 @@
 {
   "package": "La_Manita_Postulate",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "type": "standalone_normative_package",
   "contains_project_code": false,
   "contains_make_or_buy_project": false,
   "contains_duplicate_catalog": false,
   "files": [
-    ".DS_Store",
     "POSTULATE.md",
     "agent_contract.json",
     "agent_directives.json",
     "agent_directives.v1.2.0.json",
     "canonical_product.manita.schema.fragment.json",
     "canonical_product.manita.schema.fragment.v1.2.0.json",
+    "deltas/postulate.delta.1.1.0.json",
+    "deltas/postulate.delta.1.2.0.json",
+    "deltas/postulate.delta.1.3.0.json",
+    "deltas/postulate.delta.1.4.0.json",
     "dynamic_slot.schema.json",
     "la_manita.postulate.json",
     "la_manita.postulate.schema.json",
     "manita.config.json",
-    "manita_validator.cpython-314.pyc",
-    "manita_validator.py",
-    "postulate.delta.1.1.0.json",
-    "postulate.delta.1.2.0.json",
-    "postulate.delta.1.3.0.json",
-    "postulate.delta.1.4.0.json"
+    "manita_validator.py"
   ],
-  "postulate_version": "1.4.0"
+  "postulate_version": "1.5.0"
 }

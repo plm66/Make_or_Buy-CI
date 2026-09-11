@@ -1,4 +1,7 @@
-# LA MANITA — NORMATIVE POSTULATE v1.0.0
+# LA MANITA — NORMATIVE POSTULATE v1.6.0
+
+> Lecture humaine du postulat. La source normative est `la_manita.postulate.json` ;
+> en cas d'écart, c'est lui qui fait foi. Historique des révisions sous `deltas/`.
 
 ## Core invariant
 

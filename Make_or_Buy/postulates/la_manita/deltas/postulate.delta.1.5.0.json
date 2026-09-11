@@ -1,0 +1,45 @@
+{
+  "from_version": "1.4.0",
+  "to_version": "1.5.0",
+  "change_type": "NORMATIVE_CORRECTION",
+  "reason": "Troisième revue Alex, après la fermeture de G002. Les plafonds familiaux filtraient les candidats avant que les maxima ne soient recalculés, le coût d'un achat était pris au fournisseur le moins cher plutôt qu'au fournisseur retenu, et la transformation d'invendu comptait son travail deux fois.",
+  "changes": [
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P021_DESIGN_BEFORE_VALIDATION",
+      "value": "CATALOG_DESIGN searches which references make a viable Manita; CATALOG_VALIDATION checks the retained catalog against agreed caps. Family caps validate, they do not design. Filtering candidates against stale caps prevents the admission budget from recalibrating: the references that would justify a different allocation are excluded before they can be considered, which contradicts P016."
+    },
+    {
+      "op": "ADD",
+      "path": "economic_postulates.P022_SELECTED_SUPPLIER_COST",
+      "value": "The accounting cost of a BUY reference is the landed cost of the SELECTED supplier. The minimum across all offers is an optimisation metric, never the accounting cost: the cheapest supplier may be unavailable, out of delivery zone, or carry an incompatible minimum order. Absent a selected source, the answer is DATA_INCOMPLETE."
+    },
+    {
+      "op": "REPLACE",
+      "path": "economic_postulates.P014_MANITA_UNIT_IS_DERIVED",
+      "new_id": "P014_MANITA_UNIT_IS_DERIVED",
+      "value": "A Manita reference is a serving unit, not necessarily the shop SKU: AS_IS, PORTION or TRANSFORMED_SURPLUS. Its effective cost is derived by an explicit rule, never re-entered by hand. For TRANSFORMED_SURPLUS the fiche IS the transformed product: its avoidable cost already carries added materials, labour, energy and packaging, and no further operations may be added — one source of truth, or the transformation labour is counted twice. The source product cost is never re-imputed, being unavoidable by declining the transformation."
+    },
+    {
+      "op": "REPLACE",
+      "path": "configuration.family_cost_envelopes",
+      "old_semantics": "admission caps recomputed from the retained catalog",
+      "new_semantics": "STALE_PRE_G002 — derived from material costs before the G002 correction, usable for validation of a retained catalog, never to filter candidates during design"
+    },
+    {
+      "op": "ADD",
+      "path": "configuration.catalog_phases",
+      "value_ref": "manita.config.json#catalog_phases"
+    },
+    {
+      "op": "ADD",
+      "path": "configuration.supplier_cost_policy",
+      "value_ref": "manita.config.json#supplier_cost_policy"
+    },
+    {
+      "op": "ADD",
+      "path": "validation.required_checks_added",
+      "value": ["required_envelope_vector_reported", "selected_supplier_resolved"]
+    }
+  ]
+}
