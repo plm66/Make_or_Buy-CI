@@ -91,11 +91,18 @@ Les revues d'Alex arrivent en prose et se traduisent en **delta versionné** sou
 `postulates/*/deltas/`, jamais en édition directe du postulat. Toute modification normative
 porte son `from_version` / `to_version` et sa raison.
 
-Un invariant n'est acquis qu'une fois **vérifié par mutation** : casser la règle, constater
-que le test rougit, restaurer. Purger `__pycache__` entre les deux — Python valide son
-bytecode sur mtime + taille, et un littéral numérique remplacé par un autre de même longueur
-dans la même seconde passe pour inchangé. L'interpréteur sert alors le code muté pendant que
-le fichier sur disque est propre.
+Un test vert ne prouve rien. Casser la règle exprès, voir le test rougir, restaurer.
+C'est la seule preuve qu'il protège quelque chose.
+
+**Purger `__pycache__` avant chaque essai.** Sinon :
+
+```bash
+find . -name __pycache__ -type d -exec rm -rf {} +
+```
+
+Python décide de recompiler en comparant la date et la taille du fichier. Remplacer `0.35`
+par `0.30` ne change ni l'une ni l'autre. Il garde son cache, exécute l'ancien code, et le
+test répond sur une version qui n'est plus sur le disque.
 
 Vérifier les chiffres annoncés contre les fichiers avant de les reprendre. Trois livraisons
 sur quatre portaient au moins une affirmation fausse — des scripts inexistants, des
