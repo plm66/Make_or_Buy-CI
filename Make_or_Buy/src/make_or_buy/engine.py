@@ -56,7 +56,15 @@ def selected_cost(item):
     return min(candidats, default=(None, "UNDECIDED"), key=lambda x: x[0])
 
 
-def menu_score(items, target_price, max_food_cost_ratio=0.30, prefer_signature=True):
+def menu_score(items, target_price, hard_max_cost_ratio=0.35, target_cost_ratio=0.30,
+               prefer_signature=True):
+    """Score d'un panier, ou None s'il dépasse le plafond dur.
+
+    Deux ratios, deux rôles. Le postulat La Manita les sépare explicitement
+    (`hard_max_bundle_cost_ratio` 0.35, `target_bundle_cost_ratio` 0.30) : le premier
+    rejette, le second oriente. Les défauts reprennent ces valeurs sans importer le
+    postulat — le moteur reste générique, l'appelant impose sa norme.
+    """
     rows = []
     total_cost = 0.0
     sale_value = 0.0
@@ -71,7 +79,10 @@ def menu_score(items, target_price, max_food_cost_ratio=0.30, prefer_signature=T
         rows.append({"id":item["id"],"name":item["name"],"family":item["family"],"cost_eur":round(c,3),"mode":mode})
 
     ratio = total_cost / target_price if target_price else 999
-    if ratio > max_food_cost_ratio:
+    # Avant fix: le seuil de rejet valait 0.30, la *cible*. Toute la bande 30-35 %
+    # que le postulat declare admissible etait supprimee, dont le panier reellement
+    # source a 1,5462 EUR (30,9 % a 5 EUR). Le moteur refusait la bonne reponse.
+    if ratio > hard_max_cost_ratio:
         return None
 
     perceived_discount = max(sale_value - target_price, 0)
@@ -81,6 +92,7 @@ def menu_score(items, target_price, max_food_cost_ratio=0.30, prefer_signature=T
         "target_price_eur": target_price,
         "estimated_cost_eur": round(total_cost,2),
         "estimated_food_cost_ratio": round(ratio,3),
+        "within_target_ratio": ratio <= target_cost_ratio,
         "estimated_reference_value_eur": round(sale_value,2),
         "estimated_customer_saving_eur": round(perceived_discount,2),
         "score": round(score,3),
@@ -88,7 +100,8 @@ def menu_score(items, target_price, max_food_cost_ratio=0.30, prefer_signature=T
     }
 
 def compose_menus(catalog, diet="ANY", price_tiers=(5,7,9), families=None,
-                  max_food_cost_ratio=0.30, prefer_signature=True, top_n=1):
+                  hard_max_cost_ratio=0.35, target_cost_ratio=0.30,
+                  prefer_signature=True, top_n=1):
     families = families or DEFAULT_FAMILIES
     pools = []
     for family in families:
@@ -101,7 +114,8 @@ def compose_menus(catalog, diet="ANY", price_tiers=(5,7,9), families=None,
     for tier in price_tiers:
         candidates = []
         for combo in product(*pools):
-            s = menu_score(combo, tier, max_food_cost_ratio, prefer_signature)
+            s = menu_score(combo, tier, hard_max_cost_ratio, target_cost_ratio,
+                           prefer_signature)
             if s:
                 candidates.append(s)
         candidates.sort(key=lambda x:x["score"], reverse=True)

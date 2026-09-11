@@ -63,14 +63,48 @@ def test_le_ratio_de_cout_matiere_est_une_contrainte_dure():
     Aux coûts réels et au palier de 5 €, le catalogue d'exemple n'en produit aucun — c'est
     le signal honnête, pas une panne. Relever le palier en fait réapparaître.
     """
-    serre = compose_menus(CATALOGUE, diet="VEGAN", price_tiers=[5], max_food_cost_ratio=0.30)
+    serre = compose_menus(CATALOGUE, diet="VEGAN", price_tiers=[5], hard_max_cost_ratio=0.30)
     assert serre[0]["menus"] == []
 
-    large = compose_menus(CATALOGUE, diet="VEGAN", price_tiers=[5], max_food_cost_ratio=0.95)
+    large = compose_menus(CATALOGUE, diet="VEGAN", price_tiers=[5], hard_max_cost_ratio=0.95)
     assert large[0]["menus"], "un ratio très permissif doit laisser passer quelque chose"
     for menu in large[0]["menus"]:
         assert menu["estimated_food_cost_ratio"] <= 0.95
         assert len({i["family"] for i in menu["items"]}) == len(menu["items"])
+
+
+def test_la_bande_entre_la_cible_et_le_plafond_est_admise():
+    """Le postulat porte deux ratios distincts : cible 0.30, plafond dur 0.35. Le moteur
+    rejetait a 0.30 — il traitait la cible comme un plafond et supprimait toute la bande
+    intermediaire, dont le panier reellement source de ce depot (1,5462 EUR, soit 30,9 %
+    a 5 EUR). Casse si les deux nombres sont a nouveau confondus.
+    """
+    def article(fid, cout):
+        return {"id": fid, "name": fid, "family": fid,
+                "signature": {"class": "SUPPLIER_SUPERIOR", "customer_value_score": 1},
+                "internal": {"possible": False},
+                "external": {"possible": True, "landed_cost_eur": cout},
+                "diet": {"vegan": True}, "sale_price_eur": 2.0}
+
+    familles = ["SNACK", "GARNITURE", "COLD_DRINK", "DESSERT", "HOT_DRINK"]
+    # 1,60 EUR a 5 EUR = 32 % : au-dessus de la cible, sous le plafond.
+    catalogue = [article(f, c) for f, c in zip(familles, [0.80, 0.20, 0.20, 0.20, 0.20])]
+
+    admis = compose_menus(catalogue, price_tiers=[5], families=familles,
+                          hard_max_cost_ratio=0.35, target_cost_ratio=0.30)
+    assert admis[0]["menus"], "un panier a 32 % doit passer le plafond de 35 %"
+    menu = admis[0]["menus"][0]
+    assert menu["estimated_food_cost_ratio"] == 0.32
+    assert menu["within_target_ratio"] is False, "32 % est sous le plafond mais hors cible"
+
+    # Le defaut du moteur porte le bug : c'est lui que la commande du README empruntait.
+    par_defaut = compose_menus(catalogue, price_tiers=[5], families=familles)
+    assert par_defaut[0]["menus"], "le plafond par defaut doit valoir le hard max, pas la cible"
+
+    # Le plafond, lui, rejette bien.
+    rejete = compose_menus(catalogue, price_tiers=[5], families=familles,
+                           hard_max_cost_ratio=0.31, target_cost_ratio=0.30)
+    assert rejete[0]["menus"] == []
 
 
 if __name__ == "__main__":

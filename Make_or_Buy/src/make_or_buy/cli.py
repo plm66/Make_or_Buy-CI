@@ -15,7 +15,8 @@ def cmd_menu(args):
         catalog,
         diet=args.diet,
         price_tiers=args.tiers,
-        max_food_cost_ratio=args.max_food_cost_ratio,
+        hard_max_cost_ratio=args.hard_max_cost_ratio,
+        target_cost_ratio=args.target_cost_ratio,
         top_n=args.top
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
@@ -55,7 +56,10 @@ def main():
     m = sub.add_parser("menu", help="Composer des menus à partir du catalogue local.")
     m.add_argument("--diet", choices=["ANY","VEGETARIAN","VEGAN"], default="ANY")
     m.add_argument("--tiers", type=float, nargs="+", default=[5,7,9])
-    m.add_argument("--max-food-cost-ratio", type=float, default=0.30)
+    m.add_argument("--hard-max-cost-ratio", type=float, default=0.35,
+                   help="plafond dur: au-dela, le panier est rejete")
+    m.add_argument("--target-cost-ratio", type=float, default=0.30,
+                   help="cible: en-deca, le panier est marque within_target_ratio")
     m.add_argument("--top", type=int, default=1)
     m.add_argument("--catalog", default=str(DEFAULT_CATALOG))
     m.set_defaults(func=cmd_menu)
