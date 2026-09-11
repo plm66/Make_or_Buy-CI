@@ -1,6 +1,6 @@
 {
   "dataset": "MANITA_SNACK_BUY_DISCOVERY",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "verified_at": "2026-09-11",
   "target": {
     "landed_cost_eur_per_piece_min": 0.15,
@@ -11,7 +11,8 @@
     "Do not trust supplier displayed unit price when it conflicts with delivered pack arithmetic.",
     "BASE_ONLY candidates require HYBRID effective-cost computation.",
     "QUOTE_REQUIRED_IDF records are leads, not validated landed-cost records.",
-    "Final Manita eligibility requires SELECTED_EFFECTIVE_PRODUCT_COST including reheating, handling, packaging and waste."
+    "Final Manita eligibility requires SELECTED_EFFECTIVE_PRODUCT_COST including reheating, handling, packaging and waste.",
+    "Un prix de référence historique n'est pas un prix rendu : il vit dans reference_price_eur_per_piece et ne peut jamais alimenter un arbitrage. landed_cost_eur_per_piece reste null tant qu'un devis courant n'existe pas."
   ],
   "candidates": [
     {
@@ -34,7 +35,11 @@
       "effective_cost_status": "NEEDS_RETHERMALIZATION_COST",
       "source_url": "https://halalfs.com/frites-aperitifs/118-samossa-agneau-50-pieces.html",
       "verified_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "registry_lead_id": "LEAD-001",
+      "registry_supplier_id": "SUP-HFS",
+      "reference_price_eur_per_piece": null,
+      "reference_price_basis": null
     },
     {
       "candidate_id": "hfs_samossa_legumes_vo40",
@@ -56,7 +61,11 @@
       "effective_cost_status": "NEEDS_RETHERMALIZATION_COST",
       "source_url": "https://halalfs.com/aperitifs-et-accompagnements/119-samossa-legumes-50-pieces.html",
       "verified_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "registry_lead_id": "LEAD-002",
+      "registry_supplier_id": "SUP-HFS",
+      "reference_price_eur_per_piece": null,
+      "reference_price_basis": null
     },
     {
       "candidate_id": "hfs_samossa_poulet_vo47",
@@ -81,7 +90,11 @@
       "effective_cost_status": "NEEDS_RETHERMALIZATION_COST",
       "source_url": "https://halalfs.com/frites-aperitifs/589-samossa-poulet-50-pieces.html",
       "verified_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "registry_lead_id": "LEAD-003",
+      "registry_supplier_id": "SUP-HFS",
+      "reference_price_eur_per_piece": null,
+      "reference_price_basis": null
     },
     {
       "candidate_id": "hfs_baps_4in_pain06",
@@ -103,7 +116,11 @@
       "effective_cost_status": "FILLING_AND_ASSEMBLY_REQUIRED",
       "source_url": "https://halalfs.com/7-pains",
       "verified_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "registry_lead_id": "LEAD-004",
+      "registry_supplier_id": "SUP-HFS",
+      "reference_price_eur_per_piece": null,
+      "reference_price_basis": null
     },
     {
       "candidate_id": "hfs_tortilla_x100",
@@ -124,7 +141,11 @@
       "effective_cost_status": "PORTION_OR_FILLING_REQUIRED",
       "source_url": "https://halalfs.com/7-pains",
       "verified_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "registry_lead_id": "LEAD-005",
+      "registry_supplier_id": "SUP-HFS",
+      "reference_price_eur_per_piece": null,
+      "reference_price_basis": null
     },
     {
       "candidate_id": "hfs_baps_5in_pain02",
@@ -146,7 +167,11 @@
       "effective_cost_status": "FILLING_AND_ASSEMBLY_REQUIRED",
       "source_url": "https://halalfs.com/577-promotions",
       "verified_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "registry_lead_id": "LEAD-006",
+      "registry_supplier_id": "SUP-HFS",
+      "reference_price_eur_per_piece": null,
+      "reference_price_basis": null
     },
     {
       "candidate_id": "hfs_pain_kebab_x100",
@@ -167,7 +192,11 @@
       "effective_cost_status": "FILLING_AND_ASSEMBLY_REQUIRED",
       "source_url": "https://halalfs.com/7-pains",
       "verified_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "registry_lead_id": "LEAD-007",
+      "registry_supplier_id": "SUP-HFS",
+      "reference_price_eur_per_piece": null,
+      "reference_price_basis": null
     },
     {
       "candidate_id": "francefrais_mozzarella_106877",
@@ -187,7 +216,12 @@
       "source_url": "https://francefrais.s3.eu-west-3.amazonaws.com/rhonealpes/medias/2026/05/cuisin-juin-6a10056eaef78.pdf?1779434863=",
       "idf_supplier_url": "https://www.domafrais.fr/",
       "verified_at": "2026-09-11",
-      "confidence": "MEDIUM"
+      "confidence": "MEDIUM",
+      "registry_lead_id": "LEAD-008",
+      "registry_supplier_id": "SUP-DOM",
+      "reference_price_eur_per_piece": 0.23,
+      "reference_price_basis": "HISTORICAL_NEEDS_CURRENT_QUOTE",
+      "landed_cost_eur_per_piece": null
     },
     {
       "candidate_id": "francefrais_falafel_104188",
@@ -209,7 +243,12 @@
       "manufacturer_url": "https://www.cite-marine.fr/falafels-feves-menthe-coriandre-produit/",
       "idf_supplier_url": "https://www.domafrais.fr/",
       "verified_at": "2026-09-11",
-      "confidence": "MEDIUM"
+      "confidence": "MEDIUM",
+      "registry_lead_id": "LEAD-009",
+      "registry_supplier_id": "SUP-DOM",
+      "reference_price_eur_per_piece": 0.15,
+      "reference_price_basis": "HISTORICAL_NEEDS_CURRENT_QUOTE",
+      "landed_cost_eur_per_piece": null
     },
     {
       "candidate_id": "francefrais_accra_1003",
@@ -229,7 +268,12 @@
       "source_url": "https://lacroixdistribution.com/wp-content/uploads/2025/07/catalogue_cuisin_juillet_2025_page-1.pdf",
       "idf_supplier_url": "https://www.domafrais.fr/",
       "verified_at": "2026-09-11",
-      "confidence": "MEDIUM"
+      "confidence": "MEDIUM",
+      "registry_lead_id": "LEAD-010",
+      "registry_supplier_id": "SUP-DOM",
+      "reference_price_eur_per_piece": 0.17,
+      "reference_price_basis": "HISTORICAL_NEEDS_CURRENT_QUOTE",
+      "landed_cost_eur_per_piece": null
     }
   ]
 }

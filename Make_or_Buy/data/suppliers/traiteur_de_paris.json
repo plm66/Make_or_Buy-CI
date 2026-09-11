@@ -94,5 +94,23 @@
       "landed prices",
       "minimum orders"
     ]
+  },
+  "procurement": {
+    "registry_id": "SUP-TDP",
+    "entry_status": "MANUFACTURER_REFERENCE",
+    "purchase_channel": "DISTRIBUTOR_REQUIRED",
+    "priority": "P1",
+    "strategic_role": "Benchmark supplier-superior; portions premium",
+    "idf_delivery": "LIKELY",
+    "moq_franco_eur_ht": null,
+    "price_access": "DISTRIBUTOR_QUOTE",
+    "frozen_capability": "YES",
+    "vegan_capability": "YES",
+    "traceability_level": "GOOD",
+    "qualification_evidence": "Très pertinent pour pâtisserie portionnée; prix rendu local à résoudre",
+    "next_action": "Identifier grossiste IDF; demander tarifs et minimums",
+    "buyer_owner": null,
+    "notes": "Potentiel surtout desserts / premium.",
+    "last_verified": "2026-09-10"
   }
 }

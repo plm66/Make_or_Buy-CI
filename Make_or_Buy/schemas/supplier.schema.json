@@ -212,6 +212,116 @@
           }
         }
       }
+    },
+    "procurement": {
+      "type": "object",
+      "description": "Bloc d'homologation achat, importé du registre par suppliers_tool. entry_status et purchase_channel décident si le fournisseur est commandable ; un MANUFACTURER_REFERENCE ne l'est pas en direct.",
+      "required": [
+        "registry_id",
+        "entry_status",
+        "purchase_channel"
+      ],
+      "properties": {
+        "registry_id": {
+          "type": "string"
+        },
+        "entry_status": {
+          "enum": [
+            "ADMITTED_TRIAL",
+            "ADMITTED_CONDITIONAL",
+            "MANUFACTURER_REFERENCE",
+            "BACKUP"
+          ]
+        },
+        "purchase_channel": {
+          "enum": [
+            "DIRECT",
+            "DIRECT / PICKUP",
+            "DISTRIBUTOR_REQUIRED"
+          ]
+        },
+        "priority": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strategic_role": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "idf_delivery": {
+          "enum": [
+            "CONFIRMED",
+            "LIKELY",
+            "TO_VERIFY",
+            null
+          ]
+        },
+        "moq_franco_eur_ht": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "price_access": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "frozen_capability": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vegan_capability": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "traceability_level": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "qualification_evidence": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "next_action": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "buyer_owner": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_verified": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
     }
   },
   "additionalProperties": false

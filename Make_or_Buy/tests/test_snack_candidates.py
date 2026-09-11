@@ -48,6 +48,42 @@ def test_une_base_seule_est_un_hybride_pas_un_achat():
             assert c.get("sourcing_mode") == "HYBRID", c["candidate_id"]
 
 
+def test_la_forme_dun_candidat_est_uniforme():
+    """Une clé absente et une clé à null ne se lisent pas pareil : la première oblige
+    chaque lecteur à deviner laquelle il a reçue. Même défaut que la branche bloquante du
+    validateur, corrigée pour la même raison."""
+    obligatoires = {"candidate_id", "landed_cost_eur_per_piece", "effective_manita_cost_eur",
+                    "reference_price_eur_per_piece", "registry_lead_id", "registry_supplier_id"}
+    for c in DATA["candidates"]:
+        assert obligatoires <= set(c), (c["candidate_id"], sorted(obligatoires - set(c)))
+
+
+def test_un_prix_de_reference_nest_pas_un_prix_rendu():
+    """Le registre d'achat range les deux sous un seul en-tête, « Reference / Landed
+    €/piece ». Trier dessus ferait passer un tarif historique de 0,15 € pour un coût
+    comptable. Deux champs, deux noms : le chiffre est conservé, il ne peut plus être lu
+    comme une décision.
+    """
+    for c in DATA["candidates"]:
+        if c.get("reference_price_eur_per_piece") is not None:
+            assert c["landed_cost_eur_per_piece"] is None, c["candidate_id"]
+            assert c["reference_price_basis"] == "HISTORICAL_NEEDS_CURRENT_QUOTE"
+
+
+def test_chaque_candidat_pointe_vers_un_fournisseur_du_registre():
+    """Un lead sans fournisseur homologué ne peut pas être commandé. Le lien vers le
+    supplier master est ce qui rend le vivier actionnable plutôt qu'indicatif."""
+    import json as _json
+    index = _json.loads((ROOT / "data" / "suppliers" / "index.json").read_text(encoding="utf-8"))
+    registre = {s["supplier_id"] for s in index["suppliers"]}
+    fiches = {_json.loads(p.read_text(encoding="utf-8"))["procurement"]["registry_id"]
+              for p in (ROOT / "data" / "suppliers").glob("*.json")
+              if "procurement" in _json.loads(p.read_text(encoding="utf-8"))}
+    assert len(registre) == 13
+    for c in DATA["candidates"]:
+        assert c.get("registry_supplier_id") in fiches, c["candidate_id"]
+
+
 if __name__ == "__main__":
     for nom, fn in sorted(globals().items()):
         if nom.startswith("test_"):

@@ -1,0 +1,41 @@
+{
+  "supplier_id": "domafrais_france_frais_le_de_france",
+  "name": "Domafrais / France Frais Île-de-France",
+  "entity_type": "DISTRIBUTOR / FOODSERVICE",
+  "market": [],
+  "coverage": {},
+  "capabilities": {},
+  "product_families": [
+    "Produits frais",
+    "surgelés",
+    "traiteur",
+    "snacking"
+  ],
+  "official_sources": [
+    {
+      "url": "https://www.domafrais.fr/",
+      "source_type": "SUPPLIER_SITE",
+      "verified_at": "2026-09-11",
+      "notes": "Source officielle déclarée au registre d'achat."
+    }
+  ],
+  "data_quality": {},
+  "procurement": {
+    "registry_id": "SUP-DOM",
+    "entry_status": "ADMITTED_CONDITIONAL",
+    "purchase_channel": "DIRECT",
+    "priority": "P1",
+    "strategic_role": "Accès local réseau France Frais; devis IDF",
+    "idf_delivery": "CONFIRMED",
+    "moq_franco_eur_ht": null,
+    "price_access": "QUOTE",
+    "frozen_capability": "YES",
+    "vegan_capability": "LIKELY",
+    "traceability_level": "GOOD",
+    "qualification_evidence": "Distribution IDF identifiée; prix locaux non encore confirmés pour les références snack",
+    "next_action": "Demander devis refs 106877, 104188, 1003 + conditions livraison + franco",
+    "buyer_owner": null,
+    "notes": "À qualifier par devis local avant admission produit.",
+    "last_verified": "2026-09-11"
+  }
+}

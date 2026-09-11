@@ -1,0 +1,40 @@
+{
+  "supplier_id": "halal_food_service",
+  "name": "Halal Food Service",
+  "entity_type": "WHOLESALER / FOODSERVICE",
+  "market": [],
+  "coverage": {},
+  "capabilities": {},
+  "product_families": [
+    "Snacking",
+    "produits surgelés",
+    "pains/bases"
+  ],
+  "official_sources": [
+    {
+      "url": "https://halalfs.com/",
+      "source_type": "SUPPLIER_SITE",
+      "verified_at": "2026-09-11",
+      "notes": "Source officielle déclarée au registre d'achat."
+    }
+  ],
+  "data_quality": {},
+  "procurement": {
+    "registry_id": "SUP-HFS",
+    "entry_status": "ADMITTED_TRIAL",
+    "purchase_channel": "DIRECT",
+    "priority": "P1",
+    "strategic_role": "Snack BUY low-cost; benchmark direct",
+    "idf_delivery": "CONFIRMED",
+    "moq_franco_eur_ht": 300.0,
+    "price_access": "PUBLIC_DELIVERED",
+    "frozen_capability": "YES",
+    "vegan_capability": "YES",
+    "traceability_level": "PARTIAL",
+    "qualification_evidence": "3 samoussas complets confirmés à 0,2798 €/pièce livré HT; MOQ livraison gratuite 300 € HT",
+    "next_action": "Mesurer coût de remise en œuvre; ouvrir compte; demander grille tarifaire complète",
+    "buyer_owner": null,
+    "notes": "Premier fournisseur directement exploitable pour la recherche snack 0,15–0,30 €.",
+    "last_verified": "2026-09-11"
+  }
+}

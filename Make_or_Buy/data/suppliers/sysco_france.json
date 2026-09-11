@@ -1,0 +1,41 @@
+{
+  "supplier_id": "sysco_france",
+  "name": "Sysco France",
+  "entity_type": "WHOLESALER / FOODSERVICE",
+  "market": [],
+  "coverage": {},
+  "capabilities": {},
+  "product_families": [
+    "Snacking",
+    "restauration",
+    "produits préparés",
+    "surgelés"
+  ],
+  "official_sources": [
+    {
+      "url": "https://www.sysco.fr/",
+      "source_type": "SUPPLIER_SITE",
+      "verified_at": "TO_VERIFY",
+      "notes": "Source officielle déclarée au registre d'achat."
+    }
+  ],
+  "data_quality": {},
+  "procurement": {
+    "registry_id": "SUP-SYSCO",
+    "entry_status": "ADMITTED_CONDITIONAL",
+    "purchase_channel": "DIRECT",
+    "priority": "P2",
+    "strategic_role": "Deuxième grossiste généraliste / redondance",
+    "idf_delivery": "TO_VERIFY",
+    "moq_franco_eur_ht": null,
+    "price_access": "ACCOUNT_REQUIRED",
+    "frozen_capability": "YES",
+    "vegan_capability": "LIKELY",
+    "traceability_level": "GOOD",
+    "qualification_evidence": "Fournisseur stratégique potentiel; conditions IDF et pertinence boulangerie à qualifier",
+    "next_action": "Vérifier couverture, conditions compte et prix sur familles snack/plats préparés",
+    "buyer_owner": null,
+    "notes": "À ne pas utiliser pour décision prix avant qualification.",
+    "last_verified": "TO_VERIFY"
+  }
+}

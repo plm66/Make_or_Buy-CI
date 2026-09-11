@@ -97,5 +97,23 @@
       "account pricing",
       "minimum order conditions"
     ]
+  },
+  "procurement": {
+    "registry_id": "SUP-CDP",
+    "entry_status": "ADMITTED_CONDITIONAL",
+    "purchase_channel": "DIRECT",
+    "priority": "P1",
+    "strategic_role": "Large catalogue; BUY / supplier-superior",
+    "idf_delivery": "LIKELY",
+    "moq_franco_eur_ht": null,
+    "price_access": "ACCOUNT_REQUIRED",
+    "frozen_capability": "YES",
+    "vegan_capability": "YES",
+    "traceability_level": "GOOD",
+    "qualification_evidence": "Catalogue professionnel très large; prix et conditions compte à confirmer",
+    "next_action": "Ouvrir compte pro; extraire 30 références snack/dessert sous contraintes Manita",
+    "buyer_owner": null,
+    "notes": "Priorité sourcing élevée.",
+    "last_verified": "2026-09-10"
   }
 }

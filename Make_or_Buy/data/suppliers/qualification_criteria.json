@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "criteria": [
+    {
+      "criterion": "Paris / IDF supply",
+      "mandatory": "YES",
+      "collect": "Delivery zones, days, lead time",
+      "decision_rule": "Direct supplier cannot move to APPROVED without confirmed coverage"
+    },
+    {
+      "criterion": "Current landed pricing",
+      "mandatory": "YES",
+      "collect": "Price HT, discounts, freight, MOQ/franco",
+      "decision_rule": "No product admission without current landed cost or explicit QUOTE_REQUIRED status"
+    },
+    {
+      "criterion": "MOQ / franco",
+      "mandatory": "YES",
+      "collect": "Minimum order EUR/units, free-delivery threshold",
+      "decision_rule": "Must be compatible with rotation and storage"
+    },
+    {
+      "criterion": "Traceability",
+      "mandatory": "YES",
+      "collect": "Lot, product sheet, allergens, recall process",
+      "decision_rule": "Insufficient documentation blocks sensitive-product admission"
+    },
+    {
+      "criterion": "Shelf life / storage",
+      "mandatory": "YES",
+      "collect": "DLC/DDM, residual shelf life, frozen/chilled/ambient",
+      "decision_rule": "Must be compatible with forecast turnover"
+    },
+    {
+      "criterion": "Dietary claims",
+      "mandatory": "CONDITIONAL",
+      "collect": "Vegan/vegetarian/halal evidence",
+      "decision_rule": "Never infer claims from ingredient absence"
+    },
+    {
+      "criterion": "Supplier redundancy",
+      "mandatory": "NO",
+      "collect": "Alternative source / equivalent SKU",
+      "decision_rule": "Preferred for strategic categories"
+    },
+    {
+      "criterion": "Price stability",
+      "mandatory": "NO",
+      "collect": "Price history / contract / indexation",
+      "decision_rule": "Monitor for core Manita references"
+    },
+    {
+      "criterion": "Operational simplicity",
+      "mandatory": "YES",
+      "collect": "Prep time, reheating, assembly, packaging",
+      "decision_rule": "Effective cost must include internal avoidable operations"
+    }
+  ]
+}

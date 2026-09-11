@@ -96,5 +96,23 @@
       "landed prices",
       "minimum orders"
     ]
+  },
+  "procurement": {
+    "registry_id": "SUP-TIP",
+    "entry_status": "MANUFACTURER_REFERENCE",
+    "purchase_channel": "DISTRIBUTOR_REQUIRED",
+    "priority": "P2",
+    "strategic_role": "HYBRID components; plats préparés",
+    "idf_delivery": "LIKELY",
+    "moq_franco_eur_ht": null,
+    "price_access": "DISTRIBUTOR_QUOTE",
+    "frozen_capability": "YES",
+    "vegan_capability": "YES",
+    "traceability_level": "GOOD",
+    "qualification_evidence": "Intérêt pour composants et plats; pas principalement boulangerie",
+    "next_action": "Identifier références snack/vegan et distributeur IDF",
+    "buyer_owner": null,
+    "notes": "À utiliser pour assortiment hybride.",
+    "last_verified": "2026-09-10"
   }
 }

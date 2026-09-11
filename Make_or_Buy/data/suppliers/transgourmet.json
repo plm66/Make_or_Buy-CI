@@ -92,5 +92,23 @@
       "exact delivery frequency",
       "minimum order by account"
     ]
+  },
+  "procurement": {
+    "registry_id": "SUP-TG",
+    "entry_status": "ADMITTED_CONDITIONAL",
+    "purchase_channel": "DIRECT",
+    "priority": "P1",
+    "strategic_role": "Consolidation multi-marques; achats récurrents",
+    "idf_delivery": "CONFIRMED",
+    "moq_franco_eur_ht": null,
+    "price_access": "ACCOUNT_REQUIRED",
+    "frozen_capability": "YES",
+    "vegan_capability": "YES",
+    "traceability_level": "GOOD",
+    "qualification_evidence": "Grossiste multi-marques utile pour comparer fabricants et consolider les commandes",
+    "next_action": "Ouvrir/valider compte; obtenir grille de prix et fréquence de livraison",
+    "buyer_owner": null,
+    "notes": "Canal de comparaison et de consolidation.",
+    "last_verified": "2026-09-10"
   }
 }

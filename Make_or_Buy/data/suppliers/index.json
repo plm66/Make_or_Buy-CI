@@ -1,57 +1,72 @@
 {
-  "schema_version": "1.0.0",
-  "generated_at": "2026-09-10",
+  "schema_version": "2.0.0",
+  "generated_from": "Procurement_Supplier_Registry_La_Manita_v1.xlsx",
+  "generated_at": "TO_VERIFY",
   "suppliers": [
     {
+      "supplier_id": "bonduelle_food_service",
+      "entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED"
+    },
+    {
+      "supplier_id": "bridor",
+      "entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED"
+    },
+    {
       "supplier_id": "coup_de_pates",
-      "priority": 1,
-      "role": [
-        "manufacturer_distributor",
-        "frozen_bakery_pastry",
-        "snacking",
-        "prepared_meals"
-      ]
+      "entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT"
     },
     {
-      "supplier_id": "transgourmet",
-      "priority": 1,
-      "role": [
-        "wholesaler",
-        "multi_brand",
-        "procurement_consolidation",
-        "snacking"
-      ]
+      "supplier_id": "d_lifrance",
+      "entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED"
     },
     {
-      "supplier_id": "vandemoortele",
-      "priority": 1,
-      "role": [
-        "manufacturer",
-        "bakery",
-        "pastry",
-        "plant_based",
-        "hybrid_bases"
-      ]
+      "supplier_id": "domafrais_france_frais_le_de_france",
+      "entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT"
     },
     {
-      "supplier_id": "traiteur_de_paris",
-      "priority": 1,
-      "role": [
-        "manufacturer",
-        "premium_frozen_pastry",
-        "snacking",
-        "prepared_components"
-      ]
+      "supplier_id": "halal_food_service",
+      "entry_status": "ADMITTED_TRIAL",
+      "purchase_channel": "DIRECT"
+    },
+    {
+      "supplier_id": "metro_france",
+      "entry_status": "BACKUP",
+      "purchase_channel": "DIRECT / PICKUP"
+    },
+    {
+      "supplier_id": "st_michel_professionnel",
+      "entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED"
+    },
+    {
+      "supplier_id": "sysco_france",
+      "entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT"
     },
     {
       "supplier_id": "tipiak_restauration",
-      "priority": 1,
-      "role": [
-        "manufacturer",
-        "prepared_meals",
-        "cereal_components",
-        "hybrid_signature_components"
-      ]
+      "entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED"
+    },
+    {
+      "supplier_id": "traiteur_de_paris",
+      "entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED"
+    },
+    {
+      "supplier_id": "transgourmet",
+      "entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT"
+    },
+    {
+      "supplier_id": "vandemoortele",
+      "entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED"
     }
   ]
 }

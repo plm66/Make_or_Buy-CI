@@ -1,0 +1,41 @@
+{
+  "supplier_id": "metro_france",
+  "name": "METRO France",
+  "entity_type": "CASH_AND_CARRY / WHOLESALER",
+  "market": [],
+  "coverage": {},
+  "capabilities": {},
+  "product_families": [
+    "Multi-catégories",
+    "dépannage",
+    "boissons",
+    "snacking"
+  ],
+  "official_sources": [
+    {
+      "url": "https://www.metro.fr/",
+      "source_type": "SUPPLIER_SITE",
+      "verified_at": "TO_VERIFY",
+      "notes": "Source officielle déclarée au registre d'achat."
+    }
+  ],
+  "data_quality": {},
+  "procurement": {
+    "registry_id": "SUP-METRO",
+    "entry_status": "BACKUP",
+    "purchase_channel": "DIRECT / PICKUP",
+    "priority": "P3",
+    "strategic_role": "Dépannage; benchmark prix; faible dépendance",
+    "idf_delivery": "CONFIRMED",
+    "moq_franco_eur_ht": null,
+    "price_access": "PUBLIC_OR_ACCOUNT",
+    "frozen_capability": "YES",
+    "vegan_capability": "YES",
+    "traceability_level": "GOOD",
+    "qualification_evidence": "Utile comme solution de secours et pour petites quantités",
+    "next_action": "Définir liste de références de dépannage et seuils de prix acceptables",
+    "buyer_owner": null,
+    "notes": "Ne pas en faire le fournisseur primaire sans avantage coût.",
+    "last_verified": "TO_VERIFY"
+  }
+}

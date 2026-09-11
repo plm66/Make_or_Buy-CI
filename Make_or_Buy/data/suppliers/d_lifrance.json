@@ -1,0 +1,41 @@
+{
+  "supplier_id": "d_lifrance",
+  "name": "Délifrance",
+  "entity_type": "MANUFACTURER",
+  "market": [],
+  "coverage": {},
+  "capabilities": {},
+  "product_families": [
+    "Pain",
+    "viennoiserie",
+    "pâtisserie",
+    "snacking"
+  ],
+  "official_sources": [
+    {
+      "url": "https://delifrance.com/fr/",
+      "source_type": "SUPPLIER_SITE",
+      "verified_at": "TO_VERIFY",
+      "notes": "Source officielle déclarée au registre d'achat."
+    }
+  ],
+  "data_quality": {},
+  "procurement": {
+    "registry_id": "SUP-DLF",
+    "entry_status": "MANUFACTURER_REFERENCE",
+    "purchase_channel": "DISTRIBUTOR_REQUIRED",
+    "priority": "P2",
+    "strategic_role": "Benchmark boulangerie industrielle",
+    "idf_delivery": "TO_VERIFY",
+    "moq_franco_eur_ht": null,
+    "price_access": "DISTRIBUTOR_QUOTE",
+    "frozen_capability": "YES",
+    "vegan_capability": "LIKELY",
+    "traceability_level": "GOOD",
+    "qualification_evidence": "Référence fabricant pertinente; conditions locales non qualifiées",
+    "next_action": "Identifier distributeur IDF et comparer avec Coup de Pâtes / Vandemoortele",
+    "buyer_owner": null,
+    "notes": "Source produit, pas encore canal validé.",
+    "last_verified": "TO_VERIFY"
+  }
+}

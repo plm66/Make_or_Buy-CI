@@ -102,5 +102,23 @@
       "landed prices",
       "delivery terms"
     ]
+  },
+  "procurement": {
+    "registry_id": "SUP-VDM",
+    "entry_status": "MANUFACTURER_REFERENCE",
+    "purchase_channel": "DISTRIBUTOR_REQUIRED",
+    "priority": "P1",
+    "strategic_role": "Benchmark fabricant; produits supplier-superior",
+    "idf_delivery": "LIKELY",
+    "moq_franco_eur_ht": null,
+    "price_access": "DISTRIBUTOR_QUOTE",
+    "frozen_capability": "YES",
+    "vegan_capability": "YES",
+    "traceability_level": "GOOD",
+    "qualification_evidence": "Spécifications produits bien documentées; coût rendu dépend du distributeur",
+    "next_action": "Mapper les distributeurs IDF et obtenir prix rendus des références ciblées",
+    "buyer_owner": null,
+    "notes": "Ne pas confondre fabricant et canal d'achat.",
+    "last_verified": "2026-09-10"
   }
 }

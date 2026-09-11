@@ -1,0 +1,40 @@
+{
+  "supplier_id": "bridor",
+  "name": "Bridor",
+  "entity_type": "MANUFACTURER",
+  "market": [],
+  "coverage": {},
+  "capabilities": {},
+  "product_families": [
+    "Pain",
+    "viennoiserie",
+    "snacking premium"
+  ],
+  "official_sources": [
+    {
+      "url": "https://www.bridor.com/fr-fr/",
+      "source_type": "SUPPLIER_SITE",
+      "verified_at": "TO_VERIFY",
+      "notes": "Source officielle déclarée au registre d'achat."
+    }
+  ],
+  "data_quality": {},
+  "procurement": {
+    "registry_id": "SUP-BRI",
+    "entry_status": "MANUFACTURER_REFERENCE",
+    "purchase_channel": "DISTRIBUTOR_REQUIRED",
+    "priority": "P2",
+    "strategic_role": "Benchmark qualité premium",
+    "idf_delivery": "TO_VERIFY",
+    "moq_franco_eur_ht": null,
+    "price_access": "DISTRIBUTOR_QUOTE",
+    "frozen_capability": "YES",
+    "vegan_capability": "LIKELY",
+    "traceability_level": "GOOD",
+    "qualification_evidence": "À garder pour qualité perçue, probablement moins adapté aux très bas coûts",
+    "next_action": "Tester seulement références pouvant tenir les contraintes Manita",
+    "buyer_owner": null,
+    "notes": "Priorité économique secondaire.",
+    "last_verified": "TO_VERIFY"
+  }
+}
