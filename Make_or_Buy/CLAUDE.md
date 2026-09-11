@@ -31,6 +31,17 @@ Le champ s'appelle `avoidable_cost_eur` et s'appelait `material_cost_eur` en por
 total — un nom qui ment fait réintroduire le défaut de bonne foi. Aucun repli silencieux :
 donnée absente ⇒ `None` ⇒ `DATA_INCOMPLETE`.
 
+**Une cible n'est pas un plafond.** `manita.config.json` porte les deux, nommés
+séparément : `target_bundle_cost_ratio` 0,30 oriente, `hard_max_bundle_cost_ratio` 0,35
+rejette. `engine.py` avait retenu la cible comme seuil de rejet et supprimait toute la bande
+intermédiaire — dont le panier réellement sourcé, à 30,9 %. Même famille que G002 d'un cran
+plus haut : là un *nom* mentait, ici un *nombre* portait deux sens.
+
+**Une source de prix n'est pas un fournisseur.** `price_source_id` désigne l'entité dont on
+capture les prix ; `supplier_id` celle chez qui on envisage d'acheter, et vaut `null` tant
+qu'aucune promotion au Supplier Master n'a eu lieu. Cinq des dix sources sont des
+mercuriales pures.
+
 **Deux taxonomies de famille coexistent et ne doivent pas fusionner.** `famille` du
 référentiel (`PAIN`, `VIEN`, `PATI`, `SNAC`, `BOIS`, `MATP`, `EPIC`) est une *nature de
 produit*. `family` de la fiche canonique (`SNACK`, `COLD_DRINK`, `GARNITURE`, `DESSERT`,
@@ -79,6 +90,12 @@ un test écrit depuis l'implémentation ratifie le bug.
 Les revues d'Alex arrivent en prose et se traduisent en **delta versionné** sous
 `postulates/*/deltas/`, jamais en édition directe du postulat. Toute modification normative
 porte son `from_version` / `to_version` et sa raison.
+
+Un invariant n'est acquis qu'une fois **vérifié par mutation** : casser la règle, constater
+que le test rougit, restaurer. Purger `__pycache__` entre les deux — Python valide son
+bytecode sur mtime + taille, et un littéral numérique remplacé par un autre de même longueur
+dans la même seconde passe pour inchangé. L'interpréteur sert alors le code muté pendant que
+le fichier sur disque est propre.
 
 Vérifier les chiffres annoncés contre les fichiers avant de les reprendre. Trois livraisons
 sur quatre portaient au moins une affirmation fausse — des scripts inexistants, des
