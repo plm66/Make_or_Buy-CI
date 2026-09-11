@@ -107,3 +107,17 @@ test répond sur une version qui n'est plus sur le disque.
 Vérifier les chiffres annoncés contre les fichiers avant de les reprendre. Trois livraisons
 sur quatre portaient au moins une affirmation fausse — des scripts inexistants, des
 compteurs périmés, un statut de famille erroné.
+
+## Workflow de livraison
+
+Tant que le travail reste documentaire — README, documentation, règles ou commentaires de
+périmètre — on travaille directement sur `main` :
+
+- pas de worktree ni de branche dédiée ;
+- pas de pull request ;
+- validation du contenu et du diff ;
+- commit de chaque modification cohérente.
+
+Dès qu'une modification de code devient nécessaire, ce régime cesse de s'appliquer : il faut
+repenser l'isolation du travail (branche ou worktree), verrouiller le comportement par des
+tests, valider le changement, puis appliquer le workflow de revue avant une éventuelle PR.
