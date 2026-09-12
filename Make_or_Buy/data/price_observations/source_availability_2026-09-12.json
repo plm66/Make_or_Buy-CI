@@ -1,0 +1,83 @@
+{
+  "dataset": "SOURCE_AVAILABILITY_AUDIT",
+  "version": "1.0.0",
+  "checked_at": "2026-09-12",
+  "purpose": "Vérifier que les sources déclarées ACTIVE_PUBLIC le sont réellement, avant de bâtir la couche de prix matière sur elles.",
+  "method": "PAGE_READ_BY_MODEL",
+  "method_limits": [
+    "Une page marchande lue et résumée par un modèle n'est pas un mécanisme de capture. Sur ajfoods.fr la même réponse a affirmé que les prix n'étaient pas visibles sans compte, puis en a listé trois avec leurs montants.",
+    "Aucun prix relevé par cette méthode n'entre dans le dépôt comme observation: l'audit porte sur l'accessibilité, pas sur les montants.",
+    "Un crawler devra lire des données structurées (JSON-LD, balisage produit) et non de la prose."
+  ],
+  "sources": [
+    {
+      "price_source_id": "omarket78",
+      "registry_status": "ACTIVE_PUBLIC",
+      "reachable": true,
+      "price_visibility": "PUBLIC",
+      "tax_basis_stated": false,
+      "observation": "Catalogue épicerie accessible, prix affichés. Le site n'indique ni HT ni TTC.",
+      "url": "https://www.grossiste-alimentaire78.fr/",
+      "matches_registry": true
+    },
+    {
+      "price_source_id": "hts",
+      "registry_status": "ACTIVE_PUBLIC",
+      "reachable": true,
+      "price_visibility": "PUBLIC",
+      "tax_basis_stated": false,
+      "observation": "Catalogue complet consultable sans connexion, prix affichés.",
+      "url": "https://htsclick.com/fr/",
+      "matches_registry": true
+    },
+    {
+      "price_source_id": "halal_food_service",
+      "registry_status": "ACTIVE_PUBLIC",
+      "reachable": true,
+      "price_visibility": "PUBLIC",
+      "tax_basis_stated": false,
+      "observation": "Catalogue libre, commande réservée aux inscrits. Deux prix par produit: livraison et sur place.",
+      "structural_finding": "TWO_DISPLAYED_PRICES_PER_PRODUCT",
+      "url": "https://halalfs.com/",
+      "matches_registry": true
+    },
+    {
+      "price_source_id": "foodomarket",
+      "registry_status": "ACTIVE_PUBLIC",
+      "reachable": true,
+      "price_visibility": "PARTIAL_FREE_ACCOUNT_REQUIRED",
+      "tax_basis_stated": false,
+      "observation": "Quelques prix publics. Le site annonce que les mercuriales négociées complètes s'ouvrent après une inscription gratuite.",
+      "url": "https://www.foodomarket.com/",
+      "matches_registry": false,
+      "registry_correction_needed": "price_access vaut PUBLIC_WEB au registre; l'accès complet demande un compte, gratuit."
+    },
+    {
+      "price_source_id": "aj_foods",
+      "registry_status": "ACTIVE_PUBLIC",
+      "reachable": true,
+      "price_visibility": "UNVERIFIED",
+      "tax_basis_stated": false,
+      "observation": "L'extraction s'est contredite dans une même réponse: prix déclarés invisibles sans compte, puis trois prix listés. À vérifier à la main.",
+      "url": "https://www.ajfoods.fr/",
+      "matches_registry": null
+    },
+    {
+      "price_source_id": "rungis_abc",
+      "registry_status": "ACTIVE_PUBLIC",
+      "reachable": false,
+      "price_visibility": "UNREACHABLE",
+      "tax_basis_stated": false,
+      "observation": "rungisalamaison.com redirige en 302 vers ww19.rungisalamaison.com, qui échoue en ECONNRESET. Le sous-domaine ww19 est une signature habituelle de domaine parqué.",
+      "url": "https://rungisalamaison.com/",
+      "matches_registry": false,
+      "registry_correction_needed": "Source injoignable à cette date. Ne pas la compter parmi les sources actives tant qu'un contrôle humain n'a pas tranché."
+    }
+  ],
+  "consequences": [
+    "Sur six sources déclarées publiques, trois le sont sans réserve, une demande une inscription gratuite, une est douteuse et une est injoignable.",
+    "Foodomarket est le meilleur rapport effort/gain du lot: une inscription gratuite ouvre les mercuriales, là où Transgourmet et METRO demandent un compte professionnel.",
+    "Aucune des sources vérifiées ne déclare si ses prix sont HT ou TTC. La politique de capture impose UNKNOWN et interdit d'inférer.",
+    "Halal Food Service affiche deux prix par produit, livraison et sur place: le prix rendu dépend du mode retenu, un seul champ de prix affiché ne suffit pas."
+  ]
+}
