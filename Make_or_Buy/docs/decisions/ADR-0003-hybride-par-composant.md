@@ -77,21 +77,43 @@ deviennent des mesures :
    l'appareil, ou l'inverse. Aujourd'hui il faudrait saisir deux coûts à la main et se
    fier au plus bas.
 
-## La tension, qui est le sujet réel
+## La tension : mesurée, pas supposée
 
-Le levier de marge le plus fort et le risque de composition le plus fort sont **le même
-composant**.
+Hypothèse de départ : acheter du degré ferait gagner de la main-d'œuvre au prix d'une
+composition dégradée. Mesure sur les 59 fiches Bridor, qui portent à la fois leur degré et
+leur liste d'ingrédients.
 
-`PRET_A_SERVIR` supprime tous les gestes : c'est le meilleur gain de main-d'œuvre. C'est
-aussi le format où la substitution est la plus fréquente — un appareil prêt à l'emploi
-stable en DLC porte souvent arômes, colorants et texturants.
+| degré | fiches | au moins un additif | part | arôme | colorant |
+|---|---|---|---|---|---|
+| CRU | 5 | 5 | 100 % | 2 | 1 |
+| PAC | 22 | 15 | 68 % | 11 | 2 |
+| PRECUIT | 19 | 3 | **16 %** | 2 | 1 |
+| CUIT | 5 | 5 | 100 % | 0 | 0 |
+| PRET_A_SERVIR | 4 | 4 | 100 % | **4** | **4** |
 
-Un gain de marge obtenu en substituant ce que le client venait chercher n'est pas un gain :
-c'est un report de coût sur la réputation, invisible dans le calcul et visible en vitrine.
+**L'hypothèse est fausse telle qu'énoncée.** Le degré ne prédit pas la présence d'additifs :
+PRECUIT est à 16 %, CRU à 100 %.
 
-C'est pour cette tension que l'axe de composition d'ADR-0001 doit être un **plancher** et
-non une pondération. Une pondération y répondrait par un prix ; un plancher dit où
-l'arbitrage s'arrête.
+Ce que la mesure montre est plus étroit. Sur les quatre références `PRET_A_SERVIR`, les
+quatre portent un arôme **et** un colorant. Sur les cinq `CRU`, ce qu'on trouve est surtout
+de l'émulsifiant — cinq sur cinq — et l'arôme n'apparaît que deux fois.
+
+L'émulsifiant est un auxiliaire de procédé dans une pâte feuilletée : il ne remplace aucun
+ingrédient. L'arôme et le colorant, si. Le signal n'est donc pas « le degré amène des
+additifs » mais « le degré amène des **substitutifs** », et il ne se voit qu'en appliquant
+la distinction d'ADR-0001 entre substitutif et auxiliaire technologique.
+
+**Limite.** Quatre références `PRET_A_SERVIR` et cinq `CRU` sur un seul catalogue. C'est un
+indice qui oriente la collecte, pas une loi. La mesure est à refaire quand les listes
+d'ingrédients couvriront plusieurs fournisseurs — Coup de Pâtes en porte zéro aujourd'hui.
+
+Conséquence si l'indice se confirme : le composant qui supprime le plus de gestes est aussi
+celui qu'il faut examiner le plus, et un gain de marge obtenu en substituant ce que le
+client venait chercher se paie en réputation — un coût que le calcul ne voit pas.
+
+C'est pour cette raison que l'axe de composition d'ADR-0001 doit être un **plancher** et non
+une pondération. Une pondération y répondrait par un prix ; un plancher dit où l'arbitrage
+s'arrête.
 
 ## Où se décide quoi
 
