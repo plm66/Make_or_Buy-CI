@@ -1,0 +1,35 @@
+{
+  "package": "Make_or_Buy_manita_discovery_results_delta",
+  "version": "0.1.0",
+  "source_directory": "/Users/erasmus/Downloads/Make_or_Buy_manita_discovery_results_delta_v0.1.0",
+  "source_sha256": {
+    "patch/data/supplier_products/garniture_discovery_candidates.json": "8903255f4d48372086655da6a4b57ad23c94011b697d42d760783795e64fe334",
+    "patch/data/supplier_products/dessert_discovery_candidates.json": "7d1ea954276a1ed4328f888ad2eb9f8ae739c647d563c96cb6630cb5e45c3607",
+    "patch/data/supplier_products/dessert_internal_transformed_surplus_leads.json": "91477e06899c1ba81a3cc86b1fc16ee77e99e5cc200be19644b7567bd0038705",
+    "patch/data/price_observations/garniture_public_benchmarks.json": "b6250da0f1096fd260e4ffa636faca81b0f24a039c81f6f312e8d5e84c9ed06f",
+    "patch/data/price_observations/dessert_public_benchmarks.json": "47a9c6b487bdb86fb1ca0f4bcf55f7ec763fb12da9504ea6b8dba502d06ddbaf",
+    "patch/data/research/MANITA_DISCOVERY_RUN_2026-09-11.json": "6abfd28d8c95b23bccda9bdb0c820f75fae17fd92d6dc81c8de088211c6bac01"
+  },
+  "status": "RESEARCH_ONLY",
+  "corrections": [
+    "DES-001: vegan non validé; déclaration originale conservée",
+    "DES-013: vegan non validé; déclaration originale conservée",
+    "DES-023: vegan non validé; déclaration originale conservée",
+    "DES-024: vegan non validé; déclaration originale conservée",
+    "Identifiants price_source_id normalisés en minuscules selon le registre existant."
+  ],
+  "limitations": [
+    "Aucune vérification externe des prix, URL, grammages ou délais.",
+    "DPO-001 et DPO-002 citent des URL dont les intitulés ne correspondent pas au produit: rapprochement à vérifier.",
+    "Les formats discovery ne sont pas des fiches canoniques ni des observations validées par le schéma de capture.",
+    "Les coûts partiels nuls livrés ne constituent pas des mesures validées."
+  ],
+  "installed_files": [
+    "data/supplier_products/garniture_discovery_candidates.json",
+    "data/supplier_products/dessert_discovery_candidates.json",
+    "data/supplier_products/dessert_internal_transformed_surplus_leads.json",
+    "data/price_observations/garniture_public_benchmarks.json",
+    "data/price_observations/dessert_public_benchmarks.json",
+    "data/research/MANITA_DISCOVERY_RUN_2026-09-11.json"
+  ]
+}

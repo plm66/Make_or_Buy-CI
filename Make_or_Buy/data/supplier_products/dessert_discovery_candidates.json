@@ -1,0 +1,1232 @@
+{
+  "dataset": "MANITA_DESSERT_DISCOVERY",
+  "version": "0.1.0",
+  "verified_at": "2026-09-11",
+  "family": "DESSERT",
+  "candidate_count": 30,
+  "stale_family_cap_filter_applied": false,
+  "allowed_candidate_tracks": [
+    "READY_TO_SERVE",
+    "THAW_ONLY",
+    "TRANSFORMED_SURPLUS"
+  ],
+  "policy": {
+    "landed_cost_null_until_current_quote": true,
+    "historical_price_separate_from_landed_cost": true,
+    "vegan_requires_supplier_or_internal_recipe_documentation": true,
+    "packaging_is_basket_design_variable": true,
+    "elapsed_thaw_time_is_not_labor_time": true,
+    "source_product_cost_excluded_from_transformed_surplus": true,
+    "effective_cost_forbidden_until_all_remaining_work_is_costed": true
+  },
+  "note": "TRANSFORMED_SURPLUS is intentionally not mixed into the 30 supplier candidates because it has no registry_supplier_id. Internal leads are delivered separately.",
+  "candidates": [
+    {
+      "candidate_id": "DES-001",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Cookie vegan pépites de chocolat noir cuit D95 80g",
+      "supplier_product_ref": "71376",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 80,
+      "supplier_pack_units": null,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Produit cuit surgelé; remise en œuvre exacte à confirmer sur fiche",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": "PARTIAL",
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/COOKIES/COOKIE-VEGAN-PEPITES-DE-CHOCOLAT-NOIR-CUIT-D95-80G/p/71376",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null,
+      "imported_dietary_claim": {
+        "vegan": true,
+        "vegan_evidence": "SUPPLIER_DOCUMENTED",
+        "vegetarian": null
+      },
+      "missing_critical_fields": [
+        "dietary.official_technical_sheet"
+      ]
+    },
+    {
+      "candidate_id": "DES-002",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Flan individuel diamètre 100",
+      "supplier_product_ref": "18452",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/P%C3%82TISSERIE/TARTES-%26-TARTELETTES/FLAN-INDIVIDUEL-DIAM-100/p/18452",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-003",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Assortiment de mini meringues",
+      "supplier_product_ref": "18433",
+      "candidate_track": "READY_TO_SERVE",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": 0.0,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE/P%C3%82TES-JAUNES%2C-SECHES-%26-A-CHOUX/ASSORTIMENT-DE-MINI-MERINGUES/p/18433",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-004",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Mini Madeleine de Commercy",
+      "supplier_product_ref": "826166",
+      "candidate_track": "READY_TO_SERVE",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": 0.0,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE/P%C3%82TES-JAUNES%2C-SECHES-%26-A-CHOUX/MINI-MADELEINE-DE-COMMERCY/p/826166",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-005",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Pavlova vanille individuelle",
+      "supplier_product_ref": "826105",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 65,
+      "supplier_pack_units": 12,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 1–2 h à 4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/P%C3%82TISSERIE/ENTREMETS/PAVLOVA-VANILLE-INDIVIDUELLE/p/826105",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-006",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Mini brownies",
+      "supplier_product_ref": "25051",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": 120,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 2h30 à 4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/R%C3%89CEPTION-SUCR%C3%89E/MINI-P%C3%82TISSERIES-AM%C3%89RICAINES/MINI-BROWNIES/p/25051",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-007",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Tiramisu individuel",
+      "supplier_product_ref": "22015",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": 10,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 2h30–3h à 4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/P%C3%82TISSERIE/ENTREMETS/TIRAMISU-INDIVIDUEL/p/22015",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-008",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Brownies 80g",
+      "supplier_product_ref": "25086",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 80,
+      "supplier_pack_units": 50,
+      "supplier_packaging": "INDIVIDUAL_WRAPPED",
+      "portioning_required": false,
+      "preparation": "Décongélation 2h à 4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": 0.0,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/BROWNIES/BROWNIES-80G/p/25086",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-009",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Brownie chocolat noix de pécan 80g",
+      "supplier_product_ref": "25036",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 78,
+      "supplier_pack_units": 50,
+      "supplier_packaging": "INDIVIDUAL_WRAPPED",
+      "portioning_required": false,
+      "preparation": "Décongélation 2h à 4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": 0.0,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/BROWNIES/BROWNIES-CHOCOLAT-NOIX-DE-PECAN-80G/p/25036",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-010",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Brownie crémeux noisette plaque prédécoupée cuit 75g",
+      "supplier_product_ref": "70420",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 75,
+      "supplier_pack_units": 35,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 1h à 4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/BROWNIES/BROWNIE-CREMEUX-NOISETTE-PLAQUE-PREDECOUPEE%C2%A0CUIT-75G/p/70420",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-011",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Brownie chocolat plaque prédécoupée cuit 85g",
+      "supplier_product_ref": "25198",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 83.33,
+      "supplier_pack_units": 30,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 2h30 à 4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/BROWNIES/BROWNIE-CHOCOLAT-PLAQUE-PREDECOUPEE-CUIT-85G/p/25198",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-012",
+      "family": "DESSERT",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Brownies Sélection tout chocolat cuit 78g",
+      "supplier_product_ref": "25015",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 78,
+      "supplier_pack_units": 50,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 2h à 4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/BROWNIES/BROWNIES-SELECTION-TOUT-CHOCOLAT-CUIT-78G/p/25015",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-013",
+      "family": "DESSERT",
+      "registry_supplier_id": "traiteur_de_paris",
+      "supplier_product_name": "Moelleux au Chocolat Noisette Vegan",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 90,
+      "supplier_pack_units": 20,
+      "supplier_packaging": "INDIVIDUAL_FLOWPACK",
+      "portioning_required": false,
+      "preparation": "Option froide: décongélation 2h à +4°C; option chaude: four 12 min à 180°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": "PARTIAL",
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": 0.0,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://traiteurdeparis.fr/produits-surgeles/moelleux-au-chocolat-noisette-vegan/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null,
+      "imported_dietary_claim": {
+        "vegan": true,
+        "vegan_evidence": "SUPPLIER_DOCUMENTED",
+        "vegetarian": null
+      },
+      "missing_critical_fields": [
+        "dietary.official_technical_sheet"
+      ]
+    },
+    {
+      "candidate_id": "DES-014",
+      "family": "DESSERT",
+      "registry_supplier_id": "traiteur_de_paris",
+      "supplier_product_name": "Cheesecake Premium",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 90,
+      "supplier_pack_units": 20,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation; DLC après décongélation 3 jours entre 0 et 4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://traiteurdeparis.fr/produits-surgeles/cheesecake-premium/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-015",
+      "family": "DESSERT",
+      "registry_supplier_id": "traiteur_de_paris",
+      "supplier_product_name": "Douceur Crème Brûlée",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 90,
+      "supplier_pack_units": 20,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation; finition sucre/chalumeau si servie comme crème brûlée",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://traiteurdeparis.fr/produits-surgeles/douceur-creme-brulee/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Finition non nulle si retenue; effective cost remains unknown."
+    },
+    {
+      "candidate_id": "DES-016",
+      "family": "DESSERT",
+      "registry_supplier_id": "traiteur_de_paris",
+      "supplier_product_name": "Macarons Rive Droite",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 12,
+      "supplier_pack_units": 72,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 2h entre 0 et +4°C + 15 min ambiant",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": true
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://traiteurdeparis.fr/produits-surgeles/macarons-rive-droite/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-017",
+      "family": "DESSERT",
+      "registry_supplier_id": "traiteur_de_paris",
+      "supplier_product_name": "Cheesecake Cœur Exotique",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 100,
+      "supplier_pack_units": 20,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 4h à +4°C ou micro-ondes 2m30 à 750W",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://traiteurdeparis.fr/produits-surgeles/le-cheesecake-coeur-exotique/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-018",
+      "family": "DESSERT",
+      "registry_supplier_id": "traiteur_de_paris",
+      "supplier_product_name": "Mini Cheesecake nature",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation; format café gourmand / emporter",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://traiteurdeparis.fr/produits-surgeles/mini-cheesecake/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-019",
+      "family": "DESSERT",
+      "registry_supplier_id": "traiteur_de_paris",
+      "supplier_product_name": "San Sebastian Cheesecake",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 95,
+      "supplier_pack_units": 20,
+      "supplier_packaging": "INDIVIDUAL_FLOWPACK",
+      "portioning_required": false,
+      "preparation": "Décongélation 2h à +4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": 0.0,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://traiteurdeparis.fr/produits-surgeles/san-sebastian-cheesecake/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-020",
+      "family": "DESSERT",
+      "registry_supplier_id": "traiteur_de_paris",
+      "supplier_product_name": "Cheesecake Fruits Rouges",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 90,
+      "supplier_pack_units": 16,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Prêt à servir après décongélation; DLC 3 jours à 0–4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://traiteurdeparis.fr/produits-surgeles/cheesecake-fruits-rouges/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-021",
+      "family": "DESSERT",
+      "registry_supplier_id": "traiteur_de_paris",
+      "supplier_product_name": "Sablé Mangue Coco",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 90,
+      "supplier_pack_units": 16,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Déjà décoré; prêt à l'emploi après décongélation",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://traiteurdeparis.fr/produits-surgeles/sable-mangue-coco/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-022",
+      "family": "DESSERT",
+      "registry_supplier_id": "traiteur_de_paris",
+      "supplier_product_name": "Rocher Chocolat Noisette",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 65,
+      "supplier_pack_units": 16,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 3h au réfrigérateur +4°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://traiteurdeparis.fr/le-rocher-chocolat-noisette/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-023",
+      "family": "DESSERT",
+      "registry_supplier_id": "vandemoortele",
+      "supplier_product_name": "Choco Cherry Cake-to-go",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": null,
+      "portioning_required": true,
+      "preparation": "Décongélation 4h ambiant; conservation 72h après décongélation",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": "PARTIAL",
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/tray-baked-cakes/choco-0",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Produit multiportion; portion Manita et coût de découpe à définir.",
+      "imported_dietary_claim": {
+        "vegan": true,
+        "vegan_evidence": "SUPPLIER_DOCUMENTED",
+        "vegetarian": true
+      },
+      "missing_critical_fields": [
+        "dietary.official_technical_sheet"
+      ]
+    },
+    {
+      "candidate_id": "DES-024",
+      "family": "DESSERT",
+      "registry_supplier_id": "vandemoortele",
+      "supplier_product_name": "Entremet Croquant au chocolat",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": null,
+      "portioning_required": true,
+      "preparation": "Décongélation réfrigérée 3–4h; prêt à servir",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": "PARTIAL",
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/bavarois-sponge-cake-5",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Produit rectangulaire multiportion; coût de découpe à définir.",
+      "imported_dietary_claim": {
+        "vegan": true,
+        "vegan_evidence": "SUPPLIER_DOCUMENTED",
+        "vegetarian": null
+      },
+      "missing_critical_fields": [
+        "dietary.official_technical_sheet"
+      ]
+    },
+    {
+      "candidate_id": "DES-025",
+      "family": "DESSERT",
+      "registry_supplier_id": "vandemoortele",
+      "supplier_product_name": "Gâteau Marbré",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": null,
+      "portioning_required": true,
+      "preparation": "Prêt à servir après décongélation",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/tray-baked-cakes/gateau",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-026",
+      "family": "DESSERT",
+      "registry_supplier_id": "vandemoortele",
+      "supplier_product_name": "Doony's® Choco donut - plateau x12",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": 12,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Prêt à servir après décongélation",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": true
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/gamme-am%C3%A9ricaine/unfilled-donuts-21",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-027",
+      "family": "DESSERT",
+      "registry_supplier_id": "vandemoortele",
+      "supplier_product_name": "Double Chocolate Brownie 24P",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": 24,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 4h à température ambiante; consommer sous 4 jours",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": true
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://vandemoortele.com/fr-be/products/desserts-et-cakes/patisserie-en-plaque/double-chocolate-brownie",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-028",
+      "family": "DESSERT",
+      "registry_supplier_id": "vandemoortele",
+      "supplier_product_name": "Brownie Muffin",
+      "supplier_product_ref": "43752",
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": 112,
+      "supplier_pack_units": 36,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 30–60 min ambiant; consommer sous 3 jours",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": true
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://vandemoortele.com/en-is/products/bp/sweet-treats/muffin/brownie-muffin",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-029",
+      "family": "DESSERT",
+      "registry_supplier_id": "vandemoortele",
+      "supplier_product_name": "Cookie Pie 12P",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": 12,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Prêt à servir après décongélation",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": true
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/tart-and-pie/cookie-pie",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "DES-030",
+      "family": "DESSERT",
+      "registry_supplier_id": "vandemoortele",
+      "supplier_product_name": "Choco Coco 24P",
+      "supplier_product_ref": null,
+      "candidate_track": "THAW_ONLY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": 24,
+      "supplier_packaging": null,
+      "portioning_required": false,
+      "preparation": "Décongélation 5h; consommer sous 3 jours",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null,
+        "vegetarian": true
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": 0.0,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://vandemoortele.com/en-fi/products/bp/patisserie/tray-baked-cakes/choco-coco-24p",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    }
+  ],
+  "integration_review": {
+    "status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
+    "external_sources_rechecked": false,
+    "note": "Dates et prix déclarés par le paquet source; aucune promotion au catalogue actif. Zéros de coûts et allégations à confirmer avant usage opérationnel."
+  }
+}

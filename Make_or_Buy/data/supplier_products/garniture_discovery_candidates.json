@@ -1,0 +1,1163 @@
+{
+  "dataset": "MANITA_GARNITURE_DISCOVERY",
+  "version": "0.1.0",
+  "verified_at": "2026-09-11",
+  "family": "GARNITURE",
+  "candidate_count": 30,
+  "stale_family_cap_filter_applied": false,
+  "policy": {
+    "landed_cost_null_until_current_quote": true,
+    "manufacturer_catalog_price_is_not_landed_cost": true,
+    "no_per_piece_from_per_kg_without_real_portion_weight": true,
+    "packaging_is_basket_design_variable": true,
+    "elapsed_thaw_time_is_not_labor_time": true,
+    "effective_cost_forbidden_until_all_remaining_work_is_costed": true
+  },
+  "candidates": [
+    {
+      "candidate_id": "GAR-001",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Pommes de terre Anna 40x60g",
+      "supplier_product_ref": "832909",
+      "candidate_track": "READY_PORTION_HEAT",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": 60,
+      "supplier_pack_units": 40,
+      "supplier_packaging": "INDIVIDUAL_PORTION_IN_CASE",
+      "preparation": "Four 14–16 min à 190°C",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/POMMES-DE-TERRE-ANNA-40X60G/p/832909",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-002",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Écrasé pomme de terre / purée vitelotte cuit 36x70g IQF",
+      "supplier_product_ref": "70715",
+      "candidate_track": "READY_PORTION_HEAT",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": 70,
+      "supplier_pack_units": 36,
+      "supplier_packaging": "INDIVIDUAL_PORTION_IN_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/ECRASE-DE-POMME-DE-TERRE-PUREE-VITELOTTE-CUIT-36X70G-IQF/p/70715",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-003",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Lingot de polenta aux légumes du soleil 35x90g",
+      "supplier_product_ref": "840101",
+      "candidate_track": "READY_PORTION_HEAT",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": 90,
+      "supplier_pack_units": 35,
+      "supplier_packaging": "INDIVIDUAL_PORTION_IN_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/c/SF056",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-004",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Gratin de pommes de terre aux cèpes 20x100g IQF",
+      "supplier_product_ref": "832852",
+      "candidate_track": "READY_PORTION_HEAT",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": 100,
+      "supplier_pack_units": 20,
+      "supplier_packaging": "INDIVIDUAL_PORTION_IN_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/c/SF056",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-005",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Flan de pomme de terre et duo de carottes cuit 20x70g IQF",
+      "supplier_product_ref": "70162",
+      "candidate_track": "READY_PORTION_HEAT",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": 70,
+      "supplier_pack_units": 20,
+      "supplier_packaging": "INDIVIDUAL_PORTION_IN_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/FLAN-DE-POMME-DE-TERRE-ET-DUO-DE-CAROTTES-CUIT-20X70G-IQF/p/70162",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-006",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Pommes Darphin 100g 2x1,5kg IQF",
+      "supplier_product_ref": "841742",
+      "candidate_track": "READY_PORTION_HEAT",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": 100,
+      "supplier_pack_units": null,
+      "supplier_packaging": "INDIVIDUAL_PORTION_IN_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/POMMES-DARPHIN-100G-2X1-5KG-IQF/p/841742",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-007",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Effeuillé pomme de terre façon sarladaise 24x90g IQF",
+      "supplier_product_ref": "70734",
+      "candidate_track": "READY_PORTION_HEAT",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": 90,
+      "supplier_pack_units": 24,
+      "supplier_packaging": "INDIVIDUAL_PORTION_IN_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/EFFEUILLE-POMME-DE-TERRE-FACON-SARLADAISE-24X90G-IQF/p/70734",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-008",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Effeuillé pomme de terre emmental beurre cuit 90g x24 IQF",
+      "supplier_product_ref": "840731",
+      "candidate_track": "READY_PORTION_HEAT",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": 90,
+      "supplier_pack_units": 24,
+      "supplier_packaging": "INDIVIDUAL_PORTION_IN_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/EFFEUILLE-DE-POMMES-DE-TERRE-A-L-EMMENTAL-BEURRE-CUIT-90GX24-IQF/p/840731",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-009",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Tartelette pommes de terre purée de céleri cuite 24x80g IQF",
+      "supplier_product_ref": "70163",
+      "candidate_track": "READY_PORTION_HEAT",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": 80,
+      "supplier_pack_units": 24,
+      "supplier_packaging": "INDIVIDUAL_PORTION_IN_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/TARTELETTE-POMMES-DE-TERRE-PUREE-DE-CELERI-CUITE-24X80G-IQF/p/70163",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-010",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Fondant pomme de terre cœur coulant à la truffe 24x100g IQF",
+      "supplier_product_ref": "70733",
+      "candidate_track": "READY_PORTION_HEAT",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": 100,
+      "supplier_pack_units": 24,
+      "supplier_packaging": "INDIVIDUAL_PORTION_IN_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": 0.0,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/FONDANT-DE-POMME-DE-TERRE-COEUR-COULANT-A-LA-TRUFFE-24X100G-IQF/p/70733",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-011",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Pommes Dauphine Lutosa précuites 1kg",
+      "supplier_product_ref": "840721",
+      "candidate_track": "COOKED_BULK_PORTIONABLE",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/POMMES-DE-TERRE/POMMES-DAUPHINE-LUTOSA-PRECUITES-1KG/p/840721",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Portion Manita à définir avant calcul pièce."
+    },
+    {
+      "candidate_id": "GAR-012",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Purée de pommes de terre 2,5kg IQF",
+      "supplier_product_ref": "70776",
+      "candidate_track": "COOKED_BULK_PORTIONABLE",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/c/006",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Portion Manita à définir; coût pièce interdit tant que grammage portion inconnu."
+    },
+    {
+      "candidate_id": "GAR-013",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Gnocchis de pommes de terre 2x2,5kg IQF",
+      "supplier_product_ref": "832910",
+      "candidate_track": "COOKED_BULK_PORTIONABLE",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/POMMES-DE-TERRE/GNOCCHIS-DE-POMMES-DE-TERRE-2X2%2C5-KG-IQF/p/832910",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-014",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Frites Crispy coupe 9/9 salées précuites 2,5kg IQF",
+      "supplier_product_ref": "841688",
+      "candidate_track": "COOKED_BULK_PORTIONABLE",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": null,
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/POMMES-DE-TERRE/FRITES-CRISPY-COUPE-9-9-SALEES-PRECUITES-2%2C5-KG-IQF/p/841688",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-015",
+      "family": "GARNITURE",
+      "registry_supplier_id": "coup_de_pates",
+      "supplier_product_name": "Frites Xtra+ 10/10 bi-température précuites 4x2,5kg",
+      "supplier_product_ref": "832902",
+      "candidate_track": "COOKED_BULK_PORTIONABLE",
+      "product_state": "FROZEN",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Friteuse 2–4 min à 175°C ou four 10–15 min",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/POMMES-DE-TERRE/FRITES-XTRA-%2B-COUPE-10-10-BI-TEMPERATURE-PRECUITES-4X2%2C5KG/p/832902",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "candidate_id": "GAR-016",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Quinoa Sol®",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/quinoa-sol/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Quinoa + boulgour + poivrons; pas de rinçage/égouttage"
+    },
+    {
+      "candidate_id": "GAR-017",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Quinoa Gourmand®",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/quinoa-gourmand-2/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Quinoa blanc/rouge + boulgour/semoule"
+    },
+    {
+      "candidate_id": "GAR-018",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Quinoa Gourmand® Bio",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/quinoa-gourmand-bio/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Cuisson créole ou pilaf"
+    },
+    {
+      "candidate_id": "GAR-019",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Couscous Parfumé aux Épices du Monde®",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/couscous-parfume-aux-epices-du-monde/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Semoule précuite parfumée"
+    },
+    {
+      "candidate_id": "GAR-020",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Couscous Complet Bio",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/couscous-complet-bio/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Semoule complète bio; usages menus végétariens/végétaliens"
+    },
+    {
+      "candidate_id": "GAR-021",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Céréales à l’Asiatique",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/cereales-a-lasiatique/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Mélange précuit céréales/soja/légumes"
+    },
+    {
+      "candidate_id": "GAR-022",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Céréales Méditerranéennes®",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/cereales-mediterraneennes/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Mélange céréales précuites + aromates"
+    },
+    {
+      "candidate_id": "GAR-023",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Céré'Sun® Bio de France",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/ceresun-2/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Céréales, légumineuses et graines; usages menus végétariens/végétaliens"
+    },
+    {
+      "candidate_id": "GAR-024",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Céréales Gourmandes® Bio",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/cereales-gourmandes-bio/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Mélange six céréales bio"
+    },
+    {
+      "candidate_id": "GAR-025",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Céréales à l’Indienne",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/cereales-a-lindienne/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Céréales précuites + épices/fruits"
+    },
+    {
+      "candidate_id": "GAR-026",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Méli-Mélo Gourmand®",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/meli-melo-gourmand/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Semoule, lentilles, pois, carotte, lupin"
+    },
+    {
+      "candidate_id": "GAR-027",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Préparation pour Taboulé Menthe-Citron",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/preparation-pour-taboule-menthe-citron/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Semoule précuite assaisonnée"
+    },
+    {
+      "candidate_id": "GAR-028",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Tendres Perles®",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/tendres-perles/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "Perles de blé dur/blé tendre/maïs"
+    },
+    {
+      "candidate_id": "GAR-029",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Polenta Express",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/polenta-express/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "100% semoule de maïs"
+    },
+    {
+      "candidate_id": "GAR-030",
+      "family": "GARNITURE",
+      "registry_supplier_id": "tipiak_restauration",
+      "supplier_product_name": "Semoule de riz",
+      "supplier_product_ref": null,
+      "candidate_track": "DRY_HIGH_YIELD",
+      "product_state": "DRY",
+      "supplier_unit_weight_g": null,
+      "supplier_pack_units": null,
+      "supplier_packaging": "BULK_OR_CASE",
+      "preparation": "Cuisson/réhydratation requise; coût complet à chiffrer",
+      "dietary": {
+        "vegan": null,
+        "vegan_evidence": null
+      },
+      "price_status": "QUOTE_REQUIRED",
+      "landed_cost_eur_per_piece": null,
+      "reference_price_eur_per_piece": null,
+      "cost_components": {
+        "landed_cost_eur_per_piece": null,
+        "thaw_or_reheat_active_labor_cost_eur": null,
+        "energy_cost_eur": null,
+        "portioning_cost_eur": null,
+        "extra_packaging_cost_eur": null,
+        "expected_loss_cost_eur": null,
+        "selected_effective_product_cost_eur": null,
+        "effective_cost_status": "DATA_INCOMPLETE"
+      },
+      "source_evidence": [
+        {
+          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "url": "https://restauration.tipiak.fr/produits/semoule-de-riz/",
+          "verified_at": "2026-09-11"
+        }
+      ],
+      "notes": "100% semoule de riz; cuisson 8 min"
+    }
+  ],
+  "integration_review": {
+    "status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
+    "external_sources_rechecked": false,
+    "note": "Dates et prix déclarés par le paquet source; aucune promotion au catalogue actif. Zéros de coûts et allégations à confirmer avant usage opérationnel."
+  }
+}
