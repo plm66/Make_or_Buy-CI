@@ -35,3 +35,11 @@ devance pas. Les postulats, eux, se modifient par delta versionné sous
 | ADR | statut | objet |
 |---|---|---|
 | [0001](ADR-0001-axe-de-composition.md) | PROPOSED | frais et naturel, surgelé, chimique : l'axe absent de la doctrine |
+| [0002](ADR-0002-modele-de-recette.md) | PROPOSED | nomenclature à niveaux, et d'où viennent les recettes |
+
+## Un motif qui revient
+
+Trois fois déjà, la même distinction s'est imposée : **une référence n'est pas un fait sur
+nous.** Une source de prix n'est pas un fournisseur, un prix historique n'est pas un devis,
+une recette de métier n'est pas la recette de la maison. Les deux doivent coexister dans le
+modèle, jamais dans le même champ.
