@@ -148,6 +148,30 @@ def test_benchmarks_ne_sont_pas_des_observations_operationnelles():
         assert o["source_url_status"] == "MISMATCHED_DO_NOT_USE"
 
 
+def test_le_prix_piece_se_recalcule_depuis_larithmetique_du_colis():
+    """« Never trust a displayed unit-price label when case arithmetic produces a different
+    delivered unit cost » — agents/price_capture_policy.json.
+
+    Trois observations portaient un prix arrondi à deux décimales contredisant la division :
+    DPO-003 annonçait 0,9700 pour 48,28/50 = 0,9656. Un demi-centime paraît négligeable et
+    ne l'est pas — l'enveloppe DESSERT vaut 0,20 €, l'écart en représente deux pour cent.
+    Rien ne le contrôlait : la validation du schéma vérifie des types, pas une cohérence
+    entre deux champs.
+    """
+    for rel in (
+        "data/research/garniture_public_benchmarks.json",
+        "data/research/dessert_public_benchmarks.json",
+    ):
+        for o in load(rel)["observations"]:
+            case = o.get("displayed_case_price_eur") or o.get("displayed_price_eur")
+            units = o.get("unit_count") or o.get("unit_count_derived")
+            piece = o.get("reference_price_eur_per_piece")
+            if case is None or not units or piece is None:
+                continue
+            assert abs(piece - case / units) < 1e-4, (
+                o["observation_id"], piece, case / units)
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):
