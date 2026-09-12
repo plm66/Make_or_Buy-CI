@@ -1,7 +1,6 @@
 {
   "dataset": "DESSERT_PUBLIC_PRICE_BENCHMARKS",
   "version": "0.1.0",
-  "verified_at": "2026-09-11",
   "warning": "PRICE_SOURCE observations are benchmarks only. They do not satisfy supplier_id requirements for supplier candidates.",
   "observations": [
     {
@@ -119,5 +118,7 @@
   },
   "schema_ref": "schemas/research_public_price_benchmark_dataset.schema.json",
   "data_status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
-  "consumer_rule": "Do not import as supplier_price_observation or effective landed cost."
+  "consumer_rule": "Do not import as supplier_price_observation or effective landed cost.",
+  "source_reported_at": "2026-09-11",
+  "externally_verified_at": null
 }

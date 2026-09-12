@@ -37,12 +37,13 @@
     "patch/data/research/MANITA_DISCOVERY_RUN_2026-09-11.json": "6abfd28d8c95b23bccda9bdb0c820f75fae17fd92d6dc81c8de088211c6bac01"
   },
   "installed_sha256": {
-    "data/research/supplier_candidates/garniture_discovery_candidates.json": "3cbfbbc046b7c15cd94f4ed546696772381c7269e800453310e09cf493e31496",
-    "data/research/supplier_candidates/dessert_discovery_candidates.json": "c33e40a6d6c1bbcab6e07e9e9cb9f3955adbde8541fc637b385de157408dd05f",
-    "data/research/supplier_candidates/dessert_internal_transformed_surplus_leads.json": "36da0d04c792053a15ad6cb68fba554ddb3332039c28d47b5a5c37302f748dce",
-    "data/research/garniture_public_benchmarks.json": "5243ef26fcc1dfc6b3a565a963cfbb7938c0a6d53381e9c1e19a6e274ac2769c",
-    "data/research/dessert_public_benchmarks.json": "525df1e24b2099508e88b87d2ab2f35f75fc77e24ac511075057ca1047d30bc6",
-    "data/research/MANITA_DISCOVERY_RUN_2026-09-11.json": "fa6f7beccc98f8b7331364e78722fb00dc3989dec5e098cbe04e4325e85ca2e7"
+    "data/research/supplier_candidates/garniture_discovery_candidates.json": "bd511dbfdd4600ec91643e2d6a096c618f0e2c6a7ebd6d68a89779d12812388e",
+    "data/research/supplier_candidates/dessert_discovery_candidates.json": "033dbf9e30288b649fb7219458408dbf26963c4163b7eff96b0e694e151659bc",
+    "data/research/supplier_candidates/dessert_internal_transformed_surplus_leads.json": "061dc7df76653c304e19d244fdba9405cd58da3fedc4ad20acd247745c8b42b3",
+    "data/research/garniture_public_benchmarks.json": "9bb22d2141ec95aa024ad68824722a2a46fb72808eb18d4e664b1f7bd976cb3e",
+    "data/research/dessert_public_benchmarks.json": "a7a3ef97affd902279e8496e9b86b9e4169feeadb312523d1651140baee2dc36",
+    "data/research/MANITA_DISCOVERY_RUN_2026-09-11.json": "6de1e8ce8cc95a7b35322e9e342e17fb6fc83d13a4ebf32fcb6233ed0affc31c"
   },
-  "provenance_note": "Le rapport d’intégration s’auto-documente mais n’est pas inclus dans installed_sha256 pour éviter une référence circulaire."
+  "provenance_note": "Le rapport d’intégration s’auto-documente mais n’est pas inclus dans installed_sha256 pour éviter une référence circulaire.",
+  "externally_verified_at": null
 }

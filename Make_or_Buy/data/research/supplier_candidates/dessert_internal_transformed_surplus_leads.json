@@ -1,7 +1,6 @@
 {
   "dataset": "MANITA_DESSERT_INTERNAL_TRANSFORMED_SURPLUS_LEADS",
   "version": "0.1.0",
-  "verified_at": "2026-09-11",
   "rule": "Source product cost is excluded because it is already sunk/non-avoidable. Only added ingredients + active transformation labor + energy + incremental packaging + incremental loss enter the candidate cost.",
   "leads": [
     {
@@ -52,5 +51,7 @@
   },
   "schema_ref": "schemas/research_transformed_surplus_leads_dataset.schema.json",
   "data_status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
-  "consumer_rule": "Do not import as canonical product, supplier product, price observation, or purchase authorization."
+  "consumer_rule": "Do not import as canonical product, supplier product, price observation, or purchase authorization.",
+  "source_reported_at": "2026-09-11",
+  "externally_verified_at": null
 }

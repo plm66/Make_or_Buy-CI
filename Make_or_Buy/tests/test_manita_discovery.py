@@ -17,6 +17,12 @@ def validate_schema(value, schema, path="$"):
         expected = expected if isinstance(expected, list) else [expected]
         ok = any((t == "null" and value is None) or (t == "string" and isinstance(value, str)) or (t == "object" and isinstance(value, dict)) or (t == "array" and isinstance(value, list)) or (t == "number" and isinstance(value, (int, float)) and not isinstance(value, bool)) or (t == "integer" and isinstance(value, int) and not isinstance(value, bool)) for t in expected)
         if not ok: raise AssertionError(f"{path}: type mismatch")
+    if "minimum" in schema and isinstance(value, (int, float)) and not isinstance(value, bool):
+        if value < schema["minimum"]:
+            raise AssertionError(f"{path}: value below minimum")
+    if "allOf" in schema:
+        for branch in schema["allOf"]:
+            validate_schema(value, branch, path)
     if "oneOf" in schema:
         matches = 0
         for branch in schema["oneOf"]:
@@ -50,7 +56,31 @@ def test_schema_refs_resolve_and_validate_without_dependency():
     for payload, schema in pairs:
         data, schema_data = load(payload), load(schema)
         assert data["schema_ref"] == schema
+        assert data["externally_verified_at"] is None
         validate_schema(data, schema_data)
+
+    candidate = load("data/research/supplier_candidates/dessert_discovery_candidates.json")
+    candidate_schema = load("schemas/research_discovery_candidate_dataset.schema.json")
+    quarantined = next(c for c in candidate["candidates"] if "raw_imported_dietary_claim_unvalidated" in c)
+    invalid_claim = json.loads(json.dumps(candidate))
+    invalid_claim["candidates"][candidate["candidates"].index(quarantined)].pop("claim_status", None)
+    try:
+        validate_schema(invalid_claim, candidate_schema)
+    except AssertionError:
+        pass
+    else:
+        raise AssertionError("allOf conditional claim guard accepted missing claim_status")
+
+    benchmark = load("data/research/garniture_public_benchmarks.json")
+    benchmark_schema = load("schemas/research_public_price_benchmark_dataset.schema.json")
+    invalid_price = json.loads(json.dumps(benchmark))
+    invalid_price["observations"][0]["displayed_price_eur"] = -1
+    try:
+        validate_schema(invalid_price, benchmark_schema)
+    except AssertionError:
+        pass
+    else:
+        raise AssertionError("minimum price guard accepted a negative value")
 
 def test_candidates_research_only_and_not_achetables():
     supplier_rows = load("data/suppliers/index.json")["suppliers"]
@@ -105,6 +135,7 @@ def test_benchmarks_ne_sont_pas_des_observations_operationnelles():
         data = load(rel)
         assert data["data_status"] == "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED"
         assert data["schema_ref"] == "schemas/research_public_price_benchmark_dataset.schema.json"
+        assert data["externally_verified_at"] is None
         assert len(data["observations"]) == 6
         ids = [o["observation_id"] for o in data["observations"]]
         assert len(ids) == len(set(ids))

@@ -9,7 +9,9 @@
     "schema_ref",
     "allowed_candidate_tracks",
     "candidates",
-    "consumer_rule"
+    "consumer_rule",
+    "source_reported_at",
+    "externally_verified_at"
   ],
   "properties": {
     "dataset": {
@@ -169,6 +171,15 @@
         ]
       },
       "minItems": 1
+    },
+    "source_reported_at": {
+      "type": "string"
+    },
+    "externally_verified_at": {
+      "type": [
+        "string",
+        "null"
+      ]
     }
   }
 }
