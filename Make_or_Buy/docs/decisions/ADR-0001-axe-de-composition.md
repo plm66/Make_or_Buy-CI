@@ -111,6 +111,36 @@ A est à écarter : une pondération transforme un refus en prix. Elle répond �
 d'euros vaut l'absence d'arôme artificiel », question à laquelle personne ici ne veut
 répondre.
 
+## L'ordre : la composition d'abord, le make-or-buy ensuite
+
+La composition ne se décide pas en même temps que le sourcing, elle le précède et le
+contraint. On arrête d'abord de quoi le produit est fait, puis on cherche qui peut le
+fournir ainsi — jamais l'inverse, sinon l'offre disponible dicte la recette.
+
+Le `decision_workflow` de la doctrine ne le dit pas. Son étape 1 est « définir le produit
+et le standard client attendu » : le standard client est une attente perçue, pas une
+composition. Les étapes 2 à 10 scorent ensuite MAKE contre BUY.
+
+Il manque donc, avant l'étape 2, l'arrêt de la composition cible et de ses seuils.
+
+Conséquence pratique : un candidat fournisseur ne se juge plus seulement sur son prix rendu
+et sa régularité, mais d'abord sur sa conformité à une composition déjà décidée. Un produit
+hors cible est écarté avant d'être chiffré, ce qui évite de chiffrer ce qu'on refusera.
+
+### Ce que l'axe rend visible : la vanille
+
+Trois matières portent le même goût, trois natures, trois prix :
+
+| matière | nature | ce qui change |
+|---|---|---|
+| gousse de vanille | `FRESH_NATURAL` | la plus chère, la plus identifiable |
+| extrait naturel de vanille | `FRESH_NATURAL` | coût intermédiaire, régularité meilleure |
+| arôme vanille artificiel | `SUBSTITUTED` | le moins cher, parfaitement régulier |
+
+Aujourd'hui le moteur ne voit qu'un écart de coût matière entre ces trois-là, et
+`SUPPLIER_QUALITY` favorise même le troisième pour sa régularité. C'est le cas d'école de
+ce que l'axe doit rendre arbitrable.
+
 ## Ce que la décision engage
 
 - La doctrine suit le .docx humain : `doctrine/doctrine.json` ne se modifie pas ici. Cet

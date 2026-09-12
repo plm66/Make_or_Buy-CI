@@ -82,12 +82,20 @@ Demander à l'application la composition d'un opéra, c'est lui demander de **pr
 recette. Si elle répond depuis la mémoire d'un modèle, elle fabrique un fait daté — ce que
 la doctrine interdit.
 
-Deux questions différentes se cachent sous la même phrase :
+Trois couches, pas deux, et c'est leur comparaison qui est le travail :
 
-| question | nature | traitement |
-|---|---|---|
-| « De quoi est fait **mon** opéra ? » | un fait sur la boulangerie | saisi une fois, daté, versionné ; fait autorité pour le coût |
-| « De quoi est fait **un** opéra ? » | une référence de métier | sourcée et citée, jamais un fait sur nous |
+| couche | nature | traitement | ce qu'on en a |
+|---|---|---|---|
+| l'opéra **standard** | référence de métier | sourcée et citée, jamais un fait sur nous | rien |
+| les opéras **des autres** | produits observés et achetables | faits datés sur le marché | 1 140 références catalogue, dont 52 fiches Bridor avec pourcentages QUID |
+| **le nôtre** | un fait sur la boulangerie | saisi une fois, daté, versionné ; fait autorité pour le coût | rien |
+
+La couche du milieu existe déjà : le référentiel construit pour le sourcing est aussi le
+corpus de comparaison pour la conception. Un même fichier sert deux usages qu'on n'avait
+pas identifiés comme liés.
+
+Le travail est de considérer le standard, le comparer à ce que fabriquent les autres, et
+concevoir le nôtre à partir de cet écart.
 
 C'est la troisième fois que cette distinction se présente dans ce dépôt :
 
