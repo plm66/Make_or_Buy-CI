@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research-only public price benchmark dataset",
+  "type": "object",
+  "required": [
+    "dataset",
+    "version",
+    "data_status",
+    "schema_ref",
+    "observations",
+    "consumer_rule",
+    "source_reported_at",
+    "externally_verified_at"
+  ],
+  "properties": {
+    "dataset": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "data_status": {
+      "const": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED"
+    },
+    "schema_ref": {
+      "const": "schemas/research_public_price_benchmark_dataset.schema.json"
+    },
+    "consumer_rule": {
+      "type": "string"
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "observation_id",
+          "price_source_id",
+          "landed_cost_eur_per_piece",
+          "landed_cost_status",
+          "source_url_status",
+          "displayed_price_eur"
+        ],
+        "properties": {
+          "observation_id": {
+            "type": "string"
+          },
+          "price_source_id": {
+            "type": "string"
+          },
+          "landed_cost_eur_per_piece": {
+            "type": "null"
+          },
+          "source_url_status": {
+            "type": "string"
+          },
+          "landed_cost_status": {
+            "enum": [
+              "INCOMPLETE",
+              "REFERENCE_ONLY",
+              "STALE_REFERENCE"
+            ]
+          },
+          "displayed_price_eur": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "unit_count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "source_reported_at": {
+      "type": "string"
+    },
+    "externally_verified_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

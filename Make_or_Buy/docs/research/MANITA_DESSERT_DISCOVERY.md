@@ -86,7 +86,7 @@ Voir `packaging_model` dans `manita.config.json`.
 
 ## Interdits
 
-- Annoncer un `effective_manita_cost_eur` sans avoir chiffré le travail restant
+- Annoncer un `selected_effective_product_cost_eur` sans avoir chiffré le travail restant
 - Facturer une décongélation au temps écoulé
 - Faire entrer le coût du produit source dans une transformation d'invendu
 - Traiter un prix catalogue fabricant comme un prix rendu : sans distributeur identifié,
@@ -97,9 +97,9 @@ Voir `packaging_model` dans `manita.config.json`.
 
 ## Livrable
 
-30 candidats au format de `data/supplier_products/snack_buy_candidates.json`, avec
+30 candidats au format de `data/research/supplier_candidates/dessert_discovery_candidates.json`, avec
 `candidate_track` valant `READY_TO_SERVE`, `THAW_ONLY` ou `TRANSFORMED_SURPLUS`,
-`registry_supplier_id` pointant vers une fiche de `data/suppliers/`, et
+`supplier_id` et `procurement_registry_id` pointant vers le Supplier Master, et
 `landed_cost_eur_per_piece` à `null` tant qu'un devis courant n'existe pas — le prix
 historique vivant séparément en `reference_price_eur_per_piece`.
 

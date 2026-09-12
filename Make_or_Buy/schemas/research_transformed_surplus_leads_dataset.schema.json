@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research-only transformed surplus leads dataset",
+  "type": "object",
+  "required": [
+    "dataset",
+    "version",
+    "data_status",
+    "schema_ref",
+    "leads",
+    "consumer_rule",
+    "source_reported_at",
+    "externally_verified_at"
+  ],
+  "properties": {
+    "dataset": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "data_status": {
+      "const": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED"
+    },
+    "schema_ref": {
+      "const": "schemas/research_transformed_surplus_leads_dataset.schema.json"
+    },
+    "consumer_rule": {
+      "type": "string"
+    },
+    "leads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "lead_id",
+          "candidate_track",
+          "selected_effective_product_cost_eur",
+          "source_state",
+          "source_product_id"
+        ],
+        "properties": {
+          "lead_id": {
+            "type": "string"
+          },
+          "candidate_track": {
+            "const": "TRANSFORMED_SURPLUS"
+          },
+          "selected_effective_product_cost_eur": {
+            "type": "null"
+          },
+          "source_state": {
+            "enum": [
+              "DAY_OLD",
+              "SURPLUS"
+            ]
+          },
+          "source_product_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "source_reported_at": {
+      "type": "string"
+    },
+    "externally_verified_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}
