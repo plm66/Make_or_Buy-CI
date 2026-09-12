@@ -18,6 +18,7 @@ une référence normative citable à une date.
 | `doctrine/doctrine.json` | comment décider — 8 principes, G001-G006 | normative, suit le .docx humain |
 | `postulates/la_manita/` | La Manita, panier à prix fixe | normative, versionnée par `deltas/` |
 | `data/` | sur quoi décider — fiches, référentiel, fournisseurs | faits datés |
+| `data/research/` | pistes et preuves de recherche | non-opposable, jamais une autorisation d'achat |
 | `src/make_or_buy/`, `*_tool.py` | application des règles | implémentation, corrigeable |
 
 Un paquet normatif l'est sur ses **règles**, jamais sur son implémentation. `manita_validator.py`

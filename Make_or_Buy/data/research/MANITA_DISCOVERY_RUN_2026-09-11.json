@@ -1,0 +1,33 @@
+{
+  "research_run": "MANITA_GARNITURE_THEN_DESSERT",
+  "version": "0.1.0",
+  "results": {
+    "garniture_supplier_candidates": 30,
+    "dessert_supplier_candidates": 30,
+    "internal_transformed_surplus_leads": 5,
+    "garniture_public_price_benchmarks": 6,
+    "dessert_public_price_benchmarks": 6,
+    "effective_costs_declared": 0
+  },
+  "high_signal_findings": [
+    "Coup de Pâtes has substantial individual/portionable GARNITURE depth (60–100g individual potato/polenta formats plus bulk IQF). Current landed prices remain QUOTE_REQUIRED.",
+    "Tipiak has deep DRY_HIGH_YIELD cereal/pulse accompaniment coverage; it is HYBRID economics because cooking/reconstitution and portioning remain internal.",
+    "AJ Foods publicly lists Lutosa 100g rösti at EUR 23.50 per 10kg: EUR 0.235 per 100g piece before delivery/tax normalization. This is a price-source benchmark, not a registry supplier landed cost.",
+    "DESSERT has supplier-page vegan leads, not validated dietary claims: Coup de Pâtes vegan cookie, Traiteur de Paris vegan chocolate-hazelnut moelleux, and Vandemoortele vegan products."
+  ],
+  "blocking_inputs": [
+    "measured labor tier cost_per_minute_eur",
+    "basket packaging model / incremental packaging cost",
+    "current quotes for account-gated canonical suppliers",
+    "measured or documented expected loss rates",
+    "revalidated product identity and source URL for DPO-001/DPO-002"
+  ],
+  "do_not_use_stale_caps": true,
+  "integration_review": {
+    "status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
+    "external_sources_rechecked": false,
+    "note": "Dates et prix déclarés par le paquet source; aucune promotion au catalogue actif. Zéros de coûts et allégations à confirmer avant usage opérationnel.",
+    "externally_verified_at": null
+  },
+  "source_reported_at": "2026-09-11"
+}

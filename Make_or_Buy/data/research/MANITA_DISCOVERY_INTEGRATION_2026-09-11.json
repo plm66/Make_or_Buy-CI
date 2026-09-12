@@ -1,0 +1,49 @@
+{
+  "package": "Make_or_Buy_manita_discovery_results_delta",
+  "version": "0.1.0",
+  "source_directory": null,
+  "status": "RESEARCH_ONLY",
+  "corrections": [
+    "DES-001: vegan non validé; déclaration originale conservée",
+    "DES-013: vegan non validé; déclaration originale conservée",
+    "DES-023: vegan non validé; déclaration originale conservée",
+    "DES-024: vegan non validé; déclaration originale conservée",
+    "Identifiants price_source_id normalisés en minuscules selon le registre existant."
+  ],
+  "limitations": [
+    "Aucune vérification externe des prix, URL, grammages ou délais.",
+    "DPO-001 et DPO-002 citent des URL dont les intitulés ne correspondent pas au produit: rapprochement à vérifier.",
+    "Les coûts partiels nuls livrés ne constituent pas des mesures validées.",
+    "Les empreintes original_source_sha256 correspondent au paquet source avant corrections; installed_sha256 correspond aux fichiers versionnés après corrections documentées.",
+    "Les jeux discovery utilisent des schémas research-only dédiés; ils ne sont pas des fiches canoniques ni des observations opérationnelles.",
+    "Les leads de surplus transformé sont également isolés sous data/research et ne constituent pas des produits achetables."
+  ],
+  "installed_files": [
+    "data/research/supplier_candidates/garniture_discovery_candidates.json",
+    "data/research/supplier_candidates/dessert_discovery_candidates.json",
+    "data/research/supplier_candidates/dessert_internal_transformed_surplus_leads.json",
+    "data/research/garniture_public_benchmarks.json",
+    "data/research/dessert_public_benchmarks.json",
+    "data/research/MANITA_DISCOVERY_RUN_2026-09-11.json",
+    "data/research/MANITA_DISCOVERY_INTEGRATION_2026-09-11.json"
+  ],
+  "source_package": "Make_or_Buy_manita_discovery_results_delta_v0.1.0",
+  "original_source_sha256": {
+    "patch/data/supplier_products/garniture_discovery_candidates.json": "8903255f4d48372086655da6a4b57ad23c94011b697d42d760783795e64fe334",
+    "patch/data/supplier_products/dessert_discovery_candidates.json": "7d1ea954276a1ed4328f888ad2eb9f8ae739c647d563c96cb6630cb5e45c3607",
+    "patch/data/supplier_products/dessert_internal_transformed_surplus_leads.json": "91477e06899c1ba81a3cc86b1fc16ee77e99e5cc200be19644b7567bd0038705",
+    "patch/data/price_observations/garniture_public_benchmarks.json": "b6250da0f1096fd260e4ffa636faca81b0f24a039c81f6f312e8d5e84c9ed06f",
+    "patch/data/price_observations/dessert_public_benchmarks.json": "47a9c6b487bdb86fb1ca0f4bcf55f7ec763fb12da9504ea6b8dba502d06ddbaf",
+    "patch/data/research/MANITA_DISCOVERY_RUN_2026-09-11.json": "6abfd28d8c95b23bccda9bdb0c820f75fae17fd92d6dc81c8de088211c6bac01"
+  },
+  "installed_sha256": {
+    "data/research/supplier_candidates/garniture_discovery_candidates.json": "bd511dbfdd4600ec91643e2d6a096c618f0e2c6a7ebd6d68a89779d12812388e",
+    "data/research/supplier_candidates/dessert_discovery_candidates.json": "033dbf9e30288b649fb7219458408dbf26963c4163b7eff96b0e694e151659bc",
+    "data/research/supplier_candidates/dessert_internal_transformed_surplus_leads.json": "061dc7df76653c304e19d244fdba9405cd58da3fedc4ad20acd247745c8b42b3",
+    "data/research/garniture_public_benchmarks.json": "9bb22d2141ec95aa024ad68824722a2a46fb72808eb18d4e664b1f7bd976cb3e",
+    "data/research/dessert_public_benchmarks.json": "a7a3ef97affd902279e8496e9b86b9e4169feeadb312523d1651140baee2dc36",
+    "data/research/MANITA_DISCOVERY_RUN_2026-09-11.json": "6de1e8ce8cc95a7b35322e9e342e17fb6fc83d13a4ebf32fcb6233ed0affc31c"
+  },
+  "provenance_note": "Le rapport d’intégration s’auto-documente mais n’est pas inclus dans installed_sha256 pour éviter une référence circulaire.",
+  "externally_verified_at": null
+}

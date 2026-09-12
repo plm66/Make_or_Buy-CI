@@ -7,8 +7,8 @@
     "doctrine_reference": "existing project doctrine/doctrine.json"
   },
   "output": {
-    "format": "supplier_product.schema.json",
-    "write_path": "data/supplier_products/discovered/",
+    "format": "research_discovery_candidate_dataset.schema.json",
+    "write_path": "data/research/supplier_candidates/",
     "dedupe_key_priority": [
       "supplier_id+supplier_product.reference",
       "supplier_id+supplier_product.ean",

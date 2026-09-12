@@ -97,8 +97,11 @@ make-or-buy ask "compose-moi un menu vegan sur la base de 3 gammes de prix"
 ## Structure
 
 - `doctrine/doctrine.json` : doctrine machine normative.
-- `schemas/` : schémas des produits et requêtes.
+- `schemas/` : schémas des produits, requêtes et jeux de recherche.
 - `data/catalog.example.json` : catalogue exemple à remplacer progressivement par les données réelles.
+- `data/research/` : preuves et candidats de recherche non opposables, jamais importés directement dans les décisions opérationnelles.
+- `data/research/supplier_candidates/` : candidats fournisseurs, benchmarks et leads de découverte par formule.
+- `docs/research/` : contrats et consignes de recherche par famille de menu.
 - `src/make_or_buy/engine.py` : moteur déterministe de composition.
 - `src/make_or_buy/llm.py` : connecteur générique OpenAI-compatible.
 - `src/make_or_buy/cli.py` : interface en ligne de commande.
