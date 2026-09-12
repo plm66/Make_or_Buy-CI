@@ -36,6 +36,10 @@ devance pas. Les postulats, eux, se modifient par delta versionné sous
 |---|---|---|
 | [0001](ADR-0001-axe-de-composition.md) | PROPOSED | frais et naturel, surgelé, chimique : l'axe absent de la doctrine |
 | [0002](ADR-0002-modele-de-recette.md) | PROPOSED | nomenclature à niveaux, et d'où viennent les recettes |
+| [0003](ADR-0003-hybride-par-composant.md) | PROPOSED | l'hybride se décide par composant, sur trois axes |
+
+Les trois se lisent ensemble et s'implémentent dans cet ordre : matières premières, puis
+nomenclature, puis mode et degré par composant. Chacun est inutile sans le précédent.
 
 ## Un motif qui revient
 
