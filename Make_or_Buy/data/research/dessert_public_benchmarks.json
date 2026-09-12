@@ -15,10 +15,12 @@
       "delivery_included": true,
       "landed_cost_eur_per_piece": null,
       "landed_cost_status": "REFERENCE_ONLY",
-      "source_url": "https://shop.foodomarket.com/shop/catalogue/pains-au-chocolat-surgeles",
       "observed_at": "2026-09-11",
       "confidence": "MEDIUM",
-      "notes": "Very low public benchmark; piece weight not verified, so perceived-value comparison is not yet valid."
+      "notes": "Very low public benchmark; piece weight not verified, so perceived-value comparison is not yet valid. Source URL mismatch retained for audit only; do not use for price attribution.",
+      "source_url": null,
+      "source_url_original_unvalidated": "https://shop.foodomarket.com/shop/catalogue/pains-au-chocolat-surgeles",
+      "source_url_status": "MISMATCHED_DO_NOT_USE"
     },
     {
       "observation_id": "DPO-002",
@@ -32,9 +34,12 @@
       "delivery_included": true,
       "landed_cost_eur_per_piece": null,
       "landed_cost_status": "REFERENCE_ONLY",
-      "source_url": "https://shop.foodomarket.com/shop/produit/boulangerie-patisseries-surgelees/tartes-sucree-surgelees/tarte-milka-surgele",
       "observed_at": "2026-09-11",
-      "confidence": "MEDIUM"
+      "confidence": "MEDIUM",
+      "source_url": null,
+      "source_url_original_unvalidated": "https://shop.foodomarket.com/shop/produit/boulangerie-patisseries-surgelees/tartes-sucree-surgelees/tarte-milka-surgele",
+      "source_url_status": "MISMATCHED_DO_NOT_USE",
+      "notes": " Source URL mismatch retained for audit only; do not use for price attribution."
     },
     {
       "observation_id": "DPO-003",
@@ -51,7 +56,8 @@
       "price_reference_date": "2026-07-20",
       "source_url": "https://www.foodomarket.com/produits/produits-sucres-surgeles/brownie-noix-surgele",
       "observed_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "source_url_status": "UNRECHECKED"
     },
     {
       "observation_id": "DPO-004",
@@ -68,7 +74,8 @@
       "price_reference_date": "2026-07-20",
       "source_url": "https://www.foodomarket.com/produits/produits-sucres-surgeles/beignet-aux-chocolat-et-noisette-surgele",
       "observed_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "source_url_status": "UNRECHECKED"
     },
     {
       "observation_id": "DPO-005",
@@ -84,7 +91,8 @@
       "price_reference_date": "2026-08-12",
       "source_url": "https://www.foodomarket.com/produits/produits-sucres-surgeles/tiramisu-chocolat-speculos-nubi-surgele",
       "observed_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "source_url_status": "UNRECHECKED"
     },
     {
       "observation_id": "DPO-006",
@@ -100,12 +108,16 @@
       "price_reference_date": "2026-07-20",
       "source_url": "https://www.foodomarket.com/produits/produits-sucres-surgeles/donut-oreo-surgele",
       "observed_at": "2026-09-11",
-      "confidence": "HIGH"
+      "confidence": "HIGH",
+      "source_url_status": "UNRECHECKED"
     }
   ],
   "integration_review": {
     "status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
     "external_sources_rechecked": false,
     "note": "Dates et prix déclarés par le paquet source; aucune promotion au catalogue actif. Zéros de coûts et allégations à confirmer avant usage opérationnel."
-  }
+  },
+  "schema_ref": "schemas/research_public_price_benchmark_dataset.schema.json",
+  "data_status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
+  "consumer_rule": "Do not import as supplier_price_observation or effective landed cost."
 }

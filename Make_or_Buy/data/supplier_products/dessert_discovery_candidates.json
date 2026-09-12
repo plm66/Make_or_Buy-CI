@@ -24,7 +24,6 @@
     {
       "candidate_id": "DES-001",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Cookie vegan pépites de chocolat noir cuit D95 80g",
       "supplier_product_ref": "71376",
       "candidate_track": "THAW_ONLY",
@@ -59,19 +58,24 @@
         }
       ],
       "notes": null,
-      "imported_dietary_claim": {
+      "missing_critical_fields": [
+        "dietary.official_technical_sheet"
+      ],
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false,
+      "raw_imported_dietary_claim_unvalidated": {
         "vegan": true,
         "vegan_evidence": "SUPPLIER_DOCUMENTED",
         "vegetarian": null
       },
-      "missing_critical_fields": [
-        "dietary.official_technical_sheet"
-      ]
+      "claim_status": "NOT_VALIDATED"
     },
     {
       "candidate_id": "DES-002",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Flan individuel diamètre 100",
       "supplier_product_ref": "18452",
       "candidate_track": "THAW_ONLY",
@@ -105,12 +109,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-003",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Assortiment de mini meringues",
       "supplier_product_ref": "18433",
       "candidate_track": "READY_TO_SERVE",
@@ -144,12 +152,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-004",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Mini Madeleine de Commercy",
       "supplier_product_ref": "826166",
       "candidate_track": "READY_TO_SERVE",
@@ -183,12 +195,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-005",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Pavlova vanille individuelle",
       "supplier_product_ref": "826105",
       "candidate_track": "THAW_ONLY",
@@ -222,12 +238,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-006",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Mini brownies",
       "supplier_product_ref": "25051",
       "candidate_track": "THAW_ONLY",
@@ -261,12 +281,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-007",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Tiramisu individuel",
       "supplier_product_ref": "22015",
       "candidate_track": "THAW_ONLY",
@@ -300,12 +324,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-008",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Brownies 80g",
       "supplier_product_ref": "25086",
       "candidate_track": "THAW_ONLY",
@@ -339,12 +367,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-009",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Brownie chocolat noix de pécan 80g",
       "supplier_product_ref": "25036",
       "candidate_track": "THAW_ONLY",
@@ -378,12 +410,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-010",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Brownie crémeux noisette plaque prédécoupée cuit 75g",
       "supplier_product_ref": "70420",
       "candidate_track": "THAW_ONLY",
@@ -417,12 +453,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-011",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Brownie chocolat plaque prédécoupée cuit 85g",
       "supplier_product_ref": "25198",
       "candidate_track": "THAW_ONLY",
@@ -456,12 +496,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-012",
       "family": "DESSERT",
-      "registry_supplier_id": "coup_de_pates",
       "supplier_product_name": "Brownies Sélection tout chocolat cuit 78g",
       "supplier_product_ref": "25015",
       "candidate_track": "THAW_ONLY",
@@ -495,12 +539,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "coup_de_pates",
+      "procurement_registry_id": "SUP-CDP",
+      "supplier_entry_status": "ADMITTED_CONDITIONAL",
+      "purchase_channel": "DIRECT",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-013",
       "family": "DESSERT",
-      "registry_supplier_id": "traiteur_de_paris",
       "supplier_product_name": "Moelleux au Chocolat Noisette Vegan",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -535,19 +583,24 @@
         }
       ],
       "notes": null,
-      "imported_dietary_claim": {
+      "missing_critical_fields": [
+        "dietary.official_technical_sheet"
+      ],
+      "supplier_id": "traiteur_de_paris",
+      "procurement_registry_id": "SUP-TDP",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false,
+      "raw_imported_dietary_claim_unvalidated": {
         "vegan": true,
         "vegan_evidence": "SUPPLIER_DOCUMENTED",
         "vegetarian": null
       },
-      "missing_critical_fields": [
-        "dietary.official_technical_sheet"
-      ]
+      "claim_status": "NOT_VALIDATED"
     },
     {
       "candidate_id": "DES-014",
       "family": "DESSERT",
-      "registry_supplier_id": "traiteur_de_paris",
       "supplier_product_name": "Cheesecake Premium",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -581,12 +634,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "traiteur_de_paris",
+      "procurement_registry_id": "SUP-TDP",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-015",
       "family": "DESSERT",
-      "registry_supplier_id": "traiteur_de_paris",
       "supplier_product_name": "Douceur Crème Brûlée",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -620,12 +677,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": "Finition non nulle si retenue; effective cost remains unknown."
+      "notes": "Finition non nulle si retenue; effective cost remains unknown.",
+      "supplier_id": "traiteur_de_paris",
+      "procurement_registry_id": "SUP-TDP",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-016",
       "family": "DESSERT",
-      "registry_supplier_id": "traiteur_de_paris",
       "supplier_product_name": "Macarons Rive Droite",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -659,12 +720,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "traiteur_de_paris",
+      "procurement_registry_id": "SUP-TDP",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-017",
       "family": "DESSERT",
-      "registry_supplier_id": "traiteur_de_paris",
       "supplier_product_name": "Cheesecake Cœur Exotique",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -698,12 +763,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "traiteur_de_paris",
+      "procurement_registry_id": "SUP-TDP",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-018",
       "family": "DESSERT",
-      "registry_supplier_id": "traiteur_de_paris",
       "supplier_product_name": "Mini Cheesecake nature",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -737,12 +806,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "traiteur_de_paris",
+      "procurement_registry_id": "SUP-TDP",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-019",
       "family": "DESSERT",
-      "registry_supplier_id": "traiteur_de_paris",
       "supplier_product_name": "San Sebastian Cheesecake",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -776,12 +849,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "traiteur_de_paris",
+      "procurement_registry_id": "SUP-TDP",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-020",
       "family": "DESSERT",
-      "registry_supplier_id": "traiteur_de_paris",
       "supplier_product_name": "Cheesecake Fruits Rouges",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -815,12 +892,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "traiteur_de_paris",
+      "procurement_registry_id": "SUP-TDP",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-021",
       "family": "DESSERT",
-      "registry_supplier_id": "traiteur_de_paris",
       "supplier_product_name": "Sablé Mangue Coco",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -854,12 +935,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "traiteur_de_paris",
+      "procurement_registry_id": "SUP-TDP",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-022",
       "family": "DESSERT",
-      "registry_supplier_id": "traiteur_de_paris",
       "supplier_product_name": "Rocher Chocolat Noisette",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -893,12 +978,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "traiteur_de_paris",
+      "procurement_registry_id": "SUP-TDP",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-023",
       "family": "DESSERT",
-      "registry_supplier_id": "vandemoortele",
       "supplier_product_name": "Choco Cherry Cake-to-go",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -933,19 +1022,24 @@
         }
       ],
       "notes": "Produit multiportion; portion Manita et coût de découpe à définir.",
-      "imported_dietary_claim": {
+      "missing_critical_fields": [
+        "dietary.official_technical_sheet"
+      ],
+      "supplier_id": "vandemoortele",
+      "procurement_registry_id": "SUP-VDM",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false,
+      "raw_imported_dietary_claim_unvalidated": {
         "vegan": true,
         "vegan_evidence": "SUPPLIER_DOCUMENTED",
         "vegetarian": true
       },
-      "missing_critical_fields": [
-        "dietary.official_technical_sheet"
-      ]
+      "claim_status": "NOT_VALIDATED"
     },
     {
       "candidate_id": "DES-024",
       "family": "DESSERT",
-      "registry_supplier_id": "vandemoortele",
       "supplier_product_name": "Entremet Croquant au chocolat",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -980,19 +1074,24 @@
         }
       ],
       "notes": "Produit rectangulaire multiportion; coût de découpe à définir.",
-      "imported_dietary_claim": {
+      "missing_critical_fields": [
+        "dietary.official_technical_sheet"
+      ],
+      "supplier_id": "vandemoortele",
+      "procurement_registry_id": "SUP-VDM",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false,
+      "raw_imported_dietary_claim_unvalidated": {
         "vegan": true,
         "vegan_evidence": "SUPPLIER_DOCUMENTED",
         "vegetarian": null
       },
-      "missing_critical_fields": [
-        "dietary.official_technical_sheet"
-      ]
+      "claim_status": "NOT_VALIDATED"
     },
     {
       "candidate_id": "DES-025",
       "family": "DESSERT",
-      "registry_supplier_id": "vandemoortele",
       "supplier_product_name": "Gâteau Marbré",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -1026,12 +1125,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "vandemoortele",
+      "procurement_registry_id": "SUP-VDM",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-026",
       "family": "DESSERT",
-      "registry_supplier_id": "vandemoortele",
       "supplier_product_name": "Doony's® Choco donut - plateau x12",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -1065,12 +1168,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "vandemoortele",
+      "procurement_registry_id": "SUP-VDM",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-027",
       "family": "DESSERT",
-      "registry_supplier_id": "vandemoortele",
       "supplier_product_name": "Double Chocolate Brownie 24P",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -1104,12 +1211,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "vandemoortele",
+      "procurement_registry_id": "SUP-VDM",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-028",
       "family": "DESSERT",
-      "registry_supplier_id": "vandemoortele",
       "supplier_product_name": "Brownie Muffin",
       "supplier_product_ref": "43752",
       "candidate_track": "THAW_ONLY",
@@ -1143,12 +1254,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "vandemoortele",
+      "procurement_registry_id": "SUP-VDM",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-029",
       "family": "DESSERT",
-      "registry_supplier_id": "vandemoortele",
       "supplier_product_name": "Cookie Pie 12P",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -1182,12 +1297,16 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "vandemoortele",
+      "procurement_registry_id": "SUP-VDM",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     },
     {
       "candidate_id": "DES-030",
       "family": "DESSERT",
-      "registry_supplier_id": "vandemoortele",
       "supplier_product_name": "Choco Coco 24P",
       "supplier_product_ref": null,
       "candidate_track": "THAW_ONLY",
@@ -1221,12 +1340,20 @@
           "verified_at": "2026-09-11"
         }
       ],
-      "notes": null
+      "notes": null,
+      "supplier_id": "vandemoortele",
+      "procurement_registry_id": "SUP-VDM",
+      "supplier_entry_status": "MANUFACTURER_REFERENCE",
+      "purchase_channel": "DISTRIBUTOR_REQUIRED",
+      "operational_purchase_authorized": false
     }
   ],
   "integration_review": {
     "status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
     "external_sources_rechecked": false,
     "note": "Dates et prix déclarés par le paquet source; aucune promotion au catalogue actif. Zéros de coûts et allégations à confirmer avant usage opérationnel."
-  }
+  },
+  "schema_ref": "schemas/research_discovery_candidate_dataset.schema.json",
+  "data_status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
+  "consumer_rule": "Do not import into canonical products, supplier master, price observations, or purchase authorization."
 }

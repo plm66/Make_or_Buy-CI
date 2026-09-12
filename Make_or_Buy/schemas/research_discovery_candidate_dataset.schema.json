@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research-only supplier candidate dataset",
+  "type": "object",
+  "required": [
+    "dataset",
+    "version",
+    "data_status",
+    "schema_ref",
+    "candidates",
+    "consumer_rule"
+  ],
+  "properties": {
+    "dataset": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "data_status": {
+      "const": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED"
+    },
+    "schema_ref": {
+      "const": "schemas/research_discovery_candidate_dataset.schema.json"
+    },
+    "consumer_rule": {
+      "type": "string"
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "supplier_id",
+          "procurement_registry_id",
+          "supplier_entry_status",
+          "purchase_channel",
+          "operational_purchase_authorized",
+          "source_evidence"
+        ],
+        "properties": {
+          "candidate_id": {
+            "type": "string"
+          },
+          "supplier_id": {
+            "type": "string"
+          },
+          "procurement_registry_id": {
+            "type": "string"
+          },
+          "supplier_entry_status": {
+            "type": "string"
+          },
+          "purchase_channel": {
+            "type": "string"
+          },
+          "operational_purchase_authorized": {
+            "const": false
+          },
+          "source_evidence": {
+            "type": "array",
+            "minItems": 1
+          }
+        }
+      }
+    }
+  }
+}
