@@ -1,0 +1,39 @@
+id_matiere;categorie;nom_normalise;unite_achat;unite_recette;grammes_par_unite_achat;composition_nature;preuve_composition;substitut_de;allergenes;statut;note
+MATP-FARI-T45;farines;farine de ble T45;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;gluten;ACTIF;
+MATP-FARI-T55;farines;farine de ble T55;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;gluten;ACTIF;
+MATP-FARI-T65;farines;farine de ble T65;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;gluten;ACTIF;
+MATP-FARI-T80;farines;farine de ble T80;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;gluten;ACTIF;
+MATP-BEUR-DOUX;matieres-grasses;beurre doux 82%;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;lait;ACTIF;
+MATP-BEUR-TOUR;matieres-grasses;beurre de tourage 84%;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;lait;ACTIF;
+MATP-BEUR-MARG;matieres-grasses;margarine de tourage;kg;g;1000;SUBSTITUTED;DEFINITIONAL;MATP-BEUR-TOUR;;ACTIF;Remplace le beurre par des matieres grasses vegetales
+MATP-BEUR-HUIL;matieres-grasses;huile neutre tournesol;L;ml;;FRESH_NATURAL;DEFINITIONAL;;;TO_VERIFY;Masse volumique a relever
+MATP-SUCR-SEMO;sucres;sucre semoule;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;
+MATP-SUCR-GLAC;sucres;sucre glace;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;
+MATP-SUCR-CASS;sucres;cassonade;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;
+MATP-SUCR-INVE;sucres;sucre inverti;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;
+MATP-OEUF-ENTI;oeufs;oeuf entier coquille;piece;g;;FRESH_NATURAL;DEFINITIONAL;;oeufs;TO_VERIFY;Poids selon calibre, a fixer
+MATP-OEUF-ENTL;oeufs;oeuf entier liquide pasteurise;L;ml;;FRESH_NATURAL;DEFINITIONAL;;oeufs;TO_VERIFY;Masse volumique a relever
+MATP-OEUF-JAUN;oeufs;jaune d oeuf liquide;L;ml;;FRESH_NATURAL;DEFINITIONAL;;oeufs;TO_VERIFY;Masse volumique a relever
+MATP-OEUF-BLAN;oeufs;blanc d oeuf liquide;L;ml;;FRESH_NATURAL;DEFINITIONAL;;oeufs;TO_VERIFY;Masse volumique a relever
+MATP-LAIT-ENTI;laits-cremes;lait entier;L;ml;;FRESH_NATURAL;DEFINITIONAL;;lait;TO_VERIFY;Masse volumique a relever
+MATP-LAIT-CREM;laits-cremes;creme liquide 35%;L;ml;;FRESH_NATURAL;DEFINITIONAL;;lait;TO_VERIFY;Masse volumique a relever
+MATP-LAIT-CRVE;laits-cremes;creme vegetale a foisonner;L;ml;;SUBSTITUTED;DEFINITIONAL;MATP-LAIT-CREM;soja;TO_VERIFY;Remplace la creme par une emulsion vegetale stabilisee
+MATP-CHOC-NOIR;chocolats;chocolat noir de couverture;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;soja;ACTIF;
+MATP-CHOC-LAIT;chocolats;chocolat au lait de couverture;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;"lait;soja";ACTIF;
+MATP-CHOC-CONF;chocolats;chocolat de confiserie MGV;kg;g;1000;SUBSTITUTED;DEFINITIONAL;MATP-CHOC-NOIR;soja;ACTIF;Beurre de cacao remplace par des matieres grasses vegetales
+MATP-CHOC-CACA;chocolats;cacao en poudre non sucre;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;
+MATP-FRUI-AMPO;fruits-secs;poudre d amandes;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;fruits a coque;ACTIF;
+MATP-FRUI-NOIS;fruits-secs;noisette torrefiee;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;fruits a coque;ACTIF;
+MATP-FRUI-PIST;fruits-secs;pate de pistache;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;fruits a coque;ACTIF;
+MATP-FRUI-FRPU;fruits-secs;puree de fraise;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;
+MATP-AROM-VAGO;aromes;gousse de vanille;piece;g;;FRESH_NATURAL;DEFINITIONAL;;;TO_VERIFY;Poids unitaire tres variable, a relever par lot
+MATP-AROM-VAEX;aromes;extrait naturel de vanille;L;ml;;FRESH_NATURAL;DEFINITIONAL;;;TO_VERIFY;Masse volumique a relever
+MATP-AROM-VAAR;aromes;arome vanille artificiel;L;ml;;SUBSTITUTED;DEFINITIONAL;MATP-AROM-VAEX;;TO_VERIFY;"Vanilline de synthese; masse volumique a relever"
+MATP-AROM-FRAR;aromes;arome fraise artificiel;L;ml;;SUBSTITUTED;DEFINITIONAL;MATP-FRUI-FRPU;;TO_VERIFY;Masse volumique a relever
+MATP-AROM-CAEX;aromes;extrait de cafe;L;ml;;FRESH_NATURAL;DEFINITIONAL;;;TO_VERIFY;Masse volumique a relever
+MATP-AROM-CAMO;aromes;cafe moulu;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;
+MATP-LEVU-FRAI;levures-agents;levure fraiche de boulangerie;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;
+MATP-LEVU-SECH;levures-agents;levure seche de boulangerie;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;
+MATP-LEVU-AMEL;levures-agents;ameliorant de panification;kg;g;1000;UNDECIDED;DEFINITIONAL;;gluten;ACTIF;Auxiliaire technologique: ne substitue pas un ingredient, modifie un procede. ADR-0001 laisse le cas ouvert.
+MATP-SELS-FIN;sels;sel fin;kg;g;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;
+MATP-LIQU-EAU;liquides;eau;L;ml;1000;FRESH_NATURAL;DEFINITIONAL;;;ACTIF;Masse volumique connue
