@@ -7,8 +7,7 @@
   "stale_family_cap_filter_applied": false,
   "allowed_candidate_tracks": [
     "READY_TO_SERVE",
-    "THAW_ONLY",
-    "TRANSFORMED_SURPLUS"
+    "THAW_ONLY"
   ],
   "policy": {
     "landed_cost_null_until_current_quote": true,
@@ -19,7 +18,7 @@
     "source_product_cost_excluded_from_transformed_surplus": true,
     "effective_cost_forbidden_until_all_remaining_work_is_costed": true
   },
-  "note": "TRANSFORMED_SURPLUS is intentionally not mixed into the 30 supplier candidates because it has no registry_supplier_id. Internal leads are delivered separately.",
+  "note": "TRANSFORMED_SURPLUS is intentionally not mixed into the 30 supplier candidates because it has no supplier_id. Internal leads are delivered separately.",
   "candidates": [
     {
       "candidate_id": "DES-001",
@@ -601,7 +600,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/moelleux-au-chocolat-noisette-vegan/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -655,7 +654,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/cheesecake-premium/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -700,7 +699,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/douceur-creme-brulee/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -745,7 +744,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/macarons-rive-droite/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -790,7 +789,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/le-cheesecake-coeur-exotique/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -835,7 +834,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/mini-cheesecake/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -880,7 +879,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/san-sebastian-cheesecake/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -925,7 +924,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/cheesecake-fruits-rouges/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -970,7 +969,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/sable-mangue-coco/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1015,7 +1014,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://traiteurdeparis.fr/le-rocher-chocolat-noisette/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1060,7 +1059,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/tray-baked-cakes/choco-0",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1114,7 +1113,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/bavarois-sponge-cake-5",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1168,7 +1167,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/tray-baked-cakes/gateau",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1213,7 +1212,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/gamme-am%C3%A9ricaine/unfilled-donuts-21",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1258,7 +1257,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://vandemoortele.com/fr-be/products/desserts-et-cakes/patisserie-en-plaque/double-chocolate-brownie",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1303,7 +1302,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://vandemoortele.com/en-is/products/bp/sweet-treats/muffin/brownie-muffin",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1348,7 +1347,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/tart-and-pie/cookie-pie",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1393,7 +1392,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://vandemoortele.com/en-fi/products/bp/patisserie/tray-baked-cakes/choco-coco-24p",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",

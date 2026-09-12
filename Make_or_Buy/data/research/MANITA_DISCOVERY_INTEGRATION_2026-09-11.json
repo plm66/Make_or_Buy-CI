@@ -24,7 +24,8 @@
     "data/research/supplier_candidates/dessert_internal_transformed_surplus_leads.json",
     "data/research/garniture_public_benchmarks.json",
     "data/research/dessert_public_benchmarks.json",
-    "data/research/MANITA_DISCOVERY_RUN_2026-09-11.json"
+    "data/research/MANITA_DISCOVERY_RUN_2026-09-11.json",
+    "data/research/MANITA_DISCOVERY_INTEGRATION_2026-09-11.json"
   ],
   "source_package": "Make_or_Buy_manita_discovery_results_delta_v0.1.0",
   "original_source_sha256": {
@@ -36,11 +37,12 @@
     "patch/data/research/MANITA_DISCOVERY_RUN_2026-09-11.json": "6abfd28d8c95b23bccda9bdb0c820f75fae17fd92d6dc81c8de088211c6bac01"
   },
   "installed_sha256": {
-    "data/research/supplier_candidates/garniture_discovery_candidates.json": "c47914cdd714452252d9d727b94149daac2fd99fbe7acf62e5b3436ffc6b4b66",
-    "data/research/supplier_candidates/dessert_discovery_candidates.json": "eb2f7ee7c076b47ba0e478cac55971f8d4794c925127816aed99f37116c77712",
-    "data/research/supplier_candidates/dessert_internal_transformed_surplus_leads.json": "18e08ee9a9effac52604d6c82f8d5a176f66291a58f04e5d4b39d58055df17b4",
-    "data/research/garniture_public_benchmarks.json": "13672c43d7873d51fda22403ae935dcd6c4d8c017080a4aa64e6f197f3964747",
-    "data/research/dessert_public_benchmarks.json": "c9e84a63865a9161e7cad35af901a9e0d98ce8b80808dc9aad595f09ddc9939a",
+    "data/research/supplier_candidates/garniture_discovery_candidates.json": "3cbfbbc046b7c15cd94f4ed546696772381c7269e800453310e09cf493e31496",
+    "data/research/supplier_candidates/dessert_discovery_candidates.json": "c33e40a6d6c1bbcab6e07e9e9cb9f3955adbde8541fc637b385de157408dd05f",
+    "data/research/supplier_candidates/dessert_internal_transformed_surplus_leads.json": "36da0d04c792053a15ad6cb68fba554ddb3332039c28d47b5a5c37302f748dce",
+    "data/research/garniture_public_benchmarks.json": "5243ef26fcc1dfc6b3a565a963cfbb7938c0a6d53381e9c1e19a6e274ac2769c",
+    "data/research/dessert_public_benchmarks.json": "525df1e24b2099508e88b87d2ab2f35f75fc77e24ac511075057ca1047d30bc6",
     "data/research/MANITA_DISCOVERY_RUN_2026-09-11.json": "fa6f7beccc98f8b7331364e78722fb00dc3989dec5e098cbe04e4325e85ca2e7"
-  }
+  },
+  "provenance_note": "Le rapport d’intégration s’auto-documente mais n’est pas inclus dans installed_sha256 pour éviter une référence circulaire."
 }

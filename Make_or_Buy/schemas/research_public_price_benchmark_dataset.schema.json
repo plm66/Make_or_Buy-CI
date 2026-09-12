@@ -35,7 +35,8 @@
           "price_source_id",
           "landed_cost_eur_per_piece",
           "landed_cost_status",
-          "source_url_status"
+          "source_url_status",
+          "displayed_price_eur"
         ],
         "properties": {
           "observation_id": {
@@ -49,6 +50,27 @@
           },
           "source_url_status": {
             "type": "string"
+          },
+          "landed_cost_status": {
+            "enum": [
+              "INCOMPLETE",
+              "REFERENCE_ONLY",
+              "STALE_REFERENCE"
+            ]
+          },
+          "displayed_price_eur": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "unit_count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
           }
         }
       }

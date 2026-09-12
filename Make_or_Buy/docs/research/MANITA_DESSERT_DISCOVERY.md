@@ -86,7 +86,7 @@ Voir `packaging_model` dans `manita.config.json`.
 
 ## Interdits
 
-- Annoncer un `effective_manita_cost_eur` sans avoir chiffré le travail restant
+- Annoncer un `selected_effective_product_cost_eur` sans avoir chiffré le travail restant
 - Facturer une décongélation au temps écoulé
 - Faire entrer le coût du produit source dans une transformation d'invendu
 - Traiter un prix catalogue fabricant comme un prix rendu : sans distributeur identifié,

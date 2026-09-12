@@ -7,6 +7,7 @@
     "version",
     "data_status",
     "schema_ref",
+    "allowed_candidate_tracks",
     "candidates",
     "consumer_rule"
   ],
@@ -38,7 +39,8 @@
           "purchase_channel",
           "operational_purchase_authorized",
           "source_evidence",
-          "cost_components"
+          "cost_components",
+          "candidate_track"
         ],
         "properties": {
           "candidate_id": {
@@ -76,9 +78,33 @@
                   ]
                 },
                 "evidence_locator": {
-                  "type": "string"
+                  "type": [
+                    "string",
+                    "null"
+                  ]
                 }
-              }
+              },
+              "oneOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "evidence_status": {
+                        "const": "EXACT_PRODUCT_PAGE"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "evidence_locator"
+                    ],
+                    "properties": {
+                      "evidence_locator": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
             }
           },
           "cost_components": {
@@ -91,9 +117,58 @@
                 "type": "null"
               }
             }
+          },
+          "candidate_track": {
+            "enum": [
+              "READY_TO_SERVE",
+              "THAW_ONLY",
+              "READY_PORTION_HEAT",
+              "COOKED_BULK_PORTIONABLE",
+              "DRY_HIGH_YIELD",
+              "TRANSFORMED_SURPLUS"
+            ]
+          },
+          "raw_imported_dietary_claim_unvalidated": {
+            "type": "object"
+          },
+          "claim_status": {
+            "const": "NOT_VALIDATED"
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "raw_imported_dietary_claim_unvalidated"
+              ]
+            },
+            "then": {
+              "required": [
+                "claim_status"
+              ],
+              "properties": {
+                "claim_status": {
+                  "const": "NOT_VALIDATED"
+                }
+              }
+            }
+          }
+        ]
       }
+    },
+    "allowed_candidate_tracks": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "READY_TO_SERVE",
+          "THAW_ONLY",
+          "READY_PORTION_HEAT",
+          "COOKED_BULK_PORTIONABLE",
+          "DRY_HIGH_YIELD",
+          "TRANSFORMED_SURPLUS"
+        ]
+      },
+      "minItems": 1
     }
   }
 }

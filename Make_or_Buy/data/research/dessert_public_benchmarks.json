@@ -2,13 +2,12 @@
   "dataset": "DESSERT_PUBLIC_PRICE_BENCHMARKS",
   "version": "0.1.0",
   "verified_at": "2026-09-11",
-  "warning": "PRICE_SOURCE observations are benchmarks only. They do not satisfy registry_supplier_id requirements for supplier candidates.",
+  "warning": "PRICE_SOURCE observations are benchmarks only. They do not satisfy supplier_id requirements for supplier candidates.",
   "observations": [
     {
       "observation_id": "DPO-001",
       "price_source_id": "foodomarket",
       "product_name": "Petit brownie chocolat surgelé Poppies",
-      "displayed_case_price_eur": 13.37,
       "tax_basis": "HT",
       "unit_count": 96,
       "reference_price_eur_per_piece": 0.1393,
@@ -20,13 +19,13 @@
       "notes": "Very low public benchmark; piece weight not verified, so perceived-value comparison is not yet valid. Source URL mismatch retained for audit only; do not use for price attribution.",
       "source_url": null,
       "source_url_original_unvalidated": "https://shop.foodomarket.com/shop/catalogue/pains-au-chocolat-surgeles",
-      "source_url_status": "MISMATCHED_DO_NOT_USE"
+      "source_url_status": "MISMATCHED_DO_NOT_USE",
+      "displayed_price_eur": 13.37
     },
     {
       "observation_id": "DPO-002",
       "price_source_id": "foodomarket",
       "product_name": "Crêpe sucrée vanille 10cm 15g",
-      "displayed_case_price_eur": 26.3,
       "tax_basis": "HT",
       "unit_count": 180,
       "unit_weight_g": 15,
@@ -39,13 +38,13 @@
       "source_url": null,
       "source_url_original_unvalidated": "https://shop.foodomarket.com/shop/produit/boulangerie-patisseries-surgelees/tartes-sucree-surgelees/tarte-milka-surgele",
       "source_url_status": "MISMATCHED_DO_NOT_USE",
-      "notes": " Source URL mismatch retained for audit only; do not use for price attribution."
+      "notes": " Source URL mismatch retained for audit only; do not use for price attribution.",
+      "displayed_price_eur": 26.3
     },
     {
       "observation_id": "DPO-003",
       "price_source_id": "foodomarket",
       "product_name": "Brownie noix surgelé 50x78g",
-      "displayed_case_price_eur": 48.28,
       "tax_basis": "HT",
       "unit_count": 50,
       "unit_weight_g": 78,
@@ -57,13 +56,13 @@
       "source_url": "https://www.foodomarket.com/produits/produits-sucres-surgeles/brownie-noix-surgele",
       "observed_at": "2026-09-11",
       "confidence": "HIGH",
-      "source_url_status": "UNRECHECKED"
+      "source_url_status": "UNRECHECKED",
+      "displayed_price_eur": 48.28
     },
     {
       "observation_id": "DPO-004",
       "price_source_id": "foodomarket",
       "product_name": "Beignet chocolat-noisette surgelé 12x75g",
-      "displayed_case_price_eur": 6.23,
       "tax_basis": "HT",
       "unit_count": 12,
       "unit_weight_g": 75,
@@ -75,13 +74,13 @@
       "source_url": "https://www.foodomarket.com/produits/produits-sucres-surgeles/beignet-aux-chocolat-et-noisette-surgele",
       "observed_at": "2026-09-11",
       "confidence": "HIGH",
-      "source_url_status": "UNRECHECKED"
+      "source_url_status": "UNRECHECKED",
+      "displayed_price_eur": 6.23
     },
     {
       "observation_id": "DPO-005",
       "price_source_id": "foodomarket",
       "product_name": "Tiramisu chocolat spéculos Nubi surgelé 12 pièces",
-      "displayed_case_price_eur": 17.28,
       "tax_basis": "HT",
       "unit_count": 12,
       "reference_price_eur_per_piece": 1.44,
@@ -92,13 +91,13 @@
       "source_url": "https://www.foodomarket.com/produits/produits-sucres-surgeles/tiramisu-chocolat-speculos-nubi-surgele",
       "observed_at": "2026-09-11",
       "confidence": "HIGH",
-      "source_url_status": "UNRECHECKED"
+      "source_url_status": "UNRECHECKED",
+      "displayed_price_eur": 17.28
     },
     {
       "observation_id": "DPO-006",
       "price_source_id": "foodomarket",
       "product_name": "Donut Oreo surgelé",
-      "displayed_case_price_eur": 11.75,
       "tax_basis": "HT",
       "unit_count": 12,
       "reference_price_eur_per_piece": 0.98,
@@ -109,7 +108,8 @@
       "source_url": "https://www.foodomarket.com/produits/produits-sucres-surgeles/donut-oreo-surgele",
       "observed_at": "2026-09-11",
       "confidence": "HIGH",
-      "source_url_status": "UNRECHECKED"
+      "source_url_status": "UNRECHECKED",
+      "displayed_price_eur": 11.75
     }
   ],
   "integration_review": {

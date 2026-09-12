@@ -33,7 +33,9 @@
         "required": [
           "lead_id",
           "candidate_track",
-          "selected_effective_product_cost_eur"
+          "selected_effective_product_cost_eur",
+          "source_state",
+          "source_product_id"
         ],
         "properties": {
           "lead_id": {
@@ -44,6 +46,18 @@
           },
           "selected_effective_product_cost_eur": {
             "type": "null"
+          },
+          "source_state": {
+            "enum": [
+              "DAY_OLD",
+              "SURPLUS"
+            ]
+          },
+          "source_product_id": {
+            "type": [
+              "string",
+              "null"
+            ]
           }
         }
       }

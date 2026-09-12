@@ -132,7 +132,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/c/SF056",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -176,7 +176,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/c/SF056",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -528,7 +528,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/c/006",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -704,7 +704,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/quinoa-sol/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -748,7 +748,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/quinoa-gourmand-2/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -792,7 +792,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/quinoa-gourmand-bio/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -836,7 +836,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/couscous-parfume-aux-epices-du-monde/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -880,7 +880,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/couscous-complet-bio/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -924,7 +924,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/cereales-a-lasiatique/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -968,7 +968,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/cereales-mediterraneennes/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1012,7 +1012,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/ceresun-2/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1056,7 +1056,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/cereales-gourmandes-bio/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1100,7 +1100,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/cereales-a-lindienne/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1144,7 +1144,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/meli-melo-gourmand/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1188,7 +1188,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/preparation-pour-taboule-menthe-citron/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1232,7 +1232,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/tendres-perles/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1276,7 +1276,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/polenta-express/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1320,7 +1320,7 @@
       },
       "source_evidence": [
         {
-          "source_type": "OFFICIAL_PRODUCT_PAGE",
+          "source_type": "CATEGORY_PAGE",
           "url": "https://restauration.tipiak.fr/produits/semoule-de-riz/",
           "verified_at": "2026-09-11",
           "evidence_status": "CATEGORY_PAGE",
@@ -1342,5 +1342,10 @@
   },
   "schema_ref": "schemas/research_discovery_candidate_dataset.schema.json",
   "data_status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
-  "consumer_rule": "Do not import into canonical products, supplier master, price observations, or purchase authorization."
+  "consumer_rule": "Do not import into canonical products, supplier master, price observations, or purchase authorization.",
+  "allowed_candidate_tracks": [
+    "READY_PORTION_HEAT",
+    "COOKED_BULK_PORTIONABLE",
+    "DRY_HIGH_YIELD"
+  ]
 }

@@ -9,35 +9,40 @@
       "name": "Croissant aux amandes sur croissant J-1",
       "candidate_track": "TRANSFORMED_SURPLUS",
       "source_state": "DAY_OLD",
-      "selected_effective_product_cost_eur": null
+      "selected_effective_product_cost_eur": null,
+      "source_product_id": null
     },
     {
       "lead_id": "SUR-002",
       "name": "Pudding / bread pudding sur pain-viennoiserie invendue",
       "candidate_track": "TRANSFORMED_SURPLUS",
       "source_state": "SURPLUS",
-      "selected_effective_product_cost_eur": null
+      "selected_effective_product_cost_eur": null,
+      "source_product_id": null
     },
     {
       "lead_id": "SUR-003",
       "name": "Pain perdu portionné sur brioche J-1",
       "candidate_track": "TRANSFORMED_SURPLUS",
       "source_state": "DAY_OLD",
-      "selected_effective_product_cost_eur": null
+      "selected_effective_product_cost_eur": null,
+      "source_product_id": null
     },
     {
       "lead_id": "SUR-004",
       "name": "Trifle / verrine de chutes de cake ou brownie",
       "candidate_track": "TRANSFORMED_SURPLUS",
       "source_state": "SURPLUS",
-      "selected_effective_product_cost_eur": null
+      "selected_effective_product_cost_eur": null,
+      "source_product_id": null
     },
     {
       "lead_id": "SUR-005",
       "name": "Bouchée de viennoiserie caramélisée sur surplus du jour précédent",
       "candidate_track": "TRANSFORMED_SURPLUS",
       "source_state": "DAY_OLD",
-      "selected_effective_product_cost_eur": null
+      "selected_effective_product_cost_eur": null,
+      "source_product_id": null
     }
   ],
   "integration_review": {

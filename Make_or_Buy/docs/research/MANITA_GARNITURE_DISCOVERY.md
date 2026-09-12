@@ -66,7 +66,7 @@ nécessaire. Voir `packaging_model` dans `manita.config.json`.
 - Déduire un prix pièce d'un prix au kilo sans le grammage réel de la portion
 - Confondre **pâte feuilletée** et **pâtes alimentaires** — le référentiel porte `PATI-PATE`
   pour la première, le faux ami est avéré
-- Annoncer un `effective_manita_cost_eur` sans avoir chiffré le travail restant
+- Annoncer un `selected_effective_product_cost_eur` sans avoir chiffré le travail restant
 - Traiter un prix catalogue fabricant comme un prix rendu : sans distributeur identifié,
   c'est `QUOTE_REQUIRED`
 - Extrapoler une allégation alimentaire depuis une absence d'ingrédient
