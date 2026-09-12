@@ -44,5 +44,8 @@
     "status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
     "external_sources_rechecked": false,
     "note": "Dates et prix déclarés par le paquet source; aucune promotion au catalogue actif. Zéros de coûts et allégations à confirmer avant usage opérationnel."
-  }
+  },
+  "schema_ref": "schemas/research_transformed_surplus_leads_dataset.schema.json",
+  "data_status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
+  "consumer_rule": "Do not import as canonical product, supplier product, price observation, or purchase authorization."
 }

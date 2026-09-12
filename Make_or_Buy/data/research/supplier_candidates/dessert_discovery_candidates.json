@@ -54,7 +54,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/COOKIES/COOKIE-VEGAN-PEPITES-DE-CHOCOLAT-NOIR-CUIT-D95-80G/p/71376",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "71376"
         }
       ],
       "notes": null,
@@ -106,7 +108,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/P%C3%82TISSERIE/TARTES-%26-TARTELETTES/FLAN-INDIVIDUEL-DIAM-100/p/18452",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "18452"
         }
       ],
       "notes": null,
@@ -149,7 +153,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE/P%C3%82TES-JAUNES%2C-SECHES-%26-A-CHOUX/ASSORTIMENT-DE-MINI-MERINGUES/p/18433",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "18433"
         }
       ],
       "notes": null,
@@ -192,7 +198,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE/P%C3%82TES-JAUNES%2C-SECHES-%26-A-CHOUX/MINI-MADELEINE-DE-COMMERCY/p/826166",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "826166"
         }
       ],
       "notes": null,
@@ -235,7 +243,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/P%C3%82TISSERIE/ENTREMETS/PAVLOVA-VANILLE-INDIVIDUELLE/p/826105",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "826105"
         }
       ],
       "notes": null,
@@ -278,7 +288,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/R%C3%89CEPTION-SUCR%C3%89E/MINI-P%C3%82TISSERIES-AM%C3%89RICAINES/MINI-BROWNIES/p/25051",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "25051"
         }
       ],
       "notes": null,
@@ -321,7 +333,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/P%C3%82TISSERIE/ENTREMETS/TIRAMISU-INDIVIDUEL/p/22015",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "22015"
         }
       ],
       "notes": null,
@@ -364,7 +378,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/BROWNIES/BROWNIES-80G/p/25086",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "25086"
         }
       ],
       "notes": null,
@@ -407,7 +423,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/BROWNIES/BROWNIES-CHOCOLAT-NOIX-DE-PECAN-80G/p/25036",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "25036"
         }
       ],
       "notes": null,
@@ -450,7 +468,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/BROWNIES/BROWNIE-CREMEUX-NOISETTE-PLAQUE-PREDECOUPEE%C2%A0CUIT-75G/p/70420",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "70420"
         }
       ],
       "notes": null,
@@ -493,7 +513,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/BROWNIES/BROWNIE-CHOCOLAT-PLAQUE-PREDECOUPEE-CUIT-85G/p/25198",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "25198"
         }
       ],
       "notes": null,
@@ -536,7 +558,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/VIENNOISERIE-P%C3%82TISSERIE-AMERICAINE/BROWNIES/BROWNIES-SELECTION-TOUT-CHOCOLAT-CUIT-78G/p/25015",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "25015"
         }
       ],
       "notes": null,
@@ -579,7 +603,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/moelleux-au-chocolat-noisette-vegan/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -631,7 +657,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/cheesecake-premium/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -674,7 +702,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/douceur-creme-brulee/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Finition non nulle si retenue; effective cost remains unknown.",
@@ -717,7 +747,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/macarons-rive-droite/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -760,7 +792,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/le-cheesecake-coeur-exotique/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -803,7 +837,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/mini-cheesecake/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -846,7 +882,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/san-sebastian-cheesecake/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -889,7 +927,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/cheesecake-fruits-rouges/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -932,7 +972,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://traiteurdeparis.fr/produits-surgeles/sable-mangue-coco/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -975,7 +1017,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://traiteurdeparis.fr/le-rocher-chocolat-noisette/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -1018,7 +1062,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/tray-baked-cakes/choco-0",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Produit multiportion; portion Manita et coût de découpe à définir.",
@@ -1070,7 +1116,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/bavarois-sponge-cake-5",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Produit rectangulaire multiportion; coût de découpe à définir.",
@@ -1122,7 +1170,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/tray-baked-cakes/gateau",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -1165,7 +1215,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/gamme-am%C3%A9ricaine/unfilled-donuts-21",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -1208,7 +1260,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://vandemoortele.com/fr-be/products/desserts-et-cakes/patisserie-en-plaque/double-chocolate-brownie",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -1251,7 +1305,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://vandemoortele.com/en-is/products/bp/sweet-treats/muffin/brownie-muffin",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": "43752"
         }
       ],
       "notes": null,
@@ -1294,7 +1350,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://vandemoortele.com/fr-fr/products/boulangerie-viennoiserie-p%C3%A2tisserie-gamme-am%C3%A9ricaine/p%C3%A2tisserie/tart-and-pie/cookie-pie",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,
@@ -1337,7 +1395,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://vandemoortele.com/en-fi/products/bp/patisserie/tray-baked-cakes/choco-coco-24p",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": null,

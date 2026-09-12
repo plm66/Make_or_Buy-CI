@@ -37,7 +37,8 @@
           "supplier_entry_status",
           "purchase_channel",
           "operational_purchase_authorized",
-          "source_evidence"
+          "source_evidence",
+          "cost_components"
         ],
         "properties": {
           "candidate_id": {
@@ -60,7 +61,36 @@
           },
           "source_evidence": {
             "type": "array",
-            "minItems": 1
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "evidence_status",
+                "evidence_locator"
+              ],
+              "properties": {
+                "evidence_status": {
+                  "enum": [
+                    "EXACT_PRODUCT_PAGE",
+                    "CATEGORY_PAGE"
+                  ]
+                },
+                "evidence_locator": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "cost_components": {
+            "type": "object",
+            "required": [
+              "selected_effective_product_cost_eur"
+            ],
+            "properties": {
+              "selected_effective_product_cost_eur": {
+                "type": "null"
+              }
+            }
           }
         }
       }

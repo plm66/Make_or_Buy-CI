@@ -46,7 +46,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/POMMES-DE-TERRE-ANNA-40X60G/p/832909",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "832909"
         }
       ],
       "notes": null,
@@ -88,7 +90,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/ECRASE-DE-POMME-DE-TERRE-PUREE-VITELOTTE-CUIT-36X70G-IQF/p/70715",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "70715"
         }
       ],
       "notes": null,
@@ -130,7 +134,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/c/SF056",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": "840101"
         }
       ],
       "notes": null,
@@ -172,7 +178,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/c/SF056",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": "832852"
         }
       ],
       "notes": null,
@@ -214,7 +222,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/FLAN-DE-POMME-DE-TERRE-ET-DUO-DE-CAROTTES-CUIT-20X70G-IQF/p/70162",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "70162"
         }
       ],
       "notes": null,
@@ -256,7 +266,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/POMMES-DARPHIN-100G-2X1-5KG-IQF/p/841742",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "841742"
         }
       ],
       "notes": null,
@@ -298,7 +310,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/EFFEUILLE-POMME-DE-TERRE-FACON-SARLADAISE-24X90G-IQF/p/70734",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "70734"
         }
       ],
       "notes": null,
@@ -340,7 +354,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/EFFEUILLE-DE-POMMES-DE-TERRE-A-L-EMMENTAL-BEURRE-CUIT-90GX24-IQF/p/840731",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "840731"
         }
       ],
       "notes": null,
@@ -382,7 +398,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/TARTELETTE-POMMES-DE-TERRE-PUREE-DE-CELERI-CUITE-24X80G-IQF/p/70163",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "70163"
         }
       ],
       "notes": null,
@@ -424,7 +442,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/INDIVIDUELS/FONDANT-DE-POMME-DE-TERRE-COEUR-COULANT-A-LA-TRUFFE-24X100G-IQF/p/70733",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "70733"
         }
       ],
       "notes": null,
@@ -466,7 +486,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/POMMES-DE-TERRE/POMMES-DAUPHINE-LUTOSA-PRECUITES-1KG/p/840721",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "840721"
         }
       ],
       "notes": "Portion Manita à définir avant calcul pièce.",
@@ -508,7 +530,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/c/006",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": "70776"
         }
       ],
       "notes": "Portion Manita à définir; coût pièce interdit tant que grammage portion inconnu.",
@@ -550,7 +574,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/POMMES-DE-TERRE/GNOCCHIS-DE-POMMES-DE-TERRE-2X2%2C5-KG-IQF/p/832910",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "832910"
         }
       ],
       "notes": null,
@@ -592,7 +618,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/POMMES-DE-TERRE/FRITES-CRISPY-COUPE-9-9-SALEES-PRECUITES-2%2C5-KG-IQF/p/841688",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "841688"
         }
       ],
       "notes": null,
@@ -634,7 +662,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://shop.coupdepates.fr/TOUS-LES-PRODUITS/GARNITURES/POMMES-DE-TERRE/FRITES-XTRA-%2B-COUPE-10-10-BI-TEMPERATURE-PRECUITES-4X2%2C5KG/p/832902",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "EXACT_PRODUCT_PAGE",
+          "evidence_locator": "832902"
         }
       ],
       "notes": null,
@@ -676,7 +706,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/quinoa-sol/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Quinoa + boulgour + poivrons; pas de rinçage/égouttage",
@@ -718,7 +750,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/quinoa-gourmand-2/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Quinoa blanc/rouge + boulgour/semoule",
@@ -760,7 +794,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/quinoa-gourmand-bio/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Cuisson créole ou pilaf",
@@ -802,7 +838,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/couscous-parfume-aux-epices-du-monde/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Semoule précuite parfumée",
@@ -844,7 +882,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/couscous-complet-bio/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Semoule complète bio; usages menus végétariens/végétaliens",
@@ -886,7 +926,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/cereales-a-lasiatique/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Mélange précuit céréales/soja/légumes",
@@ -928,7 +970,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/cereales-mediterraneennes/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Mélange céréales précuites + aromates",
@@ -970,7 +1014,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/ceresun-2/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Céréales, légumineuses et graines; usages menus végétariens/végétaliens",
@@ -1012,7 +1058,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/cereales-gourmandes-bio/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Mélange six céréales bio",
@@ -1054,7 +1102,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/cereales-a-lindienne/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Céréales précuites + épices/fruits",
@@ -1096,7 +1146,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/meli-melo-gourmand/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Semoule, lentilles, pois, carotte, lupin",
@@ -1138,7 +1190,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/preparation-pour-taboule-menthe-citron/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Semoule précuite assaisonnée",
@@ -1180,7 +1234,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/tendres-perles/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "Perles de blé dur/blé tendre/maïs",
@@ -1222,7 +1278,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/polenta-express/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "100% semoule de maïs",
@@ -1264,7 +1322,9 @@
         {
           "source_type": "OFFICIAL_PRODUCT_PAGE",
           "url": "https://restauration.tipiak.fr/produits/semoule-de-riz/",
-          "verified_at": "2026-09-11"
+          "verified_at": "2026-09-11",
+          "evidence_status": "CATEGORY_PAGE",
+          "evidence_locator": null
         }
       ],
       "notes": "100% semoule de riz; cuisson 8 min",
