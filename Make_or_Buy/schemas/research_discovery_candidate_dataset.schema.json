@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research-only supplier candidate dataset",
+  "type": "object",
+  "required": [
+    "dataset",
+    "version",
+    "data_status",
+    "schema_ref",
+    "allowed_candidate_tracks",
+    "candidates",
+    "consumer_rule",
+    "source_reported_at",
+    "externally_verified_at"
+  ],
+  "properties": {
+    "dataset": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "data_status": {
+      "const": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED"
+    },
+    "schema_ref": {
+      "const": "schemas/research_discovery_candidate_dataset.schema.json"
+    },
+    "consumer_rule": {
+      "type": "string"
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "supplier_id",
+          "procurement_registry_id",
+          "supplier_entry_status",
+          "purchase_channel",
+          "operational_purchase_authorized",
+          "source_evidence",
+          "cost_components",
+          "candidate_track"
+        ],
+        "properties": {
+          "candidate_id": {
+            "type": "string"
+          },
+          "supplier_id": {
+            "type": "string"
+          },
+          "procurement_registry_id": {
+            "type": "string"
+          },
+          "supplier_entry_status": {
+            "type": "string"
+          },
+          "purchase_channel": {
+            "type": "string"
+          },
+          "operational_purchase_authorized": {
+            "const": false
+          },
+          "source_evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "evidence_status",
+                "evidence_locator"
+              ],
+              "properties": {
+                "evidence_status": {
+                  "enum": [
+                    "EXACT_PRODUCT_PAGE",
+                    "CATEGORY_PAGE"
+                  ]
+                },
+                "evidence_locator": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "oneOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "evidence_status": {
+                        "const": "EXACT_PRODUCT_PAGE"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "evidence_locator"
+                    ],
+                    "properties": {
+                      "evidence_locator": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "cost_components": {
+            "type": "object",
+            "required": [
+              "selected_effective_product_cost_eur"
+            ],
+            "properties": {
+              "selected_effective_product_cost_eur": {
+                "type": "null"
+              }
+            }
+          },
+          "candidate_track": {
+            "enum": [
+              "READY_TO_SERVE",
+              "THAW_ONLY",
+              "READY_PORTION_HEAT",
+              "COOKED_BULK_PORTIONABLE",
+              "DRY_HIGH_YIELD",
+              "TRANSFORMED_SURPLUS"
+            ]
+          },
+          "raw_imported_dietary_claim_unvalidated": {
+            "type": "object"
+          },
+          "claim_status": {
+            "const": "NOT_VALIDATED"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "raw_imported_dietary_claim_unvalidated"
+              ]
+            },
+            "then": {
+              "required": [
+                "claim_status"
+              ],
+              "properties": {
+                "claim_status": {
+                  "const": "NOT_VALIDATED"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "allowed_candidate_tracks": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "READY_TO_SERVE",
+          "THAW_ONLY",
+          "READY_PORTION_HEAT",
+          "COOKED_BULK_PORTIONABLE",
+          "DRY_HIGH_YIELD",
+          "TRANSFORMED_SURPLUS"
+        ]
+      },
+      "minItems": 1
+    },
+    "source_reported_at": {
+      "type": "string"
+    },
+    "externally_verified_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

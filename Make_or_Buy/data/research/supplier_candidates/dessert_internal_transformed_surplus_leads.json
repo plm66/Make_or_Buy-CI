@@ -1,0 +1,57 @@
+{
+  "dataset": "MANITA_DESSERT_INTERNAL_TRANSFORMED_SURPLUS_LEADS",
+  "version": "0.1.0",
+  "rule": "Source product cost is excluded because it is already sunk/non-avoidable. Only added ingredients + active transformation labor + energy + incremental packaging + incremental loss enter the candidate cost.",
+  "leads": [
+    {
+      "lead_id": "SUR-001",
+      "name": "Croissant aux amandes sur croissant J-1",
+      "candidate_track": "TRANSFORMED_SURPLUS",
+      "source_state": "DAY_OLD",
+      "selected_effective_product_cost_eur": null,
+      "source_product_id": null
+    },
+    {
+      "lead_id": "SUR-002",
+      "name": "Pudding / bread pudding sur pain-viennoiserie invendue",
+      "candidate_track": "TRANSFORMED_SURPLUS",
+      "source_state": "SURPLUS",
+      "selected_effective_product_cost_eur": null,
+      "source_product_id": null
+    },
+    {
+      "lead_id": "SUR-003",
+      "name": "Pain perdu portionné sur brioche J-1",
+      "candidate_track": "TRANSFORMED_SURPLUS",
+      "source_state": "DAY_OLD",
+      "selected_effective_product_cost_eur": null,
+      "source_product_id": null
+    },
+    {
+      "lead_id": "SUR-004",
+      "name": "Trifle / verrine de chutes de cake ou brownie",
+      "candidate_track": "TRANSFORMED_SURPLUS",
+      "source_state": "SURPLUS",
+      "selected_effective_product_cost_eur": null,
+      "source_product_id": null
+    },
+    {
+      "lead_id": "SUR-005",
+      "name": "Bouchée de viennoiserie caramélisée sur surplus du jour précédent",
+      "candidate_track": "TRANSFORMED_SURPLUS",
+      "source_state": "DAY_OLD",
+      "selected_effective_product_cost_eur": null,
+      "source_product_id": null
+    }
+  ],
+  "integration_review": {
+    "status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
+    "external_sources_rechecked": false,
+    "note": "Dates et prix déclarés par le paquet source; aucune promotion au catalogue actif. Zéros de coûts et allégations à confirmer avant usage opérationnel."
+  },
+  "schema_ref": "schemas/research_transformed_surplus_leads_dataset.schema.json",
+  "data_status": "RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED",
+  "consumer_rule": "Do not import as canonical product, supplier product, price observation, or purchase authorization.",
+  "source_reported_at": "2026-09-11",
+  "externally_verified_at": null
+}

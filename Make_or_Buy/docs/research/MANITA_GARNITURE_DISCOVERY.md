@@ -10,7 +10,7 @@ le même prix rendu.
 
 | Voie | Type | Travail interne restant | Priorité |
 |---|---|---|---|
-| **A** | `READY_PORTION` | réchauffage seulement | 1 |
+| **A** | `READY_PORTION_HEAT` | réchauffage seulement | 1 |
 | **B** | `COOKED_BULK_PORTIONABLE` | réchauffage + portionnage | 2 |
 | **C** | `DRY_HIGH_YIELD` | cuisson + portionnage + conservation | 3 |
 
@@ -66,15 +66,15 @@ nécessaire. Voir `packaging_model` dans `manita.config.json`.
 - Déduire un prix pièce d'un prix au kilo sans le grammage réel de la portion
 - Confondre **pâte feuilletée** et **pâtes alimentaires** — le référentiel porte `PATI-PATE`
   pour la première, le faux ami est avéré
-- Annoncer un `effective_manita_cost_eur` sans avoir chiffré le travail restant
+- Annoncer un `selected_effective_product_cost_eur` sans avoir chiffré le travail restant
 - Traiter un prix catalogue fabricant comme un prix rendu : sans distributeur identifié,
   c'est `QUOTE_REQUIRED`
 - Extrapoler une allégation alimentaire depuis une absence d'ingrédient
 
 ## Livrable
 
-30 candidats au format de `data/supplier_products/snack_buy_candidates.json`, avec
-`candidate_track` valant `READY_PORTION`, `COOKED_BULK_PORTIONABLE` ou `DRY_HIGH_YIELD`,
-`registry_supplier_id` pointant vers une fiche de `data/suppliers/`, et
+30 candidats au format de `data/research/supplier_candidates/garniture_discovery_candidates.json`, avec
+`candidate_track` valant `READY_PORTION_HEAT`, `COOKED_BULK_PORTIONABLE` ou `DRY_HIGH_YIELD`,
+`supplier_id` et `procurement_registry_id` pointant vers le Supplier Master, et
 `landed_cost_eur_per_piece` à `null` tant qu'un devis courant n'existe pas — le prix
 historique vivant séparément en `reference_price_eur_per_piece`.

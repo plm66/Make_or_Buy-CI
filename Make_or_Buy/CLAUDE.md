@@ -18,6 +18,7 @@ une référence normative citable à une date.
 | `doctrine/doctrine.json` | comment décider — 8 principes, G001-G006 | normative, suit le .docx humain |
 | `postulates/la_manita/` | La Manita, panier à prix fixe | normative, versionnée par `deltas/` |
 | `data/` | sur quoi décider — fiches, référentiel, fournisseurs | faits datés |
+| `data/research/` | pistes et preuves de recherche | non-opposable, jamais une autorisation d'achat |
 | `src/make_or_buy/`, `*_tool.py` | application des règles | implémentation, corrigeable |
 
 Un paquet normatif l'est sur ses **règles**, jamais sur son implémentation. `manita_validator.py`
@@ -107,3 +108,22 @@ test répond sur une version qui n'est plus sur le disque.
 Vérifier les chiffres annoncés contre les fichiers avant de les reprendre. Trois livraisons
 sur quatre portaient au moins une affirmation fausse — des scripts inexistants, des
 compteurs périmés, un statut de famille erroné.
+
+## Workflow de livraison
+
+Pour le périmètre documentaire non impactant de la session actuelle, on peut travailler
+directement sur `main`, valider le contenu et le diff, puis committer. L'absence de worktree,
+de branche dédiée et de pull request est une décision provisoire de portée, pas une interdiction
+générale.
+
+Si la documentation devient substantielle ou impactante, ou si le travail devient concurrent,
+réévaluer l'isolation et le besoin d'une branche, d'un worktree ou d'une pull request.
+
+Commandes Git interdites sans autorisation explicite :
+
+- jamais `git reset --hard`, ni aucun équivalent qui puisse écraser du travail ;
+- jamais `git checkout`, y compris pour changer de branche ou restaurer un fichier.
+
+Dès qu'une modification de code devient nécessaire, ce régime cesse de s'appliquer : il faut
+repenser l'isolation du travail (branche ou worktree), verrouiller le comportement par des
+tests, valider le changement, puis appliquer le workflow de revue avant une éventuelle PR.

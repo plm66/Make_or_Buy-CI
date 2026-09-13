@@ -2,32 +2,78 @@
 
 Moteur local de doctrine, sourcing et composition de menus pour boulangerie.
 
+## Destination du projet
+
+Make_or_Buy n'est pas seulement un générateur de menus. Sa destination est de créer des
+**modules de vente alimentaires** — des formules commerciales — à partir de données de coûts
+matière fiables et d'une réflexion explicite sur le `MAKE / BUY / HYBRID`.
+
+Le projet repose sur un socle commun :
+
+- catalogue produit canonique, recettes, rendements et coûts complets ;
+- coûts matière, main-d'œuvre, énergie, emballage, pertes et conservation ;
+- fournisseurs, prix rendus, traçabilité et qualité des preuves ;
+- arbitrage déterministe entre fabrication interne, achat externe et modèle hybride ;
+- contraintes alimentaires, allergènes, disponibilité et valeur client.
+
+Ce socle alimente ensuite plusieurs **modules de formules**, chacun avec sa propre promesse,
+son prix, ses composants obligatoires, ses contraintes et ses règles de substitution :
+
+- **La Manita** : premier module, avec 5 choix, 5 produits et un prix fixe de 5 € ;
+- **menu vegan** : formule et prix indépendants de La Manita ;
+- **menu oriental ou subsaharien** : par exemple autour d'accras, de mafé ou d'autres
+  inspirations culinaires ;
+- **menu diététique** : par exemple autour de poulet braisé et d'accompagnements adaptés ;
+- futurs modules inspirés de tendances, de saisons ou d'opportunités commerciales.
+
+La Manita est donc un cas d'usage contraint, pas la destination unique du moteur. Un nouveau
+module réutilise la doctrine de coûts, de sourcing et de traçabilité, mais ne doit pas hériter
+artificiellement des règles commerciales de La Manita.
+
+Chaque module doit pouvoir produire deux sorties :
+
+1. une offre lisible par le client : promesse, composition, options et prix ;
+2. une fiche exploitable par la boulangerie : coût, marge, choix `MAKE / BUY / HYBRID`,
+   fournisseurs, risques et substitutions.
+
 ## Installation
 
 Dézipper ce projet dans :
 
 ```text
-/Users/erasmus/developer/BOULANGERIES/Make_or_Buy
+/Users/erasmus/DEVELOPER/BOULANGERIES/Make_or_Buy/Make_or_Buy
 ```
 
 Puis :
 
 ```bash
-cd /Users/erasmus/developer/BOULANGERIES/Make_or_Buy
-python3 -m venv .venv
+cd /Users/erasmus/DEVELOPER/BOULANGERIES/Make_or_Buy/Make_or_Buy
+uv venv .venv --python python3
+uv pip install --python .venv/bin/python -e .
 source .venv/bin/activate
-pip install -e .
 ```
 
 Aucune dépendance Python externe n'est requise pour le moteur local.
 
 ## Premier test
 
+Smoke test avec le catalogue exemple :
+
 ```bash
-make-or-buy menu --diet VEGAN --tiers 5 7 9
+make-or-buy menu --diet ANY --tiers 15 --top 1
 ```
 
-Cette commande construit un menu vegan pour trois prix cibles en utilisant le catalogue exemple.
+Cette commande compose une formule à partir des cinq familles du catalogue et affiche le
+coût, le ratio de coût et le mode `MAKE / BUY / HYBRID` de chaque produit.
+
+Pour explorer trois paliers vegan :
+
+```bash
+make-or-buy menu --diet VEGAN --tiers 5 7 9 --top 1
+```
+
+Une liste `menus: []` signifie que le catalogue courant ne satisfait pas les contraintes du
+palier demandé ; ce n'est pas une formule vendable validée.
 
 ## Utilisation avec un LLM
 
@@ -51,8 +97,11 @@ make-or-buy ask "compose-moi un menu vegan sur la base de 3 gammes de prix"
 ## Structure
 
 - `doctrine/doctrine.json` : doctrine machine normative.
-- `schemas/` : schémas des produits et requêtes.
+- `schemas/` : schémas des produits, requêtes et jeux de recherche.
 - `data/catalog.example.json` : catalogue exemple à remplacer progressivement par les données réelles.
+- `data/research/` : preuves et candidats de recherche non opposables, jamais importés directement dans les décisions opérationnelles.
+- `data/research/supplier_candidates/` : candidats fournisseurs, benchmarks et leads de découverte par formule.
+- `docs/research/` : contrats et consignes de recherche par famille de menu.
 - `src/make_or_buy/engine.py` : moteur déterministe de composition.
 - `src/make_or_buy/llm.py` : connecteur générique OpenAI-compatible.
 - `src/make_or_buy/cli.py` : interface en ligne de commande.
