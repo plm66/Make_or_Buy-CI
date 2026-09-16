@@ -86,6 +86,57 @@ def labor_cost(internal, params):
         total+=minutes*rate
     return round(total/batch,4)
 
+def gestes_supplementaires(techno_make, techno_buy, equivalences=None, path=None):
+    """Gestes que techno_make execute et que techno_buy n'execute pas, et l'inverse.
+
+    Acheter de la transformation, c'est acheter des gestes. Partir de la farine au lieu
+    d'une pate crue en ajoute six et en retire un: c'est la, et seulement la, que vit
+    l'ecart de main-d'oeuvre entre faire et acheter.
+
+    `equivalences` nomme les gestes que les deux voies executent sous des noms differents
+    — l'appret du MATP est la pousse du CRU. Sans cette table le meme geste compterait
+    deux fois et l'ecart serait surestime; avec elle, l'assimilation reste visible au lieu
+    d'etre codee en dur.
+    """
+    eq = equivalences or {}
+    mk = {o["task"]: o["labor_tier"] for o in operations_pour(techno_make, path)}
+    by = {o["task"]: o["labor_tier"] for o in operations_pour(techno_buy, path)}
+    en_plus = {t: n for t, n in mk.items() if eq.get(t, t) not in by}
+    en_moins = {t: n for t, n in by.items() if t not in {eq.get(x, x) for x in mk}}
+    return en_plus, en_moins
+
+def minutes_avant_bascule(cout_matiere_eur, prix_achat_eur, lot_unites, gestes, params):
+    """Minutes immobilisees par lot que le MAKE peut absorber avant que le BUY ne gagne.
+
+    Ce n'est pas un arbitrage, c'est une cible de mesure. Personne n'a chronometre les
+    gestes, donc `avoidable_cost_eur` est nul et `selected_cost` rend DATA_INCOMPLETE —
+    correctement. Cette fonction repond a l'autre question: combien de minutes peut-on
+    se permettre avant que la reponse ne bascule.
+
+    Elle prend en entree un cout matiere et un prix d'achat, ce qui la place a un doigt
+    de G002. La difference tient a ce qu'elle en fait: G002 interdit de *conclure* d'une
+    comparaison matiere contre prix fournisseur. Ici on ne conclut pas, on calcule ce qui
+    manque pour pouvoir conclure. Lire le resultat comme une victoire du MAKE refait
+    exactement la faute.
+
+    Un resultat negatif dit que la matiere seule depasse deja le prix d'achat: aucune
+    quantite de travail gratuit ne sauve le MAKE.
+    """
+    if not isinstance(lot_unites, (int, float)) or lot_unites <= 0 or not gestes:
+        return None
+    tiers = labor_tiers(params)
+    taux = [(tiers.get(n) or {}).get("cost_per_minute_eur") for n in gestes.values()]
+    if not all(isinstance(t, (int, float)) and t > 0 for t in taux):
+        return None
+    for v in (cout_matiere_eur, prix_achat_eur):
+        if not isinstance(v, (int, float)):
+            return None
+    # Moyenne des niveaux impliques: le lot ne dit pas comment les minutes se repartissent
+    # entre les gestes. Un chronometrage geste par geste rendrait cette moyenne inutile —
+    # et c'est le but, cette fonction sert avant la mesure, pas apres.
+    moyen = sum(taux) / len(taux)
+    return round((prix_achat_eur - cout_matiere_eur) * lot_unites / moyen, 1)
+
 def validate_operations(internal, params):
     e=[]
     ops=internal.get("operations")

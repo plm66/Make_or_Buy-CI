@@ -221,6 +221,57 @@ def test_chaque_technologie_du_catalogue_a_son_gabarit():
     assert manquantes == set(), manquantes
 
 
+def test_un_geste_commun_sous_deux_noms_ne_compte_pas_deux_fois():
+    """L'apprêt du MATP et la pousse du CRU sont la même seconde pousse.
+
+    Sans la table d'équivalences, ce geste ressort comme un surcoût du MAKE alors que
+    les deux voies l'exécutent. L'écart de main-d'œuvre serait surestimé, donc le seuil
+    de bascule sous-estimé, donc le BUY favorisé par une erreur de vocabulaire.
+    """
+    avec, _ = pt.gestes_supplementaires("MATP", "CRU", {"appret": "pousse"})
+    sans, _ = pt.gestes_supplementaires("MATP", "CRU")
+    assert "appret" not in avec, avec
+    assert "appret" in sans, "l'équivalence ne change rien — la table est inopérante"
+    assert len(sans) == len(avec) + 1
+
+
+def test_une_donnee_manquante_ne_devient_pas_zero_minute():
+    """Zéro minute de bascule se lirait « le MAKE ne peut rien absorber ».
+
+    C'est une conclusion, et elle serait fabriquée à partir d'une absence. La même règle
+    que selected_cost : une donnée manquante rend None, jamais un nombre.
+    """
+    p = pt.load_params()
+    gestes, _ = pt.gestes_supplementaires("MATP", "CRU", {"appret": "pousse"})
+    assert pt.minutes_avant_bascule(None, 0.364, 60, gestes, p) is None
+    assert pt.minutes_avant_bascule(0.165, 0.364, 0, gestes, p) is None
+    assert pt.minutes_avant_bascule(0.165, 0.364, 60, {}, p) is None
+    assert pt.minutes_avant_bascule(0.165, 0.364, 60, {"x": "niveau_inexistant"}, p) is None
+
+
+def test_un_make_perdu_sur_la_matiere_seule_reste_negatif():
+    """Ramener le seuil à zéro dirait « il reste zéro minute », donc « c'est jouable
+    sans travail ». Le négatif dit autre chose : la matière dépasse déjà le prix d'achat,
+    et aucune quantité de travail gratuit ne renverse ça. Les deux messages ne se
+    remplacent pas.
+    """
+    p = pt.load_params()
+    gestes, _ = pt.gestes_supplementaires("MATP", "CRU", {"appret": "pousse"})
+    assert pt.minutes_avant_bascule(0.40, 0.364, 60, gestes, p) < 0
+
+
+def test_le_seuil_suit_la_taille_du_lot():
+    """Le même travail réparti sur plus de pièces s'amortit : doubler le lot double les
+    minutes qu'on peut se permettre. C'est un levier d'arbitrage à part entière, au même
+    titre que le choix de la matière — et il ne coûte aucun geste supplémentaire.
+    """
+    p = pt.load_params()
+    gestes, _ = pt.gestes_supplementaires("MATP", "CRU", {"appret": "pousse"})
+    a = pt.minutes_avant_bascule(0.165, 0.364, 60, gestes, p)
+    b = pt.minutes_avant_bascule(0.165, 0.364, 120, gestes, p)
+    assert abs(b - 2 * a) < 0.2, (a, b)
+
+
 def test_l_axe_de_transformation_a_ses_deux_extremites():
     """Acheter plus de transformation, c'est acheter moins de gestes.
 
