@@ -29,7 +29,7 @@ qu'elle n'a pas lu.
 
 ## La proposition, et sa règle dure
 
-Chaque ligne reçoit un verdict parmi quatre :
+Chaque ligne reçoit un verdict parmi cinq :
 
 - **`GARDER`** — la ligne est rattachée, le prix au kilo est connu, et rien de comparable
   n'existe ailleurs dans le dépôt. Ce n'est pas une validation du fournisseur : c'est
@@ -42,6 +42,9 @@ Chaque ligne reçoit un verdict parmi quatre :
   La raison est affichée, et c'est cette liste qui dit quoi aller mesurer.
 - **`HORS_PERIMETRE`** — la ligne ne vise aucune matière : non alimentaire, emballage,
   matériel. Elle est comptée à part, jamais forcée dans le référentiel.
+- **`NON_RATTACHE`** — l'article n'est pas dans le rattachement. Ce n'est pas un arbitrage :
+  c'est un lien manquant, et il se répare dans `data/materials/rattachement_metro.csv`. Ce
+  verdict a été ajouté après la première mesure, où il portait 303 des 384 lignes.
 
 Invariant qui tient l'ensemble : **`CHANGER` n'est jamais rendu sans un prix alternatif
 aligné et daté.** Une recommandation d'achat sans prix est une opinion, et le dépôt n'en

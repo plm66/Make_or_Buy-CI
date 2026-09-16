@@ -245,6 +245,90 @@ def charger_referentiels():
     return rattachement, matieres
 
 
+GARDER = "GARDER"
+CHANGER = "CHANGER"
+A_ARBITRER = "A_ARBITRER"
+HORS_PERIMETRE = "HORS_PERIMETRE"
+NON_RATTACHE = "NON_RATTACHE"
+
+# Une ligne non alimentaire ne vise aucune matiere et ne doit jamais y etre forcee. Le
+# statut existe dans le rattachement pour le dire ; le vocabulaire reste celui de
+# `RATTACHEMENT.md`, qui distingue deja « le referentiel ne couvre pas » d'un oubli.
+STATUT_HORS_PERIMETRE = "HORS_PERIMETRE"
+
+
+def _alternative_moins_chere(prix, options):
+    """L'option la moins chere, chiffree et datee, strictement sous le prix paye.
+
+    Une option sans prix ne compte pas : elle ne permet pas de trancher, et un verdict de
+    changement sans prix serait une opinion. Une option plus chere non plus.
+    """
+    if prix is None or not options:
+        return None
+    chiffrees = [o for o in options if o.get("prix_eur_par_kg") and o.get("date")]
+    if not chiffrees:
+        return None
+    meilleure = min(chiffrees, key=lambda o: o["prix_eur_par_kg"])
+    return meilleure if meilleure["prix_eur_par_kg"] < prix else None
+
+
+def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
+    """Ce que le depot propose pour une ligne, et pourquoi.
+
+    L'ordre des tests porte le sens : le rattachement d'abord, parce qu'une ligne dont on ne
+    sait pas de quoi elle parle ne se compare a rien. La reserve ensuite, parce qu'un
+    `A_VERIFIER` publie sa valeur sans etre consommable comme un `ACTIF`.
+    """
+    prix = prix_au_kilo(ligne)
+    verdict = {
+        "article": ligne.get("article"),
+        "designation": ligne.get("designation"),
+        "date": ligne.get("date_facture"),
+        "facture": ligne.get("facture"),
+        "prix_eur_par_kg": prix["valeur"] if prix else None,
+        "source_prix": prix["source"] if prix else None,
+        "id_matiere": (lien or {}).get("id_matiere") or None,
+        "statut_rattachement": (lien or {}).get("statut"),
+        "statut_matiere": (matiere or {}).get("statut"),
+        "alternative": None,
+    }
+
+    if not (lien or {}).get("id_matiere"):
+        if (lien or {}).get("statut") == STATUT_HORS_PERIMETRE:
+            verdict.update(verdict=HORS_PERIMETRE, raison="NON_ALIMENTAIRE")
+        else:
+            verdict.update(verdict=NON_RATTACHE, raison="ARTICLE_ABSENT_DU_RATTACHEMENT")
+        return verdict
+
+    if prix is None:
+        verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
+        return verdict
+
+    if lien.get("statut") == "A_VERIFIER":
+        verdict.update(verdict=A_ARBITRER, raison="RESERVE_A_VERIFIER")
+        return verdict
+
+    options = (alternatives or {}).get(lien["id_matiere"]) or []
+    chiffrees = [o for o in options if o.get("prix_eur_par_kg") and o.get("date")]
+    meilleure = _alternative_moins_chere(prix["valeur"], options)
+    if meilleure:
+        verdict.update(verdict=CHANGER, raison="ALTERNATIVE_MOINS_CHERE", alternative=meilleure)
+    elif chiffrees:
+        verdict.update(verdict=GARDER, raison="ALTERNATIVE_PLUS_CHEREE")
+    else:
+        verdict.update(verdict=GARDER, raison="AUCUNE_ALTERNATIVE_CHIFFREE")
+    return verdict
+
+
+def verdicts(achats, rattachement, matieres, alternatives=None):
+    """Une proposition par ligne recue, sans exception : une ligne muette serait un oubli."""
+    fiche = {r["article_metro"]: r for r in rattachement}
+    return [verdict_ligne(ligne, fiche.get(ligne["article"]),
+                          (matieres or {}).get((fiche.get(ligne["article"]) or {}).get("id_matiere")),
+                          alternatives)
+            for ligne in achats]
+
+
 def rapport(comparaisons, releve):
     """Le rapport est un artefact date : il dit sur quoi il a ete produit, et ce qu'il
     n'autorise pas."""
