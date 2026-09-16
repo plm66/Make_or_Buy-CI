@@ -100,3 +100,10 @@ def test_les_liens_internes_pointent_vers_des_fichiers_reels():
     for doc, base in ((README, RACINE), (ROADMAP, ROOT / "docs")):
         for cible in re.findall(r"\]\((?!https?:)([^)#]+)\)", doc):
             assert (base / cible).exists(), (cible, str(base))
+
+
+if __name__ == "__main__":
+    for nom, fn in sorted(globals().items()):
+        if nom.startswith("test_"):
+            fn()
+            print(f"OK  {nom}")
