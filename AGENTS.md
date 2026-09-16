@@ -9,6 +9,22 @@ Ces règles complètent les instructions globales et `Make_or_Buy/CLAUDE.md` pou
 - Jamais `git checkout` sans autorisation explicite, y compris pour changer de branche ou
   restaurer un fichier.
 
+## Mutation de texte en place
+
+`sed` et ses équivalents sont des outils de **lecture et de filtrage** ; ils ne réécrivent pas.
+Sont interdits en écriture : `sed -i` (toutes variantes), `perl -i`, `perl -pi`,
+`awk -i inplace`, `gawk -i inplace`, `ed`, `ex -s` sur un fichier, toute boucle qui les masque
+(`xargs`, `find -exec`, `while read`), et toute redirection de la sortie d'une commande sur un
+chemin qui est aussi l'une de ses entrées. En lecture, `sed -n`, `sed 's/…/…/' fichier` vers
+`stdout`, `grep`, `awk`, `perl`, `tr` sans drapeau in-place restent libres. Une sortie de
+`sed` vers un fichier temporaire distinct, validée puis promue, reste permise.
+
+Règle globale : `~/.codex/AGENTS.md` PART 10 et `~/.claude/CLAUDE.md` PART 10. Application :
+`~/.claude/hooks/git-safety.sh` et la politique `pre_tool` de Jcode.
+
+Raison, mesurée dans ce dépôt : un `sed` global sur `registry_supplier_id` a confondu trois
+espaces de noms partageant un mot et cassé cinq tests, sans qu'aucune commande n'échoue.
+
 ## Livraison documentaire
 
 Pour le périmètre documentaire non impactant de la session actuelle, travailler directement sur

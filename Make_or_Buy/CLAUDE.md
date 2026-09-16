@@ -124,6 +124,12 @@ Commandes Git interdites sans autorisation explicite :
 - jamais `git reset --hard`, ni aucun équivalent qui puisse écraser du travail ;
 - jamais `git checkout`, y compris pour changer de branche ou restaurer un fichier.
 
+Mutation de texte : `sed` et ses équivalents lisent et filtrent, ils ne réécrivent pas.
+`sed -i`, `perl -i`, `awk -i inplace`, `ed`, `ex -s`, et les boucles qui les masquent sont
+interdits en écriture — une substitution globale sur un identifiant partagé a déjà confondu
+trois espaces de noms ici et cassé cinq tests sans qu'aucune commande n'échoue. Éditer par
+ancrage, puis relire le diff. Détail : `AGENTS.md`, et PART 10 des règles globales.
+
 Dès qu'une modification de code devient nécessaire, ce régime cesse de s'appliquer : il faut
 repenser l'isolation du travail (branche ou worktree), verrouiller le comportement par des
 tests, valider le changement, puis appliquer le workflow de revue avant une éventuelle PR.
