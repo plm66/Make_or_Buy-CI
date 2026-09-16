@@ -221,6 +221,24 @@ def test_chaque_technologie_du_catalogue_a_son_gabarit():
     assert manquantes == set(), manquantes
 
 
+def test_l_axe_de_transformation_a_ses_deux_extremites():
+    """Acheter plus de transformation, c'est acheter moins de gestes.
+
+    L'axe allait de CRU — pâte crue *achetée* — à PRET_A_SERVIR. Il lui manquait le bout
+    où l'on n'achète aucune transformation : le référentiel des matières premières
+    décrivait des farines et des beurres qu'aucun gabarit ne savait consommer, donc
+    aucune fiche ne pouvait chiffrer un MAKE parti de la matière.
+
+    Sans ce test, la même extrémité peut disparaître à la prochaine réécriture du fichier
+    et le manque redeviendrait invisible : rien d'autre ne casse quand elle s'en va.
+    """
+    gabarits = pt.load_templates()
+    assert "MATP" in gabarits, "aucun gabarit ne part des matières premières"
+    gestes = {t: len(pt.operations_pour(t)) for t in gabarits}
+    assert gestes["MATP"] > max(v for t, v in gestes.items() if t != "MATP"), gestes
+    assert gestes.get("PRET_A_SERVIR") == 0, gestes
+
+
 def test_les_niveaux_des_gabarits_existent():
     """Un labor_tier de gabarit absent de params rendrait incalculable toute fiche
     construite dessus — et le refus n'apparaîtrait qu'au moment du calcul du coût."""
