@@ -22,6 +22,10 @@ chemin qui est aussi l'une de ses entrées. En lecture, `sed -n`, `sed 's/…/�
 Règle globale : `~/.codex/AGENTS.md` PART 10 et `~/.claude/CLAUDE.md` PART 10. Application :
 `~/.claude/hooks/git-safety.sh` et la politique `pre_tool` de Jcode.
 
+Mentionner une de ces formes dans une prose, un message de commit ou un corps de heredoc
+n'est pas une infraction : le détecteur compare des jetons de commande, pas du texte. Seul un
+appel réel est bloqué.
+
 Raison, mesurée dans ce dépôt : un `sed` global sur `registry_supplier_id` a confondu trois
 espaces de noms partageant un mot et cassé cinq tests, sans qu'aucune commande n'échoue.
 
