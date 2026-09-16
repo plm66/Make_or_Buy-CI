@@ -126,6 +126,14 @@
       "type": "string",
       "format": "date"
     },
+    "price_reference_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "description": "Date de validite du prix, quand elle differe de observed_at. null si le prix est celui du jour de capture."
+    },
     "source_url": {
       "type": "string"
     },
