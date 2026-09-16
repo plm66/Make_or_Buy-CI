@@ -81,6 +81,12 @@ const corps = tableau.querySelector('tbody');
 const pied = document.getElementById('pied');
 let propositions = [];
 
+// Une désignation vient du texte d'un PDF : elle peut porter <, &, ou une apostrophe
+// courbe. Injectée telle quelle, elle casserait le tableau et ferait disparaître des
+// lignes — exactement le défaut qu'on reproche aux chiffres muets, en version affichage.
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+
 depot.onclick = () => champ.click();
 champ.onchange = () => champ.files[0] && envoyer(champ.files[0]);
 ['dragenter','dragover'].forEach(e => depot.addEventListener(e, ev => {
@@ -135,7 +141,7 @@ function afficher(donnees) {
   const restes = donnees.lignes_non_lues || [];
   if (restes.length) {
     nonLues.innerHTML = '<h2>Lignes déclarées non lues</h2><ul>' +
-      restes.map(l => `<li><code>${l}</code></li>`).join('') + '</ul>';
+      restes.map(l => `<li><code>${esc(l)}</code></li>`).join('') + '</ul>';
     nonLues.hidden = false;
   } else {
     nonLues.hidden = true; nonLues.innerHTML = '';
@@ -156,12 +162,12 @@ function filtrer(verdict, bouton) {
     const reserve = (p.statut_rattachement === 'A_VERIFIER')
       ? '<span class="reserve">réserve A_VERIFIER</span>' : '';
     ligne.innerHTML =
-      `<td>${p.article || ''}</td>` +
-      `<td>${(p.designation || '').trim()}</td>` +
-      `<td>${p.id_matiere || '—'}</td>` +
+      `<td>${esc(p.article)}</td>` +
+      `<td>${esc((p.designation || '').trim())}</td>` +
+      `<td>${esc(p.id_matiere || '—')}</td>` +
       `<td class="num">${p.prix_eur_par_kg === null ? '—' : p.prix_eur_par_kg.toFixed(3)}</td>` +
       `<td class="v ${p.verdict}">${p.verdict}${reserve}</td>` +
-      `<td class="raison">${p.raison}${p.alternative ? ' — ' + p.alternative.source_id : ''}</td>`;
+      `<td class="raison">${esc(p.raison)}${p.alternative ? ' — ' + esc(p.alternative.source_id) : ''}</td>`;
     corps.appendChild(ligne);
   });
 }

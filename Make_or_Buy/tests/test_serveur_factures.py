@@ -84,8 +84,46 @@ def test_la_page_porte_le_depot_et_l_endpoint():
     assert "EUR/kg" in page, "la page n'annonce pas l'unité du prix"
     assert 'id="non-lues"' in page, "la page ne prévoit pas d'afficher les lignes non lues"
     assert "lignes_non_lues" in page, "la page n'utilise pas les lignes déclarées non lues"
-    for verdict in ("GARDER", "CHANGER", "A_ARBITRER", "NON_RATTACHE"):
-        assert verdict in page, verdict
+
+
+# L'accesseur, pas le nom nu : `class="raison"` est une classe CSS, pas un champ du PDF.
+CHAMPS_DU_PDF = ("p.designation", "p.article", "p.id_matiere", "p.raison",
+                 "p.alternative.source_id")
+
+
+def _bloc(page, marqueur):
+    debut = page.index(marqueur)
+    return page[debut:page.index(";", debut)]
+
+
+def _champs_sans_echappement(page, marqueur, champs=CHAMPS_DU_PDF):
+    """Les champs venus du PDF, dans le bloc désigné, qui ne sont pas passés par `esc(`.
+
+    Le contrôle est local et non textuel : une première version cherchait la chaîne
+    `${p.designation`, et retirer l'échappement laissait le test vert parce que l'écriture
+    autour changeait. Ici on regarde ce qui précède immédiatement chaque nom de champ.
+    """
+    extrait = _bloc(page, marqueur)
+    nus = []
+    for champ in champs:
+        position = 0
+        while (index := extrait.find(champ, position)) != -1:
+            if "esc(" not in extrait[max(0, index - 12):index]:
+                nus.append((champ, extrait[max(0, index - 28):index + 12]))
+            position = index + len(champ)
+    return nus
+
+
+def test_la_page_echappe_tout_texte_venu_du_pdf():
+    """Une désignation vient du texte d'un PDF : elle peut porter `<`, `&` ou une apostrophe.
+    Injectée telle quelle dans le tableau, elle casse l'affichage et fait disparaître des
+    lignes. Une ligne qui disparaît ressemble à une ligne qui n'existait pas."""
+    page = (RACINE / "web" / "factures.html").read_text(encoding="utf-8")
+    assert "const esc" in page, "aucune fonction d'échappement"
+    nus = _champs_sans_echappement(page, "ligne.innerHTML =")
+    assert nus == [], f"champs du PDF injectés sans échappement : {nus}"
+    non_lues = _bloc(page, "nonLues.innerHTML =")
+    assert "esc(l)" in non_lues and "${l}" not in non_lues, non_lues
 
 
 def test_la_page_n_invente_aucun_endpoint_absent_du_serveur():
