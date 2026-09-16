@@ -6,3 +6,7 @@ history/
 dist/
 build/
 *.egg-info/
+
+# Les factures PDF portent adresse, numero client et carte masquee ; le JSON extrait
+# n'en porte aucun. La source reste locale, la donnee est versionnee.
+data/price_observations/metro/*.pdf
