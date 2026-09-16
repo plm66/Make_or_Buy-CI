@@ -94,7 +94,7 @@ def gestes_supplementaires(techno_make, techno_buy, equivalences=None, path=None
     l'ecart de main-d'oeuvre entre faire et acheter.
 
     `equivalences` nomme les gestes que les deux voies executent sous des noms differents
-    — l'appret du MATP est la pousse du CRU. Sans cette table le meme geste compterait
+    — l'appret du gabarit MATIERES est la pousse du CRU. Sans cette table le meme geste compterait
     deux fois et l'ecart serait surestime; avec elle, l'assimilation reste visible au lieu
     d'etre codee en dur.
     """

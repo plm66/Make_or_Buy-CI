@@ -222,14 +222,14 @@ def test_chaque_technologie_du_catalogue_a_son_gabarit():
 
 
 def test_un_geste_commun_sous_deux_noms_ne_compte_pas_deux_fois():
-    """L'apprêt du MATP et la pousse du CRU sont la même seconde pousse.
+    """L'apprêt du gabarit MATIERES et la pousse du CRU sont la même seconde pousse.
 
     Sans la table d'équivalences, ce geste ressort comme un surcoût du MAKE alors que
     les deux voies l'exécutent. L'écart de main-d'œuvre serait surestimé, donc le seuil
     de bascule sous-estimé, donc le BUY favorisé par une erreur de vocabulaire.
     """
-    avec, _ = pt.gestes_supplementaires("MATP", "CRU", {"appret": "pousse"})
-    sans, _ = pt.gestes_supplementaires("MATP", "CRU")
+    avec, _ = pt.gestes_supplementaires("MATIERES", "CRU", {"appret": "pousse"})
+    sans, _ = pt.gestes_supplementaires("MATIERES", "CRU")
     assert "appret" not in avec, avec
     assert "appret" in sans, "l'équivalence ne change rien — la table est inopérante"
     assert len(sans) == len(avec) + 1
@@ -242,7 +242,7 @@ def test_une_donnee_manquante_ne_devient_pas_zero_minute():
     que selected_cost : une donnée manquante rend None, jamais un nombre.
     """
     p = pt.load_params()
-    gestes, _ = pt.gestes_supplementaires("MATP", "CRU", {"appret": "pousse"})
+    gestes, _ = pt.gestes_supplementaires("MATIERES", "CRU", {"appret": "pousse"})
     assert pt.minutes_avant_bascule(None, 0.364, 60, gestes, p) is None
     assert pt.minutes_avant_bascule(0.165, 0.364, 0, gestes, p) is None
     assert pt.minutes_avant_bascule(0.165, 0.364, 60, {}, p) is None
@@ -256,7 +256,7 @@ def test_un_make_perdu_sur_la_matiere_seule_reste_negatif():
     remplacent pas.
     """
     p = pt.load_params()
-    gestes, _ = pt.gestes_supplementaires("MATP", "CRU", {"appret": "pousse"})
+    gestes, _ = pt.gestes_supplementaires("MATIERES", "CRU", {"appret": "pousse"})
     assert pt.minutes_avant_bascule(0.40, 0.364, 60, gestes, p) < 0
 
 
@@ -266,7 +266,7 @@ def test_le_seuil_suit_la_taille_du_lot():
     titre que le choix de la matière — et il ne coûte aucun geste supplémentaire.
     """
     p = pt.load_params()
-    gestes, _ = pt.gestes_supplementaires("MATP", "CRU", {"appret": "pousse"})
+    gestes, _ = pt.gestes_supplementaires("MATIERES", "CRU", {"appret": "pousse"})
     a = pt.minutes_avant_bascule(0.165, 0.364, 60, gestes, p)
     b = pt.minutes_avant_bascule(0.165, 0.364, 120, gestes, p)
     assert abs(b - 2 * a) < 0.2, (a, b)
@@ -284,9 +284,14 @@ def test_l_axe_de_transformation_a_ses_deux_extremites():
     et le manque redeviendrait invisible : rien d'autre ne casse quand elle s'en va.
     """
     gabarits = pt.load_templates()
-    assert "MATP" in gabarits, "aucun gabarit ne part des matières premières"
+    assert "MATIERES" in gabarits, "aucun gabarit ne part des matières premières"
+    # MATP est deja un code de *famille* — la nature du produit, aux cotes de PAIN, VIEN,
+    # PATI. Le reutiliser pour un degre de transformation fusionnerait deux taxonomies que
+    # le glossaire separe explicitement, et aucun test ne verrait la confusion.
+    familles = {"PAIN", "VIEN", "PATI", "SNAC", "BOIS", "MATP", "EPIC"}
+    assert not (set(gabarits) & familles), set(gabarits) & familles
     gestes = {t: len(pt.operations_pour(t)) for t in gabarits}
-    assert gestes["MATP"] > max(v for t, v in gestes.items() if t != "MATP"), gestes
+    assert gestes["MATIERES"] > max(v for t, v in gestes.items() if t != "MATIERES"), gestes
     assert gestes.get("PRET_A_SERVIR") == 0, gestes
 
 

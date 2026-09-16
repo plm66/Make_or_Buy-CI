@@ -3,7 +3,7 @@
   "note": "Gabarits d'opérations internes par technologie fournisseur. Ils donnent QUELS gestes restent en interne, jamais combien de minutes : les minutes se chronomètrent une fois par technologie et pas une fois par produit. Toute minute pré-remplie ici serait un coût inventé.",
   "niveaux_a_valider": "Les labor_tier sont des valeurs par défaut raisonnables, à ajuster selon qui exécute réellement le geste dans l'établissement.",
   "templates": {
-    "MATP": {
+    "MATIERES": {
       "label": "Matières premières, production intégrale",
       "note": "Aucune transformation achetée. Gestes de la pâte levée feuilletée ; une pâte non tourée saute tourage et detaillage.",
       "operations": [
