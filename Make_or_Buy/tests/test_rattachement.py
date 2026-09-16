@@ -78,3 +78,10 @@ def test_la_cle_de_rattachement_survit_au_renommage():
             par_article.setdefault(a["article"], set()).add(a["designation"])
     instables = {k: v for k, v in par_article.items() if len(v) > 1}
     assert instables, "aucun renommage observe — verifier que les relevés sont bien lus"
+
+
+if __name__ == "__main__":
+    for nom, fn in sorted(globals().items()):
+        if nom.startswith("test_"):
+            fn()
+            print(f"OK  {nom}")

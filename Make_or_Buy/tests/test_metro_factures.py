@@ -118,3 +118,10 @@ def test_aucune_ligne_article_n_est_abandonnee_en_silence():
     """
     for p in RELEVES:
         assert _lire(p)["lignes_non_lues"] == [], (p.name, _lire(p)["lignes_non_lues"])
+
+
+if __name__ == "__main__":
+    for nom, fn in sorted(globals().items()):
+        if nom.startswith("test_"):
+            fn()
+            print(f"OK  {nom}")
