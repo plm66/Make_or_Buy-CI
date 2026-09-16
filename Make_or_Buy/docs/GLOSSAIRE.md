@@ -20,11 +20,25 @@ restants. C'est l'axe qui relie un achat à du travail supprimé.
 
 | code dépôt | français | référent anglais | gestes | définition |
 |---|---|---|---|---|
+| `MATIERES` | matières premières, production intégrale | **scratch** (scratch-made, scratch bakery) | 9 | Aucune transformation achetée. Tous les gestes à faire. |
 | `CRU` | cru surgelé, pousse contrôlée | **raw frozen dough** | 4 | Pâte crue. Pousse et cuisson à faire. |
 | `PAC` | pré-poussé à cuire | **pre-proofed frozen** | 3 | Pousse déjà faite. Cuisson à faire. |
 | `PRECUIT` | précuit | **par-baked** (part-baked, bake-off) | 3 | Cuisson partielle. Finition de cuisson à faire. |
 | `CUIT` | cuit surgelé | **fully baked frozen** | 2 | Cuisson faite. Décongélation et présentation à faire. |
 | `PRET_A_SERVIR` | prêt à l'emploi | **ready-to-use (RTU)** | 0 | Aucun geste de transformation restant. |
+
+### Pourquoi `MATIERES` et non `MATP`
+
+`MATP` est déjà pris, et par une autre taxonomie : c'est un code de **famille** — la nature
+du produit, aux côtés de `PAIN`, `VIEN`, `PATI`, `SNAC`, `BOIS`, `EPIC`. La même chaîne
+aurait désigné une matière première dans un fichier et une façon d'acheter dans un autre.
+
+Les deux vocabulaires ne se croisent dans aucun fichier du dépôt. C'est précisément ce qui
+rend la collision dangereuse : rien ne l'aurait signalée, et le jour où un lecteur aurait
+rapproché les deux listes, chacune aurait paru légitime.
+
+Le préfixe `MATP-` des identifiants de matières (`MATP-FARI-T65`) reste inchangé : il
+appartient à la famille, pas au degré.
 
 ### L'ambiguïté de `PRET_A_SERVIR`, à trancher
 
