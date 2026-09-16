@@ -7,6 +7,14 @@ dist/
 build/
 *.egg-info/
 
-# Les factures PDF portent adresse, numero client et carte masquee ; le JSON extrait
-# n'en porte aucun. La source reste locale, la donnee est versionnee.
+# Les sources PDF portent adresse, numero client et carte masquee ; les JSON extraits
+# n'en portent aucun. La source reste locale, la donnee est versionnee.
+#
+# data/input/ est le chemin reel des 20 factures METRO. La regle visait d'abord
+# data/price_observations/metro/, qui n'etait qu'une copie dans un worktree : en
+# retirant le worktree, la regle s'est mise a proteger un dossier vide.
+data/input/
 data/price_observations/metro/*.pdf
+
+# Caches d'outils, regeneres a chaque session.
+.serena/

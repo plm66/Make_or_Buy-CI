@@ -40,3 +40,8 @@ history/
 # Registre d'achat livré en xlsx: la source de vérité est data/suppliers/,
 # régénérable par suppliers_tool.py import-registry
 *.xlsx
+
+# Catalogue fournisseur source, 8,7 Mo. Son extraction est versionnee en JSON
+# (data/supplier_products/traiteur_de_paris_catalogue_2026.json, 69 references).
+catalogue fournisseurs/
+.serena/
