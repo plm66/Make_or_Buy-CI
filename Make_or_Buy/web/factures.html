@@ -23,6 +23,12 @@
             background:#fff; font-size:.85rem; cursor:pointer }
   .compte.actif { border-color:var(--encre); font-weight:600 }
   .compte b { font-variant-numeric:tabular-nums }
+  #non-lues { background:#fff; border:1px solid var(--trait); border-radius:8px;
+              padding:.8rem 1rem; margin:1.2rem 0 }
+  #non-lues h2 { font-size:.82rem; text-transform:uppercase; letter-spacing:.04em;
+                 color:var(--gris); margin:0 0 .5rem }
+  #non-lues ul { margin:0; padding-left:1.1rem; font-size:.85rem; color:var(--gris) }
+  #non-lues code { color:var(--encre) }
   table { border-collapse:collapse; width:100%; background:#fff; font-size:.88rem }
   th, td { text-align:left; padding:.5rem .6rem; border-bottom:1px solid var(--trait);
            vertical-align:top }
@@ -50,6 +56,7 @@ Le document ne quitte pas cette machine, et aucun fichier du dépôt n'est modif
   <input type="file" id="fichier" accept="application/pdf" hidden>
 </div>
 <div id="etat"></div>
+<div id="non-lues" hidden></div>
 <div id="comptes"></div>
 <table id="tableau" hidden>
   <thead><tr>
@@ -123,6 +130,16 @@ function afficher(donnees) {
   tous.onclick = () => filtrer(null, tous);
   comptes.prepend(tous);
   filtrer(null, tous);
+  // La spec l'exige : ce qui n'a pas été lu doit être visible, pas compté en silence.
+  const nonLues = document.getElementById('non-lues');
+  const restes = donnees.lignes_non_lues || [];
+  if (restes.length) {
+    nonLues.innerHTML = '<h2>Lignes déclarées non lues</h2><ul>' +
+      restes.map(l => `<li><code>${l}</code></li>`).join('') + '</ul>';
+    nonLues.hidden = false;
+  } else {
+    nonLues.hidden = true; nonLues.innerHTML = '';
+  }
   tableau.hidden = false;
   pied.textContent = donnees.entete
     ? `Facture ${donnees.entete.numero || '—'} du ${donnees.entete.date_facture || '—'}, ` +

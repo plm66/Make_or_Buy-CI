@@ -7,7 +7,6 @@ un fichier illisible rend un message et pas une exception, et rien du dépôt n'
 Le PDF source n'est pas versionné (`.gitignore` le porte), donc l'essai de bout en bout est
 déclaré ignoré quand aucun PDF n'est présent, au lieu de passer en silence.
 """
-import json
 import sys
 from pathlib import Path
 
@@ -52,7 +51,7 @@ def test_chaque_ligne_obtient_une_proposition_et_sa_raison():
                                           cf.NON_RATTACHE, cf.HORS_PERIMETRE), proposition
 
 
-def test_un_fichier_illisible_rend_un_message_pas_une_exception(tmp_path=None):
+def test_un_fichier_illisible_rend_un_message_pas_une_exception():
     """Une page qui tombe ne dit rien. Un fichier qui n'est pas un PDF, ou un `pdftotext`
     absent, doit rendre une erreur lisible."""
     import tempfile
@@ -83,6 +82,8 @@ def test_la_page_porte_le_depot_et_l_endpoint():
     assert 'type="file"' in page, "aucun champ de fichier"
     assert "'/analyser'" in page, "la page n'appelle pas l'endpoint du serveur"
     assert "EUR/kg" in page, "la page n'annonce pas l'unité du prix"
+    assert 'id="non-lues"' in page, "la page ne prévoit pas d'afficher les lignes non lues"
+    assert "lignes_non_lues" in page, "la page n'utilise pas les lignes déclarées non lues"
     for verdict in ("GARDER", "CHANGER", "A_ARBITRER", "NON_RATTACHE"):
         assert verdict in page, verdict
 
