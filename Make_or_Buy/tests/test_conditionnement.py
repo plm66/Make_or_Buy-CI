@@ -87,6 +87,20 @@ def test_un_abrege_de_colis_interdit_le_prix_au_kilo():
     assert cf.prix_au_kilo(fraise_imprimee)["source"] == "IMPRIME_FACTURE"
 
 
+def test_le_colisage_compte_parfois_des_kilos_pas_des_pieces():
+    """`MC FARINE PANIF. T65 25KG` porte un colisage de 25 : l'unité facturée est le kilo,
+    pas le sac, et la facture imprime alors 0,75 EUR/kg. Diviser par le poids du sac au lieu
+    du poids de l'unité facturée donnait 0,03 EUR/kg, dix fois sous le prix de la matière
+    première agricole, et rien ne le signalait."""
+    farine = {"designation": "MC FARINE PANIF. T65 25KG", "colisage": 25,
+              "prix_unitaire_ht": 0.75, "prix_unite_normalisee": None}
+    assert cf.poids_unite_facturee_g(farine) == 1000
+    assert cf.prix_au_kilo(farine)["valeur"] == 0.75
+    beurre = {"designation": "BEURRE DX 500G MA PAYSANNE", "colisage": 1,
+              "prix_unitaire_ht": 3.65, "prix_unite_normalisee": None}
+    assert cf.poids_unite_facturee_g(beurre) == 500
+
+
 def test_le_prix_imprime_par_la_facture_confirme_la_lecture():
     """Le seul juge disponible, et il est dans le document. Sur les lignes où METRO imprime
     son propre prix normalisé, notre déduction doit tomber juste. Le test vérifie aussi que

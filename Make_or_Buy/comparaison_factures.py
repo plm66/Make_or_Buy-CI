@@ -13,7 +13,9 @@ entre deux factures, le prix unitaire ne mesure plus la meme chose, et la sortie
 UNIT_GAP au lieu d'un delta qui se lirait comme une baisse.
 
 Usage: python3 comparaison_factures.py derive [--article 2422798] [--top 10] [--write]
+       python3 comparaison_factures.py observations [--out chemin.json]
 """
+import csv
 import json
 import re
 import sys
@@ -22,6 +24,8 @@ from pathlib import Path
 RACINE = Path(__file__).resolve().parent
 RELEVE = RACINE / "data/price_observations/metro_factures_2026-09-11.json"
 RAPPORT = RACINE / "data/price_observations/metro_derive"
+RATTACHEMENT = RACINE / "data/materials/rattachement_metro.csv"
+MATIERES = RACINE / "data/materials/matieres_premieres.csv"
 
 ALIGNED = "ALIGNED"
 UNIT_GAP = "UNIT_GAP"
@@ -66,6 +70,23 @@ def poids_total_g(designation):
 MARQUEUR_COLIS = re.compile(r"\bBQ\d|\bX\d|\b\d+/\d\b|\b\d+\s*[*xX]\s*\d|\bPLT\b")
 
 
+def poids_unite_facturee_g(ligne):
+    """Ce que compte le colisage, en grammes.
+
+    Le colisage ne compte pas toujours des pieces. `MC FARINE PANIF. T65 25KG` porte un
+    colisage de 25 : l'unite facturee est le kilo, pas le sac. `BEURRE DX 500G` porte un
+    colisage de 1 : l'unite facturee est la plaquette de 500 g. Sans cette division, la
+    farine sortait a 0,03 EUR/kg, dix fois sous le prix de la matiere premiere agricole.
+    """
+    poids_pack = poids_total_g(ligne.get("designation"))
+    if poids_pack is None:
+        return None
+    colisage = ligne.get("colisage") or 1
+    if colisage <= 0:
+        return None
+    return poids_pack / colisage
+
+
 def prix_derive_au_kilo(ligne):
     """Le prix au kilo deduit de la designation seule, jamais du prix imprime.
 
@@ -74,7 +95,7 @@ def prix_derive_au_kilo(ligne):
     qu'il juge.
     """
     designation = (ligne.get("designation") or "").upper()
-    poids = poids_total_g(designation)
+    poids = poids_unite_facturee_g(ligne)
     if poids is None or MARQUEUR_COLIS.search(designation):
         return None
     prix, _ = _prix(ligne)
@@ -92,7 +113,7 @@ def prix_au_kilo(ligne):
     Une designation qui porte un abrege de colis ne donne aucun prix : le multiplicateur
     n'est pas lisible, et le prix du colis n'est pas un prix au kilo.
     """
-    poids = poids_total_g(ligne.get("designation"))
+    poids = poids_unite_facturee_g(ligne)
     if poids is None:
         return None
     imprime = ligne.get("prix_unite_normalisee")
@@ -180,6 +201,50 @@ def charger(chemin=RELEVE):
     return releve["achats"], releve
 
 
+def observations_matiere(achats, rattachement, matieres):
+    """Une observation de prix matiere par ligne de facture rattachee et convertible.
+
+    La couche ne contient que des prix au kilo : une ligne sans conditionnement lisible, ou
+    dont l'article n'est pas rattache, ne produit rien. Deviner la matiere par le libelle est
+    ce que ce depot interdit, et un prix au colis n'est pas un prix au kilo.
+
+    La reserve de rattachement et le statut de la matiere voyagent avec la valeur : un
+    `A_VERIFIER` reste publiable, il ne reste pas consommable comme un `ACTIF`.
+    """
+    fiche = {r["article_metro"]: r for r in rattachement}
+    observations = []
+    for ligne in achats:
+        lien = fiche.get(ligne["article"])
+        if not lien:
+            continue
+        prix = prix_au_kilo(ligne)
+        if prix is None:
+            continue
+        observations.append({
+            "id_matiere": lien["id_matiere"],
+            "date": ligne["date_facture"],
+            "facture": ligne["facture"],
+            "article_metro": ligne["article"],
+            "depot": ligne.get("depot"),
+            "designation": ligne.get("designation"),
+            "prix_eur_par_kg": prix["valeur"],
+            "source_prix": prix["source"],
+            "poids_g": prix["poids_g"],
+            "statut_rattachement": lien.get("statut"),
+            "statut_matiere": (matieres.get(lien["id_matiere"]) or {}).get("statut"),
+        })
+    observations.sort(key=lambda o: (o["date"], o["facture"], o["article_metro"]))
+    return observations
+
+
+def charger_referentiels():
+    rattachement = list(csv.DictReader(RATTACHEMENT.read_text(encoding="utf-8").splitlines(),
+                                       delimiter=";"))
+    matieres = {m["id_matiere"]: m for m in csv.DictReader(
+        MATIERES.read_text(encoding="utf-8").splitlines(), delimiter=";")}
+    return rattachement, matieres
+
+
 def rapport(comparaisons, releve):
     """Le rapport est un artefact date : il dit sur quoi il a ete produit, et ce qu'il
     n'autorise pas."""
@@ -227,11 +292,62 @@ def _table(comparaisons, top):
             print(f"  {statut:14} {len(lot):>3}   ex. {lot[0]['article']} {(lot[0]['designation'] or '')[:30]}")
 
 
+def _enveloppe_observations(observations, releve):
+    statuts = {}
+    for o in observations:
+        statuts[o["statut_rattachement"]] = statuts.get(o["statut_rattachement"], 0) + 1
+    return {
+        "dataset": "MATERIAL_PRICE_OBSERVATIONS",
+        "version": "1.0.0",
+        "source_dataset": releve.get("dataset"),
+        "source_observed_at": releve.get("observed_at"),
+        "price_source_id": releve.get("price_source_id"),
+        "observations": len(observations),
+        "statuts_rattachement": statuts,
+        "value_status": "PAID_PRICES_PER_KG",
+        "consumer_rule": (
+            "Prix payes ramenes au kilo, par matiere et par date. Le kilo vient du document "
+            "quand la facture imprime son prix normalise, de la designation sinon. Un "
+            "rattachement A_VERIFIER publie sa valeur et garde sa reserve : le critere du "
+            "referentiel n'est pas ecrit sur la facture, et cette reserve doit suivre la "
+            "valeur jusqu'a la decision de cout."
+        ),
+        "observations_detail": observations,
+    }
+
+
+def _table_observations(observations):
+    par_matiere = {}
+    for o in observations:
+        par_matiere.setdefault(o["id_matiere"], []).append(o)
+    print(f"{len(observations)} observations sur {len(par_matiere)} matieres\n")
+    print(f"{'matiere':16} {'obs':>3} {'EUR/kg min':>10} {'max':>8}  rattachement")
+    for matiere, lot in sorted(par_matiere.items()):
+        prix = [o["prix_eur_par_kg"] for o in lot]
+        reserves = {o["statut_rattachement"] for o in lot}
+        print(f"{matiere:16} {len(lot):>3} {min(prix):>10.3f} {max(prix):>8.3f}  {'/'.join(sorted(reserves))}")
+
+
 def main(argv):
-    if len(argv) < 2 or argv[1] != "derive":
+    if len(argv) < 2 or argv[1] not in ("derive", "observations"):
         sys.exit(__doc__.strip().splitlines()[-1])
 
     achats, releve = charger()
+
+    if argv[1] == "observations":
+        rattachement, matieres = charger_referentiels()
+        observations = observations_matiere(achats, rattachement, matieres)
+        _table_observations(observations)
+        if "--out" in argv:
+            # Aucun chemin par defaut : l'emplacement de la couche est une decision, pas un
+            # defaut choisi par l'outil.
+            sortie = Path(argv[argv.index("--out") + 1])
+            sortie.write_text(
+                json.dumps(_enveloppe_observations(observations, releve),
+                           ensure_ascii=False, indent=1), encoding="utf-8")
+            print(f"\necrit {sortie}")
+        return
+
     comparaisons = derive(achats)
     if "--article" in argv:
         cible = argv[argv.index("--article") + 1]
