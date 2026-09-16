@@ -81,7 +81,15 @@ suppliers_tool.py import-registry <xlsx>             supplier master depuis le r
 doctrine_tool.py validate|update                     doctrine versionnée
 make-or-buy manita-check [--dietary VEGAN]           validation du panier contre le postulat
 make-or-buy manita --lignes N --cible X              grille à prix cible (CONSTRAINED_MATRIX)
+comparaison_factures.py derive|observations          factures METRO: dérive des prix payés, couche de prix matière
+serveur_factures.py [--port 8770] [--ouvrir]         page locale: dépôt d'une facture, verdict par ligne
 ```
+
+Le module factures a son contrat dans `docs/SPEC_MODULE_FACTURES.md`, et une règle dure qui
+commande tout le reste : le verdict `CHANGER` exige un prix alternatif chiffré et daté. Sans
+lui la ligne est déclarée à arbitrer, parce qu'une recommandation d'achat sans prix est une
+opinion. Aujourd'hui le dépôt ne porte aucun prix concurrent, donc les `CHANGER` sont à zéro
+et c'est normal ; le travail utile est de collecter ces prix, pas de relâcher la règle.
 
 Tests sans framework : `python3 tests/test_*.py`. Ils encodent des règles, pas des sorties —
 un test écrit depuis l'implémentation ratifie le bug.
