@@ -38,7 +38,7 @@ choisie.
 | prix réellement payés, relevés sur facture | **384 lignes**, mars → septembre 2026 |
 | articles rattachés à une matière | **24** (15 lus, 9 à vérifier) |
 | fournisseurs au registre | **13** |
-| invariants exécutables | **190** |
+| invariants exécutables | **195** |
 | **gestes chronométrés** | **0 / 21** ← le blocage |
 | **produits arbitrables** | **0** |
 
