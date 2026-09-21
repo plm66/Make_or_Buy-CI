@@ -66,7 +66,7 @@ make-or-buy manita-check                    # valider un panier contre le postul
 Tests sans framework, un fichier par domaine :
 
 ```bash
-python3 tests/test_harness.py               # les 188 invariants
+python3 -B tests/test_harness.py            # les 195 invariants
 ```
 
 ---

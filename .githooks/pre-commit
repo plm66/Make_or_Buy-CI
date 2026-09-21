@@ -1,0 +1,25 @@
+#!/bin/sh
+# Refuse un commit direct sur main. Trois sessions travaillent sur ce depot en parallele ;
+# sans branche, elles se decouvrent au moment du conflit et pas avant.
+#
+# Une fusion passe : c'est ainsi que le travail revenu d'une branche atterrit.
+# L'operateur passe avec --no-verify, deliberement et en le sachant.
+
+branche=$(git symbolic-ref --short -q HEAD) || exit 0
+[ "$branche" = "main" ] || exit 0
+[ -f "$(git rev-parse --git-dir)/MERGE_HEAD" ] && exit 0
+
+cat >&2 <<'MSG'
+BLOQUE: commit direct sur main.
+
+Pourquoi: trois sessions travaillent sur ce depot en parallele. Une branche rend le
+travail visible avant le conflit; main le rend visible apres.
+
+A faire:
+  git worktree add ../Make_or_Buy-worktrees/<nom> -b <type>/<sujet> main
+  # travailler la, commiter la, puis fusionner dans main
+
+Les worktrees ne vivent jamais sous .claude/ : cela interdit la releve par un autre dev.
+Une fusion n'est pas bloquee. --no-verify reste possible, deliberement.
+MSG
+exit 1

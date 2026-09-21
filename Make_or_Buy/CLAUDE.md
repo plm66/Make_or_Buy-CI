@@ -91,7 +91,7 @@ lui la ligne est déclarée à arbitrer, parce qu'une recommandation d'achat san
 opinion. Aujourd'hui le dépôt ne porte aucun prix concurrent, donc les `CHANGER` sont à zéro
 et c'est normal ; le travail utile est de collecter ces prix, pas de relâcher la règle.
 
-Tests sans framework : `python3 tests/test_*.py`. Ils encodent des règles, pas des sorties —
+Tests sans framework : `python3 -B tests/test_*.py`. Ils encodent des règles, pas des sorties —
 un test écrit depuis l'implémentation ratifie le bug.
 
 ## Manière de travailler
@@ -103,11 +103,17 @@ porte son `from_version` / `to_version` et sa raison.
 Un test vert ne prouve rien. Casser la règle exprès, voir le test rougir, restaurer.
 C'est la seule preuve qu'il protège quelque chose.
 
-**Purger `__pycache__` avant chaque essai.** Sinon :
+**`-B` sur toute exécution de test. Purger `__pycache__` si un `.pyc` a pu être écrit** :
 
 ```bash
-find . -name __pycache__ -type d -exec rm -rf {} +
+find . -name __pycache__ -type d -exec rm -rf {} +   # une fois, pour guérir
+python3 -B tests/test_*.py                           # ensuite, pour ne plus jamais en créer
 ```
+
+`-B` n'empêche que l'**écriture** du bytecode, jamais sa lecture : un `.pyc` déjà posé est
+relu malgré lui. Mesuré — cache périmé présent, avec et sans `-B`, la régression passe au
+vert dans les deux cas. La protection est donc préventive : aucun `.pyc` écrit, aucun qui
+puisse périmer.
 
 Python décide de recompiler en comparant la date et la taille du fichier. Remplacer `0.35`
 par `0.30` ne change ni l'une ni l'autre. Il garde son cache, exécute l'ancien code, et le
