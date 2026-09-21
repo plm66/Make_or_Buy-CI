@@ -2,14 +2,20 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Factures METRO — ce que le dépôt en propose</title>
 <style>
+  /* Avant correctif : `font:15px/1.5` sur `body`. Une taille absolue ici fige toute la
+     page — le reste est en rem, donc plus rien ne suivait la largeur de l'écran, et un
+     écran large ne rendait que de la marge. La racine porte maintenant la seule taille
+     absolue, en clamp, et `body` repart de 1rem. */
+  html { font-size: clamp(16px, 0.5vw + 12px, 22px); }
   :root { --encre:#1b1b1b; --gris:#6b6b6b; --trait:#dcdcdc; --fond:#faf9f7;
           --garder:#1f7a4d; --changer:#b3541e; --arbitrer:#8a6d1f;
           --hors:#6b6b6b; --non:#9b2226; }
   * { box-sizing:border-box }
   body { margin:0; padding:2.5rem 2rem; background:var(--fond); color:var(--encre);
-         font:15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+         font:1rem/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
   h1 { font-size:1.5rem; margin:0 0 .3rem }
   p.sous { color:var(--gris); margin:0 0 2rem }
   #depot { border:1.5px dashed var(--trait); border-radius:10px; padding:2.5rem 1rem;
