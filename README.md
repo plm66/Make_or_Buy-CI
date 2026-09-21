@@ -38,7 +38,7 @@ choisie.
 | prix réellement payés, relevés sur facture | **384 lignes**, mars → septembre 2026 |
 | articles rattachés à une matière | **24** (15 lus, 9 à vérifier) |
 | fournisseurs au registre | **13** |
-| invariants exécutables | **143** |
+| invariants exécutables | **187** |
 | **gestes chronométrés** | **0 / 21** ← le blocage |
 | **produits arbitrables** | **0** |
 
@@ -66,7 +66,7 @@ make-or-buy manita-check                    # valider un panier contre le postul
 Tests sans framework, un fichier par domaine :
 
 ```bash
-python3 tests/test_harness.py               # les 143 invariants
+python3 tests/test_harness.py               # les 187 invariants
 ```
 
 ---
