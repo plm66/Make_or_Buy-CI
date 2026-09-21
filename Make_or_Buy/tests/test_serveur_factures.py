@@ -16,7 +16,12 @@ sys.path.insert(0, str(RACINE))
 import comparaison_factures as cf  # noqa: E402
 import serveur_factures as sf  # noqa: E402
 
-PDF_METRO = RACINE / "data/price_observations/metro"
+# Avant correctif : ce chemin visait `data/price_observations/metro`, la copie qui vivait
+# dans le worktree `matp`. Le worktree retiré, le dossier a disparu et les factures sont
+# restées dans `data/input/`. L'essai de bout en bout se déclarait donc ignoré à chaque
+# exécution, et c'est le seul qui parcourt la chaîne entière : la page inerte a survécu à
+# 188 invariants verts parce que le seul juge capable de la voir ne partait jamais.
+PDF_METRO = RACINE / "data/input"
 
 
 def ligne(**kw):
@@ -138,7 +143,7 @@ def test_un_pdf_reel_va_jusqu_aux_verdicts():
     l'essai est déclaré ignoré plutôt que vert."""
     pdfs = sorted(PDF_METRO.glob("*.pdf")) if PDF_METRO.exists() else []
     if not pdfs:
-        print("      (ignoré : aucun PDF dans data/price_observations/metro)")
+        print("      (ignoré : aucun PDF dans data/input)")
         return
     import tempfile
     with tempfile.TemporaryDirectory() as dossier:
