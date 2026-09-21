@@ -42,7 +42,20 @@ def test_chaque_fichier_annonce_tous_ses_tests():
         if f.name == MOI:
             continue
         declares = len(DECLARE.findall(f.read_text(encoding="utf-8")))
-        out = subprocess.run([sys.executable, str(f)], capture_output=True, text=True)
+        # -B n'empeche que l'ECRITURE du bytecode, jamais sa lecture : un .pyc deja sur
+        # le disque est relu malgre lui. Mesure faite : cache perime present, avec et sans
+        # -B, la regression passe au vert dans les deux cas. Ce qui vaut ici est donc
+        # preventif — aucun .pyc n'est jamais ecrit, donc aucun ne peut perimer. Guerir un
+        # cache deja pose demande de le supprimer, et c'est une autre commande.
+        #
+        # Python valide son cache sur
+        # (mtime, taille) ; inverser deux chaines de meme longueur ne change ni l'une ni
+        # l'autre, et un .pyc perime passe pour frais. Mesure du 21-09 : un cache date de
+        # 15:48 servait CHAMPS_PRIX inverse alors que le disque et HEAD portaient le bon
+        # ordre. Ce jour-la il a fait rougir du code sain — l'inverse est la vraie alerte,
+        # et elle est verifiee : cache perime present, le garde G002 passe au vert sur la
+        # regression meme qu'il surveille.
+        out = subprocess.run([sys.executable, "-B", str(f)], capture_output=True, text=True)
         assert out.returncode == 0, (f.name, out.stderr[-400:])
         imprimes = len(IMPRIME.findall(out.stdout))
         assert imprimes == declares, (f.name, imprimes, declares)

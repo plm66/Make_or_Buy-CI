@@ -44,6 +44,27 @@ Dès qu'une modification de code est nécessaire, isoler le travail dans une bra
 worktree, verrouiller le comportement par des tests, exécuter la validation appropriée, faire
 la revue, puis ouvrir une pull request si le changement doit être proposé pour intégration.
 
+**`main` ne reçoit que des fusions.** Un hook `pre-commit` versionné dans `.githooks/` refuse
+tout commit direct sur `main` ; une fusion passe, et `--no-verify` reste ouvert à
+l'opérateur qui le décide sciemment.
+
+Activation, une fois par clone :
+
+```bash
+git config core.hooksPath .githooks
+```
+
+Sans cette ligne, la règle existe et rien ne la tient. C'est son état jusqu'au 21-09-2026.
+
+La raison n'est pas l'esthétique de l'historique : trois sessions travaillent sur ce dépôt
+en parallèle et se sont déjà croisées trois fois — une fusion arrivée pendant le travail
+d'une autre, un module de 1 618 lignes né sans que personne le sache, et une livraison
+commitée droit sur `main`. Une branche rend le travail visible **avant** le conflit ; `main`
+le rend visible après.
+
+Corollaire : `git checkout` et `git switch` étant interdits, on ne change pas de branche —
+on ouvre un worktree. C'est la même commande pour isoler et pour se relever.
+
 ## Où vivent les worktrees
 
 **Jamais sous `.claude/`.** Les worktrees vont dans `../Make_or_Buy-worktrees/<nom>`, à côté
