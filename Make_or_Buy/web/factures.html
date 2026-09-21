@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Factures METRO — ce que le dépôt en propose</title>
+<style>
+  :root { --encre:#1b1b1b; --gris:#6b6b6b; --trait:#dcdcdc; --fond:#faf9f7;
+          --garder:#1f7a4d; --changer:#b3541e; --arbitrer:#8a6d1f;
+          --hors:#6b6b6b; --non:#9b2226; }
+  * { box-sizing:border-box }
+  body { margin:0; padding:2.5rem 2rem; background:var(--fond); color:var(--encre);
+         font:15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  h1 { font-size:1.5rem; margin:0 0 .3rem }
+  p.sous { color:var(--gris); margin:0 0 2rem }
+  #depot { border:1.5px dashed var(--trait); border-radius:10px; padding:2.5rem 1rem;
+           text-align:center; background:#fff; cursor:pointer; transition:.15s }
+  #depot.survol { border-color:var(--encre); background:#f3f2ef }
+  #depot strong { display:block; margin-bottom:.4rem }
+  #depot small { color:var(--gris) }
+  #etat { margin:1rem 0; min-height:1.4rem; color:var(--gris) }
+  #comptes { display:flex; gap:.6rem; flex-wrap:wrap; margin:1.4rem 0 }
+  .compte { border:1px solid var(--trait); border-radius:999px; padding:.35rem .8rem;
+            background:#fff; font-size:.85rem; cursor:pointer }
+  .compte.actif { border-color:var(--encre); font-weight:600 }
+  .compte b { font-variant-numeric:tabular-nums }
+  #non-lues { background:#fff; border:1px solid var(--trait); border-radius:8px;
+              padding:.8rem 1rem; margin:1.2rem 0 }
+  #non-lues h2 { font-size:.82rem; text-transform:uppercase; letter-spacing:.04em;
+                 color:var(--gris); margin:0 0 .5rem }
+  #non-lues ul { margin:0; padding-left:1.1rem; font-size:.85rem; color:var(--gris) }
+  #non-lues code { color:var(--encre) }
+  table { border-collapse:collapse; width:100%; background:#fff; font-size:.88rem }
+  th, td { text-align:left; padding:.5rem .6rem; border-bottom:1px solid var(--trait);
+           vertical-align:top }
+  th { font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+       color:var(--gris) }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap }
+  .v { font-weight:600; white-space:nowrap }
+  .v.GARDER { color:var(--garder) } .v.CHANGER { color:var(--changer) }
+  .v.A_ARBITRER { color:var(--arbitrer) } .v.HORS_PERIMETRE { color:var(--hors) }
+  .v.NON_RATTACHE { color:var(--non) }
+  .raison { color:var(--gris); font-size:.82rem }
+  .reserve { display:inline-block; margin-left:.4rem; padding:.05rem .4rem; border-radius:4px;
+             background:#f6efdc; color:var(--arbitrer); font-size:.72rem; font-weight:600 }
+  footer { margin-top:2rem; color:var(--gris); font-size:.82rem }
+</style>
+</head>
+<body>
+<h1>Factures METRO</h1>
+<p class="sous">Déposez une facture PDF. Chaque ligne reçoit une proposition et sa raison.
+Le document ne quitte pas cette machine, et aucun fichier du dépôt n'est modifié.</p>
+
+<div id="depot">
+  <strong>Déposer un PDF de facture METRO</strong>
+  <small>ou cliquer pour choisir un fichier</small>
+  <input type="file" id="fichier" accept="application/pdf" hidden>
+</div>
+<div id="etat"></div>
+<div id="non-lues" hidden></div>
+<div id="comptes"></div>
+<table id="tableau" hidden>
+  <thead><tr>
+    <th>Article</th><th>Désignation</th><th>Matière</th>
+    <th class="num">EUR/kg</th><th>Proposition</th><th>Raison</th>
+  </tr></thead>
+  <tbody></tbody>
+</table>
+<footer>
+  <span id="pied"></span>
+  Le verdict <b>CHANGER</b> exige un prix alternatif chiffré et daté. Sans lui, la ligne est
+  déclarée à arbitrer : une recommandation d'achat sans prix serait une opinion.
+</footer>
+
+<script>
+const depot = document.getElementById('depot');
+const champ = document.getElementById('fichier');
+const etat = document.getElementById('etat');
+const comptes = document.getElementById('comptes');
+const tableau = document.getElementById('tableau');
+const corps = tableau.querySelector('tbody');
+const pied = document.getElementById('pied');
+let propositions = [];
+
+// Une désignation vient du texte d'un PDF : elle peut porter <, &, ou une apostrophe
+// courbe. Injectée telle quelle, elle casserait le tableau et ferait disparaître des
+// lignes — exactement le défaut qu'on reproche aux chiffres muets, en version affichage.
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+
+depot.onclick = () => champ.click();
+champ.onchange = () => champ.files[0] && envoyer(champ.files[0]);
+['dragenter','dragover'].forEach(e => depot.addEventListener(e, ev => {
+  ev.preventDefault(); depot.classList.add('survol');
+}));
+['dragleave','drop'].forEach(e => depot.addEventListener(e, ev => {
+  ev.preventDefault(); depot.classList.remove('survol');
+}));
+depot.addEventListener('drop', ev => {
+  const f = ev.dataTransfer.files[0];
+  if (f) { champ.files = ev.dataTransfer.files; envoyer(f); }
+});
+
+async function envoyer(fichier) {
+  etat.textContent = `Lecture de ${fichier.name}…`;
+  comptes.innerHTML = ''; corps.innerHTML = ''; tableau.hidden = true;
+  try {
+    const reponse = await fetch('/analyser', { method:'POST', body: fichier });
+    const donnees = await reponse.json();
+    if (donnees.erreur) { etat.textContent = donnees.erreur; return; }
+    propositions = donnees.propositions || [];
+    afficher(donnees);
+  } catch (e) {
+    etat.textContent = `Échec de la lecture locale : ${e.message}`;
+  }
+}
+
+function afficher(donnees) {
+  const lues = donnees.lignes;
+  const nonLues = (donnees.lignes_non_lues || []).length;
+  etat.textContent = nonLues
+    ? `${lues} lignes lues, ${nonLues} ligne(s) déclarée(s) non lue(s) — voir le détail ci-dessous.`
+    : `${lues} lignes lues, aucune ligne perdue.`;
+  comptes.innerHTML = '';
+  ['GARDER','CHANGER','A_ARBITRER','NON_RATTACHE','HORS_PERIMETRE'].forEach(verdict => {
+    const n = donnees.comptes[verdict] || 0;
+    if (!n) return;
+    const b = document.createElement('button');
+    b.className = 'compte';
+    b.innerHTML = `${verdict} <b>${n}</b>`;
+    b.onclick = () => filtrer(verdict, b);
+    comptes.appendChild(b);
+  });
+  const tous = document.createElement('button');
+  tous.className = 'compte actif';
+  tous.innerHTML = `tout <b>${lues}</b>`;
+  tous.onclick = () => filtrer(null, tous);
+  comptes.prepend(tous);
+  filtrer(null, tous);
+  // La spec l'exige : ce qui n'a pas été lu doit être visible, pas compté en silence.
+  const nonLues = document.getElementById('non-lues');
+  const restes = donnees.lignes_non_lues || [];
+  if (restes.length) {
+    nonLues.innerHTML = '<h2>Lignes déclarées non lues</h2><ul>' +
+      restes.map(l => `<li><code>${esc(l)}</code></li>`).join('') + '</ul>';
+    nonLues.hidden = false;
+  } else {
+    nonLues.hidden = true; nonLues.innerHTML = '';
+  }
+  tableau.hidden = false;
+  pied.textContent = donnees.entete
+    ? `Facture ${donnees.entete.numero || '—'} du ${donnees.entete.date_facture || '—'}, ` +
+      `dépôt ${donnees.entete.depot || '—'}.`
+    : '';
+}
+
+function filtrer(verdict, bouton) {
+  document.querySelectorAll('.compte').forEach(b => b.classList.remove('actif'));
+  bouton.classList.add('actif');
+  corps.innerHTML = '';
+  propositions.filter(p => !verdict || p.verdict === verdict).forEach(p => {
+    const ligne = document.createElement('tr');
+    const reserve = (p.statut_rattachement === 'A_VERIFIER')
+      ? '<span class="reserve">réserve A_VERIFIER</span>' : '';
+    ligne.innerHTML =
+      `<td>${esc(p.article)}</td>` +
+      `<td>${esc((p.designation || '').trim())}</td>` +
+      `<td>${esc(p.id_matiere || '—')}</td>` +
+      `<td class="num">${p.prix_eur_par_kg === null ? '—' : p.prix_eur_par_kg.toFixed(3)}</td>` +
+      `<td class="v ${p.verdict}">${p.verdict}${reserve}</td>` +
+      `<td class="raison">${esc(p.raison)}${p.alternative ? ' — ' + esc(p.alternative.source_id) : ''}</td>`;
+    corps.appendChild(ligne);
+  });
+}
+</script>
+</body>
+</html>
