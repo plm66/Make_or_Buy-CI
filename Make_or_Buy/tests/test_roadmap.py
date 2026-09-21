@@ -94,6 +94,27 @@ def test_le_compte_d_invariants_annonce_est_le_vrai():
     assert f"**{reel}**" in README, reel
 
 
+def test_le_moteur_ne_consomme_toujours_pas_les_prix_mesures():
+    """Le jalon 4 annonce « l'instrument est fait, le branchement non ».
+
+    La moitie faite se voit : comparaison_factures.py produit 69 observations de prix
+    matiere. La moitie manquante ne se voit nulle part — c'est une absence, et une absence
+    ne rougit jamais toute seule. Le jour ou quelqu'un branche ces observations sur le
+    moteur, la feuille de route continuerait d'annoncer un blocage leve.
+
+    Ce test transforme le branchement en evenement : il casse quand le cablage apparait,
+    et force a relire le jalon avant de continuer.
+    """
+    module = "comparaison_factures"
+    consommateurs = [ROOT / "product_tool.py", ROOT / "generics_tool.py"]
+    consommateurs += sorted((ROOT / "src").rglob("*.py"))
+    branches = [p.name for p in consommateurs
+                if module in p.read_text(encoding="utf-8")]
+    assert not branches, (
+        "le moteur consomme desormais les prix mesures — mettre a jour le jalon 4", branches)
+    assert "l'instrument est fait, le branchement non" in ROADMAP
+
+
 def test_les_liens_internes_pointent_vers_des_fichiers_reels():
     """Un lien mort dans la page d'accueil envoie le lecteur nulle part et ne casse rien.
     Ici il casse."""

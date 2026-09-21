@@ -8,9 +8,10 @@ débloque le suivant, et aucun ne peut être devancé sans fabriquer un chiffre.
 ## Où on en est, sans ménagement
 
 Le moteur sait arbitrer. La doctrine est versionnée. Le référentiel porte 38 matières et
-384 prix réellement payés sur six mois de factures.
+384 prix réellement payés sur six mois de factures, dont le module `comparaison_factures.py`
+sait tirer 69 observations de prix matière et 175 mesures de dérive.
 
-**Et zéro produit n'est arbitrable.**
+**Et zéro produit n'est arbitrable**, parce que rien de tout cela n'arrive jusqu'au moteur.
 
 ```
 catalogue                    1 produit
@@ -87,13 +88,41 @@ Deux manques connus à lever au passage :
   matière grasse alors que `MATP-BEUR-DOUX` en exige 82 %. Se lit sur l'étiquette, pas sur
   la facture.
 
-### Jalon 4 — Le prix n'est pas un nombre
+### Jalon 4 — Le prix n'est pas un nombre · **l'instrument est fait, le branchement non**
 
 Le beurre a varié de **6,04 à 7,40 €/kg en six mois, 23 %**, tendance baissière, avec trois
-remises de volume déjà obtenues. `engine.py` lit une constante tapée à la main.
+remises de volume déjà obtenues. Une matière porte donc une **série datée**, pas un prix.
 
-Une matière porte une **série datée**, pas un prix. Le moteur doit demander « combien à telle
-date » ou « médiane sur N mois », et dire lequel il a pris.
+**Fait** — `comparaison_factures.py` sait mesurer cette série :
+
+| | |
+|---|---|
+| dérive d'un article entre deux factures | 175 comparaisons sur 20 factures |
+| prix au kilo, refusé quand le conditionnement est illisible | 24 accords sur 24, jugés par le prix imprimé |
+| observations de prix matière | 69 observations sur 12 matières |
+
+```bash
+python3 comparaison_factures.py derive --top 10
+python3 comparaison_factures.py observations --out <chemin>
+```
+
+**Pas fait** — rien ne consomme ces observations. `engine.py` lit toujours
+`avoidable_cost_eur` et `landed_cost_eur` écrits à la main dans la fiche produit ; aucun
+appel vers ce module n'existe dans `src/`, `product_tool.py` ni `generics_tool.py`.
+
+Deux décisions avant de brancher, et l'outil refuse volontairement de les prendre pour nous
+— `observations` n'a aucun chemin de sortie par défaut, parce que l'emplacement de la couche
+de prix est un arbitrage, pas une commodité :
+
+1. **Où vit la série.** Un fichier daté sous `data/price_observations/`, comme les relevés
+   fournisseur ? Ou une couche distincte, puisqu'un prix matière n'est pas un relevé
+   catalogue mais une déduction faite sur nos propres factures ?
+2. **Quelle valeur le moteur retient.** Le dernier prix payé, la médiane sur N mois, ou le
+   prix à une date donnée. Quelle qu'elle soit, la fiche doit **dire laquelle** — un coût
+   qui ne déclare pas sa règle de sélection n'est pas auditable.
+
+Tant que ce branchement n'existe pas, le jalon 4 ne débloque rien du jalon 3 : le croissant
+sera chiffré sur un prix choisi à la main, comme avant.
 
 ### Jalon 5 — Les recettes
 
