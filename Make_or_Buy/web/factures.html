@@ -79,6 +79,7 @@ const comptes = document.getElementById('comptes');
 const tableau = document.getElementById('tableau');
 const corps = tableau.querySelector('tbody');
 const pied = document.getElementById('pied');
+const blocNonLues = document.getElementById('non-lues');
 let propositions = [];
 
 // Une désignation vient du texte d'un PDF : elle peut porter <, &, ou une apostrophe
@@ -137,14 +138,18 @@ function afficher(donnees) {
   comptes.prepend(tous);
   filtrer(null, tous);
   // La spec l'exige : ce qui n'a pas été lu doit être visible, pas compté en silence.
-  const nonLues = document.getElementById('non-lues');
+  // Avant correctif : ce bloc reprenait `const nonLues`, déjà pris en tête de fonction par
+  // le compte. Deux `const` du même nom dans une portée est une erreur de parsing, donc le
+  // <script> entier était rejeté : aucun écouteur lié, la page restait inerte au dépôt d'un
+  // PDF. Aucun test ne l'a vu — les 188 invariants sont en Python, aucun ne lit ce JS.
+  // Après : le nœud est pris une fois au chargement, comme les autres.
   const restes = donnees.lignes_non_lues || [];
   if (restes.length) {
-    nonLues.innerHTML = '<h2>Lignes déclarées non lues</h2><ul>' +
+    blocNonLues.innerHTML = '<h2>Lignes déclarées non lues</h2><ul>' +
       restes.map(l => `<li><code>${esc(l)}</code></li>`).join('') + '</ul>';
-    nonLues.hidden = false;
+    blocNonLues.hidden = false;
   } else {
-    nonLues.hidden = true; nonLues.innerHTML = '';
+    blocNonLues.hidden = true; blocNonLues.innerHTML = '';
   }
   tableau.hidden = false;
   pied.textContent = donnees.entete

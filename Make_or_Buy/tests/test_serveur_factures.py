@@ -122,7 +122,7 @@ def test_la_page_echappe_tout_texte_venu_du_pdf():
     assert "const esc" in page, "aucune fonction d'échappement"
     nus = _champs_sans_echappement(page, "ligne.innerHTML =")
     assert nus == [], f"champs du PDF injectés sans échappement : {nus}"
-    non_lues = _bloc(page, "nonLues.innerHTML =")
+    non_lues = _bloc(page, "blocNonLues.innerHTML =")
     assert "esc(l)" in non_lues and "${l}" not in non_lues, non_lues
 
 
