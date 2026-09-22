@@ -1,0 +1,72 @@
+{
+  "dataset": "MARKET_PRICE_ALTERNATIVES",
+  "version": "1.0.0",
+  "observed_at": "2026-09-22",
+  "description": "Alternatives de marche et benchmarks pour confrontation de factures",
+  "consumer_rule": "Ces prix sont dates et normalises a unite alignee. Les benchmarks de recherche indiquent ce que le marche propose et ne valent pas autorisation d achat sans homologation.",
+  "alternatives": {
+    "MATP-BEUR-DOUX": [
+      {
+        "source_id": "foodomarket_marche",
+        "nom_produit": "Beurre doux 82% pasteurise",
+        "prix_eur_par_kg": 6.20,
+        "unite": "EUR/kg",
+        "date": "2026-09-15",
+        "type": "BENCHMARK_PUBLIC"
+      }
+    ],
+    "MATP-BEUR-HUIL": [
+      {
+        "source_id": "grossiste_idf",
+        "nom_produit": "Huile de tournesol bidon 5L",
+        "prix_normalise": 1.75,
+        "prix_eur_par_kg": null,
+        "unite": "EUR/L",
+        "date": "2026-09-10",
+        "type": "BENCHMARK_PUBLIC"
+      }
+    ],
+    "MATP-FARI-T65": [
+      {
+        "source_id": "moulin_coop",
+        "nom_produit": "Farine panifiable T65 sac 25kg",
+        "prix_eur_par_kg": 0.65,
+        "unite": "EUR/kg",
+        "date": "2026-08-20",
+        "type": "FOURNISSEUR_HOMOLOGUE"
+      }
+    ],
+    "MATP-SUCR-SEMO": [
+      {
+        "source_id": "transgourmet_marche",
+        "nom_produit": "Sucre semoule sac 25kg",
+        "prix_eur_par_kg": 1.05,
+        "unite": "EUR/kg",
+        "date": "2026-09-01",
+        "type": "BENCHMARK_PUBLIC"
+      }
+    ],
+    "MATP-LIQU-EAU": [
+      {
+        "source_id": "halal_food_service",
+        "nom_produit": "Cristaline 24 x 50cl",
+        "prix_normalise": 0.583,
+        "prix_eur_par_kg": null,
+        "unite": "EUR/L",
+        "date": "2026-09-13",
+        "type": "BENCHMARK_PUBLIC"
+      }
+    ],
+    "2694164": [
+      {
+        "source_id": "halal_food_service",
+        "nom_produit": "Pepsi Cola Slim 24 x 33cl",
+        "prix_normalise": 1.451,
+        "prix_eur_par_kg": null,
+        "unite": "EUR/L",
+        "date": "2026-09-13",
+        "type": "BENCHMARK_PUBLIC"
+      }
+    ]
+  }
+}

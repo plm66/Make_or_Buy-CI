@@ -36,9 +36,9 @@ choisie.
 |---|---|
 | matières premières au référentiel | **38** |
 | prix réellement payés, relevés sur facture | **384 lignes**, mars → septembre 2026 |
-| articles rattachés à une matière | **24** (15 lus, 9 à vérifier) |
+| articles rattachés à une matière | **46** (17 lus, 22 à vérifier, 7 hors périmètre) |
 | fournisseurs au registre | **13** |
-| invariants exécutables | **195** |
+| invariants exécutables | **199** |
 | **gestes chronométrés** | **0 / 21** ← le blocage |
 | **produits arbitrables** | **0** |
 

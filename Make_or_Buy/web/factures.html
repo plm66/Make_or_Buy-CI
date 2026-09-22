@@ -67,7 +67,7 @@ Le document ne quitte pas cette machine, et aucun fichier du dépôt n'est modif
 <table id="tableau" hidden>
   <thead><tr>
     <th>Article</th><th>Désignation</th><th>Matière</th>
-    <th class="num">EUR/kg</th><th>Proposition</th><th>Raison</th>
+    <th class="num">EUR/kg ou L</th><th>Proposition</th><th>Raison</th>
   </tr></thead>
   <tbody></tbody>
 </table>
@@ -79,33 +79,28 @@ Le document ne quitte pas cette machine, et aucun fichier du dépôt n'est modif
 
 <script>
 const depot = document.getElementById('depot');
-const champ = document.getElementById('fichier');
+const input = document.getElementById('fichier');
 const etat = document.getElementById('etat');
+const blocNonLues = document.getElementById('non-lues');
 const comptes = document.getElementById('comptes');
 const tableau = document.getElementById('tableau');
 const corps = tableau.querySelector('tbody');
 const pied = document.getElementById('pied');
-const blocNonLues = document.getElementById('non-lues');
+
 let propositions = [];
 
-// Une désignation vient du texte d'un PDF : elle peut porter <, &, ou une apostrophe
-// courbe. Injectée telle quelle, elle casserait le tableau et ferait disparaître des
-// lignes — exactement le défaut qu'on reproche aux chiffres muets, en version affichage.
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
-  ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+const esc = s => (s == null ? '' : String(s))
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-depot.onclick = () => champ.click();
-champ.onchange = () => champ.files[0] && envoyer(champ.files[0]);
-['dragenter','dragover'].forEach(e => depot.addEventListener(e, ev => {
-  ev.preventDefault(); depot.classList.add('survol');
-}));
-['dragleave','drop'].forEach(e => depot.addEventListener(e, ev => {
-  ev.preventDefault(); depot.classList.remove('survol');
-}));
-depot.addEventListener('drop', ev => {
-  const f = ev.dataTransfer.files[0];
-  if (f) { champ.files = ev.dataTransfer.files; envoyer(f); }
-});
+depot.onclick = () => input.click();
+input.onchange = () => { if (input.files[0]) envoyer(input.files[0]); };
+depot.ondragover = e => { e.preventDefault(); depot.classList.add('survol'); };
+depot.ondragleave = () => depot.classList.remove('survol');
+depot.ondrop = e => {
+  e.preventDefault(); depot.classList.remove('survol');
+  if (e.dataTransfer.files[0]) envoyer(e.dataTransfer.files[0]);
+};
 
 async function envoyer(fichier) {
   etat.textContent = `Lecture de ${fichier.name}…`;
@@ -143,12 +138,6 @@ function afficher(donnees) {
   tous.onclick = () => filtrer(null, tous);
   comptes.prepend(tous);
   filtrer(null, tous);
-  // La spec l'exige : ce qui n'a pas été lu doit être visible, pas compté en silence.
-  // Avant correctif : ce bloc reprenait `const nonLues`, déjà pris en tête de fonction par
-  // le compte. Deux `const` du même nom dans une portée est une erreur de parsing, donc le
-  // <script> entier était rejeté : aucun écouteur lié, la page restait inerte au dépôt d'un
-  // PDF. Aucun test ne l'a vu — les 188 invariants sont en Python, aucun ne lit ce JS.
-  // Après : le nœud est pris une fois au chargement, comme les autres.
   const restes = donnees.lignes_non_lues || [];
   if (restes.length) {
     blocNonLues.innerHTML = '<h2>Lignes déclarées non lues</h2><ul>' +
@@ -172,11 +161,14 @@ function filtrer(verdict, bouton) {
     const ligne = document.createElement('tr');
     const reserve = (p.statut_rattachement === 'A_VERIFIER')
       ? '<span class="reserve">réserve A_VERIFIER</span>' : '';
+    const prixTxt = (p.prix_normalise !== null && p.prix_normalise !== undefined)
+      ? p.prix_normalise.toFixed(3) + (p.unite ? ' <small>' + esc(p.unite) + '</small>' : '')
+      : (p.prix_eur_par_kg === null || p.prix_eur_par_kg === undefined ? '—' : p.prix_eur_par_kg.toFixed(3));
     ligne.innerHTML =
       `<td>${esc(p.article)}</td>` +
       `<td>${esc((p.designation || '').trim())}</td>` +
       `<td>${esc(p.id_matiere || '—')}</td>` +
-      `<td class="num">${p.prix_eur_par_kg === null ? '—' : p.prix_eur_par_kg.toFixed(3)}</td>` +
+      `<td class="num">${prixTxt}</td>` +
       `<td class="v ${p.verdict}">${p.verdict}${reserve}</td>` +
       `<td class="raison">${esc(p.raison)}${p.alternative ? ' — ' + esc(p.alternative.source_id) : ''}</td>`;
     corps.appendChild(ligne);

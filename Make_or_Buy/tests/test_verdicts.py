@@ -134,7 +134,7 @@ def test_aucun_changement_sans_prix_alternatif_sur_les_donnees_reelles():
     changements = [v for v in propositions if v["verdict"] == cf.CHANGER]
     assert changements == [], changements
     garders = [v for v in propositions if v["verdict"] == cf.GARDER]
-    assert all(v["prix_eur_par_kg"] for v in garders), garders[:3]
+    assert all(v.get("prix_normalise") or v.get("prix_eur_par_kg") for v in garders), garders[:3]
     assert all(v["statut_rattachement"] == "ACTIF" for v in garders), garders[:3]
 
 

@@ -120,6 +120,41 @@ def test_le_prix_imprime_par_la_facture_confirme_la_lecture():
     assert juges >= 10, f"seulement {juges} lignes jugées, le test ne prouve presque rien"
 
 
+def test_un_volume_liquide_se_lit_en_millilitres():
+    """`5L`, `33CL` et `50CL` sont convertis en millilitres."""
+    assert cf.volume_total_ml("MAUREL HLE TOURNESOL 5L") == 5000
+    assert cf.volume_total_ml("CAPRISUN MANG PASSION 33CL") == 330
+    assert cf.volume_total_ml("CRISTALI 50CL PET") == 500
+    assert cf.volume_total_ml("CREME UHT 35% 1L BK MC") == 1000
+
+
+def test_le_prix_au_litre_exige_un_volume_connu():
+    """Sans volume lisible, aucun prix au litre n'est rendu."""
+    assert cf.prix_au_litre({"designation": "MP CASSEROLE INOX D28CM", "prix_unitaire_ht": 42.87}) is None
+    creme = cf.prix_au_litre({"designation": "PREPA TIRAMISU MASCAR. 1L GALB", "prix_unitaire_ht": 7.95, "colisage": 1})
+    assert creme == {"valeur": 7.95, "source": "DESIGNATION_SIMPLE", "volume_ml": 1000}, creme
+
+
+def test_le_prix_imprime_confirme_la_lecture_au_litre():
+    """Sur les boissons ou METRO imprime EUR/L, notre lecture s'aligne sur le document."""
+    pepsi = {"designation": "PEPSI REGULAR SLIM 33CL", "prix_unitaire_ht": 0.454,
+             "prix_unite_normalisee": 1.376, "colisage": 24}
+    assert cf.prix_au_litre(pepsi)["valeur"] == 1.376
+    cristali = {"designation": "CRISTALI 50CL PET", "prix_unitaire_ht": 0.128,
+                "prix_unite_normalisee": 0.256, "colisage": 24}
+    assert cf.prix_au_litre(cristali)["valeur"] == 0.256
+
+
+def test_prix_normalise_distingue_kilo_et_litre():
+    """La fonction unifiee porte l'unite exacte : EUR/kg pour solide, EUR/L pour liquide."""
+    beurre = cf.prix_normalise({"designation": "BEURRE DX 500G MA PAYSANNE", "prix_unitaire_ht": 3.65})
+    assert beurre["unite"] == "EUR/kg"
+    assert beurre["valeur"] == 7.3
+    huile = cf.prix_normalise({"designation": "MAUREL HLE TOURNESOL 5L", "prix_unitaire_ht": 1.998, "colisage": 5})
+    assert huile["unite"] == "EUR/L"
+    assert huile["valeur"] == 1.998
+
+
 if __name__ == "__main__":
     for nom, fn in sorted(globals().items()):
         if nom.startswith("test_"):

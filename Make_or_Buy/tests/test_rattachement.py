@@ -29,6 +29,9 @@ def test_chaque_id_matiere_existe():
     """
     connus = {m["id_matiere"] for m in _csv(MATIERES)}
     for r in _csv(TABLE):
+        if r["statut"] == "HORS_PERIMETRE":
+            assert r["id_matiere"] == "", f"ligne HORS_PERIMETRE ne doit pas porter d id_matiere: {r}"
+            continue
         assert r["id_matiere"] in connus, (r["article_metro"], r["id_matiere"])
 
 
@@ -51,7 +54,7 @@ def test_un_rattachement_incertain_ne_se_declare_pas_certain():
     l'etage du rattachement.
     """
     for r in _csv(TABLE):
-        assert r["statut"] in ("ACTIF", "A_VERIFIER"), (r["article_metro"], r["statut"])
+        assert r["statut"] in ("ACTIF", "A_VERIFIER", "HORS_PERIMETRE"), (r["article_metro"], r["statut"])
         assert r["note"].strip(), r["article_metro"]
 
 
