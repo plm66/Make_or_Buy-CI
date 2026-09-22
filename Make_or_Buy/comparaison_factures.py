@@ -361,26 +361,52 @@ NON_RATTACHE = "NON_RATTACHE"
 STATUT_HORS_PERIMETRE = "HORS_PERIMETRE"
 
 
-def _alternative_moins_chere(prix, options):
-    """L'option la moins chere, chiffree et datee, strictement sous le prix paye.
+def _alternative_unite(opt):
+    """Determine l'unite de l'alternative de marche."""
+    if opt.get("unite"):
+        return opt["unite"]
+    if opt.get("prix_eur_par_kg") is not None:
+        return "EUR/kg"
+    if opt.get("prix_au_litre") is not None:
+        return "EUR/L"
+    if opt.get("prix_piece") is not None:
+        return "EUR/piece"
+    return None
+
+
+def _valeur_alternative(opt):
+    """Valeur numerique du prix de l'alternative."""
+    if opt.get("prix_eur_par_kg") is not None:
+        return opt["prix_eur_par_kg"]
+    if opt.get("prix_au_litre") is not None:
+        return opt["prix_au_litre"]
+    if opt.get("prix_normalise") is not None:
+        return opt["prix_normalise"]
+    return None
+
+
+def _alternative_moins_chere(prix, options, unite_cible=None):
+    """L'option la moins chere, chiffree, datee et de meme unite que la ligne.
 
     Une option sans prix ne compte pas : elle ne permet pas de trancher, et un verdict de
-    changement sans prix serait une opinion. Une option plus chere non plus.
+    changement sans prix serait une opinion. Une option d'une unite differente est ecartee.
     """
     if prix is None or not options:
         return None
-    chiffrees = [
-        o for o in options
-        if (o.get("prix_eur_par_kg") is not None or o.get("prix_normalise") is not None) and o.get("date")
-    ]
+    chiffrees = []
+    for o in options:
+        if not o.get("date"):
+            continue
+        u = _alternative_unite(o)
+        if unite_cible and u != unite_cible:
+            continue
+        v = _valeur_alternative(o)
+        if v is not None:
+            chiffrees.append((v, o))
     if not chiffrees:
         return None
-
-    def _val(o):
-        return o["prix_eur_par_kg"] if o.get("prix_eur_par_kg") is not None else o["prix_normalise"]
-
-    meilleure = min(chiffrees, key=_val)
-    return meilleure if _val(meilleure) < prix else None
+    meilleure_val, meilleure_opt = min(chiffrees, key=lambda t: t[0])
+    return meilleure_opt if meilleure_val < prix else None
 
 
 def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
@@ -411,24 +437,46 @@ def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
 
     if not (lien or {}).get("id_matiere"):
         if (lien or {}).get("statut") == STATUT_HORS_PERIMETRE:
-            verdict.update(verdict=HORS_PERIMETRE, raison="NON_ALIMENTAIRE")
+            note = ((lien or {}).get("note") or "").lower()
+            raison_hors = "REVENTE_DIRECTE" if "revente" in note else "NON_ALIMENTAIRE"
+            # Un article hors fabrication peut etre confronte a une alternative grossiste directe
+            options_article = (alternatives or {}).get(ligne.get("article")) or []
+            if options_article and prix_valeur is not None:
+                unite_ligne = norm["unite"] if norm else None
+                chiffrees_meme_unite = [
+                    o for o in options_article
+                    if _valeur_alternative(o) is not None and o.get("date") and (_alternative_unite(o) == unite_ligne)
+                ]
+                meilleure = _alternative_moins_chere(prix_valeur, options_article, unite_cible=unite_ligne)
+                if meilleure:
+                    verdict.update(verdict=CHANGER, raison="ALTERNATIVE_MOINS_CHERE", alternative=meilleure)
+                    return verdict
+                elif chiffrees_meme_unite:
+                    verdict.update(verdict=GARDER, raison="ALTERNATIVE_PLUS_CHEREE")
+                    return verdict
+            verdict.update(verdict=HORS_PERIMETRE, raison=raison_hors)
         else:
             verdict.update(verdict=NON_RATTACHE, raison="ARTICLE_ABSENT_DU_RATTACHEMENT")
         return verdict
 
-    # Unité attendue pour la matière première
+    # Unite attendue pour la matiere premiere
     unite_attendue = (matiere or {}).get("unite_achat")
     if not unite_attendue:
         id_mat = (lien.get("id_matiere") or "")
         if id_mat.startswith("MATP-LIQU") or "HUIL" in id_mat or id_mat.startswith("MATP-LAIT"):
             unite_attendue = "L"
+        elif id_mat in ("MATP-OEUF-ENTI", "MATP-AROM-VAGO"):
+            unite_attendue = "piece"
         else:
             unite_attendue = "kg"
 
-    if unite_attendue == "kg" and prix_kilo is None:
+    if unite_attendue == "kg" and (prix_kilo is None or (norm and norm.get("unite") != "EUR/kg")):
         verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
         return verdict
-    elif unite_attendue == "L" and prix_au_litre(ligne) is None:
+    elif unite_attendue == "L" and (prix_au_litre(ligne) is None or (norm and norm.get("unite") != "EUR/L")):
+        verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
+        return verdict
+    elif unite_attendue == "piece" and (norm is None or norm.get("unite") != "EUR/piece"):
         verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
         return verdict
     elif prix_valeur is None:
@@ -439,15 +487,16 @@ def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
         verdict.update(verdict=A_ARBITRER, raison="RESERVE_A_VERIFIER")
         return verdict
 
+    unite_ligne = norm["unite"] if norm else None
     options = (alternatives or {}).get(lien["id_matiere"]) or (alternatives or {}).get(ligne.get("article")) or []
-    chiffrees = [
+    chiffrees_meme_unite = [
         o for o in options
-        if (o.get("prix_eur_par_kg") is not None or o.get("prix_normalise") is not None) and o.get("date")
+        if _valeur_alternative(o) is not None and o.get("date") and (_alternative_unite(o) == unite_ligne)
     ]
-    meilleure = _alternative_moins_chere(prix_valeur, options)
+    meilleure = _alternative_moins_chere(prix_valeur, options, unite_cible=unite_ligne)
     if meilleure:
         verdict.update(verdict=CHANGER, raison="ALTERNATIVE_MOINS_CHERE", alternative=meilleure)
-    elif chiffrees:
+    elif chiffrees_meme_unite:
         verdict.update(verdict=GARDER, raison="ALTERNATIVE_PLUS_CHEREE")
     else:
         verdict.update(verdict=GARDER, raison="AUCUNE_ALTERNATIVE_CHIFFREE")

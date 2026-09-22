@@ -138,6 +138,54 @@ def test_aucun_changement_sans_prix_alternatif_sur_les_donnees_reelles():
     assert all(v["statut_rattachement"] == "ACTIF" for v in garders), garders[:3]
 
 
+def test_une_alternative_d_unite_differente_ne_produit_aucun_changement():
+    """Une alternative en EUR/piece ne se compare pas a du EUR/kg ou EUR/L."""
+    lien = {"article_metro": "2422798", "id_matiere": "MATP-FARI-T65", "statut": "ACTIF"}
+    v = cf.verdict_ligne(ligne(), lien,
+                         alternatives={"MATP-FARI-T65": [{"source_id": "autre", "prix_normalise": 0.10, "unite": "EUR/piece", "date": "2026-08-15"}]})
+    assert v["verdict"] == cf.GARDER, v
+    assert v["raison"] == "AUCUNE_ALTERNATIVE_CHIFFREE", v
+
+
+def test_une_matiere_en_piece_exige_un_prix_piece():
+    """MATP-OEUF-ENTI attend des pieces. Un conditionnement en kg est illisible pour elle."""
+    lien = {"article_metro": "1234567", "id_matiere": "MATP-OEUF-ENTI", "statut": "ACTIF"}
+    matiere = {"unite_achat": "piece"}
+    v = cf.verdict_ligne(ligne(designation="MC OEUFS FRAIS 5KG", prix_unitaire_ht=15.0), lien, matiere=matiere)
+    assert v["verdict"] == cf.A_ARBITRER, v
+    assert v["raison"] == "CONDITIONNEMENT_ILLISIBLE", v
+
+
+def test_revente_directe_distinguee_de_non_alimentaire():
+    """Une boisson ou fruit de revente sort en REVENTE_DIRECTE, pas NON_ALIMENTAIRE."""
+    lien_revente = {"article_metro": "2694164", "id_matiere": "", "statut": "HORS_PERIMETRE", "note": "boisson revente directe"}
+    v = cf.verdict_ligne(ligne(article="2694164", designation="PEPSI REGULAR SLIM 33CL"), lien_revente)
+    assert v["verdict"] == cf.HORS_PERIMETRE, v
+    assert v["raison"] == "REVENTE_DIRECTE", v
+
+
+def test_revente_directe_peut_confronter_une_alternative_grossiste():
+    """Un article de revente peut etre compare par son numero d'article."""
+    lien = {"article_metro": "2694164", "id_matiere": "", "statut": "HORS_PERIMETRE", "note": "boisson revente directe"}
+    l = ligne(article="2694164", designation="PEPSI REGULAR SLIM 33CL", prix_unitaire_ht=0.454,
+              colisage=24, prix_unite_normalisee=1.376)
+    alt = {"source_id": "halal_food_service", "prix_normalise": 1.150, "unite": "EUR/L", "date": "2026-09-13"}
+    v = cf.verdict_ligne(l, lien, alternatives={"2694164": [alt]})
+    assert v["verdict"] == cf.CHANGER, v
+    assert v["raison"] == "ALTERNATIVE_MOINS_CHERE", v
+    assert v["alternative"] == alt, v
+
+
+def test_toutes_les_alternatives_de_marche_citent_une_source_enregistree():
+    """Toute source d'alternative doit exister dans supplier_price_sources.registry.json."""
+    registre_sources = json.loads((RACINE / "data/supplier_price_sources/supplier_price_sources.registry.json").read_text())
+    sources_connues = {s["price_source_id"] for s in registre_sources["sources"]}
+    alternatives = cf.charger_alternatives()
+    for cle, liste in alternatives.items():
+        for alt in liste:
+            assert alt["source_id"] in sources_connues, (cle, alt["source_id"])
+
+
 if __name__ == "__main__":
     for nom, fn in sorted(globals().items()):
         if nom.startswith("test_"):
