@@ -23,3 +23,25 @@ article_metro;id_matiere;statut;designation_facture;achats;depense_ht;note
 2371425;MATP-CHOC-NOIR;A_VERIFIER;MC GOUTTES 7500 NR 50% 5KG;3;139.47;gouttes 50%; forme goutte, couverture non ecrite
 2914844;MATP-CHOC-LAIT;A_VERIFIER;ARO CHOCO LAIT 5*100GRS;1;11.13;tablettes 100g; couverture non ecrite
 0327460;MATP-AROM-VAAR;A_VERIFIER;METRO CHEF AROME VANILLE 1L;4;20.96;arome vanille; artificiel non ecrit, distingue de l extrait naturel
+0153098;MATP-BEUR-HUIL;ACTIF;MAUREL HLE TOURNESOL 5L;1;9.99;huile tournesol neutre 5L
+3148905;MATP-LAIT-CRVE;ACTIF;PREP VEG SUCR 1L VEGETOP DEBIC;1;4.30;preparation vegetale a foisonner
+1104769;MATP-SELS-FIN;A_VERIFIER;GROS SEL ILE NOIMOUTIER 5KG;1;7.64;gros sel; le referentiel porte sel fin, granulometrie differente
+0050757;MATP-LAIT-CREM;A_VERIFIER;PREPA TIRAMISU MASCAR. 1L GALB;7;55.65;preparation mascarpone tiramisu a base de creme
+0244624;MATP-FRUI-FRPU;A_VERIFIER;NAP ABRICOT POT 1KG MARGUERITE;4;29.90;nappage abricot; le referentiel porte puree
+2543940;MATP-CHOC-CONF;A_VERIFIER;OREO BRISURES SANS CREME 400G;3;13.32;brisures biscuit cacao type Oreo
+2470334;MATP-FRUI-FRPU;A_VERIFIER;METRO CHEF OREIL. ABRICOT 4/4;3;50.30;oreillons abricot au sirop; le referentiel porte puree
+2472249;MATP-FRUI-FRPU;A_VERIFIER;METRO CHEF DEMI-POIRES 4/4;4;71.14;demi-poires au sirop; le referentiel porte puree
+0512202;MATP-FRUI-FRPU;A_VERIFIER;FRAISE 500G BQ8 C1 BEBELGIQUE;3;14.97;fraise fraiche en barquette; le referentiel porte puree
+7113632;MATP-FRUI-FRPU;A_VERIFIER;FRAMBOISE 125G BQ12 C1 FR FRANCE;1;1.99;framboise fraiche en barquette; le referentiel porte puree
+3135829;MATP-FARI-T65;A_VERIFIER;SEMOULE EXTRA FINE 5KG;1;6.08;semoule extra fine de ble dur; le referentiel porte farine T65
+0261156;MATP-FARI-T65;A_VERIFIER;PDT CELTIANE CAL 35+ 2 CT3;2;7.38;pomme de terre tubercule maraicher
+0680025;MATP-FRUI-FRPU;A_VERIFIER;SALADE ICEBERG 1 KG MC UE HUE;1;3.49;salade iceberg legume frais maraicher
+2021418;MATP-LIQU-EAU;A_VERIFIER;ROCHE DES ECRINS PET 50CL;7;32.42;eau minerale embouteillee PET 50cl
+2025070;MATP-LIQU-EAU;A_VERIFIER;CRISTALI 50CL PET;3;10.49;eau de source embouteillee PET 50cl
+2819431;;HORS_PERIMETRE;CAPRISUN MANG PASSION 33CL;1;14.23;boisson revente directe poche 33cl
+2200434;;HORS_PERIMETRE;FUZETEA PECHE BOITE 33CL SLIM;2;20.26;boisson revente directe canette 33cl
+2464592;;HORS_PERIMETRE;LIPTON PECHE BTE 33CL SLIM;4;39.12;boisson revente directe canette 33cl
+2694164;;HORS_PERIMETRE;PEPSI REGULAR SLIM 33CL;7;73.66;boisson revente directe canette 33cl
+7614811;;HORS_PERIMETRE;MELON DINO BOLLO PC6 ES ESPAGNE;1;2.69;colis maraicher 6 pieces revente
+7631260;;HORS_PERIMETRE;PAST ORANGE S/P BOUQUET C.6 PC6 C1 ES ESPAGNE;1;6.49;colis maraicher 6 pieces revente
+7636798;;HORS_PERIMETRE;MANGUE PALMER AVION C.10 PC10 BR BRESIL;1;3.79;colis maraicher 10 pieces revente

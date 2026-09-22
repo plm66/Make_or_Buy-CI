@@ -44,9 +44,23 @@ TAILLE = re.compile(r"(\d+(?:[.,]\d+)?)\s*(KG|KILOS?|G|GRS?)\b")
 MULT_AVANT = re.compile(r"(\d+)\s*[*xX]\s*(\d+(?:[.,]\d+)?)\s*(KG|KILOS?|G|GRS?)\b")
 MULT_APRES = re.compile(r"(\d+(?:[.,]\d+)?)\s*(KG|KILOS?|G|GRS?)\s*[*xX]\s*(\d+)\b")
 
+VOLUME = re.compile(r"(\d+(?:[.,]\d+)?)\s*(L|LITRES?|CL|ML)\b")
+MULT_VOLUME_AVANT = re.compile(r"(\d+)\s*[*xX]\s*(\d+(?:[.,]\d+)?)\s*(L|LITRES?|CL|ML)\b")
+MULT_VOLUME_APRES = re.compile(r"(\d+(?:[.,]\d+)?)\s*(L|LITRES?|CL|ML)\s*[*xX]\s*(\d+)\b")
+
 
 def _grammes(valeur, unite):
     return float(valeur.replace(",", ".")) * (1000 if unite.startswith("K") else 1)
+
+
+def _millilitres(valeur, unite):
+    v = float(valeur.replace(",", "."))
+    u = unite.upper()
+    if u.startswith("L"):
+        return v * 1000
+    elif u.startswith("CL"):
+        return v * 10
+    return v
 
 
 def poids_total_g(designation):
@@ -123,6 +137,96 @@ def prix_au_kilo(ligne):
     if derive is None:
         return None
     return {"valeur": derive, "source": "DESIGNATION_SIMPLE", "poids_g": poids}
+
+
+def volume_total_ml(designation):
+    """Volume total du conditionnement liquide en millilitres, ou None si muet."""
+    texte = (designation or "").upper()
+    volumes = [_millilitres(valeur, unite) for valeur, unite in VOLUME.findall(texte)]
+    volumes += [_millilitres(valeur, unite) * int(n) for n, valeur, unite in MULT_VOLUME_AVANT.findall(texte)]
+    volumes += [_millilitres(valeur, unite) * int(n) for valeur, unite, n in MULT_VOLUME_APRES.findall(texte)]
+    return max(volumes) if volumes else None
+
+
+def volume_unite_facturee_ml(ligne):
+    """Volume de l'unite facturee en millilitres."""
+    vol_pack = volume_total_ml(ligne.get("designation"))
+    if vol_pack is None:
+        return None
+    colisage = ligne.get("colisage") or 1
+    if colisage <= 0:
+        return None
+    # Si le colisage correspond aux litres du pack (ex: 5 pour 5L), l'unite est le litre (1000 mL)
+    if abs(colisage - (vol_pack / 1000)) < 1e-4:
+        return 1000.0
+    return vol_pack
+
+
+def prix_derive_au_litre(ligne):
+    """Prix au litre deduit de la designation seule."""
+    designation = (ligne.get("designation") or "").upper()
+    vol = volume_unite_facturee_ml(ligne)
+    if vol is None or MARQUEUR_COLIS.search(designation):
+        return None
+    prix, _ = _prix(ligne)
+    return round(prix / (vol / 1000), 4) if prix else None
+
+
+def prix_au_litre(ligne):
+    """Prix au litre et sa provenance, ou None."""
+    vol = volume_unite_facturee_ml(ligne)
+    if vol is None:
+        return None
+    imprime = ligne.get("prix_unite_normalisee")
+    if imprime is not None and not MARQUEUR_COLIS.search((ligne.get("designation") or "").upper()):
+        return {"valeur": imprime, "source": "IMPRIME_FACTURE", "volume_ml": vol}
+    derive = prix_derive_au_litre(ligne)
+    if derive is None:
+        return None
+    return {"valeur": derive, "source": "DESIGNATION_SIMPLE", "volume_ml": vol}
+
+
+BOITE_CONSERVE = re.compile(r"\b4/4\b|\b5/1\b|\b1/2\b")
+PIECE_COLIS = re.compile(r"\bPC\s*(\d+)?\b", re.I)
+BARQUETTE = re.compile(r"\bBQ\s*(\d+)?\b", re.I)
+CARTON = re.compile(r"\bCT\s*(\d+)?\b", re.I)
+
+
+def prix_piece_ou_colis(ligne):
+    """Prix unitaire a la boite, piece ou barquette."""
+    designation = (ligne.get("designation") or "").upper()
+    prix, _ = _prix(ligne)
+    if prix is None:
+        return None
+    if BOITE_CONSERVE.search(designation):
+        return {"valeur": round(prix, 4), "unite": "EUR/boite", "source": "BOITE_CONSERVE"}
+    if PIECE_COLIS.search(designation):
+        return {"valeur": round(prix, 4), "unite": "EUR/piece", "source": "PIECE_COLIS"}
+    if BARQUETTE.search(designation):
+        return {"valeur": round(prix, 4), "unite": "EUR/barquette", "source": "BARQUETTE"}
+    if CARTON.search(designation) and ligne.get("prix_unite_normalisee"):
+        return {"valeur": ligne["prix_unite_normalisee"], "unite": "EUR/kg", "source": "IMPRIME_FACTURE"}
+    return None
+
+
+def prix_normalise(ligne):
+    """Prix ramene a l'unite standard (kg, L, boite, piece, barquette), ou None."""
+    kilo = prix_au_kilo(ligne)
+    if kilo is not None:
+        return {"valeur": kilo["valeur"], "unite": "EUR/kg", "source": kilo["source"],
+                "quantite": kilo["poids_g"] / 1000}
+    litre = prix_au_litre(ligne)
+    if litre is not None:
+        return {"valeur": litre["valeur"], "unite": "EUR/L", "source": litre["source"],
+                "quantite": litre["volume_ml"] / 1000}
+    piece = prix_piece_ou_colis(ligne)
+    if piece is not None:
+        return {"valeur": piece["valeur"], "unite": piece["unite"], "source": piece["source"],
+                "quantite": 1}
+    imprime = ligne.get("prix_unite_normalisee")
+    if imprime is not None:
+        return {"valeur": imprime, "unite": "EUR/kg", "source": "IMPRIME_FACTURE", "quantite": None}
+    return None
 
 
 def _prix(ligne):
@@ -257,19 +361,52 @@ NON_RATTACHE = "NON_RATTACHE"
 STATUT_HORS_PERIMETRE = "HORS_PERIMETRE"
 
 
-def _alternative_moins_chere(prix, options):
-    """L'option la moins chere, chiffree et datee, strictement sous le prix paye.
+def _alternative_unite(opt):
+    """Determine l'unite de l'alternative de marche."""
+    if opt.get("unite"):
+        return opt["unite"]
+    if opt.get("prix_eur_par_kg") is not None:
+        return "EUR/kg"
+    if opt.get("prix_au_litre") is not None:
+        return "EUR/L"
+    if opt.get("prix_piece") is not None:
+        return "EUR/piece"
+    return None
+
+
+def _valeur_alternative(opt):
+    """Valeur numerique du prix de l'alternative."""
+    if opt.get("prix_eur_par_kg") is not None:
+        return opt["prix_eur_par_kg"]
+    if opt.get("prix_au_litre") is not None:
+        return opt["prix_au_litre"]
+    if opt.get("prix_normalise") is not None:
+        return opt["prix_normalise"]
+    return None
+
+
+def _alternative_moins_chere(prix, options, unite_cible=None):
+    """L'option la moins chere, chiffree, datee et de meme unite que la ligne.
 
     Une option sans prix ne compte pas : elle ne permet pas de trancher, et un verdict de
-    changement sans prix serait une opinion. Une option plus chere non plus.
+    changement sans prix serait une opinion. Une option d'une unite differente est ecartee.
     """
     if prix is None or not options:
         return None
-    chiffrees = [o for o in options if o.get("prix_eur_par_kg") and o.get("date")]
+    chiffrees = []
+    for o in options:
+        if not o.get("date"):
+            continue
+        u = _alternative_unite(o)
+        if unite_cible and u != unite_cible:
+            continue
+        v = _valeur_alternative(o)
+        if v is not None:
+            chiffrees.append((v, o))
     if not chiffrees:
         return None
-    meilleure = min(chiffrees, key=lambda o: o["prix_eur_par_kg"])
-    return meilleure if meilleure["prix_eur_par_kg"] < prix else None
+    meilleure_val, meilleure_opt = min(chiffrees, key=lambda t: t[0])
+    return meilleure_opt if meilleure_val < prix else None
 
 
 def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
@@ -279,14 +416,19 @@ def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
     sait pas de quoi elle parle ne se compare a rien. La reserve ensuite, parce qu'un
     `A_VERIFIER` publie sa valeur sans etre consommable comme un `ACTIF`.
     """
-    prix = prix_au_kilo(ligne)
+    prix_kilo = prix_au_kilo(ligne)
+    norm = prix_normalise(ligne)
+    prix_valeur = norm["valeur"] if norm else None
+
     verdict = {
         "article": ligne.get("article"),
         "designation": ligne.get("designation"),
         "date": ligne.get("date_facture"),
         "facture": ligne.get("facture"),
-        "prix_eur_par_kg": prix["valeur"] if prix else None,
-        "source_prix": prix["source"] if prix else None,
+        "prix_eur_par_kg": prix_kilo["valeur"] if prix_kilo else None,
+        "prix_normalise": prix_valeur,
+        "unite": norm["unite"] if norm else None,
+        "source_prix": norm["source"] if norm else None,
         "id_matiere": (lien or {}).get("id_matiere") or None,
         "statut_rattachement": (lien or {}).get("statut"),
         "statut_matiere": (matiere or {}).get("statut"),
@@ -295,12 +437,49 @@ def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
 
     if not (lien or {}).get("id_matiere"):
         if (lien or {}).get("statut") == STATUT_HORS_PERIMETRE:
-            verdict.update(verdict=HORS_PERIMETRE, raison="NON_ALIMENTAIRE")
+            note = ((lien or {}).get("note") or "").lower()
+            raison_hors = "REVENTE_DIRECTE" if "revente" in note else "NON_ALIMENTAIRE"
+            # Un article hors fabrication peut etre confronte a une alternative grossiste directe
+            options_article = (alternatives or {}).get(ligne.get("article")) or []
+            if options_article and prix_valeur is not None:
+                unite_ligne = norm["unite"] if norm else None
+                chiffrees_meme_unite = [
+                    o for o in options_article
+                    if _valeur_alternative(o) is not None and o.get("date") and (_alternative_unite(o) == unite_ligne)
+                ]
+                meilleure = _alternative_moins_chere(prix_valeur, options_article, unite_cible=unite_ligne)
+                if meilleure:
+                    verdict.update(verdict=CHANGER, raison="ALTERNATIVE_MOINS_CHERE", alternative=meilleure)
+                    return verdict
+                elif chiffrees_meme_unite:
+                    verdict.update(verdict=GARDER, raison="ALTERNATIVE_PLUS_CHEREE")
+                    return verdict
+            verdict.update(verdict=HORS_PERIMETRE, raison=raison_hors)
         else:
             verdict.update(verdict=NON_RATTACHE, raison="ARTICLE_ABSENT_DU_RATTACHEMENT")
         return verdict
 
-    if prix is None:
+    # Unite attendue pour la matiere premiere
+    unite_attendue = (matiere or {}).get("unite_achat")
+    if not unite_attendue:
+        id_mat = (lien.get("id_matiere") or "")
+        if id_mat.startswith("MATP-LIQU") or "HUIL" in id_mat or id_mat.startswith("MATP-LAIT"):
+            unite_attendue = "L"
+        elif id_mat in ("MATP-OEUF-ENTI", "MATP-AROM-VAGO"):
+            unite_attendue = "piece"
+        else:
+            unite_attendue = "kg"
+
+    if unite_attendue == "kg" and (prix_kilo is None or (norm and norm.get("unite") != "EUR/kg")):
+        verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
+        return verdict
+    elif unite_attendue == "L" and (prix_au_litre(ligne) is None or (norm and norm.get("unite") != "EUR/L")):
+        verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
+        return verdict
+    elif unite_attendue == "piece" and (norm is None or norm.get("unite") != "EUR/piece"):
+        verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
+        return verdict
+    elif prix_valeur is None:
         verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
         return verdict
 
@@ -308,16 +487,32 @@ def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
         verdict.update(verdict=A_ARBITRER, raison="RESERVE_A_VERIFIER")
         return verdict
 
-    options = (alternatives or {}).get(lien["id_matiere"]) or []
-    chiffrees = [o for o in options if o.get("prix_eur_par_kg") and o.get("date")]
-    meilleure = _alternative_moins_chere(prix["valeur"], options)
+    unite_ligne = norm["unite"] if norm else None
+    options = (alternatives or {}).get(lien["id_matiere"]) or (alternatives or {}).get(ligne.get("article")) or []
+    chiffrees_meme_unite = [
+        o for o in options
+        if _valeur_alternative(o) is not None and o.get("date") and (_alternative_unite(o) == unite_ligne)
+    ]
+    meilleure = _alternative_moins_chere(prix_valeur, options, unite_cible=unite_ligne)
     if meilleure:
         verdict.update(verdict=CHANGER, raison="ALTERNATIVE_MOINS_CHERE", alternative=meilleure)
-    elif chiffrees:
+    elif chiffrees_meme_unite:
         verdict.update(verdict=GARDER, raison="ALTERNATIVE_PLUS_CHEREE")
     else:
         verdict.update(verdict=GARDER, raison="AUCUNE_ALTERNATIVE_CHIFFREE")
     return verdict
+
+
+def charger_alternatives(chemin=None):
+    """Charge les alternatives de marche chiffrees et datees.
+
+    Lit `data/price_observations/alternatives_marche.json` s'il existe.
+    """
+    fichier = Path(chemin) if chemin else (RACINE / "data/price_observations/alternatives_marche.json")
+    if fichier.exists():
+        donnees = json.loads(fichier.read_text(encoding="utf-8"))
+        return donnees.get("alternatives", {})
+    return {}
 
 
 def verdicts(achats, rattachement, matieres, alternatives=None):

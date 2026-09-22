@@ -70,7 +70,8 @@ def analyser(pdf, travail=None):
                 "avertissement": "aucune ligne d'achat lue dans ce document"}
 
     rattachement, matieres = cf.charger_referentiels()
-    resultat = analyse_achats(achats, entete, rattachement, matieres)
+    alternatives = cf.charger_alternatives()
+    resultat = analyse_achats(achats, entete, rattachement, matieres, alternatives)
     resultat["remises"] = len(remises)
     resultat["lignes_non_lues"] = non_lues
     return resultat

@@ -84,7 +84,7 @@ Deux manques connus à lever au passage :
 
 - **le sel fin n'a aucun prix.** Seul du gros sel est acheté (84,00 € sur six mois), et ce
   n'est pas la même matière. Soit il entre au référentiel, soit la recette le remplace.
-- **9 rattachements sur 24 sont `A_VERIFIER`** — le beurre 500 g ne déclare aucun taux de
+- **22 rattachements sur 46 sont `A_VERIFIER`** — le beurre 500 g ne déclare aucun taux de
   matière grasse alors que `MATP-BEUR-DOUX` en exige 82 %. Se lit sur l'étiquette, pas sur
   la facture.
 
