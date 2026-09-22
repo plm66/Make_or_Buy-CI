@@ -186,8 +186,31 @@ def prix_au_litre(ligne):
     return {"valeur": derive, "source": "DESIGNATION_SIMPLE", "volume_ml": vol}
 
 
+BOITE_CONSERVE = re.compile(r"\b4/4\b|\b5/1\b|\b1/2\b")
+PIECE_COLIS = re.compile(r"\bPC\s*(\d+)?\b", re.I)
+BARQUETTE = re.compile(r"\bBQ\s*(\d+)?\b", re.I)
+CARTON = re.compile(r"\bCT\s*(\d+)?\b", re.I)
+
+
+def prix_piece_ou_colis(ligne):
+    """Prix unitaire a la boite, piece ou barquette."""
+    designation = (ligne.get("designation") or "").upper()
+    prix, _ = _prix(ligne)
+    if prix is None:
+        return None
+    if BOITE_CONSERVE.search(designation):
+        return {"valeur": round(prix, 4), "unite": "EUR/boite", "source": "BOITE_CONSERVE"}
+    if PIECE_COLIS.search(designation):
+        return {"valeur": round(prix, 4), "unite": "EUR/piece", "source": "PIECE_COLIS"}
+    if BARQUETTE.search(designation):
+        return {"valeur": round(prix, 4), "unite": "EUR/barquette", "source": "BARQUETTE"}
+    if CARTON.search(designation) and ligne.get("prix_unite_normalisee"):
+        return {"valeur": ligne["prix_unite_normalisee"], "unite": "EUR/kg", "source": "IMPRIME_FACTURE"}
+    return None
+
+
 def prix_normalise(ligne):
-    """Prix ramene a l'unite standard (kg ou L), ou None."""
+    """Prix ramene a l'unite standard (kg, L, boite, piece, barquette), ou None."""
     kilo = prix_au_kilo(ligne)
     if kilo is not None:
         return {"valeur": kilo["valeur"], "unite": "EUR/kg", "source": kilo["source"],
@@ -196,6 +219,13 @@ def prix_normalise(ligne):
     if litre is not None:
         return {"valeur": litre["valeur"], "unite": "EUR/L", "source": litre["source"],
                 "quantite": litre["volume_ml"] / 1000}
+    piece = prix_piece_ou_colis(ligne)
+    if piece is not None:
+        return {"valeur": piece["valeur"], "unite": piece["unite"], "source": piece["source"],
+                "quantite": 1}
+    imprime = ligne.get("prix_unite_normalisee")
+    if imprime is not None:
+        return {"valeur": imprime, "unite": "EUR/kg", "source": "IMPRIME_FACTURE", "quantite": None}
     return None
 
 
@@ -386,7 +416,22 @@ def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
             verdict.update(verdict=NON_RATTACHE, raison="ARTICLE_ABSENT_DU_RATTACHEMENT")
         return verdict
 
-    if prix_valeur is None:
+    # Unité attendue pour la matière première
+    unite_attendue = (matiere or {}).get("unite_achat")
+    if not unite_attendue:
+        id_mat = (lien.get("id_matiere") or "")
+        if id_mat.startswith("MATP-LIQU") or "HUIL" in id_mat or id_mat.startswith("MATP-LAIT"):
+            unite_attendue = "L"
+        else:
+            unite_attendue = "kg"
+
+    if unite_attendue == "kg" and prix_kilo is None:
+        verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
+        return verdict
+    elif unite_attendue == "L" and prix_au_litre(ligne) is None:
+        verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
+        return verdict
+    elif prix_valeur is None:
         verdict.update(verdict=A_ARBITRER, raison="CONDITIONNEMENT_ILLISIBLE")
         return verdict
 

@@ -155,6 +155,16 @@ def test_prix_normalise_distingue_kilo_et_litre():
     assert huile["valeur"] == 1.998
 
 
+def test_les_boites_et_pieces_ont_leur_unite():
+    """Les boites (4/4) et pieces (PC) portent leur unite EUR/boite ou EUR/piece."""
+    abricot = cf.prix_normalise({"designation": "METRO CHEF OREIL. ABRICOT 4/4", "prix_unitaire_ht": 2.758, "colisage": 6})
+    assert abricot["unite"] == "EUR/boite"
+    assert abricot["valeur"] == 2.758
+    melon = cf.prix_normalise({"designation": "MELON DINO BOLLO PC6 ES ESPAGNE", "prix_unitaire_ht": 2.69, "colisage": 1})
+    assert melon["unite"] == "EUR/piece"
+    assert melon["valeur"] == 2.69
+
+
 if __name__ == "__main__":
     for nom, fn in sorted(globals().items()):
         if nom.startswith("test_"):
