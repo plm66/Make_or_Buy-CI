@@ -169,6 +169,12 @@ def test_les_donnees_reprises_du_catalogue_sont_fideles():
                 assert float(c[champ_c]) == float(r[champ_r]), (c["candidate_id"], champ_c)
 
 
+import sys
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+import product_tool as pt
+
+
 def test_une_allegation_du_catalogue_declare_sa_preuve():
     """Une allégation végane sans source documentée ne vaut rien — une recette change sans
     que l'étiquette suive. Le catalogue fabricant est une pièce officielle : il doit le
@@ -177,6 +183,47 @@ def test_une_allegation_du_catalogue_declare_sa_preuve():
     for r in CATALOGUE["references"]:
         if r["claims"]:
             assert r["claims_evidence"] == "OFFICIAL_MANUFACTURER_CATALOGUE", r["supplier_product_ref"]
+
+
+def test_des013_rattache_au_catalogue_officiel():
+    """DES-013 (Moelleux Chocolat Noisette Vegan) est formellement rapproché de la
+    référence officielle '006107' du catalogue Traiteur de Paris, mais son allégation
+    végane reste en quarantaine doctrinale car un catalogue fabricant n'est pas une
+    fiche technique officielle (OFFICIAL_TECHNICAL_SHEET) au sens de product_tool.py.
+    """
+    des013 = next(c for c in DESSERT if c["candidate_id"] == "DES-013")
+    assert des013["supplier_product_ref"] == "006107"
+    assert des013["supplier_pack_units"] == 20
+    assert des013["supplier_unit_weight_g"] == 90
+    assert des013["catalogue_source"] == "data/supplier_products/traiteur_de_paris_catalogue_2026.json"
+    assert des013["claim_status"] == "NOT_VALIDATED"
+    assert "dietary.official_technical_sheet" in des013["missing_critical_fields"]
+
+
+def test_lutosa_rosti_est_un_benchmark_indicatif():
+    """GPO-001 (Rösti Lutosa 100g) est un benchmark public indicatif : son prix de référence
+    est 0,235 €/pièce, mais sa base de taxe est UNKNOWN et son coût rendu est strictement null.
+    Il ne peut donc pas prétendre être un coût rendu opérationnel.
+    """
+    gpo001 = next(o for o in OBSERVATIONS if o["observation_id"] == "GPO-001")
+    assert gpo001["reference_price_eur_per_piece"] == 0.235
+    assert gpo001["tax_basis"] == "UNKNOWN"
+    assert gpo001["delivery_included"] is None
+    assert gpo001["landed_cost_eur_per_piece"] is None
+
+
+def test_aucun_candidat_de_recherche_nest_promu_en_produit_canonique():
+    """Règle doctrinale fondamentale (consumer_rule) des jeux de découverte :
+    'Do not import into canonical products, supplier master, price observations,
+    or purchase authorization.'
+    Aucune piste exploratoire ne doit figurer dans data/products/ tant qu'un arbitrage
+    et un devis opérationnel réel n'existent pas.
+    """
+    fiches_canoniques = {p.stem for p in (ROOT / "data" / "products").glob("*.json")}
+    for c in CANDIDATS:
+        assert c["candidate_id"] not in fiches_canoniques
+    for lead in SURPLUS:
+        assert lead["lead_id"] not in fiches_canoniques
 
 
 if __name__ == "__main__":
