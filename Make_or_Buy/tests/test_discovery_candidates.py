@@ -186,49 +186,44 @@ def test_une_allegation_du_catalogue_declare_sa_preuve():
 
 
 def test_des013_rattache_au_catalogue_officiel():
-    """DES-013 (Moelleux Chocolat Noisette Vegan) doit être formellement rapproché de la
-    référence officielle '006107' du catalogue Traiteur de Paris, avec allégation végane
-    documentée fournisseur.
+    """DES-013 (Moelleux Chocolat Noisette Vegan) est formellement rapproché de la
+    référence officielle '006107' du catalogue Traiteur de Paris, mais son allégation
+    végane reste en quarantaine doctrinale car un catalogue fabricant n'est pas une
+    fiche technique officielle (OFFICIAL_TECHNICAL_SHEET) au sens de product_tool.py.
     """
     des013 = next(c for c in DESSERT if c["candidate_id"] == "DES-013")
     assert des013["supplier_product_ref"] == "006107"
-    assert des013["dietary"]["vegan"] is True
-    assert des013["dietary"]["vegan_evidence"] == "SUPPLIER_DOCUMENTED"
     assert des013["supplier_pack_units"] == 20
     assert des013["supplier_unit_weight_g"] == 90
     assert des013["catalogue_source"] == "data/supplier_products/traiteur_de_paris_catalogue_2026.json"
+    assert des013["claim_status"] == "NOT_VALIDATED"
+    assert "dietary.official_technical_sheet" in des013["missing_critical_fields"]
 
 
-def test_lutosa_rosti_dans_la_cible_economique_garniture():
-    """Le relevé GPO-001 (Rösti Lutosa 100g) à 0,235 €/pièce valide la faisabilité économique
-    de l'enveloppe cible GARNITURE fixée entre 0,15 € et 0,30 € la portion.
+def test_lutosa_rosti_est_un_benchmark_indicatif():
+    """GPO-001 (Rösti Lutosa 100g) est un benchmark public indicatif : son prix de référence
+    est 0,235 €/pièce, mais sa base de taxe est UNKNOWN et son coût rendu est strictement null.
+    Il ne peut donc pas prétendre être un coût rendu opérationnel.
     """
     gpo001 = next(o for o in OBSERVATIONS if o["observation_id"] == "GPO-001")
-    prix = gpo001["reference_price_eur_per_piece"]
-    assert prix == 0.235
-    assert 0.15 <= prix <= 0.30
+    assert gpo001["reference_price_eur_per_piece"] == 0.235
+    assert gpo001["tax_basis"] == "UNKNOWN"
+    assert gpo001["delivery_included"] is None
+    assert gpo001["landed_cost_eur_per_piece"] is None
 
 
-def test_fiches_canoniques_promues_valident_sans_cout_fabrique():
-    """Les fiches promues (pommes_anna_60g, moelleux_chocolat_noisette_vegan_90g,
-    croissant_aux_amandes_surplus_j1) doivent être validables par product_tool et ne pas
-    inventer de coûts évitables ou de temps de travail non mesurés.
+def test_aucun_candidat_de_recherche_nest_promu_en_produit_canonique():
+    """Règle doctrinale fondamentale (consumer_rule) des jeux de découverte :
+    'Do not import into canonical products, supplier master, price observations,
+    or purchase authorization.'
+    Aucune piste exploratoire ne doit figurer dans data/products/ tant qu'un arbitrage
+    et un devis opérationnel réel n'existent pas.
     """
-    params = pt.load_params()
-    fiches_a_tester = [
-        "pommes_anna_60g.json",
-        "moelleux_chocolat_noisette_vegan_90g.json",
-        "croissant_aux_amandes_surplus_j1.json",
-    ]
-    for nom in fiches_a_tester:
-        chemin = ROOT / "data" / "products" / nom
-        assert chemin.exists(), f"Fiche {nom} manquante dans data/products"
-        doc = json.loads(chemin.read_text(encoding="utf-8"))
-        errs = pt.validate_product(doc, params)
-        assert errs == [], f"Erreurs sur {nom}: {errs}"
-        if doc.get("internal_production", {}).get("possible"):
-            assert doc["internal_production"]["cost_status"] in ("UNKNOWN", "DRAFT")
-            assert doc["internal_production"]["avoidable_cost_total_eur"] is None
+    fiches_canoniques = {p.stem for p in (ROOT / "data" / "products").glob("*.json")}
+    for c in CANDIDATS:
+        assert c["candidate_id"] not in fiches_canoniques
+    for lead in SURPLUS:
+        assert lead["lead_id"] not in fiches_canoniques
 
 
 if __name__ == "__main__":

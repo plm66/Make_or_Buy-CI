@@ -580,9 +580,9 @@
       "portioning_required": false,
       "preparation": "Option froide: décongélation 2h à +4°C; option chaude: four 12 min à 180°C",
       "dietary": {
-        "vegan": true,
-        "vegan_evidence": "SUPPLIER_DOCUMENTED",
-        "vegetarian": true
+        "vegan": null,
+        "vegan_evidence": "PARTIAL",
+        "vegetarian": null
       },
       "price_status": "QUOTE_REQUIRED",
       "landed_cost_eur_per_piece": null,
@@ -607,12 +607,20 @@
         }
       ],
       "notes": null,
-      "missing_critical_fields": [],
+      "missing_critical_fields": [
+        "dietary.official_technical_sheet"
+      ],
       "supplier_id": "traiteur_de_paris",
       "procurement_registry_id": "SUP-TDP",
       "supplier_entry_status": "MANUFACTURER_REFERENCE",
       "purchase_channel": "DISTRIBUTOR_REQUIRED",
       "operational_purchase_authorized": false,
+      "raw_imported_dietary_claim_unvalidated": {
+        "vegan": true,
+        "vegan_evidence": "OFFICIAL_MANUFACTURER_CATALOGUE",
+        "vegetarian": null
+      },
+      "claim_status": "NOT_VALIDATED",
       "catalogue_source": "data/supplier_products/traiteur_de_paris_catalogue_2026.json"
     },
     {
