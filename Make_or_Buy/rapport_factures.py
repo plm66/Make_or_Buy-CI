@@ -181,7 +181,7 @@ def rendre(enregistrements, releve):
   html {{ font-size: clamp(16px, 0.5vw + 12px, 22px); }}
   :root {{ --encre:#1b1b1b; --gris:#6b6b6b; --trait:#dcdcdc; --fond:#faf9f7;
           --garder:#1f7a4d; --changer:#b3541e; --arbitrer:#8a6d1f;
-          --hors:#6b6b6b; --non:#9b2226; }}
+          --hors:#6b6b6b; --non:#9b2226; --noncompare:#4a5a72; }}
   * {{ box-sizing:border-box }}
   body {{ margin:0; padding:2.5rem 1rem; background:var(--fond); color:var(--encre);
          font:1rem/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
@@ -206,7 +206,7 @@ def rendre(enregistrements, releve):
   .v {{ font-weight:600; font-size:.78rem; white-space:nowrap; margin-right:.3rem }}
   .v.GARDER {{ color:var(--garder) }} .v.CHANGER {{ color:var(--changer) }}
   .v.A_ARBITRER {{ color:var(--arbitrer) }} .v.HORS_PERIMETRE {{ color:var(--hors) }}
-  .v.NON_RATTACHE {{ color:var(--non) }}
+  .v.NON_RATTACHE {{ color:var(--non) }} .v.NON_COMPARE {{ color:var(--noncompare) }}
   .reserve {{ display:inline-block; margin-left:.35rem; padding:.05rem .4rem;
              border-radius:.25rem; background:#f6efdc; color:var(--arbitrer);
              font-size:.72rem; font-weight:600 }}

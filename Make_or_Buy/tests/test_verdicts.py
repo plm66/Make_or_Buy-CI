@@ -8,6 +8,7 @@ Ces invariants tiennent une seule règle dure, celle de `docs/SPEC_MODULE_FACTUR
 `CHANGER` exige un prix alternatif aligné et daté. Tout le reste en découle.
 """
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -102,20 +103,22 @@ def test_une_alternative_plus_chere_ne_produit_pas_de_changement():
     v = cf.verdict_ligne(ligne(), lien,
                          alternatives={"MATP-FARI-T65": [{"prix_eur_par_kg": 0.99, "date": "2026-08-15"}]})
     assert v["verdict"] == cf.GARDER, v
-    assert v["raison"] == "ALTERNATIVE_PLUS_CHEREE", v
+    assert v["raison"] == "ALTERNATIVE_PLUS_CHERE", v
 
 
 def test_une_alternative_sans_prix_ne_produit_jamais_de_changement():
     """Le point d'honnêteté du module : un candidat sans prix, ou sans date, ne permet pas de
-    trancher. Il ne doit pas non plus faire croire qu'on a comparé."""
+    trancher. Il ne doit pas non plus faire croire qu'on a comparé — et c'est le verdict
+    lui-même qui doit le dire, pas seulement sa raison. `GARDER` affirmait la comparaison
+    dans le mot, en ne la portant que dans le champ d'à côté."""
     lien = {"article_metro": "2422798", "id_matiere": "MATP-FARI-T65", "statut": "ACTIF"}
     sans_prix = cf.verdict_ligne(ligne(), lien, alternatives={"MATP-FARI-T65": [
         {"source_id": "devis_en_attente", "prix_eur_par_kg": None, "date": "2026-08-15"}]})
-    assert sans_prix["verdict"] == cf.GARDER, sans_prix
+    assert sans_prix["verdict"] == cf.NON_COMPARE, sans_prix
     assert sans_prix["raison"] == "AUCUNE_ALTERNATIVE_CHIFFREE", sans_prix
     sans_date = cf.verdict_ligne(ligne(), lien, alternatives={"MATP-FARI-T65": [
         {"source_id": "prix_sans_date", "prix_eur_par_kg": 0.10, "date": None}]})
-    assert sans_date["verdict"] == cf.GARDER, sans_date
+    assert sans_date["verdict"] == cf.NON_COMPARE, sans_date
 
 
 def test_le_nombre_de_verdicts_egale_le_nombre_de_lignes():
@@ -133,9 +136,12 @@ def test_aucun_changement_sans_prix_alternatif_sur_les_donnees_reelles():
     propositions = cf.verdicts(achats, rattachement, matieres)
     changements = [v for v in propositions if v["verdict"] == cf.CHANGER]
     assert changements == [], changements
-    garders = [v for v in propositions if v["verdict"] == cf.GARDER]
-    assert all(v.get("prix_normalise") or v.get("prix_eur_par_kg") for v in garders), garders[:3]
-    assert all(v["statut_rattachement"] == "ACTIF" for v in garders), garders[:3]
+    non_compares = [v for v in propositions if v["verdict"] == cf.NON_COMPARE]
+    assert all(v.get("prix_normalise") or v.get("prix_eur_par_kg") for v in non_compares), non_compares[:3]
+    assert all(v["statut_rattachement"] == "ACTIF" for v in non_compares), non_compares[:3]
+    # Sans alternative chargee, aucun GARDER ne peut sortir : il exige les deux termes d'une
+    # comparaison. S'il en sort un, c'est que le verdict a reglisse vers l'ancien sens.
+    assert [v for v in propositions if v["verdict"] == cf.GARDER] == []
 
 
 def test_une_alternative_d_unite_differente_ne_produit_aucun_changement():
@@ -143,7 +149,7 @@ def test_une_alternative_d_unite_differente_ne_produit_aucun_changement():
     lien = {"article_metro": "2422798", "id_matiere": "MATP-FARI-T65", "statut": "ACTIF"}
     v = cf.verdict_ligne(ligne(), lien,
                          alternatives={"MATP-FARI-T65": [{"source_id": "autre", "prix_normalise": 0.10, "unite": "EUR/piece", "date": "2026-08-15"}]})
-    assert v["verdict"] == cf.GARDER, v
+    assert v["verdict"] == cf.NON_COMPARE, v
     assert v["raison"] == "AUCUNE_ALTERNATIVE_CHIFFREE", v
 
 
@@ -184,6 +190,40 @@ def test_toutes_les_alternatives_de_marche_citent_une_source_enregistree():
     for cle, liste in alternatives.items():
         for alt in liste:
             assert alt["source_id"] in sources_connues, (cle, alt["source_id"])
+
+
+def test_tout_code_sorti_en_json_est_declare_au_glossaire():
+    """`GLOSSAIRE.md` pose sa regle en tete : « tout code qui entre dans une donnee ou un
+    schema figure ici avant d'etre ecrit. Un code absent du glossaire est un code invente. »
+
+    Les sept verdicts et leurs raisons ont vecu non declares jusqu'au 2026-09-23, et c'est
+    exactement la ou `GARDER` a pu deriver : personne n'avait jamais eu a ecrire sa
+    definition, donc personne n'avait bute sur le fait qu'il affirmait une comparaison
+    jamais faite. Ecrire la definition est ce qui revele le mensonge du nom.
+
+    Rien ne tenait cette regle. Ce test la tient.
+    """
+    source = (RACINE / "comparaison_factures.py").read_text(encoding="utf-8")
+    glossaire = (RACINE / "docs" / "GLOSSAIRE.md").read_text(encoding="utf-8")
+
+    # Constantes de module en MAJUSCULES affectees a une chaine : ce sont les codes qui
+    # sortent. Les chemins et les tuples de configuration n'en sont pas.
+    constantes = set(re.findall(r'^([A-Z][A-Z_]+)\s*=\s*"([A-Z_]+)"', source, re.M))
+    raisons = set(re.findall(r'raison="([A-Z_]+)"', source))
+
+    codes = {valeur for _, valeur in constantes} | raisons
+    assert codes, "aucun code detecte : le detecteur est casse, pas le glossaire"
+
+    # Une mention en prose ne vaut pas declaration : le glossaire definit dans des tableaux,
+    # et c'est la definition qu'on exige. Chercher le code n'importe ou laisserait passer un
+    # code seulement cite — par exemple dans le paragraphe qui raconte pourquoi il existe.
+    declares = {c for ligne_glo in glossaire.splitlines() if ligne_glo.startswith("|")
+                for c in codes if f"`{c}`" in ligne_glo}
+
+    absents = sorted(codes - declares)
+    assert not absents, (
+        f"codes sortis en JSON et non definis dans un tableau de GLOSSAIRE.md : {absents}. "
+        "Un code absent du glossaire est un code invente.")
 
 
 if __name__ == "__main__":
