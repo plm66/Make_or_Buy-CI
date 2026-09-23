@@ -35,7 +35,7 @@ avec le surgelé et le substitué.
 | dérive des prix payés | 175 comparaisons, 69 observations de prix matière |
 | alternatives marché datées | 6 matières couvertes, **10 verdicts `CHANGER` réels** |
 | moteur d'arbitrage | `selected_cost`, `menu_score`, `minutes_avant_bascule` |
-| glossaire et 3 ADR | tous `PROPOSED`, aucun accepté |
+| glossaire et 3 ADR | **ADR-0001 `ACCEPTED`** le 23-09 ; 0002 et 0003 `PROPOSED` |
 | invariants exécutables | **206**, sans framework |
 
 ### Pourquoi le référentiel ne porte aucun prix
@@ -69,14 +69,18 @@ Le travail restant n'est pas du code, c'est de la mesure et de l'arbitrage.
 
 Pour un croissant, lot de 60, le seuil au-delà duquel acheter bat fabriquer :
 
-| beurre | prix mesuré | seuil de bascule |
-|---|---|---|
-| doux 500 g, bas de fourchette | 6,04 €/kg | **64 min** |
-| AOP 84 % tourage | 13,03 €/kg | **30 min** |
+| beurre | prix mesuré | achats | seuil de bascule |
+|---|---|---|---|
+| doux 500 g, bas de fourchette | 6,04 €/kg | 16 | **64 min** |
+| AOP 84 % tourage | 13,03 €/kg | **1** | **45–50 min** |
 
-Du simple au double. **Chronométrer avant d'avoir choisi le beurre ne décide rien** : on
-obtiendrait `MAKE` avec l'un et `BUY` avec l'autre, sur le même relevé. La composition se
-tranche avant l'approvisionnement — c'est ADR-0002.
+**Chronométrer avant d'avoir choisi le beurre ne décide rien** : on obtiendrait `MAKE` avec
+l'un et `BUY` avec l'autre, sur le même relevé. La composition se tranche avant
+l'approvisionnement — c'est ADR-0002.
+
+Et ce choix-là n'attend pas un arbitrage mais **une étiquette** : le beurre qui porte 93,6 %
+de la dépense est rattaché `A_VERIFIER`, sa désignation ne déclarant aucun taux de matière
+grasse.
 
 ---
 
@@ -85,7 +89,8 @@ tranche avant l'approvisionnement — c'est ADR-0002.
 L'ordre est une chaîne de dépendances, pas une préférence. Le détail est dans
 [`ROADMAP.md`](ROADMAP.md).
 
-1. **Trancher la composition** — décision de l'exploitant. Débloque tout le reste.
+1. ~~**Trancher la composition**~~ — ADR-0001 `ACCEPTED` le 23-09. Reste la matière grasse,
+   qui attend une étiquette et non une décision.
 2. **Chronométrer** 21 gestes, deux nombres chacun : minutes immobilisées et minutes écoulées.
 3. **Le croissant** — premier produit dont les deux coûts sont non nuls.
 4. **Brancher la couche de prix** — l'instrument existe, le câblage non.

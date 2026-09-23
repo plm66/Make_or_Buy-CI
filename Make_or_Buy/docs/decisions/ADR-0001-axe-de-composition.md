@@ -1,7 +1,8 @@
 # ADR-0001 — L'axe de composition : frais et naturel, surgelé, chimique
 
-- **Statut** : PROPOSED
+- **Statut** : ACCEPTED
 - **Date** : 2026-09-12
+- **Tranché le** : 2026-09-23 par Philippe
 - **Décide** : Philippe
 - **Porte sur** : `doctrine/doctrine.json` — `criteria`, `guardrails`, `product_classes`
 
@@ -159,3 +160,55 @@ ce que l'axe doit rendre arbitrable.
 - Le cas des auxiliaires technologiques — améliorants de panification, enzymes — n'est pas
   tranché par la définition ci-dessus : ils ne substituent pas un ingrédient, ils modifient
   un procédé.
+
+
+---
+
+## Décision — 2026-09-23
+
+**Retenu : C comme socle, B comme plancher.** `composition_nature` devient un attribut de
+fiche porté avec son niveau de preuve, et un garde-fou `G007` pose ce qui ne se négocie pas.
+
+**A écarté** avec son motif, pour qu'il ne revienne pas dans six mois : une pondération se
+compense, et elle répond à « combien d'euros vaut l'absence d'arôme artificiel ». Personne
+ici ne veut répondre à cette question.
+
+**D écarté** : il revient à renoncer à la seconde moitié de la mission.
+
+### La branche margarine se résout sans coût
+
+`MATP-BEUR-MARG` est `SUBSTITUTED`, `substitut_de` `MATP-BEUR-TOUR`. Mesure faite sur les
+384 lignes de facture de mars à septembre 2026 : **zéro achat de margarine**. L'exclure est
+une déclaration sur l'avenir, pas un changement de pratique.
+
+### Ce que cette décision ne tranche pas
+
+**Le choix entre beurre doux 82 % et beurre de tourage AOP 84 % n'est pas de son ressort.**
+Les deux sont `FRESH_NATURAL`. Cet axe ne les distingue pas, et les faire passer par lui
+ferait juger une question technique avec l'instrument d'une autre — le reproche même que cet
+ADR adresse à `SUPPLIER_QUALITY`.
+
+Ce choix attend d'ailleurs autre chose qu'un arbitrage : `BEURRE DX 500G MA PAYSANNE`,
+**93,6 % de la dépense en matière grasse** (575,89 EUR, 16 achats), est rattaché
+`A_VERIFIER` parce que sa désignation ne porte aucun taux. Fixer la référence à 82 % avant
+d'avoir lu l'étiquette inscrirait une propriété que personne n'a constatée.
+
+Restent également ouverts, comme avant : les seuils de mélange par famille, et le cas des
+auxiliaires technologiques.
+
+### Une tension avec ADR-0002, à connaître
+
+L'option C veut `composition_nature` **déclaré avec sa preuve**. ADR-0002 prévoit qu'il soit
+**dérivé des ingrédients**. Tant que la couche recette n'existe pas, il est déclaré au
+niveau `DEFINITIONAL` — le plus faible, celui que portent déjà les 38 matières. Ce n'est pas
+une contradiction, c'est un provisoire, et il doit se lire comme tel.
+
+### Ce que la décision engage, concrètement
+
+| | |
+|---|---|
+| `doctrine/doctrine.json` | **inchangé.** Un ADR accepté alimente la version suivante du .docx humain, il ne la devance pas. |
+| `schemas/product.canonical.schema.json` | gagne `composition_nature` et son niveau de preuve |
+| garde-fou `G007` | à rédiger dans le .docx, avec sa portée par famille et par rôle |
+| briefs de sourcing | doivent relever `ingredients` — GARNITURE et DESSERT ne le demandent pas |
+| label `Clean Label` fournisseur | vaut `PARTIAL`, jamais une preuve de composition |
