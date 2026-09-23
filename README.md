@@ -46,7 +46,10 @@ Le moteur, la doctrine et le référentiel sont complets. Aucun produit n'est en
 arbitrable, parce que le coût complet évitable d'une fabrication interne exige des minutes
 que personne n'a mesurées.
 
-**→ [La feuille de route](Make_or_Buy/docs/ROADMAP.md)** dit dans quel ordre lever ça.
+**→ [Vous arrivez ? Commencez ici](Make_or_Buy/docs/ONBOARDING.md)** — ce qui existe, ce
+qu'on fait, ce qui reste, et les règles qui ont été payées par un défaut réel.
+
+**→ [La feuille de route](Make_or_Buy/docs/ROADMAP.md)** dit dans quel ordre lever le blocage.
 
 ---
 
@@ -66,7 +69,7 @@ make-or-buy manita-check                    # valider un panier contre le postul
 Tests sans framework, un fichier par domaine :
 
 ```bash
-python3 -B tests/test_harness.py            # les 195 invariants
+python3 -B tests/test_harness.py            # les 205 invariants
 ```
 
 ---

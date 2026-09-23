@@ -16,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RACINE = ROOT.parent
 ROADMAP = (ROOT / "docs" / "ROADMAP.md").read_text(encoding="utf-8")
+ONBOARDING = (ROOT / "docs" / "ONBOARDING.md").read_text(encoding="utf-8")
 README = (RACINE / "README.md").read_text(encoding="utf-8")
 
 
@@ -118,7 +119,8 @@ def test_le_moteur_ne_consomme_toujours_pas_les_prix_mesures():
 def test_les_liens_internes_pointent_vers_des_fichiers_reels():
     """Un lien mort dans la page d'accueil envoie le lecteur nulle part et ne casse rien.
     Ici il casse."""
-    for doc, base in ((README, RACINE), (ROADMAP, ROOT / "docs")):
+    for doc, base in ((README, RACINE), (ROADMAP, ROOT / "docs"),
+                      (ONBOARDING, ROOT / "docs")):
         for cible in re.findall(r"\]\((?!https?:)([^)#]+)\)", doc):
             assert (base / cible).exists(), (cible, str(base))
 
