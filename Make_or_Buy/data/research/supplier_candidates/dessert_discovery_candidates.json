@@ -572,7 +572,7 @@
       "candidate_id": "DES-013",
       "family": "DESSERT",
       "supplier_product_name": "Moelleux au Chocolat Noisette Vegan",
-      "supplier_product_ref": null,
+      "supplier_product_ref": "006107",
       "candidate_track": "THAW_ONLY",
       "supplier_unit_weight_g": 90,
       "supplier_pack_units": 20,
@@ -617,10 +617,11 @@
       "operational_purchase_authorized": false,
       "raw_imported_dietary_claim_unvalidated": {
         "vegan": true,
-        "vegan_evidence": "SUPPLIER_DOCUMENTED",
+        "vegan_evidence": "OFFICIAL_MANUFACTURER_CATALOGUE",
         "vegetarian": null
       },
-      "claim_status": "NOT_VALIDATED"
+      "claim_status": "NOT_VALIDATED",
+      "catalogue_source": "data/supplier_products/traiteur_de_paris_catalogue_2026.json"
     },
     {
       "candidate_id": "DES-014",
