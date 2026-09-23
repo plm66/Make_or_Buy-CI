@@ -48,9 +48,12 @@ Si un participant ne retrouve pas une info attendue (commit, fichier, décision)
   arbitrable**. Voir `Make_or_Buy/docs/ROADMAP.md`.
 - Worktrees actifs : `main`, `chore/hygiene-depot` (Claude, en cours)
 - Blockers macro :
+  0. **Lire l'étiquette de la plaquette de beurre.** Trente secondes, et 93,6 % de la
+     dépense en matière grasse cesse de reposer sur une supposition.
   1. `0 / 21` gestes chronométrés — mesure en laboratoire, décision PLM
-  2. `0 / 3` ADR acceptés — le choix de la matière grasse déplace le seuil MAKE/BUY de 30 à
-     64 min par lot de 60. Chronométrer avant de choisir ne décide rien.
+  2. `1 / 3` ADR acceptés — ADR-0001 tranché le 23-09. Le seuil MAKE/BUY va de 45 à 64 min
+     par lot de 60 selon le beurre (et non 30 à 64 : le 30 reposait sur un taux de tourage
+     inventé). Chronométrer avant de choisir ne décide rien.
   3. La couche de prix matière n'est branchée sur aucun moteur : `engine.py` lit toujours des
      coûts saisis à la main.
   4. `GARDER` est rendu 32 fois sur 32 sans qu'aucune alternative chiffrée ne l'ait contesté,
@@ -88,6 +91,24 @@ Si un participant ne retrouve pas une info attendue (commit, fichier, décision)
 ## §4. Mémorial des décisions
 
 > **Append-only**. Une fois écrit, jamais modifié ni supprimé. Réservé aux décisions architecturales ou de scope.
+
+### 2026-09-23 02:38 CEST — Décision N°1 — ADR-0001 ACCEPTED, l'axe de composition
+
+- **Décision** : `composition_nature` devient un attribut de fiche porté avec son niveau de
+  preuve (option C), doublé d'un garde-fou `G007` qui pose ce qui ne se négocie pas (option B).
+- **Contexte** : la doctrine pondère huit critères dont aucun ne mesure de quoi un produit est
+  fait. Le moteur pouvait rendre `BUY` sur un produit dont le seul défaut était sa composition,
+  et le refus humain qui aurait suivi serait resté hors doctrine — non tracé, non rejouable.
+- **Alternatives écartées** :
+  - A, un neuvième critère pondéré : une pondération se compense, et elle répond à « combien
+    d'euros vaut l'absence d'arôme artificiel ».
+  - D, ne rien faire : revient à renoncer à la seconde moitié de la mission.
+- **Auteur de la décision** : Philippe.
+- **Implémenté par** : `e2626f7`, fusionné en `510b0a0`.
+- **Ne tranche pas** : le choix beurre doux 82 % contre tourage AOP 84 %. Les deux sont
+  `FRESH_NATURAL` — cet axe ne les distingue pas. Ce choix attend la lecture d'une étiquette,
+  `BEURRE DX 500G MA PAYSANNE` portant 93,6 % de la dépense en matière grasse avec un
+  rattachement `A_VERIFIER`.
 
 ### 2026-MM-DD HH:MM TZ — <Décision N°>
 
@@ -265,6 +286,38 @@ information exacte à sa date qui ment le lendemain, faute de porter sa date de 
 - §5 annonce « ordre chronologique inverse, plus récent en haut » et ses entrées sont rangées
   du plus ancien au plus récent. La note ou le rangement a tort ; je n'ai pas tranché lequel,
   l'ordre du journal appartient à celui qui l'a défini.
+
+---
+
+### 2026-09-23 02:47 CEST — Claude — Mission acceptée : retrait de deux worktrees fusionnés
+
+**Verrou posé avant action** — action destructive au sens du protocole.
+
+**Demande citée** : « on peut les suppr sans risque ? » puis « go ».
+
+**Périmètre exact** :
+- `git worktree remove` sur `chore/hygiene-depot` et `feat/verdicts-au-glossaire`. Les deux
+  arbres sont propres : aucune modification non commitée, aucun fichier non suivi.
+- `git branch -d chore/hygiene-depot` — zéro commit absent de `main`.
+- **La branche `feat/verdicts-au-glossaire` est conservée.** Elle porte `6e8f488`, non fusionné
+  et non poussé : l'inscription qui lève le blocker macro n°4. La supprimer perdrait ce commit.
+  Elle attend un arbre de travail propre sur cette machine pour être fusionnée.
+
+**Ce que je ne touche pas** : `CENTRALPOINT.md` porte en ce moment 23 lignes non commitées
+d'une session parallèle — blocker 0 sur l'étiquette du beurre, ADR-0001 accepté, décision N°1
+en §4. Cette entrée est un ajout en fin de §5 ; leurs lignes sont intactes. Une première
+tentative d'écriture a été refusée parce que le fichier avait bougé entre ma lecture et mon
+écriture : la course existe, elle n'est pas théorique.
+
+**Résultat** — verrou refermé :
+- Les deux répertoires sont retirés. Propreté revérifiée à l'instant du retrait, pas
+  seulement à l'analyse : `0 modification` sur chacun.
+- `chore/hygiene-depot` supprimée (était `7e2c968`, entièrement dans `main`).
+- `feat/verdicts-au-glossaire` conservée, et `6e8f488` vérifié présent après coup —
+  `git branch --contains` le confirme. Rien n'a été perdu.
+- Le retrait a révélé un worktree que je ne connaissais pas : `feat/sourcing-garniture-dessert`
+  (`ba906a6`), actif. Il n'est pas inscrit en §3 — un travail en cours invisible au mutex est
+  exactement ce que §3 existe pour empêcher. À inscrire par celui qui le mène.
 
 ---
 
