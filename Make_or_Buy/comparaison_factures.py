@@ -355,6 +355,15 @@ A_ARBITRER = "A_ARBITRER"
 HORS_PERIMETRE = "HORS_PERIMETRE"
 NON_RATTACHE = "NON_RATTACHE"
 
+# `GARDER` portait deux cas que rien ne distinguait a la lecture : une alternative chiffree
+# existait et perdait, ou aucune n'existait. Mesure du 2026-09-23 : 32 `GARDER` sur 32 etaient
+# le second cas, et le premier n'a jamais ete atteint une seule fois depuis que le verdict
+# existe. Le mot affirmait donc une comparaison qui n'avait jamais eu lieu — et dix `CHANGER`
+# reels autour de lui rendaient l'inference naturelle : un lecteur en deduit que les `GARDER`
+# ont ete confrontes et ont gagne. `NON_COMPARE` prend ce second cas, `GARDER` ne dit plus
+# que ce qu'il prouve.
+NON_COMPARE = "NON_COMPARE"
+
 # Une ligne non alimentaire ne vise aucune matiere et ne doit jamais y etre forcee. Le
 # statut existe dans le rattachement pour le dire ; le vocabulaire reste celui de
 # `RATTACHEMENT.md`, qui distingue deja « le referentiel ne couvre pas » d'un oubli.
@@ -452,7 +461,7 @@ def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
                     verdict.update(verdict=CHANGER, raison="ALTERNATIVE_MOINS_CHERE", alternative=meilleure)
                     return verdict
                 elif chiffrees_meme_unite:
-                    verdict.update(verdict=GARDER, raison="ALTERNATIVE_PLUS_CHEREE")
+                    verdict.update(verdict=GARDER, raison="ALTERNATIVE_PLUS_CHERE")
                     return verdict
             verdict.update(verdict=HORS_PERIMETRE, raison=raison_hors)
         else:
@@ -497,9 +506,9 @@ def verdict_ligne(ligne, lien, matiere=None, alternatives=None):
     if meilleure:
         verdict.update(verdict=CHANGER, raison="ALTERNATIVE_MOINS_CHERE", alternative=meilleure)
     elif chiffrees_meme_unite:
-        verdict.update(verdict=GARDER, raison="ALTERNATIVE_PLUS_CHEREE")
+        verdict.update(verdict=GARDER, raison="ALTERNATIVE_PLUS_CHERE")
     else:
-        verdict.update(verdict=GARDER, raison="AUCUNE_ALTERNATIVE_CHIFFREE")
+        verdict.update(verdict=NON_COMPARE, raison="AUCUNE_ALTERNATIVE_CHIFFREE")
     return verdict
 
 

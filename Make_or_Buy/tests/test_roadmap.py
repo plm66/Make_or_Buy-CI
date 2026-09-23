@@ -116,16 +116,16 @@ def test_le_moteur_ne_consomme_toujours_pas_les_prix_mesures():
     assert "l'instrument est fait, le branchement non" in ROADMAP
 
 
-def test_aucun_verdict_garder_ne_repose_sur_une_comparaison():
-    """Le document d'accueil affirme que 100 % des GARDER sont sans alternative chiffree.
+def test_garder_n_est_jamais_rendu_sans_comparaison():
+    """`GARDER` affirme qu'une alternative a ete confrontee et a perdu. Tant que la raison
+    n'est pas `ALTERNATIVE_PLUS_CHERE`, la comparaison n'a pas eu lieu et le cas appartient a
+    `NON_COMPARE`.
 
-    C'est sa trouvaille principale, et c'est une affirmation sur des donnees vivantes : elle
-    cesse d'etre vraie des qu'une alternative plus chere est sourcee. Ce jour-la GARDER
-    deviendra une vraie decision sur ces lignes-la, et le document devra le dire au lieu de
-    continuer a denoncer un mot devenu juste.
-
-    Le test casse dans ce sens uniquement. Il ne demande pas que le defaut persiste — il
-    demande que sa disparition soit remarquee.
+    La version precedente de cet invariant gardait l'affirmation inverse : elle verifiait que
+    100 % des GARDER etaient *sans* comparaison, et demandait que la disparition du defaut
+    soit remarquee. Elle a ete remarquee — le 2026-09-23, 32 GARDER sur 32 etaient sans
+    comparaison et le cas comparé n'avait jamais ete atteint. Le verdict a ete scinde. Ce
+    test garde desormais le sens du mot au lieu de compter ses occurrences fausses.
     """
     import sys
     sys.path.insert(0, str(ROOT))
@@ -133,12 +133,25 @@ def test_aucun_verdict_garder_ne_repose_sur_une_comparaison():
     achats, _ = cf.charger()
     rattachement, matieres = cf.charger_referentiels()
     verdicts = cf.verdicts(achats, rattachement, matieres, cf.charger_alternatives())
-    garder = [v for v in verdicts if v["verdict"] == "GARDER"]
-    compares = [v for v in garder if v.get("raison") != "AUCUNE_ALTERNATIVE_CHIFFREE"]
-    assert not compares, (
-        "des GARDER reposent desormais sur une comparaison — mettre a jour ONBOARDING.md §5",
-        len(compares), len(garder))
-    assert f"{len(garder)} verdicts `GARDER` sur {len(garder)}" in ONBOARDING, len(garder)
+    garder = [v for v in verdicts if v["verdict"] == cf.GARDER]
+    sans_comparaison = [v for v in garder if v.get("raison") != "ALTERNATIVE_PLUS_CHERE"]
+    assert not sans_comparaison, (
+        "un GARDER sans alternative chiffree : le mot a reglisse vers son ancien sens",
+        sans_comparaison[:2])
+
+
+def test_le_document_d_accueil_compte_juste_les_non_compares():
+    """Le document annonce un nombre de lignes jamais confrontees. C'est une affirmation sur
+    des donnees vivantes : elle bouge des qu'une alternative entre au catalogue, et un
+    document qui garde l'ancien compte redevient le defaut qu'il denonce."""
+    import sys
+    sys.path.insert(0, str(ROOT))
+    import comparaison_factures as cf
+    achats, _ = cf.charger()
+    rattachement, matieres = cf.charger_referentiels()
+    verdicts = cf.verdicts(achats, rattachement, matieres, cf.charger_alternatives())
+    non_compares = [v for v in verdicts if v["verdict"] == cf.NON_COMPARE]
+    assert f"{len(non_compares)} lignes" in ONBOARDING, len(non_compares)
 
 
 def test_les_liens_internes_pointent_vers_des_fichiers_reels():
