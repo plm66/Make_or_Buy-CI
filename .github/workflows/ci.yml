@@ -17,19 +17,15 @@ permissions:
 jobs:
   test:
     name: Invariants
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ARM64, make-or-buy]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
       - name: Run all invariants
         run: |
-          for t in Make_or_Buy/tests/test_*.py; do
+          cd Make_or_Buy
+          for t in tests/test_*.py; do
             echo "Running $t..."
-            python3 "$t" || exit 1
+            python3 -B "$t" || exit 1
           done
