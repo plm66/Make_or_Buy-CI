@@ -45,3 +45,8 @@ history/
 # (data/supplier_products/traiteur_de_paris_catalogue_2026.json, 69 references).
 catalogue fournisseurs/
 .serena/
+
+# Node : 23 Mo de dependances installees, regenerables par `npm ci`. package.json et
+# package-lock.json restent suivis — ils epinglent @plm/centralpoint, l'outil qui tient le
+# mutex, et cette version doit voyager avec le depot.
+node_modules/
