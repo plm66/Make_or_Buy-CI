@@ -81,7 +81,7 @@ Si un participant ne retrouve pas une info attendue (commit, fichier, décision)
 | Jérémie | `<repo-root>` | Enrôlement et initialisation de CENTRALPOINT | 2026-09-23 01:57 CEST | `✅ Terminée` |
 | Jérémie | `feat/factures-volumes-et-alternatives` | Volumes, boîtes, sources alternatives, CI | 2026-09-22 21:33 CEST | `✅ PR #3 fusionnée (babb6ca)` |
 | Claude | `chore/onboarding` | Relecture de code et document d'accueil | 2026-09-23 01:59 CEST | `✅ Fusionnée (368d113)` |
-| Claude | `chore/hygiene-depot` | Hygiène du dépôt : node_modules ignoré, CENTRALPOINT versionné, §1/§3 rafraîchis | 2026-09-23 02:10 CEST | `⏳ 2 commits, non fusionnée` |
+| Claude | `chore/hygiene-depot` | Hygiène du dépôt : node_modules ignoré, CENTRALPOINT versionné, §1/§3 rafraîchis | 2026-09-23 02:10 CEST | `✅ Fusionnée (0b18eb6)` — worktree encore sur disque |
 
 ---
 
@@ -212,7 +212,14 @@ CENTRALPOINT et n'y figuraient pas. Ils corrigent une `SyntaxError` qui rendait
 personne ne l'avait vue, et ajoutent `rapport_factures.py`.
 
 **Reste en suspens** :
-- Branche `chore/hygiene-depot` non fusionnée à l'heure de cette écriture.
+- Le worktree `chore/hygiene-depot` reste sur disque après fusion. `git worktree remove` est
+  une action destructive au sens du protocole : elle attend son double verrou, pas mon
+  initiative.
+- **Conséquence à trancher du versionnement** : `CENTRALPOINT.md` étant désormais suivi, et
+  les commits directs sur `main` étant bloqués par hook, chaque inscription en §5 demande
+  maintenant une branche et une fusion. C'est plus auditable et c'est plus lourd, pour un
+  fichier dont l'intérêt est d'être écrit souvent. Si la friction l'emporte, la sortie est
+  d'exempter ce seul chemin dans le hook — décision PLM, pas la mienne.
 - Un `__pycache__` périmé peut servir du bytecode faux quand une édition conserve la taille
   du fichier : Python valide son cache sur `(mtime, taille)`. Mesuré le 2026-09-21 sur
   `CHAMPS_PRIX`, dont l'inversion est neutre en octets. La convention `python3 -B` désormais
