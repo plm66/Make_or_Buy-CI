@@ -52,8 +52,9 @@ def test_chaque_ligne_obtient_une_proposition_et_sa_raison():
     assert sum(resultat["comptes"].values()) == 2, resultat["comptes"]
     for proposition in resultat["propositions"]:
         assert proposition["raison"], proposition
-        assert proposition["verdict"] in (cf.GARDER, cf.CHANGER, cf.A_ARBITRER,
-                                          cf.NON_RATTACHE, cf.HORS_PERIMETRE), proposition
+        assert proposition["verdict"] in (cf.GARDER, cf.NON_COMPARE, cf.CHANGER,
+                                          cf.A_ARBITRER, cf.NON_RATTACHE,
+                                          cf.HORS_PERIMETRE), proposition
 
 
 def test_un_fichier_illisible_rend_un_message_pas_une_exception():

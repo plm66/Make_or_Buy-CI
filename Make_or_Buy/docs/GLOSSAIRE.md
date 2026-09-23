@@ -190,7 +190,62 @@ promotion au registre.
 
 ---
 
-## 9. Le motif qui revient
+## 9. Verdicts de ligne de facture — ce que le dépôt propose
+
+Rendus par `comparaison_factures.verdict_ligne()`, affichés par `web/factures.html` et
+`rapport_factures.py`. Ils sortent en JSON : ce sont des codes de donnée, pas des libellés
+d'affichage.
+
+| code dépôt | français | référent anglais | définition |
+|---|---|---|---|
+| `GARDER` | garder la source | **keep current source** | Une alternative chiffrée, datée, à unité alignée existe **et elle est plus chère**. La comparaison a eu lieu et la source actuelle l'a emporté. |
+| `CHANGER` | changer de source | **switch source** | Une alternative chiffrée, datée, à unité alignée existe et elle est moins chère. Exige le prix de l'alternative : sans lui le verdict ne peut pas être rendu. |
+| `NON_COMPARE` | non comparé | **not compared** | La ligne est lisible et rattachée, mais aucune alternative chiffrée n'existe sur cette matière. Ce n'est pas un jugement sur la source : rien ne l'a contestée. |
+| `A_ARBITRER` | à arbitrer | **needs arbitration** | La ligne est lisible mais rien ne permet de trancher : rattachement `A_VERIFIER`, conditionnement illisible, matière sans conversion. La raison dit quoi aller mesurer. |
+| `HORS_PERIMETRE` | hors périmètre | **out of scope** | La ligne ne vise aucune matière : non alimentaire, emballage, matériel, revente directe. Comptée à part, jamais forcée dans le référentiel. |
+| `NON_RATTACHE` | non rattaché | **unmapped** | L'article n'est pas dans `rattachement_metro.csv`. Ce n'est pas un arbitrage, c'est un lien manquant. |
+
+Raisons, portées par le champ `raison` à côté du verdict :
+
+| code dépôt | verdict porteur | définition |
+|---|---|---|
+| `ALTERNATIVE_MOINS_CHERE` | `CHANGER` | Une option chiffrée à unité alignée passe sous le prix payé. |
+| `ALTERNATIVE_PLUS_CHERE` | `GARDER` | Une option chiffrée à unité alignée existe, au-dessus du prix payé. |
+| `AUCUNE_ALTERNATIVE_CHIFFREE` | `NON_COMPARE` | Aucune option chiffrée et datée sur cette matière. |
+| `RESERVE_A_VERIFIER` | `A_ARBITRER` | Le rattachement porte une réserve : le critère du référentiel n'est pas écrit sur la facture. |
+| `CONDITIONNEMENT_ILLISIBLE` | `A_ARBITRER` | La désignation ne permet pas de ramener le prix à l'unité de la matière. |
+| `NON_ALIMENTAIRE` | `HORS_PERIMETRE` | Emballage, entretien, matériel. |
+| `REVENTE_DIRECTE` | `HORS_PERIMETRE` | Article revendu tel quel, hors fabrication. |
+| `ARTICLE_ABSENT_DU_RATTACHEMENT` | `NON_RATTACHE` | Le numéro d'article n'a pas de ligne dans la table. |
+
+Statuts de dérive, rendus par `comparaison_factures.comparer()` dans le champ `statut` d'un
+mouvement de prix. Ils ne jugent pas une source, ils disent si deux relevés étaient
+comparables :
+
+| code dépôt | français | référent anglais | définition |
+|---|---|---|---|
+| `ALIGNED` | aligné | **aligned** | Même conditionnement des deux côtés, aucune promotion : l'écart de prix se calcule et signifie quelque chose. |
+| `UNIT_GAP` | base différente | **unit mismatch** | Le colisage ou le poids facturé a bougé entre les deux relevés, ou un prix manque. Le prix unitaire ne mesure plus la même chose : aucun delta n'est rendu, et le trou est volontaire. |
+| `PROMO_EXCLUDED` | promotion écartée | **promotion excluded** | Au moins un des deux relevés porte une promotion. Une ligne en promotion ne porte pas le tarif, quelle que soit sa base. |
+
+### Pourquoi `NON_COMPARE` existe
+
+`GARDER` a porté les deux cas jusqu'au 2026-09-23. La mesure a tranché : **32 `GARDER` sur
+32** étaient « aucune alternative chiffrée », et le cas `ALTERNATIVE_PLUS_CHERE` n'a jamais
+été atteint une seule fois depuis que le verdict existe. Le mot affirmait une comparaison qui
+n'avait jamais eu lieu.
+
+Ce qui l'a rendu dangereux, c'est le voisinage : dix `CHANGER` réels existent maintenant à
+côté. Un lecteur en déduit raisonnablement que les `GARDER` ont été confrontés et ont gagné.
+Aucun ne l'a été — le catalogue d'alternatives ne couvre que 6 matières.
+
+C'est le motif du §9 suivant, à l'étage du vocabulaire : **une absence de mesure n'est pas un
+résultat de mesure.** `material_cost_eur` portait un coût complet, `GARDER` portait une
+comparaison. Un nom qui ment fait réintroduire le défaut de bonne foi.
+
+---
+
+## 10. Le motif qui revient
 
 Quatre fois déjà, la même distinction s'est imposée :
 

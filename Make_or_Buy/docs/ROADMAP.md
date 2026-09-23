@@ -18,7 +18,7 @@ catalogue                    1 produit
   internal.avoidable_cost_eur   null
   external.landed_cost_eur      null
 gestes chronométrés          0 / 21
-ADR acceptés                 0 / 3
+ADR acceptés                 1 / 3
 ```
 
 `selected_cost()` rend `DATA_INCOMPLETE`, ce qui est **correct** : il refuse d'inventer. Le
@@ -28,27 +28,41 @@ travail restant n'est pas du code, c'est de la mesure et de l'arbitrage.
 
 ## Le chemin critique
 
-### Jalon 1 — Trancher la composition
+### Jalon 1 — Trancher la composition · **l'axe est tranché, la matière grasse non**
 
-**Bloque tout le reste. Décision de l'exploitant, pas du code.**
+**Fait le 2026-09-23** — [ADR-0001](decisions/ADR-0001-axe-de-composition.md) est `ACCEPTED` :
+`composition_nature` comme attribut porté avec sa preuve, et un garde-fou `G007` comme
+plancher. La branche margarine se résout sans coût, **zéro achat sur les 384 lignes**.
 
-Le choix de la matière grasse déplace le seuil de bascule MAKE/BUY du simple au double :
+**Pas fait, et pas faute d'arbitrage.** Le choix entre beurre doux 82 % et beurre de tourage
+AOP 84 % n'est pas du ressort de cet axe : les deux sont `FRESH_NATURAL`. Il attend une
+étiquette, pas une décision.
 
-| beurre | prix mesuré | seuil de bascule, lot de 60 croissants |
-|---|---|---|
-| doux 500 g, bas de fourchette | 6,04 €/kg | **64 min** |
-| doux 500 g, haut de fourchette | 7,40 €/kg | 51–61 min |
-| AOP 84 % tourage | 13,03 €/kg | **30–49 min** |
+`BEURRE DX 500G MA PAYSANNE` porte **93,6 % de la dépense en matière grasse** — 575,89 EUR,
+16 achats — et son rattachement est `A_VERIFIER` parce que la désignation ne déclare aucun
+taux. Fixer la référence à 82 % avant de lire la plaquette inscrirait une propriété que
+personne n'a constatée.
 
-Aucune erreur de chronomètre n'approche cet écart. Mesurer avant d'avoir choisi donnerait
-`MAKE` avec un beurre et `BUY` avec l'autre, sur le même relevé.
+Ce que le choix déplace, lot de 60 croissants :
 
-C'est l'ordre qu'impose [ADR-0002](decisions/ADR-0002-modele-de-recette.md) — composition
-d'abord, make-or-buy ensuite — et [ADR-0001](decisions/ADR-0001-axe-de-composition.md)
-attend le même arbitrage sur l'axe frais / surgelé / substitué.
+| matière grasse | prix mesuré | achats | seuil de bascule |
+|---|---|---|---|
+| beurre doux, bas de fourchette | 6,04 €/kg | 16 | **64 min** |
+| beurre doux, haut de fourchette | 7,40 €/kg | 16 | 59–61 min |
+| beurre de tourage AOP 84 % | 13,03 €/kg | **1** | **45–50 min** |
+| margarine de tourage | — | **0** | — |
 
-**Sortie attendue** : ADR-0001 passe de `PROPOSED` à `ACCEPTED`, et la recette maison nomme
-sa matière grasse.
+**Correction du 23-09** : ce tableau annonçait « 30 à 64 minutes ». Le 30 venait d'un taux
+de tourage à 50 %, inventé. À 25–30 %, qui est l'usage, l'écart réel est de 45 à 64 — un
+tiers, pas le double.
+
+Et ce taux lui-même n'est mesuré nulle part : ADR-0002 rappelle que les recettes de la maison
+n'existent sous aucune forme numérique. Le seuil repose donc sur un nombre que personne n'a
+écrit.
+
+**Reste à faire** : lire l'étiquette de la plaquette, puis trancher 82 % contre 84 %. Le
+dépôt ne porte **aucune donnée sur le comportement au tourage** — cette moitié-là relève du
+métier, pas d'ici.
 
 ### Jalon 2 — Chronométrer les gestes
 

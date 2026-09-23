@@ -35,7 +35,7 @@ avec le surgelé et le substitué.
 | dérive des prix payés | 175 comparaisons, 69 observations de prix matière |
 | alternatives marché datées | 6 matières couvertes, **10 verdicts `CHANGER` réels** |
 | moteur d'arbitrage | `selected_cost`, `menu_score`, `minutes_avant_bascule` |
-| glossaire et 3 ADR | tous `PROPOSED`, aucun accepté |
+| glossaire et 3 ADR | **ADR-0001 `ACCEPTED`** le 23-09 ; 0002 et 0003 `PROPOSED` |
 | invariants exécutables | **206**, sans framework |
 
 ### Pourquoi le référentiel ne porte aucun prix
@@ -69,14 +69,18 @@ Le travail restant n'est pas du code, c'est de la mesure et de l'arbitrage.
 
 Pour un croissant, lot de 60, le seuil au-delà duquel acheter bat fabriquer :
 
-| beurre | prix mesuré | seuil de bascule |
-|---|---|---|
-| doux 500 g, bas de fourchette | 6,04 €/kg | **64 min** |
-| AOP 84 % tourage | 13,03 €/kg | **30 min** |
+| beurre | prix mesuré | achats | seuil de bascule |
+|---|---|---|---|
+| doux 500 g, bas de fourchette | 6,04 €/kg | 16 | **64 min** |
+| AOP 84 % tourage | 13,03 €/kg | **1** | **45–50 min** |
 
-Du simple au double. **Chronométrer avant d'avoir choisi le beurre ne décide rien** : on
-obtiendrait `MAKE` avec l'un et `BUY` avec l'autre, sur le même relevé. La composition se
-tranche avant l'approvisionnement — c'est ADR-0002.
+**Chronométrer avant d'avoir choisi le beurre ne décide rien** : on obtiendrait `MAKE` avec
+l'un et `BUY` avec l'autre, sur le même relevé. La composition se tranche avant
+l'approvisionnement — c'est ADR-0002.
+
+Et ce choix-là n'attend pas un arbitrage mais **une étiquette** : le beurre qui porte 93,6 %
+de la dépense est rattaché `A_VERIFIER`, sa désignation ne déclarant aucun taux de matière
+grasse.
 
 ---
 
@@ -85,7 +89,8 @@ tranche avant l'approvisionnement — c'est ADR-0002.
 L'ordre est une chaîne de dépendances, pas une préférence. Le détail est dans
 [`ROADMAP.md`](ROADMAP.md).
 
-1. **Trancher la composition** — décision de l'exploitant. Débloque tout le reste.
+1. ~~**Trancher la composition**~~ — ADR-0001 `ACCEPTED` le 23-09. Reste la matière grasse,
+   qui attend une étiquette et non une décision.
 2. **Chronométrer** 21 gestes, deux nombres chacun : minutes immobilisées et minutes écoulées.
 3. **Le croissant** — premier produit dont les deux coûts sont non nuls.
 4. **Brancher la couche de prix** — l'instrument existe, le câblage non.
@@ -95,39 +100,42 @@ L'ordre est une chaîne de dépendances, pas une préférence. Le détail est da
 
 ## 5. Relecture du 23-09-2026 — ce qu'un nouveau doit savoir
 
-### `GARDER` affirme une décision que rien n'a contestée
+### `GARDER` affirmait une décision que rien n'avait contestée — scindé le 23-09
 
-Sur les 384 lignes du corpus, après la PR #3 :
+Sur les 384 lignes du corpus :
 
 ```
 NON_RATTACHE   ARTICLE_ABSENT_DU_RATTACHEMENT   244   63,5 %
 A_ARBITRER     RESERVE_A_VERIFIER                71   18,5 %
-GARDER         AUCUNE_ALTERNATIVE_CHIFFREE       32    8,3 %
+NON_COMPARE    AUCUNE_ALTERNATIVE_CHIFFREE       32    8,3 %
 A_ARBITRER     CONDITIONNEMENT_ILLISIBLE         17    4,4 %
 HORS_PERIMETRE REVENTE_DIRECTE                   10    2,6 %
 CHANGER        ALTERNATIVE_MOINS_CHERE           10    2,6 %
+GARDER         ALTERNATIVE_PLUS_CHERE             0    0,0 %
 ```
 
-**32 verdicts `GARDER` sur 32 ne reposent sur aucune alternative chiffrée.** Le mot dit
-« on conserve ce fournisseur » ; l'état réel est « rien n'a été comparé ».
+Ces **32 lignes** sortaient sous le mot `GARDER`, qui dit « on conserve ce fournisseur »
+quand l'état réel est « rien n'a été comparé ». Le cas où `GARDER` aurait été mérité — une
+alternative chiffrée existe et perd — n'a **jamais été atteint une seule fois**.
 
-La PR #3 a rendu le problème **plus** trompeur, pas moins. Dix verdicts `CHANGER` réels
-existent désormais à côté : un lecteur en déduit raisonnablement que les `GARDER` ont été
-confrontés et ont gagné. Aucun ne l'a été — le catalogue d'alternatives ne couvre que
-6 matières.
+La PR #3 avait rendu le problème plus trompeur, pas moins : dix `CHANGER` réels existant à
+côté, un lecteur en déduisait raisonnablement que les `GARDER` avaient été confrontés et
+avaient gagné. Aucun ne l'avait été — le catalogue d'alternatives ne couvre que 6 matières.
 
 C'est le motif récurrent du dépôt — un nom qui porte plus que sa preuve. `material_cost_eur`
-portait un coût complet, `PRET_A_SERVIR` dit « servir » et compte « transformer ». Ici
-`GARDER` dit « tranché » et signifie « jamais examiné ».
+portait un coût complet, `PRET_A_SERVIR` dit « servir » et compte « transformer ».
 
-Le code distingue déjà les deux cas par la `raison`, mais un lecteur qui scanne la colonne
-verdict voit une file de `GARDER` et conclut que le sourcing est optimisé. Il ne l'est pas :
-il est inexploré.
+**Ce qui a été fait** : `NON_COMPARE` prend l'absence d'alternative, `GARDER` reste au seul
+cas comparé. La ligne à zéro ci-dessus est désormais l'information utile — elle dit qu'aucune
+décision de sourcing n'a encore été prise sur preuve, au lieu de la masquer sous 32 faux
+positifs.
 
-**Correctif proposé** : un verdict distinct, `NON_COMPARE`, pour l'absence d'alternative.
-`GARDER` réservé au cas où une alternative chiffrée existe et se révèle plus chère — celui-là
-est une vraie décision. À ce jour **zéro ligne** serait dans ce cas, ce qui est précisément
-l'information que le mot cache.
+La cause profonde était en amont : **aucun des codes de verdict n'était déclaré au
+glossaire**, alors que `GLOSSAIRE.md` pose la règle en tête — un code absent du glossaire est
+un code inventé. Personne n'avait jamais eu à écrire la définition de `GARDER`, donc personne
+n'avait buté sur ce qu'elle affirmait. Les onze codes sont maintenant en `GLOSSAIRE.md §9`,
+et un invariant refuse tout code qui sortirait en JSON sans y être défini par une ligne de
+tableau — une mention en prose ne vaut pas définition.
 
 ### Deux points sur le serveur local
 
@@ -143,9 +151,12 @@ nettoyé, rien n'est écrit dans `data/`, une exception devient un message.
   sur le port. La réponse contient le référentiel de rattachement. Faible valeur, mais c'est
   la classe de risque connue des serveurs localhost.
 
-### Une coquille dans une valeur machine
+### Une coquille dans une valeur machine — corrigée le 23-09
 
-`ALTERNATIVE_PLUS_CHEREE` — deux `E`. C'est une constante lue par la page.
+`ALTERNATIVE_PLUS_CHEREE` portait deux `E`. C'était une constante lue par la page. Corrigée
+en `ALTERNATIVE_PLUS_CHERE` pendant le passage au glossaire : une valeur machine se corrige
+au moment où on écrit sa définition, pas dans un commit séparé qui la laisserait un temps
+divergente entre le code et le document.
 
 ---
 
@@ -195,7 +206,7 @@ Les deux coexistent dans le modèle. Jamais dans le même champ.
 
 ```bash
 git config core.hooksPath .githooks
-cd Make_or_Buy && python3 -B tests/test_*.py        # 206 invariants
+cd Make_or_Buy && python3 -B tests/test_*.py        # 208 invariants
 python3 -B comparaison_factures.py derive --top 10  # la dispersion des prix payés
 ```
 

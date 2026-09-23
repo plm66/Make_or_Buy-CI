@@ -29,11 +29,20 @@ qu'elle n'a pas lu.
 
 ## La proposition, et sa règle dure
 
-Chaque ligne reçoit un verdict parmi cinq :
+Chaque ligne reçoit un verdict parmi six. Les définitions font autorité dans
+[`GLOSSAIRE.md §9`](GLOSSAIRE.md) ; ce qui suit les commente.
 
-- **`GARDER`** — la ligne est rattachée, le prix au kilo est connu, et rien de comparable
-  n'existe ailleurs dans le dépôt. Ce n'est pas une validation du fournisseur : c'est
-  l'absence de motif chiffré de changer.
+- **`GARDER`** — une alternative chiffrée, datée, à unité alignée existe **et elle est plus
+  chère**. La comparaison a eu lieu, la source actuelle l'a emporté.
+- **`NON_COMPARE`** — la ligne est rattachée et lisible, mais aucune alternative chiffrée
+  n'existe sur cette matière. Ce n'est pas une validation du fournisseur, et ce n'est pas non
+  plus un jugement : rien ne l'a contesté.
+
+  Ce verdict a été scindé de `GARDER` le 2026-09-23, sur mesure : **32 `GARDER` sur 32**
+  étaient ce cas, et le cas comparé n'avait jamais été atteint une seule fois. Dix `CHANGER`
+  réels existant à côté, un lecteur en déduisait que les `GARDER` avaient été confrontés et
+  avaient gagné. Un mot qui affirme une mesure jamais faite est le défaut que ce dépôt paie
+  en boucle — voir `material_cost_eur` en §4 du glossaire.
 - **`CHANGER`** — il existe une autre source de prix sur la même matière, à unité alignée,
   et elle est moins chère. **Ce verdict exige le prix de l'alternative. Sans lui, il ne peut
   pas être rendu.**
@@ -91,6 +100,12 @@ chercher.
 - une ligne non rattachée ne reçoit jamais de proposition `GARDER` ou `CHANGER` ;
 - un `A_VERIFIER` ne peut pas produire `GARDER` sans afficher sa réserve ;
 - `CHANGER` sans prix alternatif daté fait échouer l'invariant, pas l'affichage ;
+- **`GARDER` sans alternative chiffrée à unité alignée fait échouer l'invariant.** Le verdict
+  affirme une comparaison ; sans les deux termes, elle n'a pas eu lieu et le cas revient à
+  `NON_COMPARE` ;
+- **tout code de verdict ou de raison figure dans `GLOSSAIRE.md` avant de sortir en JSON.**
+  Les sept codes ont vécu non déclarés jusqu'au 2026-09-23, contre la règle que le glossaire
+  pose en tête : un code absent du glossaire est un code inventé ;
 - le nombre de lignes affichées égale le nombre de lignes extraites, moins celles qui sont
   explicitement déclarées comme non lues ;
 - la page ne modifie aucun fichier du dépôt en dehors du dossier temporaire.
