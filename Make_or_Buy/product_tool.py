@@ -43,6 +43,120 @@ DEFAULT_TEMPLATES=ROOT/"params"/"operation_templates.json"
 STATED_COST_FIELDS=["material_cost_eur","energy_cost_eur","packaging_cost_eur",
                     "cleaning_handling_cost_eur","expected_loss_cost_eur","other_avoidable_cost_eur"]
 
+ANCIENNES_FICHES_INTERDITES={
+    "pommes_anna_60g":"manque devis grossiste et coût rendu opérationnel",
+    "moelleux_chocolat_noisette_vegan_90g":"manque devis grossiste et fiche technique officielle pour allégation végane",
+    "croissant_aux_amandes_surplus_j1":"manque protocole de recette mesuré et chiffrage des coûts évitables",
+}
+
+EXPLORATOIRE_KW=("supplier_candidates","discovery","surplus_leads","benchmarks","research_only")
+
+def research_candidate_refs(root_path=None):
+    """Références fournisseurs identifiées dans les passes de recherche exploratoire.
+    Ces références ne peuvent être intégrées dans le catalogue canonique sans
+    preuve opérationnelle indépendante (devis vérifié, coût rendu non nul)."""
+    base=Path(root_path or ROOT)
+    refs=set()
+    for nom in ("garniture_discovery_candidates.json","dessert_discovery_candidates.json"):
+        p=base/"data"/"research"/"supplier_candidates"/nom
+        if p.exists():
+            try:
+                data=json.loads(p.read_text(encoding="utf-8"))
+                for c in data.get("candidates",[]):
+                    r=c.get("supplier_product_ref")
+                    if r: refs.add(str(r))
+            except Exception:
+                pass
+    return refs
+
+def verifier_admissibilite_sourcing(doc, refs_recherche=None):
+    """Contrôle d'étanchéité entre la recherche exploratoire et le catalogue opérationnel.
+    Une fiche canonique ne peut être justifiée uniquement par un jeu de données
+    marqué RESEARCH_ONLY_NOT_OPERATIONALLY_VALIDATED, ni porter une référence
+    fournisseur issue de la recherche sans preuve opérationnelle indépendante
+    (devis vérifié, conditions d'achat et fiche technique requise)."""
+    e=[]
+    dq=doc.get("data_quality",{})
+    sources=dq.get("sources")
+    if sources is None:
+        e.append("data_quality.sources manquant")
+        sources=[]
+
+    # 1. Vérification de la justification par les sources
+    sources_exploratoires=[
+        s for s in sources if any(kw in str(s).lower() for kw in EXPLORATOIRE_KW)
+    ]
+    sources_operationnelles=[
+        s for s in sources if s not in sources_exploratoires
+    ]
+    if sources_exploratoires and not sources_operationnelles:
+        e.append(
+            "fiche justifiée uniquement par un jeu de données de recherche exploratoire "
+            f"({', '.join(sources_exploratoires)}) sans justificatif opérationnel indépendant"
+        )
+
+    # 2. Vérification des références fournisseurs issues de la recherche
+    connues=refs_recherche if refs_recherche is not None else research_candidate_refs()
+    ext=doc.get("external_sourcing",{})
+    for src in ext.get("sources",[]):
+        ref=str(src.get("supplier_product_ref") or "")
+        if ref and ref in connues:
+            statut=src.get("data_status")
+            cout=src.get("landed_cost_eur")
+            if statut!="VERIFIED" or not isinstance(cout,(int,float)) or cout<=0:
+                e.append(
+                    f"source {src.get('source_id')}: référence fournisseur {ref!r} issue de la recherche "
+                    f"sans preuve opérationnelle indépendante (attendu data_status='VERIFIED' et landed_cost_eur>0, "
+                    f"reçu status={statut!r}, landed_cost={cout!r})"
+                )
+            if doc.get("dietary",{}).get("vegan") is True:
+                ev=doc.get("dietary",{}).get("claim_evidence")
+                if ev!="SUPPLIER_DOCUMENTED" or "dietary.official_technical_sheet" in dq.get("missing_critical_fields",[]):
+                    e.append(
+                        f"référence {ref!r} avec allégation vegan: fiche technique officielle (OFFICIAL_TECHNICAL_SHEET) "
+                        "requise pour promotion canonique"
+                    )
+
+    # 3. Vérification des fiches internes ou dérivées de surplus
+    ip=doc.get("internal_production",{})
+    if ip.get("possible"):
+        desc=(doc.get("product",{}).get("description") or "").lower()
+        notes=(doc.get("signature",{}).get("notes") or "").lower()
+        spec=(doc.get("signature",{}).get("proprietary_specification") or "").lower()
+        pid=doc.get("product",{}).get("id","")
+        est_surplus=any("surplus" in t or "invendu" in t for t in (desc,notes,spec,pid))
+        if est_surplus or pid=="croissant_aux_amandes_surplus_j1":
+            ops=ip.get("operations") or []
+            mat=ip.get("material_cost_eur")
+            tot=ip.get("avoidable_cost_total_eur")
+            if not ops or not isinstance(mat,(int,float)) or not isinstance(tot,(int,float)):
+                e.append(
+                    "valorisation de surplus/interne sans protocole de recette mesuré "
+                    "(operations[], material_cost_eur et avoidable_cost_total_eur requis)"
+                )
+
+    # 4. Interdiction explicite des 3 anciennes fiches tant que les justificatifs manquent
+    pid=doc.get("product",{}).get("id")
+    if pid in ANCIENNES_FICHES_INTERDITES:
+        if pid=="pommes_anna_60g":
+            sources_ext=ext.get("sources",[])
+            valide=any(s.get("data_status")=="VERIFIED" and isinstance(s.get("landed_cost_eur"),(int,float)) and s.get("landed_cost_eur")>0 for s in sources_ext)
+            if not valide:
+                e.append(f"fiche interdite {pid}: {ANCIENNES_FICHES_INTERDITES[pid]}")
+        elif pid=="moelleux_chocolat_noisette_vegan_90g":
+            sources_ext=ext.get("sources",[])
+            valide_cout=any(s.get("data_status")=="VERIFIED" and isinstance(s.get("landed_cost_eur"),(int,float)) and s.get("landed_cost_eur")>0 for s in sources_ext)
+            valide_ft=doc.get("dietary",{}).get("claim_evidence")=="SUPPLIER_DOCUMENTED" and "dietary.official_technical_sheet" not in dq.get("missing_critical_fields",[])
+            if not (valide_cout and valide_ft):
+                e.append(f"fiche interdite {pid}: {ANCIENNES_FICHES_INTERDITES[pid]}")
+        elif pid=="croissant_aux_amandes_surplus_j1":
+            valide_ops=bool(ip.get("operations"))
+            valide_cout=isinstance(ip.get("avoidable_cost_total_eur"),(int,float)) and ip.get("avoidable_cost_total_eur")>0
+            if not (valide_ops and valide_cout):
+                e.append(f"fiche interdite {pid}: {ANCIENNES_FICHES_INTERDITES[pid]}")
+
+    return e
+
 def load(p):
     return json.loads(Path(p).read_text(encoding="utf-8"))
 
@@ -251,6 +365,7 @@ def validate_product(doc, params=None):
     dq=doc["data_quality"]
     if dq.get("confidence")!="HIGH" and not dq.get("missing_critical_fields"):
         e.append("confidence LOW/MEDIUM exige missing_critical_fields explicite")
+    e += verifier_admissibilite_sourcing(doc)
     return e
 
 def canonical_to_legacy(doc):

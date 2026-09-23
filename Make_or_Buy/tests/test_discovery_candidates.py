@@ -185,11 +185,228 @@ def test_une_allegation_du_catalogue_declare_sa_preuve():
             assert r["claims_evidence"] == "OFFICIAL_MANUFACTURER_CATALOGUE", r["supplier_product_ref"]
 
 
-def test_des013_rattache_au_catalogue_officiel():
-    """DES-013 (Moelleux Chocolat Noisette Vegan) est formellement rapproché de la
-    référence officielle '006107' du catalogue Traiteur de Paris, mais son allégation
-    végane reste en quarantaine doctrinale car un catalogue fabricant n'est pas une
-    fiche technique officielle (OFFICIAL_TECHNICAL_SHEET) au sens de product_tool.py.
+POMMES_ANNA_FIXTURE = {
+    "schema_version": "2.0.0",
+    "product": {
+        "id": "pommes_anna_60g",
+        "name": "Pommes de terre Anna 60 g",
+        "family": "GARNITURE",
+        "subcategory": "pommes_de_terre",
+        "status": "DRAFT",
+        "description": "Garniture individuelle portionnée surgelée 60 g.",
+        "unit": "piece",
+        "serving_size_g": 60,
+        "serving_size_ml": None,
+    },
+    "commercial": {"sale_price_eur": 1.20, "price_status": "ESTIMATED"},
+    "dietary": {"vegan": None, "vegetarian": True, "allergens": [], "claim_evidence": "NONE"},
+    "signature": {"class": "STANDARDIZABLE", "signature_operations": []},
+    "internal_production": {"possible": False, "cost_status": "NOT_APPLICABLE", "operations": []},
+    "external_sourcing": {
+        "possible": True,
+        "sources": [
+            {
+                "source_id": "coup_de_pates_832909",
+                "supplier_id": "coup_de_pates",
+                "supplier_name": "Coup de Pâtes",
+                "supplier_product_ref": "832909",
+                "data_status": "QUOTE_REQUIRED",
+                "landed_cost_eur": None,
+                "pack_size_units": 40,
+            }
+        ],
+    },
+    "stock_and_conservation": {"storage_mode": "FROZEN", "after_opening_shelf_life_hours": 48},
+    "decision_inputs": {"recommended_mode": "BUY"},
+    "data_quality": {
+        "confidence": "MEDIUM",
+        "missing_critical_fields": ["external_sourcing.sources[0].landed_cost_eur", "dietary.vegan"],
+        "sources": ["data/research/supplier_candidates/garniture_discovery_candidates.json"],
+    },
+}
+
+MOELLEUX_VEGAN_FIXTURE = {
+    "schema_version": "2.0.0",
+    "product": {
+        "id": "moelleux_chocolat_noisette_vegan_90g",
+        "name": "Moelleux Chocolat Noisette Vegan 90 g",
+        "family": "DESSERT",
+        "subcategory": "moelleux_individuels",
+        "status": "DRAFT",
+        "description": "Moelleux individuel vegan 90 g surgelé.",
+        "unit": "piece",
+        "serving_size_g": 90,
+        "serving_size_ml": None,
+    },
+    "commercial": {"sale_price_eur": 3.20, "price_status": "ESTIMATED"},
+    "dietary": {
+        "vegan": True,
+        "vegetarian": True,
+        "allergens": ["fruits_a_coque", "soja"],
+        "claim_evidence": "SUPPLIER_DOCUMENTED",
+    },
+    "signature": {"class": "STANDARDIZABLE", "signature_operations": []},
+    "internal_production": {"possible": False, "cost_status": "NOT_APPLICABLE", "operations": []},
+    "external_sourcing": {
+        "possible": True,
+        "sources": [
+            {
+                "source_id": "traiteur_de_paris_006107",
+                "supplier_id": "traiteur_de_paris",
+                "supplier_name": "Traiteur de Paris",
+                "supplier_product_ref": "006107",
+                "data_status": "QUOTE_REQUIRED",
+                "landed_cost_eur": None,
+                "pack_size_units": 20,
+            }
+        ],
+    },
+    "stock_and_conservation": {"storage_mode": "FROZEN", "after_opening_shelf_life_hours": 120},
+    "decision_inputs": {"recommended_mode": "BUY"},
+    "data_quality": {
+        "confidence": "HIGH",
+        "missing_critical_fields": ["external_sourcing.sources[0].landed_cost_eur"],
+        "sources": [
+            "data/supplier_products/traiteur_de_paris_catalogue_2026.json",
+            "data/research/supplier_candidates/dessert_discovery_candidates.json",
+        ],
+    },
+}
+
+CROISSANT_AMANDES_FIXTURE = {
+    "schema_version": "2.0.0",
+    "product": {
+        "id": "croissant_aux_amandes_surplus_j1",
+        "name": "Croissant aux amandes sur surplus J-1",
+        "family": "DESSERT",
+        "subcategory": "viennoiserie_transformee",
+        "status": "DRAFT",
+        "description": "Croissant aux amandes préparé sur surplus J-1.",
+        "unit": "piece",
+        "serving_size_g": 95,
+        "serving_size_ml": None,
+    },
+    "commercial": {"sale_price_eur": 2.20, "price_status": "ESTIMATED"},
+    "dietary": {
+        "vegan": False,
+        "vegetarian": True,
+        "allergens": ["gluten", "lait", "oeufs", "fruits_a_coque"],
+        "claim_evidence": "INTERNAL_RECIPE_DOCUMENTED",
+    },
+    "signature": {
+        "class": "INHOUSE_SIGNATURE_ADVANTAGE",
+        "signature_operations": ["siropage", "garnissage_amande", "cuisson"],
+        "notes": "Valorisation anti-gaspillage de surplus.",
+    },
+    "internal_production": {
+        "possible": True,
+        "cost_status": "UNKNOWN",
+        "material_cost_eur": None,
+        "operations": [],
+        "avoidable_cost_total_eur": None,
+    },
+    "external_sourcing": {"possible": False, "sources": []},
+    "stock_and_conservation": {"storage_mode": "AMBIENT", "internal_shelf_life_hours": 24},
+    "decision_inputs": {"recommended_mode": "MAKE"},
+    "data_quality": {
+        "confidence": "MEDIUM",
+        "missing_critical_fields": ["internal_production.material_cost_eur"],
+        "sources": [
+            "data/research/supplier_candidates/dessert_internal_transformed_surplus_leads.json"
+        ],
+    },
+}
+
+
+def test_critere_1_chacune_des_trois_anciennes_fiches_est_rejetee():
+    """Critère 1 : Chacune des trois anciennes fiches réintroduites sans preuve
+    opérationnelle doit être formellement rejetée par le contrôle d'étanchéité.
+    """
+    errs_pommes = pt.verifier_admissibilite_sourcing(POMMES_ANNA_FIXTURE)
+    assert any("832909" in e or "recherche exploratoire" in e for e in errs_pommes), errs_pommes
+
+    errs_moelleux = pt.verifier_admissibilite_sourcing(MOELLEUX_VEGAN_FIXTURE)
+    assert any("006107" in e or "recherche exploratoire" in e for e in errs_moelleux), errs_moelleux
+
+    errs_croissant = pt.verifier_admissibilite_sourcing(CROISSANT_AMANDES_FIXTURE)
+    assert any("surplus" in e or "recherche exploratoire" in e for e in errs_croissant), errs_croissant
+
+
+def test_critere_2_changer_nom_fiche_ne_contourne_pas_le_controle():
+    """Critère 2 : Renommer l'identifiant ou l'intitulé d'une fiche ne permet pas de
+    contourner le contrôle. L'analyse inspecte le contenu (références fournisseur,
+    opérations de surplus, et sources de provenance).
+    """
+    pommes_renommees = json.loads(json.dumps(POMMES_ANNA_FIXTURE))
+    pommes_renommees["product"]["id"] = "garniture_anonyme_deluxe"
+    pommes_renommees["product"]["name"] = "Garniture de pommes secrète"
+    errs = pt.verifier_admissibilite_sourcing(pommes_renommees)
+    assert any("832909" in e for e in errs), errs
+
+    croissant_renomme = json.loads(json.dumps(CROISSANT_AMANDES_FIXTURE))
+    croissant_renomme["product"]["id"] = "viennoiserie_recyclee"
+    croissant_renomme["product"]["name"] = "Viennoiserie recyclée"
+    errs_c = pt.verifier_admissibilite_sourcing(croissant_renomme)
+    assert any("surplus" in e or "recherche exploratoire" in e for e in errs_c), errs_c
+
+
+def test_critere_3_supprimer_sources_ne_contourne_pas_le_controle():
+    """Critère 3 : Supprimer ou vider data_quality.sources ne permet pas de contourner
+    le contrôle. La référence fournisseur issue de la recherche ou l'absence de recette
+    mesurée bloque immédiatement la fiche.
+    """
+    pommes_sans_sources = json.loads(json.dumps(POMMES_ANNA_FIXTURE))
+    pommes_sans_sources["data_quality"]["sources"] = []
+    errs = pt.verifier_admissibilite_sourcing(pommes_sans_sources)
+    assert any("832909" in e or "sources manquant" in e for e in errs), errs
+
+    moelleux_sans_sources = json.loads(json.dumps(MOELLEUX_VEGAN_FIXTURE))
+    moelleux_sans_sources["data_quality"].pop("sources", None)
+    errs_m = pt.verifier_admissibilite_sourcing(moelleux_sans_sources)
+    assert any("006107" in e or "sources manquant" in e for e in errs_m), errs_m
+
+
+def test_critere_4_fiche_avec_justificatifs_requis_peut_etre_acceptee():
+    """Critère 4 : Une fiche canonique portant une référence issue de la recherche (832909)
+    ou valorisant un surplus DOIT pouvoir être acceptée si elle s'accompagne de ses
+    justificatifs opérationnels réels (devis grossiste vérifié, coût rendu > 0,
+    recette chronométrée et coûts complets calculés).
+    """
+    # 4a. Promotion légitime BUY sur Coup de Pâtes 832909
+    pommes_validees = json.loads(json.dumps(POMMES_ANNA_FIXTURE))
+    pommes_validees["data_quality"]["sources"] = [
+        "Contrat cadre Coup de Pâtes 2026-09",
+        "Bon de livraison vérifié #4412"
+    ]
+    pommes_validees["data_quality"]["confidence"] = "HIGH"
+    pommes_validees["data_quality"]["missing_critical_fields"] = []
+    pommes_validees["external_sourcing"]["sources"][0]["data_status"] = "VERIFIED"
+    pommes_validees["external_sourcing"]["sources"][0]["landed_cost_eur"] = 0.285
+    assert pt.verifier_admissibilite_sourcing(pommes_validees) == []
+
+    # 4b. Promotion légitime MAKE sur croissant aux amandes
+    croissant_valide = json.loads(json.dumps(CROISSANT_AMANDES_FIXTURE))
+    croissant_valide["data_quality"]["sources"] = [
+        "Protocole atelier Manita v1.2",
+        "Mesure laboratoire 2026-09"
+    ]
+    croissant_valide["data_quality"]["confidence"] = "HIGH"
+    croissant_valide["data_quality"]["missing_critical_fields"] = []
+    croissant_valide["internal_production"]["operations"] = [
+        {"task": "siropage", "active_labor_minutes_per_batch": 4, "elapsed_minutes_per_batch": 4, "labor_tier": "apprentice"},
+        {"task": "dressage", "active_labor_minutes_per_batch": 6, "elapsed_minutes_per_batch": 6, "labor_tier": "apprentice"},
+    ]
+    croissant_valide["internal_production"]["material_cost_eur"] = 0.35
+    croissant_valide["internal_production"]["avoidable_cost_total_eur"] = 0.51
+    croissant_valide["internal_production"]["cost_status"] = "VERIFIED"
+    croissant_valide["internal_production"]["batch_size_units"] = 20
+    assert pt.verifier_admissibilite_sourcing(croissant_valide) == []
+
+
+def test_critere_5_des013_quarantaine_vegan_maintenue():
+    """Critère 5 : DES-013 est rattaché à sa référence officielle 006107, mais conserve
+    strictement sa quarantaine végane (claim_status: NOT_VALIDATED, official_technical_sheet
+    manquante) tant que la fiche technique officielle n'a pas été obtenue.
     """
     des013 = next(c for c in DESSERT if c["candidate_id"] == "DES-013")
     assert des013["supplier_product_ref"] == "006107"
@@ -198,12 +415,13 @@ def test_des013_rattache_au_catalogue_officiel():
     assert des013["catalogue_source"] == "data/supplier_products/traiteur_de_paris_catalogue_2026.json"
     assert des013["claim_status"] == "NOT_VALIDATED"
     assert "dietary.official_technical_sheet" in des013["missing_critical_fields"]
+    assert des013["dietary"]["vegan"] is None
 
 
-def test_lutosa_rosti_est_un_benchmark_indicatif():
-    """GPO-001 (Rösti Lutosa 100g) est un benchmark public indicatif : son prix de référence
-    est 0,235 €/pièce, mais sa base de taxe est UNKNOWN et son coût rendu est strictement null.
-    Il ne peut donc pas prétendre être un coût rendu opérationnel.
+def test_critere_6_gpo001_reste_benchmark_indicatif():
+    """Critère 6 : GPO-001 (Rösti Lutosa 100g) est un benchmark public indicatif : son prix
+    de référence est 0,235 €/pièce, mais sa base de taxe est UNKNOWN et son coût rendu est
+    strictement null. Il ne prétend donc pas être un coût rendu validé opérationnellement.
     """
     gpo001 = next(o for o in OBSERVATIONS if o["observation_id"] == "GPO-001")
     assert gpo001["reference_price_eur_per_piece"] == 0.235
@@ -212,18 +430,14 @@ def test_lutosa_rosti_est_un_benchmark_indicatif():
     assert gpo001["landed_cost_eur_per_piece"] is None
 
 
-def test_aucun_candidat_de_recherche_nest_promu_en_produit_canonique():
-    """Règle doctrinale fondamentale (consumer_rule) des jeux de découverte :
-    'Do not import into canonical products, supplier master, price observations,
-    or purchase authorization.'
-    Aucune piste exploratoire ne doit figurer dans data/products/ tant qu'un arbitrage
-    et un devis opérationnel réel n'existent pas.
+def test_fiches_existantes_respectent_l_etancheite_sourcing():
+    """Toutes les fiches présentes dans data/products/ doivent satisfaire sans exception
+    le contrôle d'étanchéité entre recherche exploratoire et catalogue canonique.
     """
-    fiches_canoniques = {p.stem for p in (ROOT / "data" / "products").glob("*.json")}
-    for c in CANDIDATS:
-        assert c["candidate_id"] not in fiches_canoniques
-    for lead in SURPLUS:
-        assert lead["lead_id"] not in fiches_canoniques
+    for p in (ROOT / "data" / "products").glob("*.json"):
+        doc = json.loads(p.read_text(encoding="utf-8"))
+        errs = pt.verifier_admissibilite_sourcing(doc)
+        assert errs == [], f"{p.name} échoue au contrôle d'étanchéité: {errs}"
 
 
 if __name__ == "__main__":
