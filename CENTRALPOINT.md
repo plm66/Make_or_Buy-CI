@@ -104,6 +104,12 @@ Si un participant ne retrouve pas une info attendue (commit, fichier, décision)
 > Bus de messages. Lecture par tous. Écriture par tous (chaque persona dans son créneau). Une entrée = un événement substantiel ou une action destructive.
 >
 > **Format de header obligatoire :** `### YYYY-MM-DD HH:MM TZ — <Persona/Auteur> — <Titre>`
+>
+> **Un « reste en suspens » résolu s'annote, il ne s'efface pas** : `→ ✅ clos par <sha>
+> (<date>)`. Le corps d'une entrée reste ce qu'il était au moment où il a été écrit ; c'est la
+> seule ligne qu'on y ajoute. Sans cette annotation, un point résolu continue de se lire comme
+> ouvert, et §5 devient une liste de faux blocages — le lecteur ne peut pas distinguer ce qui
+> attend de ce qui est fait. §2 et §4 restent immuables ; §5 ne l'est pas.
 
 ---
 
@@ -149,7 +155,9 @@ n'a contestée. C'est le motif récurrent du dépôt — un nom qui porte plus q
 **Reste en suspens** :
 - `CENTRALPOINT.md` n'est pas suivi par git. Tant qu'il n'est pas commité, le mutex ne
   traverse pas les clones — il ne protège que cette machine.
+  → ✅ clos par `d24db65` (2026-09-23 02:18 CEST)
 - La branche de Jérémie est prête et non fusionnée. Elle n'est pas de mon ressort.
+  → ✅ clos par `babb6ca`, PR #3 fusionnée (2026-09-23 01:59 CEST)
 
 ---
 
@@ -177,6 +185,7 @@ trompeur, pas moins.
 - `NON_COMPARE` n'est pas implémenté. `comparaison_factures.py` appartient au chantier de
   Jérémie ; l'arbitrage sur le nom du verdict revient à PLM.
 - `CENTRALPOINT.md` n'est toujours pas suivi par git.
+  → ✅ clos par `d24db65` (2026-09-23 02:18 CEST)
 
 ---
 
@@ -225,6 +234,37 @@ personne ne l'avait vue, et ajoutent `rapport_factures.py`.
   `CHAMPS_PRIX`, dont l'inversion est neutre en octets. La convention `python3 -B` désormais
   documentée dans le README ferme le cas ; une session qui lance `python3` sans `-B` le
   rouvre.
+
+---
+
+### 2026-09-23 02:34 CEST — Claude — Trois « reste en suspens » résolus se lisaient encore comme ouverts
+
+**Demande citée** : « CENTRALPOINT.md n'est toujours pas suivi par git > ?? »
+
+**Constat** : la phrase citée est dans l'entrée de 02:14. Elle était vraie à 02:14 et fausse
+depuis 02:18. Rien ne le disait. Trois points résolus se lisaient encore comme ouverts — deux
+dans l'entrée de 01:59, un dans celle de 02:14 — et un lecteur ne pouvait pas distinguer ce
+qui attend de ce qui est fait. C'est le défaut de la maison sous une forme de plus : une
+information exacte à sa date qui ment le lendemain, faute de porter sa date de péremption.
+
+**Action effectuée** :
+- Les trois points annotés `→ ✅ clos par <sha> (<date>)`. Vérifiés un par un avant écriture :
+  `babb6ca` et `d24db65` sont ancêtres de `main`, `CENTRALPOINT.md` est bien suivi.
+- Le corps des entrées n'est pas retouché. Seule la ligne d'annotation s'ajoute.
+- Convention inscrite en tête de §5 pour que le cas ne se repose pas.
+
+**Ce qui reste réellement ouvert, après le tri** :
+- `NON_COMPARE` n'est pas implémenté — arbitrage PLM sur le nom du verdict (entrée 02:14).
+- Le blocker macro n°4, `GARDER` rendu 32 fois sur 32 sans contradicteur chiffré (§1).
+- La friction du versionnement : une inscription en §5 demande une branche (entrée 02:18).
+- Le worktree `chore/hygiene-depot`, sur disque après fusion (entrée 02:18).
+
+**Fichiers touchés** : `CENTRALPOINT.md`.
+
+**Reste en suspens** :
+- §5 annonce « ordre chronologique inverse, plus récent en haut » et ses entrées sont rangées
+  du plus ancien au plus récent. La note ou le rangement a tort ; je n'ai pas tranché lequel,
+  l'ordre du journal appartient à celui qui l'a défini.
 
 ---
 
