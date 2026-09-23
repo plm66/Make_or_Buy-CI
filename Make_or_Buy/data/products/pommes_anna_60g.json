@@ -1,0 +1,105 @@
+{
+  "schema_version": "2.0.0",
+  "product": {
+    "id": "pommes_anna_60g",
+    "name": "Pommes de terre Anna 60 g",
+    "family": "GARNITURE",
+    "subcategory": "pommes_de_terre",
+    "status": "DRAFT",
+    "description": "Garniture individuelle portionnée surgelée 60 g, remise en température four.",
+    "unit": "piece",
+    "serving_size_g": 60,
+    "serving_size_ml": null
+  },
+  "commercial": {
+    "sale_price_eur": 1.20,
+    "price_status": "ESTIMATED",
+    "reference_value_eur": null,
+    "bundle_eligible": true,
+    "price_tiers_eligible_eur": [],
+    "customer_value_notes": "Garniture chaude individuelle pour formule déjeuner ou plat du jour."
+  },
+  "dietary": {
+    "vegan": null,
+    "vegetarian": true,
+    "allergens": [],
+    "claim_evidence": "NONE",
+    "cross_contamination_notes": null
+  },
+  "signature": {
+    "class": "STANDARDIZABLE",
+    "customer_value_score": null,
+    "signature_operations": [],
+    "proprietary_specification": null,
+    "notes": "Produit standardisable voie A (READY_PORTION_HEAT)."
+  },
+  "internal_production": {
+    "possible": false,
+    "cost_status": "NOT_APPLICABLE",
+    "material_cost_eur": null,
+    "operations": [],
+    "energy_cost_eur": null,
+    "packaging_cost_eur": null,
+    "cleaning_handling_cost_eur": null,
+    "expected_loss_cost_eur": null,
+    "other_avoidable_cost_eur": null,
+    "avoidable_cost_total_eur": null,
+    "batch_size_units": null,
+    "production_notes": null
+  },
+  "external_sourcing": {
+    "possible": true,
+    "sources": [
+      {
+        "source_id": "coup_de_pates_832909",
+        "supplier_id": "coup_de_pates",
+        "supplier_name": "Coup de Pâtes",
+        "supplier_product_ref": "832909",
+        "data_status": "QUOTE_REQUIRED",
+        "landed_cost_eur": null,
+        "pack_size_units": 40,
+        "shelf_life_hours": 8760,
+        "shelf_life_after_opening_hours": 48,
+        "lead_time_days": 2,
+        "minimum_order_quantity": 1,
+        "source_notes": "Surgelé 40x60g carton. Prix rendu sous compte à deviser."
+      }
+    ]
+  },
+  "stock_and_conservation": {
+    "storage_mode": "FROZEN",
+    "internal_shelf_life_hours": null,
+    "after_opening_shelf_life_hours": 48,
+    "freezable": true,
+    "thawing_rules_documented": true,
+    "current_stock_units": null,
+    "minimum_stock_units": null,
+    "target_stock_units": null,
+    "expected_waste_rate": 0.02,
+    "conservation_notes": "Conservation à -18°C. Remise en température sans décongélation préalable."
+  },
+  "decision_inputs": {
+    "customer_indifference_score": null,
+    "supplier_quality_advantage_score": null,
+    "labor_saving_score": null,
+    "purchasing_stock_simplification_score": null,
+    "conservation_advantage_score": null,
+    "traceability_advantage_score": null,
+    "supplier_risk_score": null,
+    "recommended_mode": "BUY",
+    "decision_status": "PROVISIONAL",
+    "decision_notes": "Candidat voie A pour garniture Manita."
+  },
+  "data_quality": {
+    "confidence": "MEDIUM",
+    "missing_critical_fields": [
+      "external_sourcing.sources[0].landed_cost_eur",
+      "dietary.vegan"
+    ],
+    "sources": [
+      "data/research/supplier_candidates/garniture_discovery_candidates.json"
+    ],
+    "last_reviewed": "2026-09-23",
+    "review_notes": "Promu depuis le vivier GARNITURE (GAR-001)."
+  }
+}

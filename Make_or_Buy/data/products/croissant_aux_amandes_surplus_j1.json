@@ -1,0 +1,99 @@
+{
+  "schema_version": "2.0.0",
+  "product": {
+    "id": "croissant_aux_amandes_surplus_j1",
+    "name": "Croissant aux amandes sur surplus J-1",
+    "family": "DESSERT",
+    "subcategory": "viennoiserie_transformee",
+    "status": "DRAFT",
+    "description": "Croissant aux amandes préparé à partir de croissants invendus J-1 (siropage, garniture crème d'amandes, amandes effilées, cuisson).",
+    "unit": "piece",
+    "serving_size_g": 95,
+    "serving_size_ml": null
+  },
+  "commercial": {
+    "sale_price_eur": 2.20,
+    "price_status": "ESTIMATED",
+    "reference_value_eur": null,
+    "bundle_eligible": true,
+    "price_tiers_eligible_eur": [],
+    "customer_value_notes": "Viennoiserie et dessert du goûter valorisant les surplus de viennoiserie selon la doctrine P003 / G003."
+  },
+  "dietary": {
+    "vegan": false,
+    "vegetarian": true,
+    "allergens": [
+      "gluten",
+      "lait",
+      "oeufs",
+      "fruits_a_coque"
+    ],
+    "claim_evidence": "INTERNAL_RECIPE_DOCUMENTED",
+    "cross_contamination_notes": null
+  },
+  "signature": {
+    "class": "INHOUSE_SIGNATURE_ADVANTAGE",
+    "customer_value_score": null,
+    "signature_operations": [
+      "siropage",
+      "garnissage_amande",
+      "cuisson"
+    ],
+    "proprietary_specification": "Doctrine P003 / G003 : coût de la matière source (croissant J-1) exclu car déjà sunk/non évitable. Seuls les ingrédients ajoutés et le travail actif de transformation sont comptabilisés.",
+    "notes": "Valorisation anti-gaspillage à forte marge contributive."
+  },
+  "internal_production": {
+    "possible": true,
+    "cost_status": "UNKNOWN",
+    "material_cost_eur": null,
+    "operations": [],
+    "energy_cost_eur": null,
+    "packaging_cost_eur": null,
+    "cleaning_handling_cost_eur": null,
+    "expected_loss_cost_eur": null,
+    "other_avoidable_cost_eur": null,
+    "avoidable_cost_total_eur": null,
+    "batch_size_units": null,
+    "production_notes": "Coût matière source nul (invendu J-1). Ingrédients ajoutés (crème d'amandes, sirop, amandes effilées) et temps de travail actif à doser et chronométrer."
+  },
+  "external_sourcing": {
+    "possible": false,
+    "sources": []
+  },
+  "stock_and_conservation": {
+    "storage_mode": "AMBIENT",
+    "internal_shelf_life_hours": 24,
+    "after_opening_shelf_life_hours": null,
+    "freezable": false,
+    "thawing_rules_documented": null,
+    "current_stock_units": null,
+    "minimum_stock_units": null,
+    "target_stock_units": null,
+    "expected_waste_rate": 0.05,
+    "conservation_notes": "Vente le jour même de la transformation (J+1 du croissant d'origine)."
+  },
+  "decision_inputs": {
+    "customer_indifference_score": null,
+    "supplier_quality_advantage_score": null,
+    "labor_saving_score": null,
+    "purchasing_stock_simplification_score": null,
+    "conservation_advantage_score": null,
+    "traceability_advantage_score": null,
+    "supplier_risk_score": null,
+    "recommended_mode": "MAKE",
+    "decision_status": "PROVISIONAL",
+    "decision_notes": "Transformation interne privilégiée pour valorisation des invendus de viennoiserie."
+  },
+  "data_quality": {
+    "confidence": "MEDIUM",
+    "missing_critical_fields": [
+      "internal_production.material_cost_eur",
+      "internal_production.avoidable_cost_total_eur"
+    ],
+    "sources": [
+      "data/research/supplier_candidates/dessert_internal_transformed_surplus_leads.json"
+    ],
+    "last_reviewed": "2026-09-23",
+    "review_notes": "Fiche canonique initiée depuis le lead SUR-001 selon doctrine P003 / G003."
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "schema_version": "2.0.0",
+  "product": {
+    "id": "moelleux_chocolat_noisette_vegan_90g",
+    "name": "Moelleux Chocolat Noisette Vegan 90 g",
+    "family": "DESSERT",
+    "subcategory": "moelleux_individuels",
+    "status": "DRAFT",
+    "description": "Moelleux individuel chocolat noir 23% et noisettes grillées vegan 90 g surgelé, flowpack 10x2 (20 unités).",
+    "unit": "piece",
+    "serving_size_g": 90,
+    "serving_size_ml": null
+  },
+  "commercial": {
+    "sale_price_eur": 3.20,
+    "price_status": "ESTIMATED",
+    "reference_value_eur": null,
+    "bundle_eligible": true,
+    "price_tiers_eligible_eur": [],
+    "customer_value_notes": "Dessert individuel vegan premium pour formule déjeuner ou vente individuelle."
+  },
+  "dietary": {
+    "vegan": true,
+    "vegetarian": true,
+    "allergens": [
+      "fruits_a_coque",
+      "soja"
+    ],
+    "claim_evidence": "SUPPLIER_DOCUMENTED",
+    "cross_contamination_notes": "Fabriqué dans un atelier manipulant lait, oeufs et gluten. Fiche technique fabricant 006107."
+  },
+  "signature": {
+    "class": "STANDARDIZABLE",
+    "customer_value_score": null,
+    "signature_operations": [],
+    "proprietary_specification": null,
+    "notes": "Produit standardisable voie THAW_ONLY, allégation vegan validée par le catalogue fabricant Traiteur de Paris (réf 006107)."
+  },
+  "internal_production": {
+    "possible": false,
+    "cost_status": "NOT_APPLICABLE",
+    "material_cost_eur": null,
+    "operations": [],
+    "energy_cost_eur": null,
+    "packaging_cost_eur": null,
+    "cleaning_handling_cost_eur": null,
+    "expected_loss_cost_eur": null,
+    "other_avoidable_cost_eur": null,
+    "avoidable_cost_total_eur": null,
+    "batch_size_units": null,
+    "production_notes": null
+  },
+  "external_sourcing": {
+    "possible": true,
+    "sources": [
+      {
+        "source_id": "traiteur_de_paris_006107",
+        "supplier_id": "traiteur_de_paris",
+        "supplier_name": "Traiteur de Paris",
+        "supplier_product_ref": "006107",
+        "data_status": "QUOTE_REQUIRED",
+        "landed_cost_eur": null,
+        "pack_size_units": 20,
+        "shelf_life_hours": 8760,
+        "shelf_life_after_opening_hours": 120,
+        "lead_time_days": 3,
+        "minimum_order_quantity": 1,
+        "source_notes": "Colis de 20 pièces (1,8 kg, Flowpack 10x2). Référence catalogue officiel 006107. Fabricant nécessitant un distributeur grossiste pour la commande."
+      }
+    ]
+  },
+  "stock_and_conservation": {
+    "storage_mode": "FROZEN",
+    "internal_shelf_life_hours": null,
+    "after_opening_shelf_life_hours": 120,
+    "freezable": true,
+    "thawing_rules_documented": true,
+    "current_stock_units": null,
+    "minimum_stock_units": null,
+    "target_stock_units": null,
+    "expected_waste_rate": 0.02,
+    "conservation_notes": "Conservation à -18°C. Décongélation 2h à +4°C (durée de vie 120h à +4°C) ou option chaude 12 min à 180°C."
+  },
+  "decision_inputs": {
+    "customer_indifference_score": null,
+    "supplier_quality_advantage_score": null,
+    "labor_saving_score": null,
+    "purchasing_stock_simplification_score": null,
+    "conservation_advantage_score": null,
+    "traceability_advantage_score": null,
+    "supplier_risk_score": null,
+    "recommended_mode": "BUY",
+    "decision_status": "PROVISIONAL",
+    "decision_notes": "Candidat voie THAW_ONLY pour dessert individuel vegan Manita."
+  },
+  "data_quality": {
+    "confidence": "HIGH",
+    "missing_critical_fields": [
+      "external_sourcing.sources[0].landed_cost_eur"
+    ],
+    "sources": [
+      "data/supplier_products/traiteur_de_paris_catalogue_2026.json",
+      "data/research/supplier_candidates/dessert_discovery_candidates.json"
+    ],
+    "last_reviewed": "2026-09-23",
+    "review_notes": "Rapprochement effectué avec la référence officielle 006107 du catalogue Traiteur de Paris 2026."
+  }
+}
