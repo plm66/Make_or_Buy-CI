@@ -116,6 +116,31 @@ def test_le_moteur_ne_consomme_toujours_pas_les_prix_mesures():
     assert "l'instrument est fait, le branchement non" in ROADMAP
 
 
+def test_aucun_verdict_garder_ne_repose_sur_une_comparaison():
+    """Le document d'accueil affirme que 100 % des GARDER sont sans alternative chiffree.
+
+    C'est sa trouvaille principale, et c'est une affirmation sur des donnees vivantes : elle
+    cesse d'etre vraie des qu'une alternative plus chere est sourcee. Ce jour-la GARDER
+    deviendra une vraie decision sur ces lignes-la, et le document devra le dire au lieu de
+    continuer a denoncer un mot devenu juste.
+
+    Le test casse dans ce sens uniquement. Il ne demande pas que le defaut persiste — il
+    demande que sa disparition soit remarquee.
+    """
+    import sys
+    sys.path.insert(0, str(ROOT))
+    import comparaison_factures as cf
+    achats, _ = cf.charger()
+    rattachement, matieres = cf.charger_referentiels()
+    verdicts = cf.verdicts(achats, rattachement, matieres, cf.charger_alternatives())
+    garder = [v for v in verdicts if v["verdict"] == "GARDER"]
+    compares = [v for v in garder if v.get("raison") != "AUCUNE_ALTERNATIVE_CHIFFREE"]
+    assert not compares, (
+        "des GARDER reposent desormais sur une comparaison — mettre a jour ONBOARDING.md §5",
+        len(compares), len(garder))
+    assert f"{len(garder)} verdicts `GARDER` sur {len(garder)}" in ONBOARDING, len(garder)
+
+
 def test_les_liens_internes_pointent_vers_des_fichiers_reels():
     """Un lien mort dans la page d'accueil envoie le lecteur nulle part et ne casse rien.
     Ici il casse."""

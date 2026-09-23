@@ -30,12 +30,13 @@ avec le surgelé et le substitué.
 | doctrine versionnée, 8 principes, `G001`–`G006` | opérationnelle, empreinte sha256 |
 | référentiel de matières premières | **38 matières, sans aucun prix** — c'est voulu |
 | factures METRO lues en données | **384 lignes**, 5 016 € HT, mars→septembre 2026 |
-| rattachement article → matière | **24 articles**, clé = numéro d'article METRO |
+| rattachement article → matière | **46 articles** — 17 actifs, 22 à vérifier, 7 hors périmètre |
 | gabarits d'opérations | 6 degrés, de `MATIERES` (9 gestes) à `PRET_A_SERVIR` (0) |
 | dérive des prix payés | 175 comparaisons, 69 observations de prix matière |
+| alternatives marché datées | 6 matières couvertes, **10 verdicts `CHANGER` réels** |
 | moteur d'arbitrage | `selected_cost`, `menu_score`, `minutes_avant_bascule` |
 | glossaire et 3 ADR | tous `PROPOSED`, aucun accepté |
-| invariants exécutables | **205**, sans framework |
+| invariants exécutables | **206**, sans framework |
 
 ### Pourquoi le référentiel ne porte aucun prix
 
@@ -96,17 +97,24 @@ L'ordre est une chaîne de dépendances, pas une préférence. Le détail est da
 
 ### `GARDER` affirme une décision que rien n'a contestée
 
-Sur les 384 lignes du corpus :
+Sur les 384 lignes du corpus, après la PR #3 :
 
 ```
-NON_RATTACHE   ARTICLE_ABSENT_DU_RATTACHEMENT   303   78,9 %
-A_ARBITRER     RESERVE_A_VERIFIER                36    9,4 %
-GARDER         AUCUNE_ALTERNATIVE_CHIFFREE       33    8,6 %
-A_ARBITRER     CONDITIONNEMENT_ILLISIBLE         12    3,1 %
+NON_RATTACHE   ARTICLE_ABSENT_DU_RATTACHEMENT   244   63,5 %
+A_ARBITRER     RESERVE_A_VERIFIER                71   18,5 %
+GARDER         AUCUNE_ALTERNATIVE_CHIFFREE       32    8,3 %
+A_ARBITRER     CONDITIONNEMENT_ILLISIBLE         17    4,4 %
+HORS_PERIMETRE REVENTE_DIRECTE                   10    2,6 %
+CHANGER        ALTERNATIVE_MOINS_CHERE           10    2,6 %
 ```
 
-**33 verdicts `GARDER` sur 33 ne reposent sur aucune alternative chiffrée.** Le mot dit
+**32 verdicts `GARDER` sur 32 ne reposent sur aucune alternative chiffrée.** Le mot dit
 « on conserve ce fournisseur » ; l'état réel est « rien n'a été comparé ».
+
+La PR #3 a rendu le problème **plus** trompeur, pas moins. Dix verdicts `CHANGER` réels
+existent désormais à côté : un lecteur en déduit raisonnablement que les `GARDER` ont été
+confrontés et ont gagné. Aucun ne l'a été — le catalogue d'alternatives ne couvre que
+6 matières.
 
 C'est le motif récurrent du dépôt — un nom qui porte plus que sa preuve. `material_cost_eur`
 portait un coût complet, `PRET_A_SERVIR` dit « servir » et compte « transformer ». Ici
@@ -118,7 +126,8 @@ il est inexploré.
 
 **Correctif proposé** : un verdict distinct, `NON_COMPARE`, pour l'absence d'alternative.
 `GARDER` réservé au cas où une alternative chiffrée existe et se révèle plus chère — celui-là
-est une vraie décision.
+est une vraie décision. À ce jour **zéro ligne** serait dans ce cas, ce qui est précisément
+l'information que le mot cache.
 
 ### Deux points sur le serveur local
 
@@ -186,7 +195,7 @@ Les deux coexistent dans le modèle. Jamais dans le même champ.
 
 ```bash
 git config core.hooksPath .githooks
-cd Make_or_Buy && python3 -B tests/test_*.py        # 205 invariants
+cd Make_or_Buy && python3 -B tests/test_*.py        # 206 invariants
 python3 -B comparaison_factures.py derive --top 10  # la dispersion des prix payés
 ```
 
